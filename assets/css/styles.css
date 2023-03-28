@@ -1,0 +1,52 @@
+.inline-block {
+    display: inline-block;
+}
+
+
+/** Margen y padding **/
+.p-1 {
+    padding: 1rem;
+}
+
+.p-2 {
+    padding: 2rem;
+}
+
+.m-1 {
+    margin: 1rem;
+}
+
+.m-2 {
+    margin: 2rem;
+}
+
+.mt-1 {
+    margin-top: 1rem;
+}
+
+/** Estilos de posición **/
+.w-1 {
+    width: 1rem;
+}
+
+.w-2 {
+    width: 2rem;
+}
+
+.h-1 {
+    height: 1rem;
+}
+
+.h-2 {
+    height: 2rem;
+}
+
+
+/** Estilos tipografía **/
+.font-w-1 {
+    font-size: 1rem;
+}
+
+.font-w-2 {
+    font-size: 2rem;
+}

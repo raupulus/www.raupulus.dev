@@ -1,0 +1,15 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #F3F3F3;
+}
+
+#app {
+    margin: 0 auto;
+    max-width: 1200px;
+    font-family: 'OpenSans', sans-serif;
+}
+
+#app-box-content {
+    padding: 1rem;
+}

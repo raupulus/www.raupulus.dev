@@ -1,25 +1,33 @@
 <template>
-    <div class="header-container">
+    <header class="header-container">
         <div class="header-section header-section-left">
-            <img src="@/assets/images/logo.webp">
+            <NuxtLink to="/">
+                <img src="@/assets/images/logo.webp"
+                    alt="Logotipo de Raúl Caro Pastorino, autor de la web (nick @raupulus)">
+            </NuxtLink>
         </div>
 
-        <div class="header-section header-section-right">
-            <BtnGeneric selected text="Home" />
+        <nav class="header-section header-section-right">
+            <div class="inline-block">
+                <BtnGeneric selected text="Home" to="/" />
+                <BtnGeneric text="Projects" to="/projects" />
+            </div>
 
-            <BtnGeneric text="Projects" />
+            <div class="inline-block">
+                <BtnGeneric text="About" />
+                <BtnGeneric text="Collaboration" />
+            </div>
 
-            <BtnGeneric text="About" />
+            <div class="inline-block">
+                <BtnGeneric text="Services" />
+                <BtnGeneric text="Contact" />
+            </div>
 
-            <BtnGeneric text="Collaboration" />
-
-            <BtnGeneric text="Services" />
-
-            <BtnGeneric text="Contact" />
-
-            <BtnGeneric text="Api" />
-        </div>
-    </div>
+            <div class="inline-block">
+                <BtnGeneric text="Api" />
+            </div>
+        </nav>
+    </header>
 </template>
 
 

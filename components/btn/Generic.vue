@@ -6,17 +6,48 @@ export default defineComponent({
             type: String,
             default: 'Generic Button'
         },
+        to: {
+            type: String,
+            required: false,
+            default: null
+        },
 
         selected: {
             type: Boolean,
             default: false
+        },
+
+        callback: {
+            type: Function,
+            required: false,
+            default: null
         }
     },
+    setup(props) {
+        console.log(props.text, props.to, props.callback);
+    }
 })
 </script>
 
 <template>
-    <span class="btn" :class="selected ? 'btn-generic-selected' : 'btn-generic'">
+    <span v-if="to">
+        <NuxtLink :to="to">
+            <span class="btn" :class="selected ? 'btn-generic-selected' : 'btn-generic'">
+                <span>
+                    {{ text }}
+                </span>
+            </span>
+        </NuxtLink>
+    </span>
+
+    <span v-else-if="typeof callback === 'function'" @click="callback" class="btn"
+        :class="selected ? 'btn-generic-selected' : 'btn-generic'">
+        <span>
+            {{ text }}
+        </span>
+    </span>
+
+    <span v-else class="btn" :class="selected ? 'btn-generic-selected' : 'btn-generic'">
         <span>
             {{ text }}
         </span>
