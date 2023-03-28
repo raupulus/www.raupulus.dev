@@ -1,5 +1,16 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+    app: {
+        buildAssetsDir: '/',
+        head: {
+            htmlAttrs: { dir: 'ltr', lang: 'es' },
+            link: [{
+                rel: 'icon',
+                type: 'image/x-icon',
+                href: "/assets/favicons/favicon.ico"
+            }]
+        },
+    },
     css: [
         '@/assets/css/vars.css',
         '@/assets/css/fonts.css',

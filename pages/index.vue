@@ -3,7 +3,10 @@
         <div>
             <div>
                 <h1>
-                    Conoce <span>¡Mi Trayectoria!</span>
+                    Conoce
+                    <span class="primary font-bold">
+                        ¡Mi Trayectoria!
+                    </span>
                 </h1>
             </div>
 
@@ -24,7 +27,7 @@
 
         <div class="box-my-history-img">
 
-            <img class="my-history-img" src="@/assets/images/my-history-img.webp" alt="Test">
+            <img class="my-history-img" src="@/assets/images/my-history.webp" alt="Test">
 
         </div>
 
@@ -35,14 +38,14 @@
 <style scoped>
 .box-my-history {
     display: grid;
-    grid-template-columns: 1fr auto;
+    grid-template-columns: 1fr 1fr;
     grid-gap: 50px;
 
 }
 
 .box-my-history-img {
-    width: 200px;
-    height: 200px;
+    max-width: 450px;
+    max-height: 250px;
 }
 
 .my-history-img {

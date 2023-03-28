@@ -76,17 +76,17 @@ TODOS!!!!
 
 .btn:active {
     cursor: pointer;
-    background-color: #E6E6E6;
-    color: #3272B8;
+    background-color: var(--white);
+    color: var(--primary);
 }
 
 .btn-generic {
-    background-color: #3272B8;
-    color: #E6E6E6;
+    background-color: var(--primary);
+    color: var(--white);
 }
 
 .btn-generic-selected {
-    background-color: #E29244;
-    color: #E6E6E6;
+    background-color: var(--warning);
+    color: var(--white);
 }
 </style>

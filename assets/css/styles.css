@@ -50,3 +50,7 @@
 .font-w-2 {
     font-size: 2rem;
 }
+
+.font-bold {
+    font-weight: bold;
+}
