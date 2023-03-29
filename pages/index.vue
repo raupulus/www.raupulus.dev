@@ -1,26 +1,29 @@
 <template>
     <section class="box-my-history">
-        <div>
+        <div class="box-my-history-description">
             <div>
-                <h1>
+                <h2>
                     Conoce
                     <span class="primary font-bold">
                         ¡Mi Trayectoria!
                     </span>
-                </h1>
+                </h2>
             </div>
 
             <div>
                 <p>
-                    Intento centrarme en backend aunque me gusta muchísimo javascript y vue.js
+                    Soy desarrollador web principalmente backend: php, laravel, python, bash, javascript, vuejs, postgresql
+                    y mariadb aunque también he trabajado en algunos proyectos con angular, ionic, typescript, jquery,
+                    bootstrap, tailwindcss y nodejs.
                 </p>
 
                 <p>
-                    Me apasiona la electrónica (raspberry, arduino, esp32, esp8266, attiny, stm32)
+                    Afinidad por el software libre, programación, iot y la tecnología en general.
                 </p>
 
                 <p>
-                    Llevo programando como hobbie muchos años pero profesionalmente desde hace 4 años
+                    Me gusta programar y crear contenido en mi tiempo libre, tengo varios proyectos con guías, tutoriales y
+                    apuntes propios.
                 </p>
             </div>
         </div>
@@ -38,14 +41,26 @@
 <style scoped>
 .box-my-history {
     display: grid;
-    grid-template-columns: 1fr 1fr;
     grid-gap: 50px;
+    grid-template-columns: 1fr auto;
+}
 
+@media (max-width: 956px) {
+    .box-my-history {
+        grid-template-columns: 1fr;
+        grid-auto-flow: dense;
+    }
+}
+
+.box-my-history-description {
+    min-width: 300px;
 }
 
 .box-my-history-img {
+    margin: auto;
     max-width: 450px;
     max-height: 250px;
+    align-self: center;
 }
 
 .my-history-img {

@@ -24,6 +24,10 @@
     margin-top: 1rem;
 }
 
+.mt-2 {
+    margin-top: 2rem;
+}
+
 /** Estilos de posición **/
 .w-1 {
     width: 1rem;

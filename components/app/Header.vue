@@ -3,8 +3,11 @@
         <div class="header-section header-section-left">
             <NuxtLink to="/">
                 <img src="@/assets/images/logo.webp"
-                    alt="Logotipo de Raúl Caro Pastorino, autor de la web (nick @raupulus)">
+                    alt="Logotipo para el portfolio del programador Raúl Caro Pastorino, autor de la web (nick en redes sociales @raupulus)">
             </NuxtLink>
+            <h1>
+                Raúl Caro Pastorino
+            </h1>
         </div>
 
         <nav class="header-section header-section-right">

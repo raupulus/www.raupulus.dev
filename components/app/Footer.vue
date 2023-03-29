@@ -171,8 +171,6 @@
 <style lang="css" scoped>
 .footer-container {
     display: grid;
-    position: fixed;
-    bottom: 0;
     width: 100%;
     max-width: 1200px;
     grid-template-columns: repeat(2, auto);
@@ -181,6 +179,19 @@
     padding: 10px;
     background-color: #1F2937;
     box-sizing: border-box;
+    align-self: end;
+    justify-self: end;
+}
+
+@media (max-width: 956px) {
+    .footer-container {
+        grid-template-columns: repeat(1, auto);
+    }
+
+    .footer-box-right {
+        margin: auto;
+        justify-self: center;
+    }
 }
 
 .footer-box {
