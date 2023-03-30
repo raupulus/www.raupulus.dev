@@ -17,19 +17,3 @@ body {
 #app-box-content {
     padding: 1rem;
 }
-
-.primary {
-    color: var(--primary);
-}
-
-.bg-primary {
-    background-color: var(--primary);
-}
-
-.warning {
-    color: var(--warning);
-}
-
-.bg-warning {
-    background-color: var(--warning);
-}

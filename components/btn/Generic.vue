@@ -21,10 +21,17 @@ export default defineComponent({
             type: Function,
             required: false,
             default: null
+        },
+        class: {
+            type: String,
+            required: false,
+            default: ''
         }
     },
     setup(props) {
-        console.log(props.text, props.to, props.callback);
+        return {
+            allClass: 'btn ' + (props.selected ? 'btn-generic-selected' : 'btn-generic') + ' ' + props.class
+        }
     }
 })
 </script>
@@ -32,7 +39,7 @@ export default defineComponent({
 <template>
     <span v-if="to">
         <NuxtLink :to="to">
-            <span class="btn" :class="selected ? 'btn-generic-selected' : 'btn-generic'">
+            <span :class="allClass">
                 <span>
                     {{ text }}
                 </span>
@@ -40,14 +47,13 @@ export default defineComponent({
         </NuxtLink>
     </span>
 
-    <span v-else-if="typeof callback === 'function'" @click="callback" class="btn"
-        :class="selected ? 'btn-generic-selected' : 'btn-generic'">
+    <span v-else-if="typeof callback === 'function'" @click="callback" :class="allClass">
         <span>
             {{ text }}
         </span>
     </span>
 
-    <span v-else class="btn" :class="selected ? 'btn-generic-selected' : 'btn-generic'">
+    <span v-else :class="allClass">
         <span>
             {{ text }}
         </span>
@@ -63,7 +69,7 @@ TODOS!!!!
 
 .btn {
     display: inline-block;
-    margin: 10px;
+    margin: 5px 7px;
     padding: 10px;
     text-align: center;
     /* font-family: 'Open Sans', sans-serif; */
