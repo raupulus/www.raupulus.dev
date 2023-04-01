@@ -67,18 +67,12 @@ export default defineComponent({
 </template>
 
 <style lang="css" scoped>
-/*
-TODOS!!!!
-- Agregar tipografía Open Sans
-- Implementar recibir js lambda para evento click o url
-*/
-
 .btn {
     display: inline-block;
     margin: 5px 7px;
     padding: 10px;
     text-align: center;
-    font-family: 'Open Sans', sans-serif;
+    /*font-family: 'Open Sans', sans-serif;*/
     border-radius: 8px;
 }
 

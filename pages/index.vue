@@ -1,4 +1,3 @@
-import { IconsGithub } from '../.nuxt/components';
 <template>
     <!-- Mi trayectoria -->
     <section class="box-my-history">
@@ -132,7 +131,7 @@ import { IconsGithub } from '../.nuxt/components';
 
             <CardVertical background="#EEB624" title="Libertad en lo Digital" tag="Open Source"
                 description="Desarrollo publicando mis proyectos OSS
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        Desde 2001 con software libre ">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            Desde 2001 con software libre ">
                 <img src="@/assets/images/soft-skills/gnu_linux.webp" alt="Open Source Developer">
             </CardVertical>
         </div>
