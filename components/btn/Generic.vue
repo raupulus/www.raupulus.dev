@@ -29,8 +29,14 @@ export default defineComponent({
         }
     },
     setup(props) {
+        //const baseClass = 'btn';
+        //const defaultClass = 'btn-generic';
+        //const selectedClass = 'btn-generic-selected';
+
         return {
-            allClass: 'btn ' + (props.selected ? 'btn-generic-selected' : 'btn-generic') + ' ' + props.class
+            allClass: 'btn ' + (props.selected ? 'btn-generic-selected' : 'btn-generic'),
+
+            //allClass: 'btn ' + (props.selected ? 'btn-generic-selected' : (props.class ?? ''))
         }
     }
 })
@@ -72,7 +78,7 @@ TODOS!!!!
     margin: 5px 7px;
     padding: 10px;
     text-align: center;
-    /* font-family: 'Open Sans', sans-serif; */
+    font-family: 'Open Sans', sans-serif;
     border-radius: 8px;
 }
 

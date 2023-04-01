@@ -36,6 +36,10 @@
     margin-top: 2rem;
 }
 
+.mt-5 {
+    margin-top: 5rem;
+}
+
 /** Estilos de posición **/
 .w-1 {
     width: 1rem;
@@ -100,6 +104,10 @@
     color: var(--warning);
 }
 
+.text-white {
+    color: var(--white);
+}
+
 .bg-primary {
     background-color: var(--primary);
 }
@@ -114,14 +122,14 @@
 
 /** Sections **/
 .section-separator {
-    margin: auto;
+    margin: 3rem auto;
     width: 80%;
     height: 3px;
     max-width: 500px;
     background-color: var(--gray);
-    border-radius: 50%;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    -ms-border-radius: 50%;
-    -o-border-radius: 50%;
+    border-radius: 35%;
+    -webkit-border-radius: 35%;
+    -moz-border-radius: 35%;
+    -ms-border-radius: 35%;
+    -o-border-radius: 35%;
 }
