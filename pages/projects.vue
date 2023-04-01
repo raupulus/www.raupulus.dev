@@ -15,15 +15,15 @@ const projects = [
         slug: 'slug1',
         links: [
             {
-                icon: 'icon1',
+                icon: 'gitlab',
                 url: 'url1'
             },
             {
-                icon: 'icon2',
+                icon: 'github',
                 url: 'url2'
             },
             {
-                icon: 'icon3',
+                icon: 'twitter',
                 url: 'url3'
             },
         ]
@@ -32,7 +32,17 @@ const projects = [
         title: 'title',
         description: 'description',
         image: 'https://placeimg.com/400/280/nature',
-        slug: 'slug2'
+        slug: 'slug2',
+        links: [
+            {
+                icon: 'icon1',
+                url: 'url1'
+            },
+            {
+                icon: 'icon2',
+                url: 'url2'
+            },
+        ]
     },
     {
         title: 'title',
@@ -144,7 +154,6 @@ const projects = [
 
 .category-input>span {
     position: absolute;
-    text-indent: -999px;
     width: 40px;
     height: 40px;
     padding: 0;
@@ -172,20 +181,18 @@ const projects = [
 
 
 /*** Proyectos ***/
-.box-projects {}
+.box-projects {
+    margin-top: 4rem;
+}
 
 .box-grid-projects {
     margin: 0;
     padding: 0;
-
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     grid-gap: 20px;
-
     grid-template-rows: 1fr;
-
     align-items: top;
-
     box-sizing: border-box;
 }
 </style>

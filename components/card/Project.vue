@@ -1,15 +1,18 @@
-import { Title } from '../../.nuxt/components';
+import { Title, componentNames } from '../../.nuxt/components';
 <script setup>
 const props = defineProps({
 
     /** TODO: Una vez terminada la api, crear tipo **/
-
 
     data: {
         //type: Object,
         required: true
     },
 });
+
+const componentNames = {
+    gitlab: 'IconsGitlab',
+}
 </script>
 
 <template>
@@ -34,16 +37,19 @@ const props = defineProps({
         <span class="separator"></span>
 
         <div v-if="data.links && Array.isArray(data.links)" class="box-links">
-            <div v-for="link in data.links">
-                <div>{{ link.icon }}</div>
+            <div v-for="link, id in data.links" :class="(id > 0 && (id) < data.links.length) ? 'link-margin' : ''">
+                <div>{{ link.icon }} - {{ id }}s</div>
                 <div>{{ link.url }}</div>
+                <div>{{ componentNames[link.icon] }}</div>
+                <component :is="componentNames[link.icon]" />
+
             </div>
         </div>
     </div>
 </template>
 
 
-<style>
+<style scoped>
 .box-project {
     margin: 0;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -95,18 +101,21 @@ const props = defineProps({
 .separator {
     display: block;
     width: 100%;
-    height: 5px;
+    height: 3px;
     background-color: var(--white);
 }
 
 .box-links {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+    display: grid;
+    margin: 5px 0;
+    padding: 10px 5px;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    grid-gap: 0 5px;
     align-items: center;
-    padding: 10px 0;
+    text-align: center;
 }
 
-
-/** TODO: Si no tiene redes, agrandar bloque descripción */
+.link-margin {
+    border-left: 3px solid var(--darkgrey);
+}
 </style>
