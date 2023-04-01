@@ -7,6 +7,48 @@ function btnClear() {
     alert('Limpiar');
 }
 
+const projects = [
+    {
+        title: 'title1',
+        description: 'description2',
+        image: 'https://placeimg.com/400/280/arch',
+        slug: 'slug1',
+        links: [
+            {
+                icon: 'icon1',
+                url: 'url1'
+            },
+            {
+                icon: 'icon2',
+                url: 'url2'
+            },
+            {
+                icon: 'icon3',
+                url: 'url3'
+            },
+        ]
+    },
+    {
+        title: 'title',
+        description: 'description',
+        image: 'https://placeimg.com/400/280/nature',
+        slug: 'slug2'
+    },
+    {
+        title: 'title',
+        description: 'description',
+        image: 'https://placeimg.com/400/280/people',
+        slug: 'slug3'
+    },
+    {
+        title: 'title',
+        description: 'description',
+        image: 'https://placeimg.com/400/280/animals',
+        slug: 'slug4'
+    },
+
+];
+
 </script>
 
 <template>
@@ -49,6 +91,14 @@ function btnClear() {
                 <BtnGeneric text="Buscar" :callback="btnSearch" />
                 <BtnGeneric text="Limpiar" :callback="btnClear" />
             </div>
+        </div>
+    </section>
+
+
+    <section class="box-projects">
+        <!-- Grid de proyectos -->
+        <div class="box-grid-projects">
+            <CardProject v-for="project in projects" :key="project.slug" :data="project" />
         </div>
     </section>
 </template>
@@ -116,5 +166,26 @@ function btnClear() {
     box-shadow: 0 0 3px 0 var(--primary);
     border-color: var(--primary);
     outline: none;
+}
+
+
+
+
+/*** Proyectos ***/
+.box-projects {}
+
+.box-grid-projects {
+    margin: 0;
+    padding: 0;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 20px;
+
+    grid-template-rows: 1fr;
+
+    align-items: top;
+
+    box-sizing: border-box;
 }
 </style>
