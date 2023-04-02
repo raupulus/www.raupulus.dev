@@ -8,7 +8,7 @@ const props = defineProps({
     size: {
         type: Number,
         required: false,
-        default: null
+        default: 24
     }
 })
 </script>

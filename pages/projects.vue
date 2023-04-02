@@ -16,45 +16,110 @@ const projects = [
         links: [
             {
                 icon: 'gitlab',
-                url: 'url1'
+                url: 'https://raupulus.dev'
             },
             {
                 icon: 'github',
-                url: 'url2'
+                url: 'https://raupulus.dev'
             },
             {
                 icon: 'twitter',
-                url: 'url3'
+                url: 'https://raupulus.dev'
             },
         ]
     },
     {
-        title: 'title',
-        description: 'description',
+        title: 'title2',
+        description: 'description2',
         image: 'https://placeimg.com/400/280/nature',
         slug: 'slug2',
         links: [
             {
-                icon: 'icon1',
-                url: 'url1'
+                icon: 'web',
+                url: 'https://raupulus.dev'
             },
             {
-                icon: 'icon2',
-                url: 'url2'
+                icon: 'gitlab',
+                url: 'https://raupulus.dev'
             },
         ]
     },
     {
-        title: 'title',
-        description: 'description',
+        title: 'title3',
+        description: 'description3',
         image: 'https://placeimg.com/400/280/people',
-        slug: 'slug3'
+        slug: 'slug3',
+        links: [
+            {
+                icon: 'youtube',
+                url: 'https://raupulus.dev'
+            },
+        ]
     },
     {
-        title: 'title',
-        description: 'description',
+        title: 'title4',
+        description: 'description4',
         image: 'https://placeimg.com/400/280/animals',
-        slug: 'slug4'
+        slug: 'slug4',
+        links: [
+            {
+                icon: 'twitch',
+                url: 'https://raupulus.dev'
+            },
+            {
+                icon: 'mastodon',
+                url: 'https://raupulus.dev'
+            },
+
+            {
+                icon: 'linkedin',
+                url: 'https://raupulus.dev'
+            },
+            {
+                icon: 'gitlab',
+                url: 'https://raupulus.dev'
+            },
+        ]
+    },
+    {
+        title: 'title5',
+        description: 'description5',
+        image: 'https://placeimg.com/400/280/tech',
+        slug: 'slug5',
+        links: [
+            {
+                icon: 'gitlab',
+                url: 'https://raupulus.dev'
+            },
+            {
+                icon: 'github',
+                url: 'https://raupulus.dev'
+            },
+            {
+                icon: 'twitter',
+                url: 'https://raupulus.dev'
+            },
+        ]
+    },
+    {
+        title: 'title6',
+        description: 'description6',
+        image: 'https://placeimg.com/400/280/animals',
+        slug: 'slug6',
+        links: [
+            {
+                icon: 'gitlab',
+                url: 'https://raupulus.dev'
+            },
+            {
+                icon: 'github',
+                url: 'https://raupulus.dev'
+            },
+            {
+                icon: 'twitter',
+                url: 'https://raupulus.dev'
+            },
+        ]
     },
 
 ];

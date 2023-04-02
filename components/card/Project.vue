@@ -1,4 +1,3 @@
-import { Title, componentNames } from '../../.nuxt/components';
 <script setup>
 const props = defineProps({
 
@@ -12,6 +11,13 @@ const props = defineProps({
 
 const componentNames = {
     gitlab: 'IconsGitlab',
+    github: 'IconsGithub',
+    linkedin: 'IconsLinkedin',
+    twitter: 'IconsTwitter',
+    mastodon: 'IconsMastodon',
+    twitch: 'IconsTwitch',
+    youtube: 'IconsYoutube',
+    web: 'IconsEarth',
 }
 </script>
 
@@ -38,10 +44,30 @@ const componentNames = {
 
         <div v-if="data.links && Array.isArray(data.links)" class="box-links">
             <div v-for="link, id in data.links" :class="(id > 0 && (id) < data.links.length) ? 'link-margin' : ''">
-                <div>{{ link.icon }} - {{ id }}s</div>
-                <div>{{ link.url }}</div>
-                <div>{{ componentNames[link.icon] }}</div>
-                <component :is="componentNames[link.icon]" />
+
+                <IconsGitlab v-if="link.icon.toLowerCase().trim() == 'gitlab'" :margin="0" :url="link.url"
+                    display="block" />
+
+                <IconsGithub v-if="link.icon.toLowerCase().trim() == 'github'" :margin="0" :url="link.url"
+                    display="block" />
+
+                <IconsLinkedin v-if="link.icon.toLowerCase().trim() == 'linkedin'" :margin="0" :url="link.url"
+                    display="block" />
+
+                <IconsMastodon v-if="link.icon.toLowerCase().trim() == 'mastodon'" :margin="0" :url="link.url"
+                    display="block" />
+
+                <IconsTwitch v-if="link.icon.toLowerCase().trim() == 'twitch'" :margin="0" :url="link.url"
+                    display="block" />
+
+                <IconsTwitter v-if="link.icon.toLowerCase().trim() == 'twitter'" :margin="0" :url="link.url"
+                    display="block" />
+
+                <IconsEarth v-if="link.icon.toLowerCase().trim() == 'web'" :margin="0" :url="link.url" display="block" />
+
+                <IconsYoutube v-if="link.icon.toLowerCase().trim() == 'youtube'" :margin="0" :url="link.url"
+                    display="block" />
+
 
             </div>
         </div>

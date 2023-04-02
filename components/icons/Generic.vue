@@ -5,6 +5,16 @@ const props = defineProps({
         required: false,
         default: null
     },
+    margin: {
+        type: Number || String,
+        required: false,
+        default: 5
+    },
+    display: {
+        type: String,
+        required: false,
+        default: 'inline-block'
+    }
 })
 </script>
 
@@ -20,7 +30,7 @@ const props = defineProps({
 
 <style scoped>
 .box-icon {
-    display: inline-block;
-    margin: 5px;
+    display: v-bind(display);
+    margin: v-bind(margin);
 }
 </style>
