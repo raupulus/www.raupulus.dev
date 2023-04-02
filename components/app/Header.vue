@@ -1,17 +1,3 @@
-
-<script setup lang="ts">
-let routeName = ref(useRoute().name);
-
-const isSelected = (name: String | null = null) => name === routeName.value;
-
-const updateRoute = () => {
-    routeName.value = useRoute().name;
-
-    console.log(routeName.value);
-}
-
-</script>
-
 <template>
     <header class="header-container">
         <div class="header-section-left">
@@ -33,9 +19,9 @@ const updateRoute = () => {
 
         <nav class="header-section-right">
             <div class="inline-block">
-                <BtnGeneric :menu="true" text="Home" to="/" @click="updateRoute" />
+                <BtnGeneric :menu="true" text="Home" to="/" />
 
-                <BtnGeneric :menu="true" text="Projects" to="/projects" @click="updateRoute" />
+                <BtnGeneric :menu="true" text="Projects" to="/projects" />
             </div>
 
             <div class="inline-block">
@@ -44,7 +30,7 @@ const updateRoute = () => {
             </div>
 
             <div class="inline-block">
-                <BtnGeneric :menu="true" text="Services" />
+                <BtnGeneric :menu="true" to="services" text="Services" />
                 <BtnGeneric :menu="true" to="/contact" text="Contact" />
                 <BtnGeneric :menu="true" text="Api" />
             </div>
