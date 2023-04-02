@@ -28,14 +28,17 @@ export default defineNuxtConfig({
                 { name: 'og:locale:alternate', content: 'en_EN' },
             ],
             htmlAttrs: { dir: 'ltr', lang: 'es' },
+
+            /*
             link: [
                 {
                     rel: 'icon',
                     type: 'image/x-icon',
-                    href: "/assets/favicons/favicon.ico"
+                    href: "@/assets/favicons/favicon.ico"
                 },
                 //{ rel: 'stylesheet', href: 'https://awesome-lib.css' }
             ],
+            */
             script: [
                 //{ src: 'https://awesome-lib.js' }
             ],
