@@ -26,18 +26,18 @@ export default defineComponent({
             type: String,
             required: false,
             default: null
+        },
+        menu: {
+            type: Boolean,
+            required: false,
+            default: false
         }
     },
     setup(props) {
-        //const baseClass = 'btn';
-        //const defaultClass = 'btn-generic';
-        const selectedClass = props.selected ? 'btn-generic-selected' : null;
-        const customClass = props.class ?? selectedClass ?? 'btn-generic';
+        const customClass = props.class ?? 'btn-generic';
 
         return {
-            allClass: 'btn ' + customClass,
-
-            //allClass: 'btn ' + (props.selected ? 'btn-generic-selected' : (props.class ?? ''))
+            allClass: 'btn ' + customClass + (props.menu ? ' btn-menu' : ''),
         }
     }
 })
@@ -92,7 +92,7 @@ export default defineComponent({
     color: var(--white);
 }
 
-.btn-generic-selected {
+.router-link-active .btn-menu {
     background-color: var(--warning);
     color: var(--white);
 }
