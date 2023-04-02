@@ -10,7 +10,7 @@
 
             <h1 class="inline-block text-primary m-0 font-title">
                 Raúl Caro Pastorino
-                <span class="block font-small text-warning">
+                <span class="block subtitle-header text-warning">
                     Desarrollador web
                 </span>
             </h1>
@@ -75,5 +75,10 @@
     align-self: start;
     justify-self: right;
     text-align: right;
+}
+
+.subtitle-header {
+    font-size: 1.1rem;
+    font-weight: bold;
 }
 </style>

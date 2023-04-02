@@ -30,7 +30,7 @@
 
             <div class="btn-group">
                 <BtnGeneric text="Curriculum Vitae" to="https://curriculum.raupulus.dev" />
-                <BtnGeneric text="Contáctame" to="/contact" class="color-white bg-dark" />
+                <BtnGeneric text="Contáctame" to="/contact" class="text-white bg-dark" />
             </div>
         </div>
 
@@ -46,31 +46,30 @@
         <div class="block text-center">
             <div>
                 <h2 class="text-center">
-                    Tecnologías
+                    Stack
                 </h2>
             </div>
 
             <div>
                 <div class="inline-block">
-                    <img class="technolgy-element" src="@/assets/images/technologies/php.svg" alt="PHP tag">
+                    <img class="technolgy-element" src="@/assets/images/technologies/php.webp" alt="PHP tag">
                 </div>
 
                 <div class="inline-block">
-                    <img class="technolgy-element" src="@/assets/images/technologies/javascript.svg" alt="Javascript tag">
+                    <img class="technolgy-element" src="@/assets/images/technologies/javascript.webp" alt="Javascript tag">
                 </div>
 
                 <div class="inline-block">
                     <div class="inline-block">
-                        <img class="technolgy-element" src="@/assets/images/technologies/vuejs.svg" alt="Vuejs tag">
+                        <img class="technolgy-element" src="@/assets/images/technologies/vuejs.webp" alt="Vuejs tag">
                     </div>
 
                     <div class="inline-block">
-                        <img class="technolgy-element" src="@/assets/images/technologies/tailwindcss.svg"
-                            alt="Tailwindcss tag">
+                        <img class="technolgy-element" src="@/assets/images/technologies/laravel.webp" alt="Laravel tag">
                     </div>
 
                     <div class="inline-block">
-                        <img class="technolgy-element" src="@/assets/images/technologies/postgresql.svg"
+                        <img class="technolgy-element" src="@/assets/images/technologies/postgresql.webp"
                             alt="Postgresql tag">
                     </div>
                 </div>
@@ -91,22 +90,22 @@
 
             <div>
                 <div class="inline-block">
-                    <img class="technolgy-element" src="@/assets/images/specializations/backend-developer.svg"
-                        alt="Backend Developer tag">
+                    <img class="technolgy-element" src="@/assets/images/specializations/web-developer.webp"
+                        alt="Desarrollador Web">
                 </div>
 
                 <div class="inline-block">
-                    <img class="technolgy-element" src="@/assets/images/specializations/api-rest.svg" alt="Api Rest tag">
+                    <img class="technolgy-element" src="@/assets/images/specializations/api-rest.webp" alt="Api Rest tag">
+                </div>
+
+                <div class="inline-block">
+                    <img class="technolgy-element" src="@/assets/images/specializations/backend-developer.webp"
+                        alt="Backend Developer tag">
                 </div>
 
                 <div class="inline-block">
                     <img class="technolgy-element" src="@/assets/images/technologies/linux.webp" alt="Linux tag">
                 </div>
-
-                <div class="inline-block">
-                    <img class="technolgy-element" src="@/assets/images/technologies/laravel.svg" alt="Laravel tag">
-                </div>
-
             </div>
         </div>
 
@@ -133,12 +132,9 @@
         </div>
 
         <div class="section-separator"></div>
-    </section>
 
-
-    <!-- My Skills -->
-    <section class="mt-2">
-        <div class="block text-center">
+        <!-- Soft Skills -->
+        <div class="block text-center mt-2">
 
             <div>
                 <h2 class="text-center">
@@ -224,7 +220,6 @@
 
         <div class="section-separator"></div>
     </section>
-
 
     <!-- Redes Sociales -->
     <section class="mt-2">

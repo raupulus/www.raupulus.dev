@@ -25,16 +25,17 @@ export default defineComponent({
         class: {
             type: String,
             required: false,
-            default: ''
+            default: null
         }
     },
     setup(props) {
         //const baseClass = 'btn';
         //const defaultClass = 'btn-generic';
-        //const selectedClass = 'btn-generic-selected';
+        const selectedClass = props.selected ? 'btn-generic-selected' : null;
+        const customClass = props.class ?? selectedClass ?? 'btn-generic';
 
         return {
-            allClass: 'btn ' + (props.selected ? 'btn-generic-selected' : 'btn-generic'),
+            allClass: 'btn ' + customClass,
 
             //allClass: 'btn ' + (props.selected ? 'btn-generic-selected' : (props.class ?? ''))
         }
