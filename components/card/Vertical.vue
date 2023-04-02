@@ -102,7 +102,7 @@ const props = defineProps({
 .description {
     display: block;
     padding: 10px 15px 5px 15px;
-    font-size: 1rem;
+    font-size: 1.4rem;
     font-weight: 400;
     margin: 10px 0;
 }

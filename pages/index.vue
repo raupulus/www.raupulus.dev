@@ -35,8 +35,7 @@
         </div>
 
         <div class="box-my-history-img">
-
-            <img class="my-history-img" src="@/assets/images/my-history.webp" alt="Test">
+            <img class="my-history-img" src="@/assets/images/my-history.webp" alt="Oficina en casa">
 
         </div>
     </section>
@@ -61,7 +60,6 @@
                 </div>
 
                 <div class="inline-block">
-
                     <div class="inline-block">
                         <img class="technolgy-element" src="@/assets/images/technologies/vuejs.svg" alt="Vuejs tag">
                     </div>
@@ -92,7 +90,6 @@
             </div>
 
             <div>
-
                 <div class="inline-block">
                     <img class="technolgy-element" src="@/assets/images/specializations/backend-developer.svg"
                         alt="Backend Developer tag">
@@ -130,8 +127,7 @@
             </CardVertical>
 
             <CardVertical background="#EEB624" title="Libertad en lo Digital" tag="Open Source"
-                description="Desarrollo publicando mis proyectos OSS
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            Desde 2001 con software libre ">
+                description="Desarrollo publicando mis proyectos OSS Desde 2001 con software libre ">
                 <img src="@/assets/images/soft-skills/gnu_linux.webp" alt="Open Source Developer">
             </CardVertical>
         </div>
@@ -242,33 +238,33 @@
 
             <div class="box-social-icons inline-block">
                 <div class="inline-block">
-                    <IconsYoutube :size="64" url="https://www.youtube.com/@raupulus" />
+                    <IconsYoutube :size="64" />
                 </div>
 
                 <div class="inline-block">
-                    <IconsLinkedin :size="64" url="https://www.linkedin.com/in/raulcaropastorino" />
+                    <IconsLinkedin :size="64" />
                 </div>
 
                 <div class="inline-block">
-                    <IconsMastodon :size="64" url="https://mastodon.online/@raupulus" />
+                    <IconsMastodon :size="64" />
                 </div>
 
                 <div class="inline-block">
-                    <IconsTwitch :size="64" url="https://www.twitch.tv/raupulus" />
+                    <IconsTwitch :size="64" />
                 </div>
             </div>
 
             <div class="box-social-icons inline-block">
                 <div class="inline-block">
-                    <IconsGitlab :size="64" url="https://gitlab.com/raupulus" />
+                    <IconsGitlab :size="64" />
                 </div>
 
                 <div class="inline-block">
-                    <IconsGithub :size="64" url="https://github.com/raupulus" />
+                    <IconsGithub :size="64" />
                 </div>
 
                 <div class="inline-block">
-                    <IconsTwitter :size="64" url="https://twitter.com/raupulus" />
+                    <IconsTwitter :size="64" />
                 </div>
             </div>
         </div>

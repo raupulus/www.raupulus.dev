@@ -3,41 +3,19 @@ const props = defineProps({
     url: {
         type: String,
         required: false,
-        default: ''
+        default: 'https://gitlab.com/raupulus'
     },
     size: {
         type: Number,
         required: false,
-        default: 24
+        default: null
     }
 })
 </script>
 
 <template>
-    <span class="box-icon">
-
-        <a v-if="url" :href="url" target="_blank">
-            <svg :width="size" viewBox="0 0 70 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M34.7384 64L47.5311 24.6284H21.9455L34.7384 64Z" fill="#E24329" />
-                <path d="M34.7384 63.9997L21.9455 24.6282H4.01711L34.7384 63.9997Z" fill="#FC6D26" />
-                <path
-                    d="M4.01711 24.6282L0.129654 36.5931C-0.0431946 37.125 -0.0432185 37.698 0.129586 38.2299C0.30239 38.7618 0.63915 39.2254 1.0916 39.5542L34.7384 64L4.01684 24.6284L4.01711 24.6282Z"
-                    fill="#FCA326" />
-                <path
-                    d="M4.01711 24.6284H21.9455L14.2409 0.915069C13.8444 -0.305159 12.1182 -0.304887 11.722 0.915069L4.01711 24.6284Z"
-                    fill="#E24329" />
-                <path d="M34.7384 63.9997L47.5311 24.6282H65.4598L34.7384 63.9997Z" fill="#FC6D26" />
-                <path
-                    d="M65.4598 24.6282L69.3472 36.5931C69.52 37.125 69.52 37.698 69.3472 38.2299C69.1743 38.7619 68.8375 39.2254 68.385 39.5542L34.7384 64L65.4598 24.6284V24.6282Z"
-                    fill="#FCA326" />
-                <path
-                    d="M65.4598 24.6284H47.5311L55.236 0.915069C55.6325 -0.305159 57.3587 -0.304887 57.7549 0.915069L65.4598 24.6284Z"
-                    fill="#E24329" />
-            </svg>
-
-        </a>
-
-        <svg v-else :width="size" viewBox="0 0 70 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <IconsGeneric :url="url">
+        <svg :width="size" viewBox="0 0 70 70" xmlns="http://www.w3.org/2000/svg">
             <path d="M34.7384 64L47.5311 24.6284H21.9455L34.7384 64Z" fill="#E24329" />
             <path d="M34.7384 63.9997L21.9455 24.6282H4.01711L34.7384 63.9997Z" fill="#FC6D26" />
             <path
@@ -54,13 +32,5 @@ const props = defineProps({
                 d="M65.4598 24.6284H47.5311L55.236 0.915069C55.6325 -0.305159 57.3587 -0.304887 57.7549 0.915069L65.4598 24.6284Z"
                 fill="#E24329" />
         </svg>
-
-    </span>
+    </IconsGeneric>
 </template>
-
-<style scoped>
-.box-icon {
-    display: inline-block;
-    margin: 5px;
-}
-</style>
