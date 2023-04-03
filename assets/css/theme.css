@@ -8,12 +8,13 @@ body {
 #app {
     display: grid;
     margin: 0 auto;
-    max-width: 1200px;
     height: 100vh;
     grid-template-rows: auto 1fr auto;
     font-family: 'OpenSans', sans-serif;
 }
 
 #app-box-content {
+    margin: auto;
     padding: 1rem;
+    max-width: 1200px;
 }
