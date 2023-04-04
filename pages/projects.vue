@@ -248,6 +248,7 @@ const projects = [
 /*** Proyectos ***/
 .box-projects {
     margin-top: 4rem;
+    padding: 2rem 1.3rem
 }
 
 .box-grid-projects {
