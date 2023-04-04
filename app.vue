@@ -27,9 +27,11 @@ function scrollToggle(disabled) {
 </template>
 
 <style>
-body.disable-scroll {
-    height: 100vh;
-    overflow: hidden;
-    box-sizing: border-box;
+@media (max-width:690px) {
+    body.disable-scroll {
+        height: 100vh;
+        overflow: hidden;
+        box-sizing: border-box;
+    }
 }
 </style>

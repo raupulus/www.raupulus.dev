@@ -3,6 +3,40 @@ import { BtnGeneric } from '../../.nuxt/components';
 const responsiveMenuActive = ref(false);
 const emit = defineEmits(['disablescroll'])
 
+/**
+ * @description Check the dimensions of the window to close the menu
+ */
+const checkDimensions = () => {
+    if (window.innerWidth > 690) {
+        responsiveMenuActive.value = false;
+        emit('disablescroll', responsiveMenuActive.value);
+        window.removeEventListener("resize", checkDimensions)
+    }
+};
+
+//onMounted(() => {
+//window.addEventListener("resize", checkDimensions);
+//});
+
+//onUnmounted(() => window.removeEventListener("resize", checkDimensions));
+
+
+/**
+ * @description Toggle the responsive menu
+ */
+const toggleMenu = () => {
+    responsiveMenuActive.value = !responsiveMenuActive.value;
+    emit('disablescroll', responsiveMenuActive.value);
+
+    if (!responsiveMenuActive.value) {
+        console.log('Evento eliminado, quitando el listener')
+        window.removeEventListener("resize", checkDimensions);
+    } else {
+        console.log('Evento agregado, agregando el listener')
+        window.addEventListener("resize", checkDimensions);
+    }
+}
+
 const buttons = [
     {
         text: 'Home',
@@ -34,13 +68,6 @@ const buttons = [
     },
 ]
 
-/**
- * @description Toggle the responsive menu
- */
-const toggleMenu = () => {
-    responsiveMenuActive.value = !responsiveMenuActive.value;
-    emit('disablescroll', responsiveMenuActive.value);
-}
 </script>
 
 <template>
