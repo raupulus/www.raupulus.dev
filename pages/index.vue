@@ -271,6 +271,7 @@
 <style scoped>
 .box-my-history {
     display: grid;
+    padding: 0 1.3rem;
     grid-gap: 50px;
     grid-template-columns: 1fr auto;
 }

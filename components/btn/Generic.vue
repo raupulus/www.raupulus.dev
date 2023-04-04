@@ -31,6 +31,11 @@ export default defineComponent({
             type: Boolean,
             required: false,
             default: false
+        },
+        width: {
+            type: String,
+            required: false,
+            default: 'auto'
         }
     },
     setup(props) {
@@ -44,7 +49,7 @@ export default defineComponent({
 </script>
 
 <template>
-    <span v-if="to">
+    <span v-if="to" class="box-button">
         <NuxtLink :to="to">
             <span :class="allClass">
                 <span>
@@ -54,13 +59,13 @@ export default defineComponent({
         </NuxtLink>
     </span>
 
-    <span v-else-if="typeof callback === 'function'" @click="callback" :class="allClass">
+    <span v-else-if="typeof callback === 'function'" @click="callback" :class="allClass" class="box-button">
         <span>
             {{ text }}
         </span>
     </span>
 
-    <span v-else :class="allClass">
+    <span v-else :class="allClass" class="box-button">
         <span>
             {{ text }}
         </span>
@@ -72,6 +77,7 @@ export default defineComponent({
     display: inline-block;
     margin: 5px 7px;
     padding: 10px;
+    width: v-bind(width);
     text-align: center;
     /*font-family: 'Open Sans', sans-serif;*/
     border-radius: 8px;

@@ -7,14 +7,15 @@ body {
 
 #app {
     display: grid;
-    margin: 0 auto;
     height: 100vh;
     grid-template-rows: auto 1fr auto;
     font-family: 'OpenSans', sans-serif;
+    box-sizing: border-box;
+    column-gap: 0;
 }
 
 #app-box-content {
     margin: auto;
-    padding: 1rem;
     max-width: 1200px;
+    box-sizing: border-box;
 }
