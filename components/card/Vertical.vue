@@ -85,6 +85,8 @@ const props = defineProps({
     width: 128px;
     padding: 5px;
     color: var(--primary);
+    font-size: 1.2rem;
+    font-weight: bold;
     text-align: center;
     background-color: var(--gray);
     border-radius: 25px;

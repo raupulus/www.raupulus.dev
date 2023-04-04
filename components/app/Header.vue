@@ -67,20 +67,15 @@ const toggleMenu = () => {
                 <!-- Desktop menu -->
                 <div class="box-desktop-menu">
                     <div class="inline-block">
-                        <BtnGeneric :menu="true" text="Home" to="/" />
-
-                        <BtnGeneric :menu="true" text="Projects" to="/projects" />
+                        <template v-for="button in buttons.slice(0, 4)" class="inline-block">
+                            <BtnGeneric :menu="true" :to="button.to" :text="button.text" />
+                        </template>
                     </div>
 
                     <div class="inline-block">
-                        <BtnGeneric :menu="true" to="/about" text="About" />
-                        <BtnGeneric :menu="true" text="Collaborations" />
-                    </div>
-
-                    <div class="inline-block">
-                        <BtnGeneric :menu="true" to="services" text="Services" />
-                        <BtnGeneric :menu="true" to="/contact" text="Contact" />
-                        <BtnGeneric :menu="true" text="Blog" />
+                        <template v-for="button in buttons.slice(4, 7)" class="inline-block">
+                            <BtnGeneric :menu="true" :to="button.to" :text="button.text" />
+                        </template>
                     </div>
                 </div>
 
