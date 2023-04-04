@@ -19,3 +19,13 @@ body {
     max-width: 1200px;
     box-sizing: border-box;
 }
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}

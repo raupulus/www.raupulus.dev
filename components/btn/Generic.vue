@@ -98,7 +98,7 @@ export default defineComponent({
     color: var(--white);
 }
 
-.router-link-active .btn:hover {
+.router-link-active .btn {
     cursor: not-allowed;
 }
 

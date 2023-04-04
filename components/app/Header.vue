@@ -203,6 +203,8 @@ const toggleMenu = () => {
     overflow: hidden;
     z-index: 10;
     box-sizing: border-box;
+    opacity: 0;
+    animation: fadein 0.8s;
 }
 
 .icon-full {
@@ -232,6 +234,11 @@ const toggleMenu = () => {
 
     .box-responsive-menu {
         display: block;
+    }
+
+    .box-responsive-menu-active {
+        opacity: 1;
+        animation: fadein 0.5s;
     }
 }
 </style>
