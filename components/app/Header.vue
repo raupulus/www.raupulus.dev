@@ -112,7 +112,7 @@ const toggleMenu = () => {
 
                     <div class="box-responsive-menu-active" v-if="responsiveMenuActive">
                         <div v-for="button in buttons">
-                            <BtnGeneric :menu="true" width="80%" :to="button.to" :text="button.text" />
+                            <BtnGeneric :menu="true" @click="toggleMenu" width="80%" :to="button.to" :text="button.text" />
                         </div>
                     </div>
 

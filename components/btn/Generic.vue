@@ -98,6 +98,10 @@ export default defineComponent({
     color: var(--white);
 }
 
+.router-link-active .btn:hover {
+    cursor: not-allowed;
+}
+
 .router-link-active .btn-menu {
     background-color: var(--warning);
     color: var(--white);
