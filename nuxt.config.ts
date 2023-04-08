@@ -61,6 +61,12 @@ export default defineNuxtConfig({
         '@/assets/css/fonts.css',
         '@/assets/css/theme.css',
         '@/assets/css/styles.css',
+
+
+        // Medium Editor
+        //'medium-editor/dist/css/medium-editor.css',
+        //'vuejs-medium-editor/dist/themes/default.css',
+        //'highlight.js/styles/github.css', //if using code highlight
     ],
 
 
@@ -92,5 +98,6 @@ export default defineNuxtConfig({
     typescript: {
         strict: true,
         typeCheck: true,
-    }
+    },
+    //plugins: [{ src: '~/plugins/vuejs-medium-editor', ssr: false }]
 })

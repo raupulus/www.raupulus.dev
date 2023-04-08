@@ -7,6 +7,10 @@
 }
 
 
+.hidden {
+    display: none;
+}
+
 /** Margen y padding **/
 .p-1 {
     padding: 1rem;
