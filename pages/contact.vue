@@ -3,9 +3,6 @@ const handleKeyDownEvent = (e) => {
     console.log('key down', e);
 }
 
-const runtimeConfig = useRuntimeConfig()
-
-console.log(runtimeConfig)
 let canSubmit = false;
 
 // TOKEN CAPTCHA - TEMP NAME
