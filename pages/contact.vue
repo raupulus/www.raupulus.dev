@@ -1,12 +1,59 @@
+
 <script setup>
+import { useReCaptcha } from 'vue-recaptcha-v3';
+
+const recaptchaInstance = useReCaptcha();
+
+onBeforeMount(() => {
+    console.log('onBeforeMount');
+
+});
+
+
+
+onBeforeUnmount(() => {
+    console.log('onBeforeUnmount');
+});
+
+const recaptcha = async () => {
+
+    try {
+        // optional you can await for the reCaptcha load
+        await recaptchaInstance?.recaptchaLoaded();
+
+        // get the token, a custom action could be added as argument to the method
+        const token = await recaptchaInstance?.executeRecaptcha('contact');
+
+        console.log('HA TERMINADO PROMESA', token);
+    } catch (error) {
+        console.log('ERROR', error);
+    }
+};
+
+
+
+
+
+const runtimeConfig = useRuntimeConfig()
+//const appConfig = useAppConfig()
+//console.log(runtimeConfig.public.captcha.siteKey)
+const captchaSiteKey = runtimeConfig.public.captcha.siteKey;
+
+// TOKEN CAPTCHA - TEMP NAME
+let token = ref(null);
+
+
+
+
+
+
+
 const handleKeyDownEvent = (e) => {
     console.log('key down', e);
 }
 
-let canSubmit = false;
 
-// TOKEN CAPTCHA - TEMP NAME
-let token = null;
+let canSubmit = false;
 
 const dataForm = ref({
     name: {
@@ -182,13 +229,24 @@ const formIsValid = () => {
     return isValid;
 }
 
-const confirmSubmit = (e) => {
+const confirmSubmit = async (e) => {
     e.preventDefault();
+
+    // Abrir pantalla espera
+    await recaptcha();
+    // Cerrar pantalla espera
+
+    return;
 
     if (!formIsValid()) {
         console.log('NO VALIDA EL FORM')
         return;
     }
+
+    // TODO: Mover validación del captcha a esta línea
+
+    // Abrir modal con resumen del email a enviar
+
 
     console.log(dataForm.value);
 
@@ -196,7 +254,7 @@ const confirmSubmit = (e) => {
 
 
     // Abrir modal con resumen del email a enviar
-    console.log('confirm submit');
+    //console.log('confirm submit');
 }
 
 // TODOS:
@@ -284,9 +342,8 @@ const confirmSubmit = (e) => {
                 </span>
             </div>
 
-            <NuxtTurnstile v-model="token" />
-
             <BtnGeneric text="Enviar Mensaje" @click="confirmSubmit" />
+
         </div>
     </section>
 </template>

@@ -2,14 +2,24 @@
 
 export default defineNuxtConfig({
     ssr: true,
-    modules: ['@nuxtjs/turnstile'],
-    turnstile: {
+    plugins: [
+
+    ],
+    /*
+    captcha: {
         siteKey: process.env.CAPTCHA_SITE_KEY,
     },
+    */
+
     runtimeConfig: {
-        turnstile: {
+        captcha: {
             secretKey: process.env.CAPTCHA_SITE_PRIVATE_KEY,
         },
+        public: {
+            captcha: {
+                siteKey: process.env.CAPTCHA_SITE_KEY,
+            }
+        }
     },
     app: {
         head: {
