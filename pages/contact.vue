@@ -3,7 +3,13 @@ const handleKeyDownEvent = (e) => {
     console.log('key down', e);
 }
 
+const runtimeConfig = useRuntimeConfig()
+
+console.log(runtimeConfig)
 let canSubmit = false;
+
+// TOKEN CAPTCHA - TEMP NAME
+let token = null;
 
 const dataForm = ref({
     name: {
@@ -202,7 +208,6 @@ const confirmSubmit = (e) => {
 // Añadir envío de formulario
 // Serializar datos y preparar para enviar a la api
 // Mensajes de confirmación, error, validación de captcha (si es una puntuación baja: avisar que voy a tardar en leerlo todo)
-
 </script>
 
 
@@ -215,7 +220,7 @@ const confirmSubmit = (e) => {
         </div>
 
         <div class="box-form">
-            <form @submit.prevent="handleSubmit">
+            <form @submit.prevent="onSubmit">
                 <div class="form-section two-columns">
                     <div class="box-input">
                         <label for="name">Nombre</label>
@@ -281,6 +286,8 @@ const confirmSubmit = (e) => {
                     {{ error }}
                 </span>
             </div>
+
+            <NuxtTurnstile v-model="token" />
 
             <BtnGeneric text="Enviar Mensaje" @click="confirmSubmit" />
         </div>
