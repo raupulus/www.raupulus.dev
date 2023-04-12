@@ -1,4 +1,3 @@
-import { BtnGeneric } from '../../.nuxt/components';
 <script setup>
 const responsiveMenuActive = ref(false);
 const emit = defineEmits(['disablescroll'])

@@ -1,14 +1,14 @@
 
 <script setup>
 import { useReCaptcha } from 'vue-recaptcha-v3';
-
 const recaptchaInstance = useReCaptcha();
 
-onBeforeMount(() => {
+
+onMounted(() => {
     console.log('onBeforeMount');
-
+    //console.log('recaptchaInstance.instance', recaptchaInstance.instance);
+    //recaptchaInstance.autoHideBadge = false;
 });
-
 
 
 onBeforeUnmount(() => {
@@ -24,10 +24,20 @@ const recaptcha = async () => {
         // get the token, a custom action could be added as argument to the method
         const token = await recaptchaInstance?.executeRecaptcha('contact');
 
+        // ENVIO token AL BACKEND
+
+
+        return {
+            grade: 'normal', // normal, low, good
+            fail: false, // true, false
+        };
+
         console.log('HA TERMINADO PROMESA', token);
     } catch (error) {
         console.log('ERROR', error);
     }
+
+    return null;
 };
 
 
@@ -42,16 +52,22 @@ const captchaSiteKey = runtimeConfig.public.captcha.siteKey;
 // TOKEN CAPTCHA - TEMP NAME
 let token = ref(null);
 
+const contactInfo = ref({
+    name: '',
+    email: '',
+    subject: '',
+    message: '',
+    privacity: false,
+});
 
-
-
-
-
-
-const handleKeyDownEvent = (e) => {
-    console.log('key down', e);
-}
-
+const stepsInfo = ref({
+    step: 1,
+    show: true,
+    //loading: false,
+    //resume: false,
+    submitted: false,
+    fail: false,
+});
 
 let canSubmit = false;
 
@@ -229,21 +245,22 @@ const formIsValid = () => {
     return isValid;
 }
 
+
+const showConfirmModal = () => {
+    //
+}
+
 const confirmSubmit = async (e) => {
     e.preventDefault();
-
-    // Abrir pantalla espera
-    await recaptcha();
-    // Cerrar pantalla espera
-
-    return;
 
     if (!formIsValid()) {
         console.log('NO VALIDA EL FORM')
         return;
     }
 
-    // TODO: Mover validación del captcha a esta línea
+    // Abrir pantalla espera
+    const response = await recaptcha();
+    // Cerrar pantalla espera
 
     // Abrir modal con resumen del email a enviar
 
@@ -263,6 +280,23 @@ const confirmSubmit = async (e) => {
 // Añadir envío de formulario
 // Serializar datos y preparar para enviar a la api
 // Mensajes de confirmación, error, validación de captcha (si es una puntuación baja: avisar que voy a tardar en leerlo todo)
+
+
+const handleFinishSubmit = () => {
+    // Cerrar modal con resumen del email a enviar
+    // Cerrar modal de confirmación
+    // Limpiar formulario
+
+    stepsInfo.value = {
+        step: 1,
+        show: false,
+    }
+
+}
+
+const handleChangeSubmitStep = (step) => {
+    // Cambiar paso del modal de confirmación
+}
 </script>
 
 
@@ -346,6 +380,10 @@ const confirmSubmit = async (e) => {
 
         </div>
     </section>
+
+
+    <ModalsSubmitContact :show="stepsInfo.show" :step="stepsInfo.step" @finished="handleFinishSubmit"
+        @changeStep="handleChangeSubmitStep" />
 </template>
 
 
