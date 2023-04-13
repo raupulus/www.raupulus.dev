@@ -1,8 +1,6 @@
 <script setup>
 const emit = defineEmits(['disablescroll'])
 
-
-
 const props = defineProps({
     show: {
         type: Boolean,
@@ -11,6 +9,10 @@ const props = defineProps({
     step: {
         type: Number,
         default: 1, // 1: loading, 2: resume, 3: submitted
+    },
+    dataForm: {
+        type: Object,
+        default: () => ({}),
     },
 });
 </script>
@@ -42,7 +44,39 @@ const props = defineProps({
 
 
             <div class="box-resume" v-if="step === 2">
-                Pantalla 2 - Resumen del email para confirmar
+                <div class="resume-title">
+                    Resumen de los datos introducidos
+                </div>
+
+                <div class="box-resume-content">
+                    <div class="resume-content">
+                        De
+                        <span class="resume-data">
+                            {{ dataForm.name.value }}
+                        </span>
+
+                        (<span class="resume-data">
+                            {{ dataForm.email.value }}
+                        </span>)
+                    </div>
+
+                    <div class="resume-content text-center">
+                        <span class="resume-data">
+                            {{ dataForm.subject.value }}
+                        </span>
+                    </div>
+
+                    <div class="resume-content">
+                        <span class="resume-data">
+                            {{ dataForm.message.value }}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <BtnGeneric text="Cancelar" @click="emit('cancel')" />
+                    <BtnGeneric text="Confirmar" @click="emit('submit')" />
+                </div>
             </div>
 
             <div class="box-submitted" v-if="step === 3">
@@ -125,6 +159,33 @@ const props = defineProps({
 .loading-info {
     margin-top: 1rem;
     font-size: 0.9rem;
+}
+
+.box-resume {
+    width: 100%;
+}
+
+.box-resume-content {
+    margin: 3rem auto;
+    padding: 2rem 5rem;
+    width: 80%;
+    background-color: #fff;
+}
+
+.resume-title {
+    font-size: 1.5rem;
+    font-weight: 400;
+    text-align: center;
+}
+
+.resume-content {
+    margin: 3rem auto;
+    font-size: 1.1rem;
+}
+
+.resume-data {
+    font-style: italic;
+    font-weight: 400;
 }
 
 .box-submitted {

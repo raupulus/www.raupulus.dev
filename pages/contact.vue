@@ -52,19 +52,12 @@ const captchaSiteKey = runtimeConfig.public.captcha.siteKey;
 // TOKEN CAPTCHA - TEMP NAME
 let token = ref(null);
 
-const contactInfo = ref({
-    name: '',
-    email: '',
-    subject: '',
-    message: '',
-    privacity: false,
-});
-
 const stepsInfo = ref({
-    step: 1,
+    step: 2,
     show: true,
     //loading: false,
     //resume: false,
+    validated: false, // TODO: Cambiar al modificar datos del formulario
     submitted: false,
     fail: false,
 });
@@ -73,7 +66,7 @@ let canSubmit = false;
 
 const dataForm = ref({
     name: {
-        value: '',
+        value: 'Nombre Inventado Hardcodeado',
         valid: false,
         validations: {
             minLength: {
@@ -87,7 +80,7 @@ const dataForm = ref({
         },
     },
     email: {
-        value: '',
+        value: 'test@email.com',
         valid: false,
         validations: {
             minLength: {
@@ -106,7 +99,7 @@ const dataForm = ref({
         },
     },
     subject: {
-        value: '',
+        value: 'Email de prueba hardcodeado',
         valid: false,
         validations: {
             minLength: {
@@ -120,7 +113,7 @@ const dataForm = ref({
         },
     },
     message: {
-        value: '',
+        value: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
         valid: false,
         validations: {
             minLength: {
@@ -220,6 +213,23 @@ const handleSubmit = (e) => {
     // Enviar a la api
 
     // Gestionar respuesta de la api
+
+    const info = stepsInfo.value;
+    info.step = 3;
+
+    if (info.validated) {
+        // TODO: Realizar el submit del email.
+    }
+
+
+    // TODO: Limpiar todo el modal completado.
+    info.validated = false;
+
+    // TODO: Limpiar todos los campos del formulario y sus validaciones.
+
+    // TODO: Quitar el botón para volver a enviar mensaje.
+
+    info.submitted = true;
 }
 
 /**
@@ -382,8 +392,8 @@ const handleChangeSubmitStep = (step) => {
     </section>
 
 
-    <ModalsSubmitContact :show="stepsInfo.show" :step="stepsInfo.step" @finished="handleFinishSubmit"
-        @changeStep="handleChangeSubmitStep" />
+    <ModalsSubmitContact :show="stepsInfo.show" :step="stepsInfo.step" @finished="handleFinishSubmit" :dataForm="dataForm"
+        @submit="handleSubmit" @changeStep="handleChangeSubmitStep" />
 </template>
 
 
