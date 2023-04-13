@@ -25,11 +25,18 @@ const props = defineProps({
                 </div>
 
                 <div class="loading-spinner">
-                    IMAGEN SPINNER HERE
+                    <img class="img-send-email" src="@/assets/images/gifs/pc-load.gif" alt="Email Enviado">
                 </div>
 
                 <div class="loading-info">
-                    Se está validando la información introducida en el formulario y la validación mediante google recaptcha.
+                    <p>
+                        Se está validando la información introducida en el formulario y la validación mediante google
+                        recaptcha.
+                    </p>
+
+                    <p>
+                        Por favor, espere unos segundos.
+                    </p>
                 </div>
             </div>
 
@@ -106,8 +113,8 @@ const props = defineProps({
 
 .loading-spinner {
     margin-top: 1rem;
-    width: 100px;
-    height: 100px
+    width: 150px;
+    height: 150px
 }
 
 .loading-spinner img {
