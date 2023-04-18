@@ -20,30 +20,7 @@ const props = defineProps({
 <template>
     <div class="box-modal" v-if="show">
         <div class="box-modal-overlay">
-            <div class="box-loading" v-if="step === 1">
-
-                <div class="loading-title">
-                    Procesando datos
-                </div>
-
-                <div class="loading-spinner">
-                    <img class="img-send-email" src="@/assets/images/gifs/pc-load.gif" alt="Email Enviado">
-                </div>
-
-                <div class="loading-info">
-                    <p>
-                        Se está validando la información introducida en el formulario y la validación mediante google
-                        recaptcha.
-                    </p>
-
-                    <p>
-                        Por favor, espere unos segundos.
-                    </p>
-                </div>
-            </div>
-
-
-            <div class="box-resume" v-if="step === 2">
+            <div class="box-resume" v-if="step === 1">
                 <div class="resume-title">
                     Resumen de los datos introducidos
                 </div>
@@ -74,10 +51,35 @@ const props = defineProps({
                 </div>
 
                 <div class="text-center">
-                    <BtnGeneric text="Cancelar" @click="emit('cancel')" />
+                    <BtnGeneric text="Cancelar" class="btn-cancel" @click="emit('cancel')" />
                     <BtnGeneric text="Confirmar" @click="emit('submit')" />
                 </div>
             </div>
+
+            <div class="box-loading" v-if="step === 2">
+
+                <div class="loading-title">
+                    Procesando datos
+                </div>
+
+                <div class="loading-spinner">
+                    <img class="img-send-email" src="@/assets/images/gifs/pc-load.gif" alt="Email Enviado">
+                </div>
+
+                <div class="loading-info">
+                    <p>
+                        Se está validando y enviando la información introducida en el formulario además de la puntuación
+                        recaptcha.
+                    </p>
+
+                    <p>
+                        Por favor, espere uno instante.
+                    </p>
+                </div>
+            </div>
+
+
+
 
             <div class="box-submitted" v-if="step === 3">
                 <div class="submitted-title">

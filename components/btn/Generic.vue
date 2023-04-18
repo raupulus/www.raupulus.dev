@@ -98,6 +98,11 @@ export default defineComponent({
     color: var(--white);
 }
 
+.btn-cancel {
+    background-color: var(--danger);
+    color: var(--white);
+}
+
 .router-link-active .btn {
     cursor: not-allowed;
 }

@@ -53,8 +53,8 @@ const captchaSiteKey = runtimeConfig.public.captcha.siteKey;
 let token = ref(null);
 
 const stepsInfo = ref({
-    step: 2,
-    show: true,
+    step: 1,
+    show: false,
     //loading: false,
     //resume: false,
     validated: false, // TODO: Cambiar al modificar datos del formulario
@@ -208,13 +208,54 @@ const checkValidations = (currentObject) => {
 }
 
 
-const handleSubmit = (e) => {
+const handleSubmit = async (e) => {
+
+    const info = stepsInfo.value;
+
+    // Muestra el segundo paso con el resumen del email a enviar
+    info.step = 2;
+
+    const token = await recaptcha();
+
+    if (!token) {
+        console.log('NO VALIDA EL CAPTCHA')
+
+        // Ir al step 3 e informar del problema con captcha
+        return;
+    }
+
+    const data = {
+        name: dataForm.value.name.value,
+        email: dataForm.value.email.value,
+        subject: dataForm.value.subject.value,
+        message: dataForm.value.message.value,
+        token,
+    };
+
+    const apiBase = 'http://localhost:8000/api/';
+    const apiPath = 'v1/contact/send';
+    const apiUrl = apiBase + apiPath;
 
     // Enviar a la api
+    fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            console.log('Success:', data);
+            info.validated = true;
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            info.validated = false;
+        });
 
     // Gestionar respuesta de la api
 
-    const info = stepsInfo.value;
     info.step = 3;
 
     if (info.validated) {
@@ -255,12 +296,21 @@ const formIsValid = () => {
     return isValid;
 }
 
-
-const showConfirmModal = () => {
-    //
+/**
+ * Cancela el envío del email y cierra el modal.
+ */
+const cancelModal = () => {
+    const info = stepsInfo.value;
+    info.step = 1;
+    info.show = false;
 }
 
-const confirmSubmit = async (e) => {
+/**
+ * Muestra el modal de confirmación de envío de email.
+ *
+ * @param {*} e Evento que lanza la confirmación de envío de email.
+ */
+const showConfirmModal = async (e) => {
     e.preventDefault();
 
     if (!formIsValid()) {
@@ -268,47 +318,11 @@ const confirmSubmit = async (e) => {
         return;
     }
 
-    // Abrir pantalla espera
-    const response = await recaptcha();
-    // Cerrar pantalla espera
-
-    // Abrir modal con resumen del email a enviar
-
-
-    console.log(dataForm.value);
-
-    return;
-
-
-    // Abrir modal con resumen del email a enviar
-    //console.log('confirm submit');
-}
-
-// TODOS:
-// Añadir captcha
-// Añadir validación de campos
-// Añadir envío de formulario
-// Serializar datos y preparar para enviar a la api
-// Mensajes de confirmación, error, validación de captcha (si es una puntuación baja: avisar que voy a tardar en leerlo todo)
-
-
-const handleFinishSubmit = () => {
-    // Cerrar modal con resumen del email a enviar
-    // Cerrar modal de confirmación
-    // Limpiar formulario
-
-    stepsInfo.value = {
-        step: 1,
-        show: false,
-    }
-
-}
-
-const handleChangeSubmitStep = (step) => {
-    // Cambiar paso del modal de confirmación
+    const info = stepsInfo.value;
+    info.step = 1;
+    info.show = true;
 }
 </script>
-
 
 <template>
     <section>
@@ -363,7 +377,7 @@ const handleChangeSubmitStep = (step) => {
                     <label for="message">Mensaje</label>
                     <span class="textarea" role="textbox" @keyup="dataForm.message.value = $event.target.innerText.trim();"
                         :class="{ 'valid': dataForm.message.valid, 'invalid': dataForm.message.errors && dataForm.message.errors.length }"
-                        contenteditable></span>
+                        contenteditable>{{ dataForm.message.value }}</span>
 
 
                     <span v-for="error in dataForm.message.errors" class="error-message">
@@ -386,14 +400,14 @@ const handleChangeSubmitStep = (step) => {
                 </span>
             </div>
 
-            <BtnGeneric text="Enviar Mensaje" @click="confirmSubmit" />
+            <BtnGeneric text="Enviar Mensaje" @click="showConfirmModal" />
 
         </div>
     </section>
 
 
-    <ModalsSubmitContact :show="stepsInfo.show" :step="stepsInfo.step" @finished="handleFinishSubmit" :dataForm="dataForm"
-        @submit="handleSubmit" @changeStep="handleChangeSubmitStep" />
+    <ModalsSubmitContact :show="stepsInfo.show" :step="stepsInfo.step" @finished="cancelModal" :dataForm="dataForm"
+        @cancel="cancelModal" @submit="handleSubmit" />
 </template>
 
 
