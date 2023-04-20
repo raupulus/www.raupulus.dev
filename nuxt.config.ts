@@ -16,6 +16,15 @@ export default defineNuxtConfig({
             secretKey: process.env.CAPTCHA_SITE_PRIVATE_KEY,
         },
         public: {
+            app: {
+                name: process.env.APP_NAME,
+                description: process.env.APP_DESCRIPTION,
+                url: process.env.APP_URL,
+                domain: process.env.APP_DOMAIN,
+                currentLocale: 'es',
+                locale: process.env.APP_LOCALE,
+                localeAlternate: process.env.APP_LOCALE_ALTERNATE,
+            },
             api: {
                 base: process.env.API_BASE_URL,
                 contact: process.env.API_PATH_CONTACT,

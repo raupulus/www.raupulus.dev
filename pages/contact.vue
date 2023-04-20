@@ -4,53 +4,10 @@ import { useReCaptcha } from 'vue-recaptcha-v3';
 const recaptchaInstance = useReCaptcha();
 
 
-onMounted(() => {
-    console.log('onBeforeMount');
-    //console.log('recaptchaInstance.instance', recaptchaInstance.instance);
-    //recaptchaInstance.autoHideBadge = false;
-});
-
-
-onBeforeUnmount(() => {
-    console.log('onBeforeUnmount');
-});
-
-const recaptcha = async () => {
-
-    try {
-        // optional you can await for the reCaptcha load
-        await recaptchaInstance?.recaptchaLoaded();
-
-        // get the token, a custom action could be added as argument to the method
-        const token = await recaptchaInstance?.executeRecaptcha('contact');
-
-        // ENVIO token AL BACKEND
-
-
-        return {
-            grade: 'normal', // normal, low, good
-            fail: false, // true, false
-        };
-
-        console.log('HA TERMINADO PROMESA', token);
-    } catch (error) {
-        console.log('ERROR', error);
-    }
-
-    return null;
-};
-
-
-
-
-
 const runtimeConfig = useRuntimeConfig()
 //const appConfig = useAppConfig()
 //console.log(runtimeConfig.public.captcha.siteKey)
 const captchaSiteKey = runtimeConfig.public.captcha.siteKey;
-
-// TOKEN CAPTCHA - TEMP NAME
-let token = ref(null);
 
 const stepsInfo = ref({
     step: 1,
@@ -63,6 +20,21 @@ const stepsInfo = ref({
 });
 
 let canSubmit = false;
+
+const recaptcha = async () => {
+
+    try {
+        // optional you can await for the reCaptcha load
+        await recaptchaInstance?.recaptchaLoaded();
+
+        // get the token, a custom action could be added as argument to the method
+        return await recaptchaInstance?.executeRecaptcha('contact');
+    } catch (error) {
+        console.error('ERROR CAPTCHA', error);
+    }
+
+    return null;
+};
 
 const dataForm = ref({
     name: {
@@ -139,11 +111,10 @@ const dataForm = ref({
     },
 });
 
-
 /**
  * Al modificar el contenido del mensaje, comprueba su validación.
  */
-watch(dataForm.value.message, async (current, old) => {
+watch(dataForm.value.message, async () => {
     checkValidations(dataForm.value.message);
 })
 
@@ -218,6 +189,7 @@ const handleSubmit = async (e) => {
     const token = await recaptcha();
 
     if (!token) {
+        console.log(captchaClient)
         console.log('NO VALIDA EL CAPTCHA')
 
         // Ir al step 3 e informar del problema con captcha
@@ -225,10 +197,15 @@ const handleSubmit = async (e) => {
     }
 
     const data = {
+        app_name: runtimeConfig.public.app.name,
+        app_domain: runtimeConfig.public.app.domain,
+        language: runtimeConfig.public.app.currentLocale,
         name: dataForm.value.name.value,
         email: dataForm.value.email.value,
         subject: dataForm.value.subject.value,
         message: dataForm.value.message.value,
+        privacity: dataForm.value.privacity.value,
+        contactme: dataForm.value.privacity.value,
         token,
     };
 
@@ -247,6 +224,7 @@ const handleSubmit = async (e) => {
         .then((response) => response.json())
         .then((data) => {
             console.log('Success:', data);
+            //TODO: recibir mensajes y ponerlos en el modal
             info.validated = true;
         })
         .catch((error) => {
