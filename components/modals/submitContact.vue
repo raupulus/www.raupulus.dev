@@ -119,15 +119,14 @@ const props = defineProps({
     left: 0;
     background: rgba(0, 0, 0, 0.5);
     z-index: 999;
+    overflow: scroll;
 }
 
 .box-modal-overlay {
     display: grid;
-    padding: 2rem;
-    max-height: 90%;
     max-width: 90%;
-    min-height: 70vh;
-    min-width: 70vw;
+    min-height: 70%;
+    min-width: 70%;
     background-color: var(--gray);
     box-sizing: border-box;
 }
@@ -168,13 +167,15 @@ const props = defineProps({
 }
 
 .box-resume-content {
-    margin: 3rem auto;
-    padding: 2rem 5rem;
+    margin: auto;
+    padding: 0.3rem 3rem;
     width: 80%;
     background-color: #fff;
+    box-sizing: border-box;
 }
 
 .resume-title {
+    margin: 2rem auto;
     font-size: 1.5rem;
     font-weight: 400;
     text-align: center;
@@ -199,6 +200,7 @@ const props = defineProps({
 }
 
 .submitted-title {
+    text-align: center;
     font-size: 3.5rem;
     font-weight: 400;
 }
@@ -211,5 +213,17 @@ const props = defineProps({
 .img-send-email {
     width: 150px;
     height: 150px;
+}
+
+@media (max-width: 768px) {
+    .resume-title {
+        margin: 1rem auto;
+        font-size: 1.2rem;
+    }
+
+    .box-resume-content {
+        width: 90%;
+        padding: 0.3rem 1rem;
+    }
 }
 </style>
