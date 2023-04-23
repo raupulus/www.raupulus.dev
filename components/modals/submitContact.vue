@@ -8,11 +8,21 @@ const props = defineProps({
     },
     step: {
         type: Number,
-        default: 1, // 1: loading, 2: resume, 3: submitted
+        default: 1, // 1: resume, 2: loading, 3: submitted
     },
     dataForm: {
         type: Object,
         default: () => ({}),
+    },
+    messages: {
+        type: Object,
+        default: () => ({
+            success: [],
+            errors: [
+                'Ha ocurrido un error al enviar el mensaje',
+                'El mensaje no se ha enviado correctamente, por favor, inténtelo de nuevo más tarde o contáctame directamente por linkedin',
+            ]
+        }),
     },
 });
 </script>
@@ -86,15 +96,22 @@ const props = defineProps({
                     Email enviado
                 </div>
 
-                <div>
+                <!-- Mensaje Enviado -->
+                <div v-if="messages.success.length">
                     <img class="img-send-email" src="@/assets/images/gifs/email-send.gif" alt="Email Enviado">
                 </div>
 
-                <div class="submitted-info">
-                    El email ha sido enviado correctamente.
-                    <br>
-                    Recibiras respuesta en el email indicado lo antes que me sea
-                    posible.
+                <!-- Mensaje No enviado -->
+                <div class="submitted-info" v-if="messages.errors.length">
+                    <p v-for="err in messages.errors">
+                        {{ err }}
+                    </p>
+                </div>
+
+                <div class="submitted-info" v-if="messages.success.length">
+                    <p v-for="suc in messages.success">
+                        {{ suc }}
+                    </p>
                 </div>
 
 
@@ -160,6 +177,7 @@ const props = defineProps({
 .loading-info {
     margin-top: 1rem;
     font-size: 0.9rem;
+    padding: 0 2rem;
 }
 
 .box-resume {

@@ -17,6 +17,17 @@ const stepsInfo = ref({
     validated: false, // TODO: Cambiar al modificar datos del formulario
     submitted: false,
     fail: false,
+    messages: {
+        success: [
+            'El mensaje se ha enviado correctamente',
+            'Por algunos motivos tu mensaje ha sido catalogado con prioridad baja, algunas veces ocurre si envías demasiados emails, palabras en el contenido o ip de riesgo.',
+            'Contactaré contigo lo antes que me resulte posible',
+        ],
+        errors: [
+            'Ha ocurrido un error al enviar el mensaje',
+            'El mensaje no se ha enviado correctamente',
+        ]
+    }
 });
 
 let canSubmit = false;
@@ -206,7 +217,7 @@ const handleSubmit = async (e) => {
         message: dataForm.value.message.value,
         privacity: dataForm.value.privacity.value,
         contactme: dataForm.value.privacity.value,
-        token,
+        captcha_token: token,
     };
 
     const apiBase = 'http://localhost:8000/api/';
@@ -223,32 +234,40 @@ const handleSubmit = async (e) => {
     })
         .then((response) => response.json())
         .then((data) => {
+
+            info.messages.success = data.messages?.success ?? [];
+
+            info.messages.errors = data.messages?.errors ?? [];
+
+
+
             console.log('Success:', data);
+
             //TODO: recibir mensajes y ponerlos en el modal
-            info.validated = true;
+
+
+
+            // TODO: Limpiar todo el modal completado.
+            info.validated = false; // Check from api
+
+            // TODO: Quitar el botón para volver a enviar mensaje.
+            info.submitted = true;
         })
         .catch((error) => {
             console.error('Error:', error);
             info.validated = false;
+            info.submitted = false;
+
+            // TODO: Comprobar si vino mensaje de error desde la api o poner default.
+
+
+
+        }).finally(() => {
+            info.step = 3;
+
+
+
         });
-
-    // Gestionar respuesta de la api
-
-    info.step = 3;
-
-    if (info.validated) {
-        // TODO: Realizar el submit del email.
-    }
-
-
-    // TODO: Limpiar todo el modal completado.
-    info.validated = false;
-
-    // TODO: Limpiar todos los campos del formulario y sus validaciones.
-
-    // TODO: Quitar el botón para volver a enviar mensaje.
-
-    info.submitted = true;
 }
 
 /**
@@ -358,7 +377,7 @@ const showConfirmModal = async (e) => {
                         contenteditable>{{ dataForm.message.value }}</span>
 
 
-                    <span v-for="error in dataForm.message.errors" class="error-message">
+                    <span v-for=" error  in  dataForm.message.errors " class="error-message">
                         {{ error }}
                     </span>
                 </div>
@@ -367,25 +386,25 @@ const showConfirmModal = async (e) => {
 
         <div class="box-actions">
             <div class="form-section">
-                <input type="checkbox" id="privacity" @change="checkValidationsFromEvent" v-model="dataForm.privacity.value"
+                <input type="checkbox" id="privacity" @change=" checkValidationsFromEvent " v-model=" dataForm.privacity.value "
                     name="privacity" />
                 <label for="privacity">
                     Acepta recibir correos electrónicos de mi parte.
                 </label>
 
-                <span v-for="error in dataForm.privacity.errors" class="error-message">
+                <span v-for=" error  in  dataForm.privacity.errors " class="error-message">
                     {{ error }}
                 </span>
             </div>
 
-            <BtnGeneric text="Enviar Mensaje" @click="showConfirmModal" />
+            <BtnGeneric text="Enviar Mensaje" @click=" showConfirmModal " />
 
         </div>
     </section>
 
 
-    <ModalsSubmitContact :show="stepsInfo.show" :step="stepsInfo.step" @finished="cancelModal" :dataForm="dataForm"
-        @cancel="cancelModal" @submit="handleSubmit" />
+    <ModalsSubmitContact :show=" stepsInfo.show " :step=" stepsInfo.step " :messages=" stepsInfo.messages "
+        @finished=" cancelModal " :dataForm=" dataForm " @cancel=" cancelModal " @submit=" handleSubmit " />
 </template>
 
 
