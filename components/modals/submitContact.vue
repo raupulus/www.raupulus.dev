@@ -93,7 +93,8 @@ const props = defineProps({
 
             <div class="box-submitted" v-if="step === 3">
                 <div class="submitted-title">
-                    Email enviado
+                    Email
+                    {{ messages.success.length ? 'Enviado' : 'No enviado' }}
                 </div>
 
                 <!-- Mensaje Enviado -->
