@@ -29,7 +29,19 @@
             </div>
 
             <div class="btn-group">
-                <BtnGeneric text="Curriculum Vitae" to="https://curriculum.raupulus.dev" />
+                <BtnGeneric text="Curriculum Vitae " to="https://curriculum.raupulus.dev">
+
+                    <template #after>
+                        <svg class="btn-curriculum-icon-after" viewBox="0 0 16 16" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M8.9374 15.4933L15.7175 8.71318C15.8202 8.61045 15.8932 8.49916 15.9363 8.37931C15.9788 8.25946 16 8.13105 16 7.99408C16 7.85711 15.9788 7.72869 15.9363 7.60884C15.8932 7.48899 15.8202 7.3777 15.7175 7.27498L8.9374 0.49488C8.74906 0.306544 8.51382 0.207925 8.23165 0.199021C7.94881 0.190803 7.70466 0.289422 7.4992 0.49488C7.29374 0.683216 7.18656 0.918465 7.17766 1.20063C7.16944 1.48347 7.26806 1.72762 7.47352 1.93308L12.5072 6.96679H1.02729C0.736223 6.96679 0.492071 7.06507 0.294832 7.26162C0.0982779 7.45886 0 7.70301 0 7.99408C0 8.28514 0.0982779 8.52895 0.294832 8.7255C0.492071 8.92274 0.736223 9.02136 1.02729 9.02136H12.5072L7.47352 14.0551C7.28518 14.2434 7.18656 14.4831 7.17766 14.7742C7.16944 15.0652 7.26806 15.3049 7.47352 15.4933C7.66185 15.6987 7.90155 15.8015 8.19262 15.8015C8.48368 15.8015 8.73194 15.6987 8.9374 15.4933Z"
+                                fill="#E6E6E6" />
+                        </svg>
+
+                    </template>
+
+                </BtnGeneric>
                 <BtnGeneric text="Contáctame" to="/contact" class="text-white bg-dark" />
             </div>
         </div>
@@ -56,8 +68,10 @@
                 </div>
 
                 <div class="inline-block">
-                    <img class="technolgy-element" src="@/assets/images/technologies/javascript.webp" alt="Javascript tag">
+                    <img class="technolgy-element" src="@/assets/images/technologies/laravel.webp" alt="Laravel tag">
                 </div>
+
+
 
                 <div class="inline-block">
                     <div class="inline-block">
@@ -65,7 +79,8 @@
                     </div>
 
                     <div class="inline-block">
-                        <img class="technolgy-element" src="@/assets/images/technologies/laravel.webp" alt="Laravel tag">
+                        <img class="technolgy-element" src="@/assets/images/technologies/javascript.webp"
+                            alt="Javascript tag">
                     </div>
 
                     <div class="inline-block">
@@ -241,10 +256,6 @@
                 </div>
 
                 <div class="inline-block">
-                    <IconsMastodon :size="64" />
-                </div>
-
-                <div class="inline-block">
                     <IconsTwitch :size="64" />
                 </div>
             </div>
@@ -253,9 +264,15 @@
                 <div class="inline-block">
                     <IconsGitlab :size="64" />
                 </div>
+            </div>
 
+            <div class="box-social-icons inline-block">
                 <div class="inline-block">
                     <IconsGithub :size="64" />
+                </div>
+
+                <div class="inline-block">
+                    <IconsMastodon :size="64" />
                 </div>
 
                 <div class="inline-block">
@@ -315,5 +332,10 @@
 .box-social-icons>div {
     margin: 15px 1rem;
 
+}
+
+.btn-curriculum-icon-after {
+    width: 0.8rem;
+    height: 0.8rem;
 }
 </style>

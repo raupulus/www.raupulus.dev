@@ -52,9 +52,13 @@ export default defineComponent({
     <span v-if="to" class="box-button">
         <NuxtLink :to="to">
             <span :class="allClass">
+                <slot name="before" />
+
                 <span>
                     {{ text }}
                 </span>
+
+                <slot name="after" />
             </span>
         </NuxtLink>
     </span>
