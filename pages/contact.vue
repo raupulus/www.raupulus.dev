@@ -338,7 +338,7 @@ const showConfirmModal = async (e) => {
                             :class="{ 'valid': dataForm.name.valid, 'invalid': dataForm.name.errors && dataForm.name.errors.length }"
                             name="name" />
 
-                        <IconsInfo size="16" class="check-errors-icon" :show="dataForm.name.valid !== null"
+                        <IconsInfo :size="16" class="check-errors-icon" :show="dataForm.name.valid !== null"
                             :type="dataForm.name.valid ? 'success' : 'error'"></IconsInfo>
 
                         <span v-for="error in dataForm.name.errors" class="error-message">
@@ -352,7 +352,7 @@ const showConfirmModal = async (e) => {
                             :class="{ 'valid': dataForm.email.valid, 'invalid': dataForm.email.errors && dataForm.email.errors.length }"
                             v-model.trim="dataForm.email.value" id="email" name="email" />
 
-                        <IconsInfo size="16" class="check-errors-icon" :show="dataForm.email.valid !== null"
+                        <IconsInfo :size="16" class="check-errors-icon" :show="dataForm.email.valid !== null"
                             :type="dataForm.email.valid ? 'success' : 'error'"></IconsInfo>
 
                         <span v-for="error in dataForm.email.errors" class="error-message">
@@ -367,7 +367,7 @@ const showConfirmModal = async (e) => {
                         :class="{ 'valid': dataForm.subject.valid, 'invalid': dataForm.subject.errors && dataForm.subject.errors.length }"
                         v-model.trim="dataForm.subject.value" name="subject" />
 
-                    <IconsInfo size="16" class="check-errors-icon" :show="dataForm.subject.valid !== null"
+                    <IconsInfo :size="16" class="check-errors-icon" :show="dataForm.subject.valid !== null"
                         :type="dataForm.subject.valid ? 'success' : 'error'"></IconsInfo>
                     <span v-for="error in dataForm.subject.errors" class="error-message">
                         {{ error }}
@@ -384,10 +384,10 @@ const showConfirmModal = async (e) => {
                         :class="{ 'valid': dataForm.message.valid, 'invalid': dataForm.message.errors && dataForm.message.errors.length }"
                         contenteditable></span>
 
-                    <IconsInfo size="16" class="check-errors-icon" :show=" dataForm.message.valid !== null "
+                    <IconsInfo :size=" 16 " class="check-errors-icon" :show=" dataForm.message.valid !== null "
                         :type=" dataForm.message.valid ? 'success' : 'error' "></IconsInfo>
 
-                    <span v-for="  error  in  dataForm.message.errors " class="error-message">
+                    <span v-for="   error   in   dataForm.message.errors  " class="error-message">
                         {{ error }}
                     </span>
                 </div>
@@ -409,11 +409,11 @@ const showConfirmModal = async (e) => {
                         electrónicos de mi parte.
                     </span>
 
-                    <IconsInfo size="16" class="check-errors-icon" :show=" dataForm.privacity.valid !== null "
+                    <IconsInfo :size=" 16 " class="check-errors-icon" :show=" dataForm.privacity.valid !== null "
                         :type=" dataForm.privacity.valid ? 'success' : 'error' "></IconsInfo>
                 </label>
 
-                <span v-for="  error   in   dataForm.privacity.errors  " class="error-message">
+                <span v-for="   error    in    dataForm.privacity.errors   " class="error-message">
                     {{ error }}
                 </span>
             </div>
