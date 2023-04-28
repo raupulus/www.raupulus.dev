@@ -49,8 +49,8 @@ const recaptcha = async () => {
 
 const dataForm = ref({
     name: {
-        value: 'Nombre Inventado Hardcodeado',
-        valid: false,
+        value: '',
+        valid: null,
         validations: {
             minLength: {
                 value: 5,
@@ -63,8 +63,8 @@ const dataForm = ref({
         },
     },
     email: {
-        value: 'test@email.com',
-        valid: false,
+        value: '',
+        valid: null,
         validations: {
             minLength: {
                 value: 8,
@@ -82,8 +82,8 @@ const dataForm = ref({
         },
     },
     subject: {
-        value: 'Email de prueba hardcodeado',
-        valid: false,
+        value: '',
+        valid: null,
         validations: {
             minLength: {
                 value: 10,
@@ -96,8 +96,8 @@ const dataForm = ref({
         },
     },
     message: {
-        value: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-        valid: false,
+        value: '',
+        valid: null,
         validations: {
             minLength: {
                 value: 30,
@@ -112,7 +112,7 @@ const dataForm = ref({
 
     privacity: {
         value: false,
-        valid: false,
+        valid: null,
         validations: {
             required: {
                 value: true,
@@ -338,6 +338,9 @@ const showConfirmModal = async (e) => {
                             :class="{ 'valid': dataForm.name.valid, 'invalid': dataForm.name.errors && dataForm.name.errors.length }"
                             name="name" />
 
+                        <IconsInfo size="16" class="check-errors-icon" :show="dataForm.name.valid !== null"
+                            :type="dataForm.name.valid ? 'success' : 'error'"></IconsInfo>
+
                         <span v-for="error in dataForm.name.errors" class="error-message">
                             {{ error }}
                         </span>
@@ -348,6 +351,9 @@ const showConfirmModal = async (e) => {
                         <input type="email" @keyup="checkValidationsFromEvent"
                             :class="{ 'valid': dataForm.email.valid, 'invalid': dataForm.email.errors && dataForm.email.errors.length }"
                             v-model.trim="dataForm.email.value" id="email" name="email" />
+
+                        <IconsInfo size="16" class="check-errors-icon" :show="dataForm.email.valid !== null"
+                            :type="dataForm.email.valid ? 'success' : 'error'"></IconsInfo>
 
                         <span v-for="error in dataForm.email.errors" class="error-message">
                             {{ error }}
@@ -361,6 +367,8 @@ const showConfirmModal = async (e) => {
                         :class="{ 'valid': dataForm.subject.valid, 'invalid': dataForm.subject.errors && dataForm.subject.errors.length }"
                         v-model.trim="dataForm.subject.value" name="subject" />
 
+                    <IconsInfo size="16" class="check-errors-icon" :show="dataForm.subject.valid !== null"
+                        :type="dataForm.subject.valid ? 'success' : 'error'"></IconsInfo>
                     <span v-for="error in dataForm.subject.errors" class="error-message">
                         {{ error }}
                     </span>
@@ -374,10 +382,14 @@ const showConfirmModal = async (e) => {
                     <label for="message">Mensaje</label>
                     <span class="textarea" role="textbox" @keyup="dataForm.message.value = $event.target.innerText.trim();"
                         :class="{ 'valid': dataForm.message.valid, 'invalid': dataForm.message.errors && dataForm.message.errors.length }"
-                        contenteditable>{{ dataForm.message.value }}</span>
+                        contenteditable></span>
 
+                    <IconsInfo size="16" class="check-errors-icon" :show=" dataForm.message.valid !== null "
+                        :type=" dataForm.message.valid ? 'success' : 'error' "></IconsInfo>
 
-                    <span v-for=" error  in  dataForm.message.errors " class="error-message">
+                    <span
+                        v-for="                                                 error                                                  in                                                  dataForm.message.errors                                                 "
+                        class="error-message">
                         {{ error }}
                     </span>
                 </div>
@@ -386,13 +398,26 @@ const showConfirmModal = async (e) => {
 
         <div class="box-actions">
             <div class="form-section">
-                <input type="checkbox" id="privacity" @change=" checkValidationsFromEvent " v-model=" dataForm.privacity.value "
-                    name="privacity" />
+                <input type="checkbox" id="privacity" @change=" checkValidationsFromEvent "
+                    v-model=" dataForm.privacity.value " name="privacity" />
                 <label for="privacity">
-                    Acepta recibir correos electrónicos de mi parte.
+                    <span class="inline-block">
+                        Acepta recibir correos
+                    </span>
+
+
+                    <span class="inline-block">
+                        &nbsp;
+                        electrónicos de mi parte.
+                    </span>
+
+                    <IconsInfo size="16" class="check-errors-icon" :show=" dataForm.privacity.valid !== null "
+                        :type=" dataForm.privacity.valid ? 'success' : 'error' "></IconsInfo>
                 </label>
 
-                <span v-for=" error  in  dataForm.privacity.errors " class="error-message">
+                <span
+                    v-for="                                                                                       error                                                                                        in                                                                                        dataForm.privacity.errors                                                                                       "
+                    class="error-message">
                     {{ error }}
                 </span>
             </div>
@@ -434,8 +459,8 @@ const showConfirmModal = async (e) => {
 }
 
 .box-form form input {
-    display: block;
-    width: 100%;
+    width: calc(100% - 1.5rem);
+    max-width: calc(100% - 1.5rem);
     box-sizing: border-box;
     border: none;
     border-bottom: 3px solid #B0B0B0;
@@ -443,6 +468,22 @@ const showConfirmModal = async (e) => {
     color: rgba(20, 20, 20, 0.64);
 }
 
+.box-input {
+    text-align: center;
+}
+
+.box-input label {
+    padding-left: 0.6rem;
+    text-align: left;
+}
+
+/* Icono para mostrar error en cada campo */
+.check-errors-icon {
+    position: absolute;
+    width: 1rem;
+    height: 1rem;
+    /* translate: -1.3rem; */
+}
 
 .box-form form span.textarea {
     color: rgba(20, 20, 20, 0.64);
@@ -456,16 +497,20 @@ const showConfirmModal = async (e) => {
 
 
 .box-form form .textarea {
-    display: block;
-    width: 100%;
+    display: inline-block;
+    width: calc(100% - 1.5rem);
+    max-width: calc(100% - 1.5rem);
     resize: block;
     box-sizing: border-box;
     border-bottom: 3px solid #B0B0B0;
+    text-align: left;
+    word-wrap: break-word;
 }
 
 .box-form .form-section {
     padding: 2rem;
     box-sizing: border-box;
+    max-width: calc(100vw - 2.5rem);
 }
 
 .box-form .form-section.two-columns {
@@ -477,6 +522,7 @@ const showConfirmModal = async (e) => {
 
 .box-actions {
     margin: 1.3rem auto 5rem auto;
+    max-width: 80%;
     text-align: center;
 }
 
@@ -486,18 +532,18 @@ const showConfirmModal = async (e) => {
 
 
 .invalid {
-    border-bottom: 3px solid red !important;
+    border-bottom: 3px solid #B72020 !important;
 }
 
 .valid {
-    border-bottom: 3px solid green !important;
+    border-bottom: 3px solid #34B832 !important;
 }
 
 
 .error-message {
     display: block;
     width: 100%;
-    color: #ff0000;
+    color: #B72020;
     font-size: 0.8rem;
     font-style: italic;
 }
