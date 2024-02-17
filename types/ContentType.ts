@@ -1,5 +1,5 @@
-import { MetadataType } from "@/types/MetadataType"
-import { TechnologyType } from "@/types/TechnologyType"
+import { type MetadataType } from "@/types/MetadataType"
+import { type TechnologyType } from "@/types/TechnologyType"
 
 export type ContentType = {
     title: string,
