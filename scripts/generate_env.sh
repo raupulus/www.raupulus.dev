@@ -47,7 +47,7 @@ source "${WORKSCRIPT}/scripts/functions.sh"
 ################ Comienza el flujo de generar .env ################
 
 ## Creo el archivo .env a partir del archivo con parámetros predefinidos.
-cp "${WORKSCRIPT}/.env.example.production" "${WORKSCRIPT}/.env"
+cp "${WORKSCRIPT}/env.example.production" "${WORKSCRIPT}/.env"
 
 ## General
 replace_or_add_var_in_file "${WORKSCRIPT}/.env" 'APP_NAME' "${APP_NAME}"
