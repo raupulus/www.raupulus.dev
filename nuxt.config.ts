@@ -5,11 +5,15 @@ export default defineNuxtConfig({
     plugins: [
 
     ],
-    /*
-    captcha: {
-        siteKey: process.env.CAPTCHA_SITE_KEY,
+
+    /* TOFIX: Parche temporal, revisar como renderizar SSR en proyectos utilizando parámetros de cada página */
+    nitro: {
+        prerender: {
+            ignore: [
+                '/projects'
+            ]
+        }
     },
-    */
 
     runtimeConfig: {
         captcha: {
