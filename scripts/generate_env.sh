@@ -27,7 +27,7 @@ if [[ $(whoami) = 'root' ]]; then
 fi
 
 ## En caso de no encontrar archivos esenciales para la ejcución se aborta.
-if [[ ! -f "${WORKSCRIPT}/.env.example.production" ]] ||
+if [[ ! -f "${WORKSCRIPT}/env.example.production" ]] ||
    [[ ! -d "${WORKSCRIPT}/scripts" ]] ||
    [[ ! -f "${WORKSCRIPT}/scripts/functions.sh" ]]; then
     echo 'Este script solo puede ser ejecutado desde la raíz del proyecto.'
