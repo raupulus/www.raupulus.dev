@@ -1,8 +1,8 @@
 import { ref } from 'vue'
-import { ContentType } from '../types/ContentType';
-import { MetadataType } from '~~/types/MetadataType';
-import { PaginationType } from '~~/types/PaginationType';
-import { SearchParamsType } from '~~/types/SearchParamsType';
+import { ContentType } from '@/types/ContentType';
+import { MetadataType } from '@/types/MetadataType';
+import { PaginationType } from '@/types/PaginationType';
+import { SearchParamsType } from '@/types/SearchParamsType';
 const datas = ref({});
 
 const runtimeConfig = useRuntimeConfig()
