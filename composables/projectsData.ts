@@ -3,7 +3,7 @@ import { ContentType } from '../types/ContentType';
 import { MetadataType } from '~~/types/MetadataType';
 import { PaginationType } from '~~/types/PaginationType';
 import { SearchParamsType } from '~~/types/SearchParamsType';
-const datas = ref([]);
+const datas = ref({});
 
 const runtimeConfig = useRuntimeConfig()
 const API_BASE = runtimeConfig.public.api.base
@@ -11,23 +11,20 @@ const API_BASE = runtimeConfig.public.api.base
 let API_URL = API_BASE + '/v1/platform/portfolio/content/type/project'
 
 type ResponseContentType = {
-    pagination: PaginationType,
-    search_content: SearchParamsType,
-    contents: ContentType[],
+    pagination?: PaginationType,
+    search_content?: SearchParamsType,
+    contents?: ContentType[],
 }
 
-
-/* tslint:disable-next-line */
 function prepareData(res: ResponseContentType) {
-    /* tslint:disable-next-line */
-    res.contents.forEach(ele => ele = prepareDataContent(ele));
+    if (res.contents) {
+        res.contents.forEach(ele => ele = prepareDataContent(ele));
+    }
 
     return res;
 }
 
-/* tslint:disable-next-line */
 function prepareDataContent(content: ContentType) {
-
     if (content.metadata) {
         content.metadata = prepareDataMetadata(content.metadata);
     }
@@ -35,15 +32,14 @@ function prepareDataContent(content: ContentType) {
     return content;
 }
 
-/* tslint:disable-next-line */
 function prepareDataMetadata(metadata: MetadataType) {
-    const priority = [
+    const priority: (keyof MetadataType)[] = [
         'web', 'youtube_channel', 'youtube_video', 'youtube', 'gitlab', 'github',
         'twitter', 'linkedin', 'mastodon', 'twitch',
         'telegram_channel',
     ];
 
-    let results = {};
+    let results: MetadataType = {};
 
     let counter = 0;
 
@@ -52,6 +48,7 @@ function prepareDataMetadata(metadata: MetadataType) {
             if ((p === 'youtube_channel') || (p === 'youtube_video')) {
                 if (metadata[p] && counter < 4) {
 
+                    /* tslint:disable-next-line */
                     if (!results.youtube) {
                         counter++;
                     }
@@ -59,7 +56,7 @@ function prepareDataMetadata(metadata: MetadataType) {
                     /* tslint:disable-next-line */
                     results.youtube = metadata[p];
                 }
-            } else if (metadata[p] && counter < 4) {
+            } else if (counter < 4 && metadata[p]) {
                 counter++;
 
                 /* tslint:disable-next-line */
@@ -86,7 +83,7 @@ export function projectsData() {
     return datas
 }
 
-export function projectsDataSearch(params = null) {
+export function projectsDataSearch(params: string | null = null) {
     fetch(params ? API_URL + `?search=${params.search}` : API_URL)
         .then(response => response.json())
         .then(res => datas.value = prepareData(res));
