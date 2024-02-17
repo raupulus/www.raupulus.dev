@@ -8,6 +8,8 @@ const runtimeConfig = useRuntimeConfig()
 //const appConfig = useAppConfig()
 //console.log(runtimeConfig.public.captcha.siteKey)
 const captchaSiteKey = runtimeConfig.public.captcha.siteKey;
+const API_BASE = runtimeConfig.public.api.base
+const API_PATH_CONTACT = runtimeConfig.public.api.contact
 
 const stepsInfo = ref({
     step: 1,
@@ -220,9 +222,7 @@ const handleSubmit = async (e) => {
         captcha_token: token,
     };
 
-    const apiBase = 'http://localhost:8000/api/';
-    const apiPath = 'v1/contact/send';
-    const apiUrl = apiBase + apiPath;
+    const apiUrl = API_BASE + API_PATH_CONTACT;
 
     // Enviar a la api
     fetch(apiUrl, {
@@ -384,8 +384,8 @@ const showConfirmModal = async (e) => {
                         :class="{ 'valid': dataForm.message.valid, 'invalid': dataForm.message.errors && dataForm.message.errors.length }"
                         contenteditable></span>
 
-                    <IconsInfo :size=" 16 " class="check-errors-icon" :show=" dataForm.message.valid !== null "
-                        :type=" dataForm.message.valid ? 'success' : 'error' "></IconsInfo>
+                    <IconsInfo :size="16" class="check-errors-icon" :show="dataForm.message.valid !== null"
+                        :type="dataForm.message.valid ? 'success' : 'error'"></IconsInfo>
 
                     <span v-for="       error       in       dataForm.message.errors      " class="error-message">
                         {{ error }}
@@ -396,8 +396,8 @@ const showConfirmModal = async (e) => {
 
         <div class="box-actions">
             <div class="form-section">
-                <input type="checkbox" id="privacity" @change=" checkValidationsFromEvent "
-                    v-model=" dataForm.privacity.value " name="privacity" />
+                <input type="checkbox" id="privacity" @change="checkValidationsFromEvent" v-model="dataForm.privacity.value"
+                    name="privacity" />
                 <label for="privacity">
                     <span class="inline-block">
                         Acepta recibir correos
@@ -409,8 +409,8 @@ const showConfirmModal = async (e) => {
                         electrónicos de mi parte.
                     </span>
 
-                    <IconsInfo :size=" 16 " class="check-errors-icon" :show=" dataForm.privacity.valid !== null "
-                        :type=" dataForm.privacity.valid ? 'success' : 'error' "></IconsInfo>
+                    <IconsInfo :size="16" class="check-errors-icon" :show="dataForm.privacity.valid !== null"
+                        :type="dataForm.privacity.valid ? 'success' : 'error'"></IconsInfo>
                 </label>
 
                 <span v-for="       error        in        dataForm.privacity.errors       " class="error-message">
@@ -418,14 +418,14 @@ const showConfirmModal = async (e) => {
                 </span>
             </div>
 
-            <BtnGeneric text="Enviar Mensaje" @click=" showConfirmModal " />
+            <BtnGeneric text="Enviar Mensaje" @click="showConfirmModal" />
 
         </div>
     </section>
 
 
-    <ModalsSubmitContact :show=" stepsInfo.show " :step=" stepsInfo.step " :messages=" stepsInfo.messages "
-        @finished=" cancelModal " :dataForm=" dataForm " @cancel=" cancelModal " @submit=" handleSubmit " />
+    <ModalsSubmitContact :show="stepsInfo.show" :step="stepsInfo.step" :messages="stepsInfo.messages"
+        @finished="cancelModal" :dataForm="dataForm" @cancel="cancelModal" @submit="handleSubmit" />
 </template>
 
 

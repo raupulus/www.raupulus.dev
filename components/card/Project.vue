@@ -1,3 +1,4 @@
+import { IconsGeneric, IconsTelegram } from '../../.nuxt/components';
 <script setup>
 const props = defineProps({
 
@@ -18,6 +19,7 @@ const componentNames = {
     twitch: 'IconsTwitch',
     youtube: 'IconsYoutube',
     web: 'IconsEarth',
+    telegram: 'IconsTelegram',
 }
 </script>
 
@@ -25,8 +27,8 @@ const componentNames = {
     <div class="box-project">
         <div class="box-card">
             <div class="box-img">
-                <img :src="data.image" :alt="data.title">
-                {{ data.image }}
+                <img :src="data.urlImageMedium" :alt="data.title">
+                {{ data.urlImageMedium }}
             </div>
 
             <div class="box-title">
@@ -36,40 +38,45 @@ const componentNames = {
             </div>
 
             <div class="box-description">
-                {{ data.description }}
+                {{ data.excerpt }}
             </div>
         </div>
 
         <span class="separator"></span>
 
-        <div v-if="data.links && Array.isArray(data.links)" class="box-links">
-            <div v-for="link, id in data.links" :class="(id > 0 && (id) < data.links.length) ? 'link-margin' : ''">
+        <div v-if="data.metadata" class="box-links">
+            <div v-for="key, idx in Object.keys(data.metadata)"
+                :class="(idx > 0 && (idx) < Object.keys(data.metadata).length) ? 'link-margin' : ''">
 
-                <IconsGitlab v-if="link.icon.toLowerCase().trim() == 'gitlab'" :margin="0" :url="link.url"
+                <IconsYoutube v-if="key === 'youtube'" :margin="0" :url="data.metadata.youtube" display="block" />
+                <IconsEarth v-if="key === 'web'" :margin="0" :url="data.metadata.web" display="block" />
+                <IconsTwitter v-if="key === 'twitter'" :margin="0" :url="data.metadata.twitter" display="block" />
+
+                <IconsGitlab v-if="key === 'gitlab'" :margin="0" :url="data.metadata.gitlab" display="block" />
+
+                <IconsTelegram v-if="key === 'telegram_channel'" :margin="0" :url="data.metadata.telegram_channel"
                     display="block" />
 
-                <IconsGithub v-if="link.icon.toLowerCase().trim() == 'github'" :margin="0" :url="link.url"
-                    display="block" />
+                <IconsGithub v-if="key === 'github'" :margin="0" :url="data.metadata.github" display="block" />
 
-                <IconsLinkedin v-if="link.icon.toLowerCase().trim() == 'linkedin'" :margin="0" :url="link.url"
-                    display="block" />
+                <IconsLinkedin v-if="key === 'linkedin'" :margin="0" :url="data.metadata.linkedin" display="block" />
 
-                <IconsMastodon v-if="link.icon.toLowerCase().trim() == 'mastodon'" :margin="0" :url="link.url"
-                    display="block" />
+                <IconsMastodon v-if="key === 'mastodon'" :margin="0" :url="data.metadata.mastodon" display="block" />
 
-                <IconsTwitch v-if="link.icon.toLowerCase().trim() == 'twitch'" :margin="0" :url="link.url"
-                    display="block" />
-
-                <IconsTwitter v-if="link.icon.toLowerCase().trim() == 'twitter'" :margin="0" :url="link.url"
-                    display="block" />
-
-                <IconsEarth v-if="link.icon.toLowerCase().trim() == 'web'" :margin="0" :url="link.url" display="block" />
-
-                <IconsYoutube v-if="link.icon.toLowerCase().trim() == 'youtube'" :margin="0" :url="link.url"
-                    display="block" />
-
-
+                <IconsTwitch v-if="key === 'twitch'" :margin="0" :url="data.metadata.twitch" display="block" />
             </div>
+
+
+
+
+
+
+
+
+
+
+
+
         </div>
     </div>
 </template>

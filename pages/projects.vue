@@ -1,129 +1,21 @@
 <script setup>
+import { ref } from 'vue';
+import { projectsData, projectsDataSearch } from '@/composables/projectsData';
+
+let datas = projectsData();
+
+let searchInput = '';
+
 function btnSearch() {
-    alert('Buscar');
+    projectsDataSearch({
+        search: searchInput,
+    })
 }
 
 function btnClear() {
-    alert('Limpiar');
+    searchInput = '';
+    projectsDataSearch();
 }
-
-const projects = [
-    {
-        title: 'title1',
-        description: 'description2',
-        image: 'https://placeimg.com/400/280/arch',
-        slug: 'slug1',
-        links: [
-            {
-                icon: 'gitlab',
-                url: 'https://raupulus.dev'
-            },
-            {
-                icon: 'github',
-                url: 'https://raupulus.dev'
-            },
-            {
-                icon: 'twitter',
-                url: 'https://raupulus.dev'
-            },
-        ]
-    },
-    {
-        title: 'title2',
-        description: 'description2',
-        image: 'https://placeimg.com/400/280/nature',
-        slug: 'slug2',
-        links: [
-            {
-                icon: 'web',
-                url: 'https://raupulus.dev'
-            },
-            {
-                icon: 'gitlab',
-                url: 'https://raupulus.dev'
-            },
-        ]
-    },
-    {
-        title: 'title3',
-        description: 'description3',
-        image: 'https://placeimg.com/400/280/people',
-        slug: 'slug3',
-        links: [
-            {
-                icon: 'youtube',
-                url: 'https://raupulus.dev'
-            },
-        ]
-    },
-    {
-        title: 'title4',
-        description: 'description4',
-        image: 'https://placeimg.com/400/280/animals',
-        slug: 'slug4',
-        links: [
-            {
-                icon: 'twitch',
-                url: 'https://raupulus.dev'
-            },
-            {
-                icon: 'mastodon',
-                url: 'https://raupulus.dev'
-            },
-
-            {
-                icon: 'linkedin',
-                url: 'https://raupulus.dev'
-            },
-            {
-                icon: 'gitlab',
-                url: 'https://raupulus.dev'
-            },
-        ]
-    },
-    {
-        title: 'title5',
-        description: 'description5',
-        image: 'https://placeimg.com/400/280/tech',
-        slug: 'slug5',
-        links: [
-            {
-                icon: 'gitlab',
-                url: 'https://raupulus.dev'
-            },
-            {
-                icon: 'github',
-                url: 'https://raupulus.dev'
-            },
-            {
-                icon: 'twitter',
-                url: 'https://raupulus.dev'
-            },
-        ]
-    },
-    {
-        title: 'title6',
-        description: 'description6',
-        image: 'https://placeimg.com/400/280/animals',
-        slug: 'slug6',
-        links: [
-            {
-                icon: 'gitlab',
-                url: 'https://raupulus.dev'
-            },
-            {
-                icon: 'github',
-                url: 'https://raupulus.dev'
-            },
-            {
-                icon: 'twitter',
-                url: 'https://raupulus.dev'
-            },
-        ]
-    },
-
-];
-
 </script>
 
 <template>
@@ -156,7 +48,7 @@ const projects = [
 
             <!-- Input de búsqueda -->
             <div class="category-input">
-                <input type="search" placeholder="Buscar Proyecto">
+                <input type="search" name="search" placeholder="Buscar Proyecto" v-model="searchInput">
 
                 <span></span>
             </div>
@@ -169,11 +61,18 @@ const projects = [
         </div>
     </section>
 
-
     <section class="box-projects">
         <!-- Grid de proyectos -->
+        <div>
+            {{ datas.pagination?.totalElements ? 'Hay ' + datas.pagination.totalElements + ' proyectos' : '' }}
+        </div>
+
+        <div>
+            {{ 'Mostrando ' + (datas.contents?.length ?? 0) + ' Proyectos' }}
+        </div>
+
         <div class="box-grid-projects">
-            <CardProject v-for="project in projects" :key="project.slug" :data="project" />
+            <CardProject v-for="project in datas.contents" :key="project.slug" :data="project" />
         </div>
     </section>
 </template>
