@@ -2,18 +2,21 @@
 
 export default defineNuxtConfig({
     ssr: true,
+    devtools: { enabled: true },
     plugins: [
 
     ],
 
     /* TOFIX: Parche temporal, revisar como renderizar SSR en proyectos utilizando parámetros de cada página */
+    /*
     nitro: {
         prerender: {
             ignore: [
-                '/projects'
+                //'/projects'
             ]
         }
     },
+    */
 
     runtimeConfig: {
         captcha: {

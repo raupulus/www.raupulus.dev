@@ -12,6 +12,12 @@ function scrollToggle(disabled) {
         document.body.classList.remove('disable-scroll');
     }
 }
+
+onNuxtReady(() => {
+    usePlatformData()
+    projectsData()
+})
+
 </script>
 
 <template>

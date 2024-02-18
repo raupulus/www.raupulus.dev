@@ -4,18 +4,14 @@ import { type MetadataType } from '@/types/MetadataType';
 import { type PaginationType } from '@/types/PaginationType';
 import { type SearchParamsType } from '@/types/SearchParamsType';
 
-const datas = ref({});
-
-const runtimeConfig = useRuntimeConfig()
-const API_BASE = runtimeConfig.public.api.base
-
-let API_URL = API_BASE + '/v1/platform/portfolio/content/type/project'
-
 type ResponseContentType = {
     pagination?: PaginationType,
     search_content?: SearchParamsType,
     contents?: ContentType[],
 }
+
+const datas = ref<ResponseContentType>({});
+//const searchParams = ref<SearchParamsType>({});
 
 function prepareData(res: ResponseContentType) {
     if (res.contents) {
@@ -49,18 +45,15 @@ function prepareDataMetadata(metadata: MetadataType) {
             if ((p === 'youtube_channel') || (p === 'youtube_video')) {
                 if (metadata[p] && counter < 4) {
 
-                    /* tslint:disable-next-line */
                     if (!results.youtube) {
                         counter++;
                     }
 
-                    /* tslint:disable-next-line */
                     results.youtube = metadata[p];
                 }
             } else if (counter < 4 && metadata[p]) {
                 counter++;
 
-                /* tslint:disable-next-line */
                 results[p] = metadata[p];
             }
         });
@@ -76,16 +69,54 @@ function prepareDataMetadata(metadata: MetadataType) {
 }
 
 export function projectsData() {
-    //const datas = ref<ProjectType | null>(null)
-    fetch(API_URL)
-        .then(response => response.json())
-        .then(res => datas.value = prepareData(res));
+    const runtimeConfig = useRuntimeConfig()
+
+    const API_BASE = runtimeConfig.public.api.base
+
+    let API_URL = API_BASE + '/v1/platform/portfolio/content/type/project'
+
+    useFetch(API_URL, {
+        onResponse({ request, response, options }) {
+            const res = prepareData(response._data)
+            datas.value = res
+
+            console.log('FETCH 2 RES', datas.value)
+        },
+        onResponseError({ request, response, options }) {
+            console.log('FETCH 2 ERROR', response, options)
+        }
+
+        /*
+        onRequest({ request, options }) {
+            // Set the request headers
+            options.headers = options.headers || {}
+            options.headers.authorization = '...'
+        },
+        onRequestError({ request, options, error }) {
+            // Handle the request errors
+        },
+        onResponse({ request, response, options }) {
+            // Process the response data
+            localStorage.setItem('token', response._data.token)
+        },
+        onResponseError({ request, response, options }) {
+            // Handle the response errors
+        }
+        */
+    })
 
     return datas
 }
 
-export function projectsDataSearch(params: string | null = null) {
-    fetch(params ? API_URL + `?search=${params.search}` : API_URL)
+export function projectsDataSearch(params: {} | null = null) {
+    const runtimeConfig = useRuntimeConfig()
+    const API_BASE = runtimeConfig.public.api.base
+    const API_URL = API_BASE + '/v1/platform/portfolio/content/type/project'
+    const URL = params ? API_URL + '?' + new URLSearchParams(params).toString() : API_URL
+
+    fetch(URL)
         .then(response => response.json())
-        .then(res => datas.value = prepareData(res));
+        .then(res => datas.value = prepareData(res))
+        .catch(err => console.log('FETCH 3', err));
+
 }
