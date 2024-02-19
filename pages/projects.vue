@@ -8,8 +8,10 @@ let platformData = getPlatformData();
 
 let searchInput = '';
 let technologySelect = '';
+let clearSelectOption = false;
 
 function btnSearch() {
+    clearSelectOption = technologySelect ? false : true;
     projectsDataSearch({
         search: searchInput,
         technology: technologySelect,
@@ -18,6 +20,8 @@ function btnSearch() {
 
 function btnClear() {
     searchInput = '';
+    technologySelect = '';
+    clearSelectOption = true;
     projectsDataSearch();
 }
 </script>
@@ -29,7 +33,7 @@ function btnClear() {
             <h2>
                 Mis
                 <span class="text-primary font-bold">
-                    F Mis Proyectos
+                    Mis Proyectos
                 </span>
             </h2>
         </div>
@@ -39,7 +43,7 @@ function btnClear() {
 
             <div class="form-select">
                 <select v-model="technologySelect" v-on:change="btnSearch">
-                    <option value="">Cualquier Tecnología</option>
+                    <option value="" :selected="clearSelectOption">Cualquier Tecnología</option>
                     <option v-for="(ele, key) in platformData?.technologies ?? []" :key="key" :value="ele.slug">
                         {{ ele.name }}
                     </option>

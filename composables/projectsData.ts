@@ -76,22 +76,17 @@ export function projectsData() {
     let API_URL = API_BASE + '/v1/platform/portfolio/content/type/project'
 
     useFetch(API_URL, {
+        lazy: true,
         onResponse({ request, response, options }) {
             const res = prepareData(response._data)
             datas.value = res
-
-            console.log('FETCH 2 RES', datas.value)
         },
         onResponseError({ request, response, options }) {
-            console.log('FETCH 2 ERROR', response, options)
+            console.log('FETCH projectsData ERROR', response, options)
         }
 
         /*
-        onRequest({ request, options }) {
-            // Set the request headers
-            options.headers = options.headers || {}
-            options.headers.authorization = '...'
-        },
+
         onRequestError({ request, options, error }) {
             // Handle the request errors
         },
@@ -114,7 +109,18 @@ export function projectsDataSearch(params: {} | null = null) {
     const API_URL = API_BASE + '/v1/platform/portfolio/content/type/project'
     const URL = params ? API_URL + '?' + new URLSearchParams(params).toString() : API_URL
 
-    fetch(URL)
+    fetch(URL, {
+        'mode': 'cors',
+        'cache': 'no-cache',
+        //'credentials': 'include',
+        'headers': {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            //'Access-Control-Allow-Origin': 'true',
+            //"Access-Control-Allow-Credentials": 'true',
+            //'X-CSRF-TOKEN': useCookie('XSRF-TOKEN').value ?? '',
+        },
+    })
         .then(response => response.json())
         .then(res => datas.value = prepareData(res))
         .catch(err => console.log('FETCH 3', err));

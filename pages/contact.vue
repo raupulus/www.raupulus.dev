@@ -1,13 +1,15 @@
 
 <script setup>
 import { useReCaptcha } from 'vue-recaptcha-v3';
-const recaptchaInstance = useReCaptcha();
-
+import fetchPost from '@/composables/fetchPostData'
 
 const runtimeConfig = useRuntimeConfig()
+
+const recaptchaInstance = useReCaptcha();
+
 //const appConfig = useAppConfig()
 //console.log(runtimeConfig.public.captcha.siteKey)
-const captchaSiteKey = runtimeConfig.public.captcha.siteKey;
+//const captchaSiteKey = runtimeConfig.public.captcha.siteKey;
 const API_BASE = runtimeConfig.public.api.base
 const API_PATH_CONTACT = runtimeConfig.public.api.contact
 
@@ -127,9 +129,11 @@ const dataForm = ref({
 /**
  * Al modificar el contenido del mensaje, comprueba su validación.
  */
+/*
 watch(dataForm.value.message.value, async () => {
     checkValidations(dataForm.value.message);
 });
+*/
 
 /**
  * Devuelve si un valor cumple el patrón recibido.
@@ -222,30 +226,14 @@ const handleSubmit = async (e) => {
         captcha_token: token,
     };
 
-    const apiUrl = API_BASE + API_PATH_CONTACT;
+    const apiUrl = API_BASE + '/' + API_PATH_CONTACT;
 
-    // Enviar a la api
-    fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-    })
+
+    fetchPost(apiUrl, data)
         .then((response) => response.json())
         .then((data) => {
-
-            info.messages.success = data.messages?.success ?? [];
-
             info.messages.errors = data.messages?.errors ?? [];
-
-
-
-            console.log('Success:', data);
-
-            //TODO: recibir mensajes y ponerlos en el modal
-
-
+            info.messages.success = info.messages.errors ? [] : (data.messages?.success ?? []);
 
             // TODO: Limpiar todo el modal completado.
             info.validated = false; // Check from api
@@ -261,11 +249,8 @@ const handleSubmit = async (e) => {
             // TODO: Comprobar si vino mensaje de error desde la api o poner default.
 
 
-
         }).finally(() => {
             info.step = 3;
-
-
 
         });
 }
@@ -380,7 +365,8 @@ const showConfirmModal = async (e) => {
 
                 <div class="form-section box-input">
                     <label for="message">Mensaje</label>
-                    <span class="textarea" role="textbox" @keyup="dataForm.message.value = $event.target.innerText.trim();"
+                    <span class="textarea" role="textbox"
+                        @keyup="dataForm.message.value = $event.target.innerText.trim(); checkValidations(dataForm.message);"
                         :class="{ 'valid': dataForm.message.valid, 'invalid': dataForm.message.errors && dataForm.message.errors.length }"
                         contenteditable></span>
 
