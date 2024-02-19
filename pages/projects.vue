@@ -1,19 +1,27 @@
 <script setup>
 import { ref } from 'vue';
 import { projectsData, projectsDataSearch } from '@/composables/projectsData';
+import { getPlatformData } from '@/composables/platformData';
 
 let datas = projectsData();
+let platformData = getPlatformData();
 
 let searchInput = '';
+let technologySelect = '';
+let clearSelectOption = false;
 
 function btnSearch() {
+    clearSelectOption = technologySelect ? false : true;
     projectsDataSearch({
         search: searchInput,
+        technology: technologySelect,
     })
 }
 
 function btnClear() {
     searchInput = '';
+    technologySelect = '';
+    clearSelectOption = true;
     projectsDataSearch();
 }
 </script>
@@ -28,21 +36,17 @@ function btnClear() {
                     Mis Proyectos
                 </span>
             </h2>
-
         </div>
 
         <!-- Buscador -->
         <div class="box-search-fields text-center">
 
-            <!-- Selector de categorías -->
-            <div class="category-selector">
-                <select>
-                    <option value="0">Categoría</option>
-                    <option value="1">Categoría 1</option>
-                    <option value="2">Categoría 2</option>
-                    <option value="3">Categoría 3</option>
-                    <option value="4">Categoría 4</option>
-                    <option value="5">Categoría 5</option>
+            <div class="form-select">
+                <select v-model="technologySelect" v-on:change="btnSearch">
+                    <option value="" :selected="clearSelectOption">Cualquier Tecnología</option>
+                    <option v-for="(ele, key) in platformData?.technologies ?? []" :key="key" :value="ele.slug">
+                        {{ ele.name }}
+                    </option>
                 </select>
             </div>
 
@@ -72,7 +76,7 @@ function btnClear() {
         </div>
 
         <div class="box-grid-projects">
-            <CardProject v-for="project in datas.contents" :key="project.slug" :data="project" />
+            <CardProject v-for=" project  in  datas.contents " :key="project.slug" :data="project" />
         </div>
     </section>
 </template>
@@ -86,10 +90,11 @@ function btnClear() {
 
 .box-search-fields {}
 
-.category-selector>select {
+.form-select>select {
     margin: 0 auto 35px auto;
     width: 200px;
     padding: 0 10px;
+    cursor: pointer;
     font-size: 1rem;
     color: var(--black);
     background-color: var(--yellow);

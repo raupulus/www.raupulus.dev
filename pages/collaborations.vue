@@ -1,7 +1,9 @@
 <template>
     <div>
         <h1>
-            SOY collaborations.vue
+            Collaborations
+            <br>
+            <small>Work in progress</small>
         </h1>
     </div>
 </template>

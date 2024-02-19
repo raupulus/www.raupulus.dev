@@ -1,4 +1,6 @@
 <script setup>
+import fetchCsrfToken from '@/composables/fetchPostData'
+
 
 /**
  * Deshabilita el scroll en el body
@@ -12,6 +14,19 @@ function scrollToggle(disabled) {
         document.body.classList.remove('disable-scroll');
     }
 }
+
+onNuxtReady(() => {
+
+    /*
+    if (!useCookie('XSRF-TOKEN').value) {
+        fetchCsrfToken()
+    }
+    */
+
+    usePlatformData()
+    //projectsData()
+})
+
 </script>
 
 <template>

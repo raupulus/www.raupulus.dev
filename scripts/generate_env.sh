@@ -27,7 +27,7 @@ if [[ $(whoami) = 'root' ]]; then
 fi
 
 ## En caso de no encontrar archivos esenciales para la ejcución se aborta.
-if [[ ! -f "${WORKSCRIPT}/.env.example.production" ]] ||
+if [[ ! -f "${WORKSCRIPT}/env.example.production" ]] ||
    [[ ! -d "${WORKSCRIPT}/scripts" ]] ||
    [[ ! -f "${WORKSCRIPT}/scripts/functions.sh" ]]; then
     echo 'Este script solo puede ser ejecutado desde la raíz del proyecto.'
@@ -47,7 +47,7 @@ source "${WORKSCRIPT}/scripts/functions.sh"
 ################ Comienza el flujo de generar .env ################
 
 ## Creo el archivo .env a partir del archivo con parámetros predefinidos.
-cp "${WORKSCRIPT}/.env.example.production" "${WORKSCRIPT}/.env"
+cp "${WORKSCRIPT}/env.example.production" "${WORKSCRIPT}/.env"
 
 ## General
 replace_or_add_var_in_file "${WORKSCRIPT}/.env" 'APP_NAME' "${APP_NAME}"

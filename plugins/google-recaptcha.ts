@@ -11,6 +11,5 @@ export default defineNuxtPlugin((nuxtApp) => {
                 badge: 'bottomleft',
             },
         },
-
     });
 });
