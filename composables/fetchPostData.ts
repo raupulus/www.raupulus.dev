@@ -7,7 +7,7 @@ export async function fetchCsrfToken() {
   return await fetch(API_BASE + '/v1/auth/csrf-cookie', {
     //'mode': 'cors',
     'cache': 'no-cache',
-    'credentials': 'include',
+    //'credentials': 'include',
     'headers': {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
