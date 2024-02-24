@@ -33,6 +33,7 @@ export default defineNuxtConfig({
                 localeAlternate: process.env.APP_LOCALE_ALTERNATE,
             },
             api: {
+                domain: process.env.API_DOMAIN_URL,
                 base: process.env.API_BASE_URL,
                 contact: process.env.API_PATH_CONTACT,
             },

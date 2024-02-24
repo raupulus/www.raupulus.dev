@@ -56,6 +56,7 @@ replace_or_add_var_in_file "${WORKSCRIPT}/.env" 'APP_URL' "${APP_URL}"
 replace_or_add_var_in_file "${WORKSCRIPT}/.env" 'APP_DESCRIPTION' "${APP_DESCRIPTION}"
 replace_or_add_var_in_file "${WORKSCRIPT}/.env" 'APP_LOCALE' "${APP_LOCALE}"
 replace_or_add_var_in_file "${WORKSCRIPT}/.env" 'APP_LOCALE_ALTERNATE' "${APP_LOCALE_ALTERNATE}"
+replace_or_add_var_in_file "${WORKSCRIPT}/.env" 'API_DOMAIN_URL' "${API_DOMAIN_URL}"
 replace_or_add_var_in_file "${WORKSCRIPT}/.env" 'API_BASE_URL' "${API_BASE_URL}"
 replace_or_add_var_in_file "${WORKSCRIPT}/.env" 'API_PATH_CONTACT' "${API_PATH_CONTACT}"
 
