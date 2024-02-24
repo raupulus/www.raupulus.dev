@@ -73,7 +73,7 @@ export function projectsData() {
 
     const API_BASE = runtimeConfig.public.api.base
 
-    let API_URL = API_BASE + '/v1/platform/portfolio/content/type/project'
+    let API_URL = API_BASE + '/platform/portfolio/content/type/project'
 
     useFetch(API_URL, {
         lazy: true,
@@ -106,7 +106,7 @@ export function projectsData() {
 export function projectsDataSearch(params: {} | null = null) {
     const runtimeConfig = useRuntimeConfig()
     const API_BASE = runtimeConfig.public.api.base
-    const API_URL = API_BASE + '/v1/platform/portfolio/content/type/project'
+    const API_URL = API_BASE + '/platform/portfolio/content/type/project'
     const URL = params ? API_URL + '?' + new URLSearchParams(params).toString() : API_URL
 
     fetch(URL, {
@@ -118,7 +118,7 @@ export function projectsDataSearch(params: {} | null = null) {
             'Content-Type': 'application/json',
             //'Access-Control-Allow-Origin': 'true',
             //"Access-Control-Allow-Credentials": 'true',
-            //'X-CSRF-TOKEN': useCookie('XSRF-TOKEN').value ?? '',
+            //'X-XSRF-TOKEN': useCookie('XSRF-TOKEN').value ?? '',
         },
     })
         .then(response => response.json())

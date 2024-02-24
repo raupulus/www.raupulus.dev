@@ -6,7 +6,7 @@ async function getPlatformInfo() {
   const runtimeConfig = useRuntimeConfig()
   const API_BASE = runtimeConfig.public.api.base
 
-  fetch(API_BASE + '/v1/platform/portfolio/info')
+  fetch(API_BASE + '/platform/portfolio/info')
     .then(res => res.json())
     .then(all => platformData.value = all.data)
     .catch(err => console.log('FETCH 1', err));
