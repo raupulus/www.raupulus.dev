@@ -5,9 +5,9 @@ export async function fetchCsrfToken() {
   const API_BASE = runtimeConfig.public.api.base
 
   return await fetch(API_BASE + '/auth/csrf-cookie', {
-    //'mode': 'cors',
-    //'cache': 'no-cache',
-    //'credentials': 'include',
+    'mode': 'cors',
+    'cache': 'no-cache',
+    'credentials': 'include',
     'headers': {
       'Accept': 'application/json',
       //'Content-Type': 'application/json',

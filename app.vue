@@ -24,7 +24,7 @@ onNuxtReady(() => {
     */
 
     usePlatformData()
-    //projectsData()
+    projectsData()
 })
 
 </script>
