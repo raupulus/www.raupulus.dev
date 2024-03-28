@@ -20,7 +20,7 @@ const props = defineProps({
 
 <template>
   <div class="form-select">
-    <select :name="name" v-on:change="() => console.log('CAMBIA')">
+    <select :name="name" v-on:change="() => console.log('CAMBIA Select en componente FormSelect')">
       <option v-for="(ele, key) in datas" :key="key" :value="ele.slug">
         {{ ele.name }}
       </option>

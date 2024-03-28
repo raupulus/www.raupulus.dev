@@ -7,23 +7,38 @@ let datas = projectsData();
 let platformData = getPlatformData();
 
 let searchInput = '';
-let technologySelect = '';
+let technologySelect = ref('');
 let clearSelectOption = false;
 
 function btnSearch() {
-    clearSelectOption = technologySelect ? false : true;
+    clearSelectOption = technologySelect.value ? false : true;
     projectsDataSearch({
         search: searchInput,
-        technology: technologySelect,
+        technology: technologySelect.value,
     })
 }
 
 function btnClear() {
     searchInput = '';
-    technologySelect = '';
+    technologySelect.value = '';
     clearSelectOption = true;
     projectsDataSearch();
 }
+
+
+function handleClickTechnology(params) {
+    technologySelect.value = params.technologySelect;
+
+    clearSelectOption = technologySelect.value ? false : true;
+
+    projectsDataSearch({
+        search: searchInput,
+        technology: technologySelect.value,
+    })
+}
+
+
+
 </script>
 
 <template>
@@ -41,6 +56,10 @@ function btnClear() {
         <!-- Buscador -->
         <div class="box-search-fields text-center">
 
+            <GridTechnologies :technologies="platformData?.technologies" @clickTechnologySelect="handleClickTechnology"
+                :technologySelect="technologySelect" />
+
+            <!--
             <div class="form-select">
                 <select v-model="technologySelect" v-on:change="btnSearch">
                     <option value="" :selected="clearSelectOption">Cualquier Tecnología</option>
@@ -48,6 +67,15 @@ function btnClear() {
                         {{ ele.name }}
                     </option>
                 </select>
+            </div>
+            -->
+
+
+            <div v-if="technologySelect">
+                Buscar con la tecnología
+                <span style="font-weight: bold; font-size: 1.3rem; color: #ff0000;">
+                    "{{ getTechnologyBySlug(technologySelect)?.name }}"
+                </span>
             </div>
 
             <!-- Input de búsqueda -->
