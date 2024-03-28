@@ -14,6 +14,11 @@ const props = defineProps({
         type: String,
         required: false,
         default: 'inline-block'
+    },
+    title: {
+        type: String,
+        required: false,
+        default: 'Enlace'
     }
 })
 </script>

@@ -9,12 +9,17 @@ const props = defineProps({
         type: Number,
         required: false,
         default: 24
+    },
+    title: {
+        type: String,
+        required: false,
+        default: 'Enlace a Mastodon'
     }
 })
 </script>
 
 <template>
-    <IconsGeneric :url="url">
+    <IconsGeneric :url="url" :title="title">
         <svg viewBox="0 0 256 256" :width="size" xmlns="http://www.w3.org/2000/svg">
             <g transform="matrix(1.0681614,0,0,1.0739636,-14.012468,-3.4085756)" style="fill:#6b21a8;fill-opacity:1">
                 <g style="fill:#6b21a8;fill-opacity:1" />

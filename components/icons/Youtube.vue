@@ -9,12 +9,17 @@ const props = defineProps({
         type: Number,
         required: false,
         default: 24
+    },
+    title: {
+        type: String,
+        required: false,
+        default: 'Enlace a Youtube'
     }
 })
 </script>
 
 <template>
-    <IconsGeneric :url="url">
+    <IconsGeneric :url="url" :title="title">
         <svg :width="size" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
 
             <g style="fill:#2563eb;fill-opacity:1">

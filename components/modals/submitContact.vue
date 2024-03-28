@@ -94,7 +94,7 @@ const props = defineProps({
             <div class="box-submitted" v-if="step === 3">
                 <div class="submitted-title">
                     Email
-                    {{ messages.success.length ? 'Enviado' : 'No enviado' }}
+                    {{ !messages.errors.length && messages.success.length ? 'Enviado' : 'No enviado' }}
                 </div>
 
                 <!-- Mensaje Enviado -->
@@ -104,12 +104,26 @@ const props = defineProps({
 
                 <!-- Mensaje No enviado -->
                 <div class="submitted-info" v-if="messages.errors.length">
-                    <p v-for="err in messages.errors">
-                        {{ err }}
-                    </p>
+                    <div>HAY ERRORES</div>
+
+                    <div v-if="messages.errors.captcha && messages.errors.captcha.length"
+                        v-for="err in messages.errors.captcha">
+                        <p>
+                            {{ err }}
+                        </p>
+                    </div>
+
+                    <div v-if="messages.errors.testeando && messages.errors.testeando.length"
+                        v-for="err in messages.errors.testeando">
+                        <p>
+                            {{ err }}
+                        </p>
+                    </div>
                 </div>
 
                 <div class="submitted-info" v-if="messages.success.length">
+                    <div>HAY SUCCESS</div>
+
                     <p v-for="suc in messages.success">
                         {{ suc }}
                     </p>

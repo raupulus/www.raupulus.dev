@@ -9,12 +9,17 @@ const props = defineProps({
         type: Number,
         required: false,
         default: 24
+    },
+    title: {
+        type: String,
+        required: false,
+        default: 'Enlace a repositorio GitLab'
     }
 })
 </script>
 
 <template>
-    <IconsGeneric :url="url">
+    <IconsGeneric :url="url" :title="title">
         <svg :width="size" viewBox="0 0 70 70" xmlns="http://www.w3.org/2000/svg">
             <path d="M34.7384 64L47.5311 24.6284H21.9455L34.7384 64Z" fill="#E24329" />
             <path d="M34.7384 63.9997L21.9455 24.6282H4.01711L34.7384 63.9997Z" fill="#FC6D26" />

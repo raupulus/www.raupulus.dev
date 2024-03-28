@@ -33,7 +33,7 @@ function btnClear() {
             <h2>
                 Mis
                 <span class="text-primary font-bold">
-                    Mis Proyectos
+                    Proyectos
                 </span>
             </h2>
         </div>
@@ -76,7 +76,16 @@ function btnClear() {
         </div>
 
         <div class="box-grid-projects">
+
+            <CardProjectHorizontal v-for="project  in  datas.contents " :key="project.slug" :data="project" />
+
+            <!--
+            <CardProjectVertical v-for=" project  in  datas.contents " :key="project.slug" :data="project" />
+            -->
+
+            <!--
             <CardProject v-for=" project  in  datas.contents " :key="project.slug" :data="project" />
+            -->
         </div>
     </section>
 </template>
@@ -159,8 +168,9 @@ function btnClear() {
     margin: 0;
     padding: 0;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    grid-gap: 20px;
+    /*grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); */
+    grid-template-columns: 1fr;
+    grid-gap: 0.6rem;
     grid-template-rows: 1fr;
     align-items: top;
     box-sizing: border-box;

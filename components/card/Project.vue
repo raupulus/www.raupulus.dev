@@ -1,4 +1,3 @@
-import { IconsGeneric, IconsTelegram } from '../../.nuxt/components';
 <script setup>
 const props = defineProps({
 
@@ -27,7 +26,7 @@ const componentNames = {
     <div class="box-project">
         <div class="box-card">
             <div class="box-img">
-                <img :src="data.urlImageMedium" :alt="data.title">
+                <img :src="data.urlImageMedium" :alt="data.title" />
                 {{ data.urlImageMedium }}
             </div>
 
@@ -65,17 +64,6 @@ const componentNames = {
 
                 <IconsTwitch v-if="key === 'twitch'" :margin="0" :url="data.metadata.twitch" display="block" />
             </div>
-
-
-
-
-
-
-
-
-
-
-
 
         </div>
     </div>

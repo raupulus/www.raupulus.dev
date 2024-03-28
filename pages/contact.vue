@@ -53,7 +53,7 @@ const recaptcha = async () => {
 
 const dataForm = ref({
     name: {
-        value: '',
+        value: 'adfsasdfasdfasdfasdfasd',
         valid: null,
         validations: {
             minLength: {
@@ -67,7 +67,7 @@ const dataForm = ref({
         },
     },
     email: {
-        value: '',
+        value: 'asdfasdfasdf@dsfsdf.es',
         valid: null,
         validations: {
             minLength: {
@@ -86,7 +86,7 @@ const dataForm = ref({
         },
     },
     subject: {
-        value: '',
+        value: 'asdfasdfas dfasdf asdf asd fasdf asdf asdf asdf asdf',
         valid: null,
         validations: {
             minLength: {
@@ -100,7 +100,7 @@ const dataForm = ref({
         },
     },
     message: {
-        value: '',
+        value: 'asdf asdf asdf asd fasdf asd fasdf asdf asdf asd fasdf asdf asd fasd fasd fas dfasd fasd fas',
         valid: null,
         validations: {
             minLength: {
@@ -206,10 +206,10 @@ const handleSubmit = async (e) => {
     const token = await recaptcha();
 
     if (!token) {
-        console.log(captchaClient)
-        console.log('NO VALIDA EL CAPTCHA')
+        //console.log(captchaClient)
+        //console.log('NO VALIDA EL CAPTCHA')
 
-        // Ir al step 3 e informar del problema con captcha
+        // TODO: Ir al step 3 e informar del problema con captcha
         return;
     }
 
@@ -247,6 +247,8 @@ const handleSubmit = async (e) => {
             info.submitted = false;
 
             // TODO: Comprobar si vino mensaje de error desde la api o poner default.
+
+            info.messages.errors.push = ['Error desconocido'];
 
 
         }).finally(() => {

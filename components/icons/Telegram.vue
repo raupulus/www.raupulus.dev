@@ -9,12 +9,17 @@ const props = defineProps({
         type: Number,
         required: false,
         default: 24
+    },
+    title: {
+        type: String,
+        required: false,
+        default: 'Enlace a Telegram'
     }
 })
 </script>
 
 <template>
-    <IconsGeneric :url="url">
+    <IconsGeneric :url="url" :title="title">
         <svg :width="size" viewBox="0 0 26.256308 26.256308" xmlns="http://www.w3.org/2000/svg">
             <g transform="translate(-0.10883107,-0.17239785)">
                 <g transform="matrix(0.21875647,0,0,0.21875647,-0.20341281,-0.13984604)">
