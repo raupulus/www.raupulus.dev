@@ -7,8 +7,18 @@ let datas = projectsData();
 let platformData = getPlatformData();
 
 let searchInput = '';
-let technologySelect = ref('');
 let clearSelectOption = false;
+const technologySelect = ref(''); // Slug de la tecnología actual
+const currentTechnology = ref(null); // Tecnología actual
+
+/*
+ * Cuando cambia el slug de tecnología se actualiza la tecnología.
+ */
+watch(technologySelect, (currentSlug, previousSlug) => {
+    console.log(technologySelect.value)
+    currentTechnology.value = getTechnologyBySlug(currentSlug);
+    console.log(currentTechnology.value);
+})
 
 function btnSearch() {
     clearSelectOption = technologySelect.value ? false : true;
@@ -55,26 +65,15 @@ function handleClickTechnology(params) {
 
         <!-- Buscador -->
         <div class="box-search-fields text-center">
+            <div v-if="technologySelect && currentTechnology?.name">
+                Buscando por tecnología
 
-            <GridTechnologies :technologies="platformData?.technologies" @clickTechnologySelect="handleClickTechnology"
-                :technologySelect="technologySelect" />
+                <img v-if="currentTechnology?.urlImageSmall" class="img-technology-search"
+                    :src="currentTechnology?.urlImageSmall" :alt="currentTechnology?.name"
+                    :title="currentTechnology?.name">
 
-            <!--
-            <div class="form-select">
-                <select v-model="technologySelect" v-on:change="btnSearch">
-                    <option value="" :selected="clearSelectOption">Cualquier Tecnología</option>
-                    <option v-for="(ele, key) in platformData?.technologies ?? []" :key="key" :value="ele.slug">
-                        {{ ele.name }}
-                    </option>
-                </select>
-            </div>
-            -->
-
-
-            <div v-if="technologySelect">
-                Buscar con la tecnología
-                <span style="font-weight: bold; font-size: 1.3rem; color: #ff0000;">
-                    "{{ getTechnologyBySlug(technologySelect)?.name }}"
+                <span class="technology-select-feature" :style="'color:' + (currentTechnology?.color ?? '#E29244')">
+                    {{ currentTechnology?.name }}
                 </span>
             </div>
 
@@ -84,6 +83,9 @@ function handleClickTechnology(params) {
 
                 <span></span>
             </div>
+
+            <GridTechnologies :technologies="platformData?.technologies" @clickTechnologySelect="handleClickTechnology"
+                :technologySelect="technologySelect" />
 
             <!-- Botón de búsqueda -->
             <div>
@@ -95,26 +97,20 @@ function handleClickTechnology(params) {
 
     <section class="box-projects">
         <!-- Grid de proyectos -->
-        <div>
+        <div class="projects-content-resume">
+            <img v-if="currentTechnology?.urlImageSmall" class="img-technology-search"
+                :src="currentTechnology?.urlImageSmall" :alt="currentTechnology?.name" :title="currentTechnology?.name">
+
             {{ datas.pagination?.totalElements ? 'Hay ' + datas.pagination.totalElements + ' proyectos' : '' }}
         </div>
 
+        <!--
         <div>
             {{ 'Mostrando ' + (datas.contents?.length ?? 0) + ' Proyectos' }}
         </div>
+        -->
 
-        <div class="box-grid-projects">
-
-            <CardProjectHorizontal v-for="project  in  datas.contents " :key="project.slug" :data="project" />
-
-            <!--
-            <CardProjectVertical v-for=" project  in  datas.contents " :key="project.slug" :data="project" />
-            -->
-
-            <!--
-            <CardProject v-for=" project  in  datas.contents " :key="project.slug" :data="project" />
-            -->
-        </div>
+        <GridProjects :projects="datas.contents" />
     </section>
 </template>
 
@@ -127,20 +123,22 @@ function handleClickTechnology(params) {
 
 .box-search-fields {}
 
-.form-select>select {
-    margin: 0 auto 35px auto;
-    width: 200px;
-    padding: 0 10px;
-    cursor: pointer;
-    font-size: 1rem;
-    color: var(--black);
-    background-color: var(--yellow);
-    border: none;
-    border-radius: 50px;
+.img-technology-search {
+    margin-left: 2px;
+    margin-right: 1px;
+    width: 17px;
+    height: 17px;
+    translate: 0 3px;
+}
+
+.technology-select-feature {
+    font-weight: bold;
+    font-size: 1.1rem;
+    text-shadow: 1px 1px 1px #000;
 }
 
 .category-input>input {
-    margin: 0 auto 35px auto;
+    margin: 0 auto;
     padding: 10px 15px;
     width: 80%;
     max-width: 600px;
@@ -150,7 +148,7 @@ function handleClickTechnology(params) {
     color: rgba(20, 20, 20, 0.64);
     background-color: var(--gray);
     border: none;
-    border-radius: 40px;
+    border-radius: 8px;
     box-sizing: border-box;
 }
 
@@ -183,24 +181,13 @@ function handleClickTechnology(params) {
     outline: none;
 }
 
-
-
-
 /*** Proyectos ***/
 .box-projects {
     margin-top: 4rem;
     padding: 2rem 1.3rem
 }
 
-.box-grid-projects {
-    margin: 0;
-    padding: 0;
-    display: grid;
-    /*grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); */
-    grid-template-columns: 1fr;
-    grid-gap: 0.6rem;
-    grid-template-rows: 1fr;
-    align-items: top;
-    box-sizing: border-box;
+.projects-content-resume {
+    text-align: right;
 }
 </style>

@@ -36,9 +36,11 @@ const props = defineProps({
 }
 
 .box-container-technologies {
+  margin: auto;
+  max-width: 600px;
+  padding: 1.3rem;
   text-align: center;
   overflow: hidden;
-  padding: 1.3rem;
 }
 
 .box-container-technologies img {
