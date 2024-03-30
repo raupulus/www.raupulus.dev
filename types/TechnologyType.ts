@@ -1,5 +1,6 @@
 
 export type TechnologyType = {
-    name: string
-    slug: string
+    name: string,
+    slug: string,
+    urlImageSmall: string,
 }

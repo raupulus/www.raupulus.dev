@@ -27,12 +27,17 @@ const props = defineProps({
         type: String,
         required: false,
         default: 'inline-block'
+    },
+    title: {
+        type: String,
+        required: false,
+        default: 'Enlace a más información'
     }
 })
 </script>
 
 <template>
-    <IconsGeneric :url="url" v-if="show" :display="display">
+    <IconsGeneric :url="url" v-if="show" :display="display" :title="title">
         <svg :width="size" :height="size" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"
             v-if="type === 'info' || type === 'error'">
             <path
