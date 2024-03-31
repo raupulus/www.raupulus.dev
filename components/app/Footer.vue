@@ -1,3 +1,4 @@
+import { PlatformDataType } from '../../types/Platform/PlatformDataType';
 <template>
     <footer class="footer-container">
         <div class="footer-box">
@@ -102,7 +103,8 @@
                                     d="M172.517,141.7c-0.288,2.039,3.733,7.48,8.976,8.207c5.234,0.73,9.714-3.522,9.998-5.559c0.284-2.039-3.732-4.285-8.977-5.015c-5.237-0.731-9.719,0.333-9.996,2.367z">
                                 </path>
 
-                                <path style="fill:#FFFFFF;stroke-width:2.0775;stroke-linecap:butt;stroke-linejoin:miter;"
+                                <path
+                                    style="fill:#FFFFFF;stroke-width:2.0775;stroke-linecap:butt;stroke-linejoin:miter;"
                                     d="M331.941,137.543c0.284,2.039-3.732,7.48-8.976,8.207c-5.238,0.73-9.718-3.522-10.005-5.559c-0.277-2.039,3.74-4.285,8.979-5.015c5.239-0.73,9.718,0.333,10.002,2.368z">
                                 </path>
 
@@ -170,6 +172,10 @@
     </footer>
 </template>
 
+<script lang="ts" setup>
+const platformData = usePlatformData();
+
+</script>
 
 <style lang="css" scoped>
 .footer-container {

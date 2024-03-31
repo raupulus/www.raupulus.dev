@@ -13,7 +13,8 @@
 
             <div>
                 <p>
-                    Soy desarrollador web principalmente backend: php, laravel, python, bash, javascript, vuejs, postgresql
+                    Soy desarrollador web principalmente backend: php, laravel, python, bash, javascript, vuejs,
+                    postgresql
                     y mariadb aunque también he trabajado en algunos proyectos con angular, ionic, typescript, jquery,
                     bootstrap, tailwindcss y nodejs.
                 </p>
@@ -23,7 +24,8 @@
                 </p>
 
                 <p>
-                    Me gusta programar y crear contenido en mi tiempo libre, tengo varios proyectos con guías, tutoriales y
+                    Me gusta programar y crear contenido en mi tiempo libre, tengo varios proyectos con guías,
+                    tutoriales y
                     apuntes propios.
                 </p>
             </div>
@@ -110,7 +112,8 @@
                 </div>
 
                 <div class="inline-block">
-                    <img class="technolgy-element" src="@/assets/images/specializations/api-rest.webp" alt="Api Rest tag">
+                    <img class="technolgy-element" src="@/assets/images/specializations/api-rest.webp"
+                        alt="Api Rest tag">
                 </div>
 
                 <div class="inline-block">
@@ -157,8 +160,8 @@
                 </h2>
             </div>
 
-            <CardSkill title="Rápido Aprendizaje"
-                description="Capto conceptos con facilidad además de aprender de mis errores.">
+            <CardSkill title="Aprendizaje"
+                description="Formación constante y facilidad para aprender de aciertos/errores.">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
                     fill="none" stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -170,7 +173,7 @@
 
             </CardSkill>
 
-            <CardSkill title="Organización" description="Me gusta tener todo modular, comentado y ordenado.">
+            <CardSkill title="Organización" description="Estructura modular, orden y optimización.">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
                     fill="none" stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -182,7 +185,7 @@
                 </svg>
             </CardSkill>
 
-            <CardSkill title="Colaboración" description=" Me gusta trabajar en equipo y participar en las propuestas. ">
+            <CardSkill title="Colaboración" description="Trabajo en equipo y participación en propuestas.">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
                     fill="none" stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -194,13 +197,17 @@
                 </svg>
             </CardSkill>
 
-            <CardSkill title="Sistemas y Servidores" description="Conocimientos de sistemas operativos, y servidores VPS.">
+            <CardSkill title="Comprometido"
+                description="Responsable, perseverante, positivo y esfuerzo para lograr objetivos.">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
                     fill="none" stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                    <path d="M8 9l3 3l-3 3"></path>
-                    <line x1="13" y1="15" x2="16" y2="15"></line>
-                    <rect x="3" y="4" width="18" height="16" rx="2"></rect>
+                    <line x1="15" y1="5" x2="15" y2="7"></line>
+                    <line x1="15" y1="11" x2="15" y2="13"></line>
+                    <line x1="15" y1="17" x2="15" y2="19"></line>
+                    <path
+                        d="M5 5h14a2 2 0 0 1 2 2v3a2 2 0 0 0 0 4v3a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-3a2 2 0 0 0 0 -4v-3a2 2 0 0 1 2 -2">
+                    </path>
                 </svg>
             </CardSkill>
 
@@ -217,20 +224,16 @@
                 </svg>
             </CardSkill>
 
-            <CardSkill title="Comprometido"
-                description="Cuando doy mi palabra, hago todo lo posible por cumplir en lo acordado.">
+            <CardSkill title="Sistemas y Servidores"
+                description="Conocimientos de sistemas operativos, y servidores VPS.">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
                     fill="none" stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                    <line x1="15" y1="5" x2="15" y2="7"></line>
-                    <line x1="15" y1="11" x2="15" y2="13"></line>
-                    <line x1="15" y1="17" x2="15" y2="19"></line>
-                    <path
-                        d="M5 5h14a2 2 0 0 1 2 2v3a2 2 0 0 0 0 4v3a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-3a2 2 0 0 0 0 -4v-3a2 2 0 0 1 2 -2">
-                    </path>
+                    <path d="M8 9l3 3l-3 3"></path>
+                    <line x1="13" y1="15" x2="16" y2="15"></line>
+                    <rect x="3" y="4" width="18" height="16" rx="2"></rect>
                 </svg>
             </CardSkill>
-
         </div>
 
         <div class="section-separator"></div>
