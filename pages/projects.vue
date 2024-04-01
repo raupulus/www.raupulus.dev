@@ -6,6 +6,10 @@ import { getPlatformData } from '@/composables/platformData';
 let datas = projectsData();
 let platformData = getPlatformData();
 
+useHead({
+    title: 'Proyectos de Raúl Caro Pastorino',
+})
+
 let searchInput = '';
 let clearSelectOption = false;
 const technologySelect = ref(''); // Slug de la tecnología actual
@@ -89,8 +93,8 @@ function handleClickTechnology(params) {
 
             <!-- Botón de búsqueda -->
             <div>
-                <BtnGeneric text="Buscar" :callback="btnSearch" />
-                <BtnGeneric text="Limpiar" :callback="btnClear" />
+                <BtnGeneric text="Buscar" :callback="btnSearch" title="Buscar Proyectos" />
+                <BtnGeneric text="Limpiar" :callback="btnClear" title="Limpiar Filtro" />
             </div>
         </div>
     </section>

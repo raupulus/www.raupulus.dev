@@ -40,30 +40,37 @@ const buttons = [
     {
         text: 'Home',
         to: '/',
+        title: 'Página principal del Portfolio',
     },
     {
         text: 'Projects',
         to: '/projects',
+        title: 'Mis proyectos',
     },
     {
         text: 'About',
         to: '/about',
+        title: 'Información sobre Mi',
     },
     {
         text: 'Collaborations',
         to: '/collaborations',
+        title: 'Proyectos en los que he colaborado',
     },
     {
         text: 'Services',
         to: '/services',
+        title: 'Servicios que ofrezco',
     },
     {
         text: 'Contact',
         to: '/contact',
+        title: 'Contáctame',
     },
     {
         text: 'Blog',
         to: '/blog',
+        title: 'Mi blog'
     },
 ]
 
@@ -94,13 +101,13 @@ const buttons = [
                 <div class="box-desktop-menu">
                     <div class="inline-block">
                         <template v-for="button in buttons.slice(0, 4)" class="inline-block">
-                            <BtnGeneric :menu="true" :to="button.to" :text="button.text" />
+                            <BtnGeneric :menu="true" :to="button.to" :text="button.text" :title="button.title" />
                         </template>
                     </div>
 
                     <div class="inline-block">
                         <template v-for="button in buttons.slice(4, 7)" class="inline-block">
-                            <BtnGeneric :menu="true" :to="button.to" :text="button.text" />
+                            <BtnGeneric :menu="true" :to="button.to" :text="button.text" :title="button.title" />
                         </template>
                     </div>
                 </div>
@@ -124,7 +131,8 @@ const buttons = [
                             xmlns="http://www.w3.org/2000/svg">
                             <circle cx="4.23" cy="4.23" r="4.23" fill="#3272b8" stroke-width=".0141" />
                             <g transform="matrix(.56 0 0 .56 1.9 1.9)" fill="#fff" stroke-width=".0168">
-                                <rect transform="rotate(49.8)" x="1.28" y="-.991" width="9.24" height=".988" ry=".494" />
+                                <rect transform="rotate(49.8)" x="1.28" y="-.991" width="9.24" height=".988"
+                                    ry=".494" />
                                 <rect transform="matrix(-.645 .764 .764 .645 0 0)" x="-4.11" y="5.47" width="9.24"
                                     height=".988" ry=".494" />
                             </g>
@@ -133,7 +141,8 @@ const buttons = [
 
                     <div class="box-responsive-menu-active" v-if="responsiveMenuActive">
                         <div v-for="button in buttons">
-                            <BtnGeneric :menu="true" @click="toggleMenu" width="80%" :to="button.to" :text="button.text" />
+                            <BtnGeneric :menu="true" @click="toggleMenu" width="80%" :to="button.to"
+                                :title="button.title" :text="button.text" />
                         </div>
                     </div>
 

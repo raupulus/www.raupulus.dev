@@ -74,7 +74,7 @@ const props = defineProps({
     width: 100%;
     height: 45%;
     color: var(--white);
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.5);
     text-align: left;
 }
 

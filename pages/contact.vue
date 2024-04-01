@@ -1,4 +1,3 @@
-
 <script setup>
 import { useReCaptcha } from 'vue-recaptcha-v3';
 import fetchPost from '@/composables/fetchPostData'
@@ -12,6 +11,10 @@ const recaptchaInstance = useReCaptcha();
 //const captchaSiteKey = runtimeConfig.public.captcha.siteKey;
 const API_BASE = runtimeConfig.public.api.base
 const API_PATH_CONTACT = runtimeConfig.public.api.contact
+
+useHead({
+    title: 'Contactar con Raúl Caro Pastorino',
+})
 
 const stepsInfo = ref({
     step: 1,
@@ -321,7 +324,8 @@ const showConfirmModal = async (e) => {
                 <div class="form-section two-columns">
                     <div class="box-input">
                         <label for="name">Nombre</label>
-                        <input type="text" id="name" @keyup="checkValidationsFromEvent" v-model.trim="dataForm.name.value"
+                        <input type="text" id="name" @keyup="checkValidationsFromEvent"
+                            v-model.trim="dataForm.name.value"
                             :class="{ 'valid': dataForm.name.valid, 'invalid': dataForm.name.errors && dataForm.name.errors.length }"
                             name="name" />
 
@@ -384,8 +388,8 @@ const showConfirmModal = async (e) => {
 
         <div class="box-actions">
             <div class="form-section">
-                <input type="checkbox" id="privacity" @change="checkValidationsFromEvent" v-model="dataForm.privacity.value"
-                    name="privacity" />
+                <input type="checkbox" id="privacity" @change="checkValidationsFromEvent"
+                    v-model="dataForm.privacity.value" name="privacity" />
                 <label for="privacity">
                     <span class="inline-block">
                         Acepta recibir correos
@@ -406,7 +410,7 @@ const showConfirmModal = async (e) => {
                 </span>
             </div>
 
-            <BtnGeneric text="Enviar Mensaje" @click="showConfirmModal" />
+            <BtnGeneric text="Enviar Mensaje" @click="showConfirmModal" title="Enviar Mensaje" />
 
         </div>
     </section>

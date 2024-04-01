@@ -1,10 +1,13 @@
-
 <script>
 export default defineComponent({
     props: {
         text: {
             type: String,
             default: 'Generic Button'
+        },
+        title: {
+            type: String,
+            required: true
         },
         to: {
             type: String,
@@ -50,7 +53,7 @@ export default defineComponent({
 
 <template>
     <span v-if="to" class="box-button">
-        <NuxtLink :to="to">
+        <NuxtLink :to="to" :title="title">
             <span :class="allClass">
                 <slot name="before" />
 

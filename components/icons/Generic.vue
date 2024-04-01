@@ -30,7 +30,7 @@ const props = defineProps({
 
 <template>
     <span class="box-icon">
-        <a v-if="url" :href="url" target="_blank" :class="grayscale ? 'icon-grayscale' : ''">
+        <a v-if="url" :href="url" :title="title" target="_blank" :class="grayscale ? 'icon-grayscale' : ''">
             <slot />
         </a>
 

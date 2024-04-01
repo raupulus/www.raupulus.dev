@@ -124,34 +124,41 @@ import { PlatformDataType } from '../../types/Platform/PlatformDataType';
                 </div>
 
                 <div>
-                    <div>
-                        Mis Plataformas
-                    </div>
-
                     <p>
-                        My Api
+                        <a href="https://api.fryntiz.dev" target="_blank" title="Enlace a mi api"
+                            class="footer-btn-link">
+                            My Api
+                        </a>
                     </p>
 
                     <p>
-                        Curriculum
+                        <a href="https://curriculum.raupulus.dev" target="_blank" title="Enlace a mi curriculum vitae"
+                            class="footer-btn-link">
+                            Curriculum Vitae
+                        </a>
                     </p>
 
                     <p>
-                        La Guía Linux
+                        <a href="https://laguialinux.es" target="_blank"
+                            title="Enlace a mi sitio web con guías para linux y software libre" class="footer-btn-link">
+                            La Guía Linux
+                        </a>
                     </p>
                 </div>
 
                 <div>
-                    <div>
-                        Recursos
-                    </div>
-
                     <p>
-                        GitLab
+                        <a href="https://gitlab.com/raupulus/www.raupulus.dev.git" target="_blank"
+                            title="Enlace a repositorio de código para esta web en gitlab" class="footer-btn-link">
+                            Código en GitLab
+                        </a>
                     </p>
 
                     <p>
-                        GitHub
+                        <a href="https://github.com/raupulus/www.raupulus.dev.git" target="_blank"
+                            title="Enlace a repositorio de código para esta web en github" class="footer-btn-link">
+                            Código en GitHub
+                        </a>
                     </p>
                 </div>
             </div>
@@ -164,7 +171,9 @@ import { PlatformDataType } from '../../types/Platform/PlatformDataType';
                 </div>
 
                 <div>
-                    <BtnGeneric text="Explorar" />
+                    <BtnGeneric text="Explorar"
+                        title="Enlace a mi blog personal sobre programación, software libre, tecnología, IOT y también inteligencia artificial"
+                        to="https://blog.raupulus.dev" />
                 </div>
             </div>
         </div>
@@ -173,7 +182,7 @@ import { PlatformDataType } from '../../types/Platform/PlatformDataType';
 </template>
 
 <script lang="ts" setup>
-const platformData = usePlatformData();
+//const platformData = usePlatformData();
 
 </script>
 
@@ -213,6 +222,13 @@ const platformData = usePlatformData();
 .footer-box-right {
     text-align: center;
     align-self: center;
+}
+
+.footer-btn-link {
+    color: #E6E6E6;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-decoration: none;
 }
 
 @media (max-width: 678px) {

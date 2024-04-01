@@ -41,9 +41,7 @@ const services = [
                 </div>
 
                 <div>
-                    <a :href="service.url" target="_blank">
-                        <BtnGeneric text="Ir" />
-                    </a>
+                    <BtnGeneric text="Ir" :title="service.title" :to="service.url" />
                 </div>
 
             </div>

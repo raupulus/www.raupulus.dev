@@ -1,9 +1,15 @@
+<script lang="ts" setup>
+useHead({
+    title: 'Información Sobre Raúl Caro Pastorino',
+})
+</script>
+
 <template>
     <section>
         <div>
             <h2 class="text-center">
                 Sobre
-                <span>
+                <span class="text-primary font-bold">
                     Mi
                 </span>
             </h2>
@@ -14,31 +20,68 @@
 
                 <div class="box-text">
                     <p>
-                        Hola, soy Raúl Caro Pastorino, apasionado por el software y el hardware.
+                        Soy un desarrollador backend con amplia experiencia en PHP y Laravel.
                     </p>
 
                     <p>
-                        La tecnología está presente en mi vida desde que tengo uso de razón, tuve mi primer contacto apenas
-                        aprendiendo a leer ya que en casa tuvimos la suerte de tener ordenador desde bastante pequeño.
+                        A lo largo de mi carrera
+                        he trabajado en una variedad de proyectos, desde pequeños sitios web hasta grandes aplicaciones
+                        empresariales.
                     </p>
 
                     <p>
-                        Este es mi portal de presentación donde enlazo a mis contenidos, trabajos y colaboraciones.
+                        Tengo un profundo
+                        conocimiento con el stack sobre linux en paneles de gestión,
+                        stockage de productos, apis, bases de datos, optimización de rendimiento, servidores vps,
+                        sistemas de caché...
                     </p>
 
                     <p>
-                        Actualmente me encuentro terminando de formarme mientras pongo en práctica todo lo que voy
-                        aprendiendo
-                        en
-                        pequeños trabajos y proyectos propios y con otras personas que tienen los mismos objetivos.
+                        En este portfolio/portal, encontrará una selección de mis proyectos más recientes que puedo
+                        publicar
+                        (muchos elaborados para empresas privadas o junto a otros freelances no puedo publicarlos o
+                        adjuntarlos por contrato), así como mi
+                        currículum vitae y mis datos de contacto.
                     </p>
+
+                    <p>
+                        Le invito a explorar mi trabajo y a ponerse en
+                        contacto conmigo si tiene alguna pregunta o si desea discutir un posible proyecto.
+                    </p>
+
+                    <p>
+                        Mis habilidades clave incluyen:
+                    </p>
+
+                    <ul>
+                        <li>Desarrollo backend principalmente con PHP, Laravel, javascript, vuejs</li>
+                        <li>Creación de APIs</li>
+                        <li>Gestión de bases de datos MySQL y PostgreSQL</li>
+                        <li>Optimización del rendimiento</li>
+                        <li>Implementación de prácticas de seguridad</li>
+                        <li>Trabajo en equipo y comunicación</li>
+                    </ul>
+
+                    <p>
+                        Estoy apasionado por:
+                    </p>
+
+                    <ul>
+                        <li>Crear aplicaciones web robustas y escalables</li>
+                        <li>Aprender nuevas tecnologías</li>
+                        <li>Resolver problemas complejos</li>
+                        <li>Ayudar a otros a tener éxito</li>
+                        <li>La experiencia de trabajar y compartir proyecto con otros desarrolladores</li>
+                        <li>Inteligencia Artificial</li>
+                        <li>IOT (Internet de las cosas)</li>
+                        <li>Automatizaciones</li>
+                    </ul>
                 </div>
 
                 <div class="box-buttons">
-                    <BtnGeneric to="https://curriculum.raupulus.dev" text="Curriculum Vitae" />
+                    <BtnGeneric to="https://curriculum.raupulus.dev" text="Curriculum Vitae"
+                        title="Enlace a mi Curriculum Vitae" />
                 </div>
-
-
             </div>
 
             <div class="box-image">
