@@ -1,3 +1,4 @@
+import { PlatformDataType } from '../../types/Platform/PlatformDataType';
 <template>
     <footer class="footer-container">
         <div class="footer-box">
@@ -102,7 +103,8 @@
                                     d="M172.517,141.7c-0.288,2.039,3.733,7.48,8.976,8.207c5.234,0.73,9.714-3.522,9.998-5.559c0.284-2.039-3.732-4.285-8.977-5.015c-5.237-0.731-9.719,0.333-9.996,2.367z">
                                 </path>
 
-                                <path style="fill:#FFFFFF;stroke-width:2.0775;stroke-linecap:butt;stroke-linejoin:miter;"
+                                <path
+                                    style="fill:#FFFFFF;stroke-width:2.0775;stroke-linecap:butt;stroke-linejoin:miter;"
                                     d="M331.941,137.543c0.284,2.039-3.732,7.48-8.976,8.207c-5.238,0.73-9.718-3.522-10.005-5.559c-0.277-2.039,3.74-4.285,8.979-5.015c5.239-0.73,9.718,0.333,10.002,2.368z">
                                 </path>
 
@@ -122,34 +124,41 @@
                 </div>
 
                 <div>
-                    <div>
-                        Mis Plataformas
-                    </div>
-
                     <p>
-                        My Api
+                        <a href="https://api.fryntiz.dev" target="_blank" title="Enlace a mi api"
+                            class="footer-btn-link">
+                            My Api
+                        </a>
                     </p>
 
                     <p>
-                        Curriculum
+                        <a href="https://curriculum.raupulus.dev" target="_blank" title="Enlace a mi curriculum vitae"
+                            class="footer-btn-link">
+                            Curriculum Vitae
+                        </a>
                     </p>
 
                     <p>
-                        La Guía Linux
+                        <a href="https://laguialinux.es" target="_blank"
+                            title="Enlace a mi sitio web con guías para linux y software libre" class="footer-btn-link">
+                            La Guía Linux
+                        </a>
                     </p>
                 </div>
 
                 <div>
-                    <div>
-                        Recursos
-                    </div>
-
                     <p>
-                        GitLab
+                        <a href="https://gitlab.com/raupulus/www.raupulus.dev.git" target="_blank"
+                            title="Enlace a repositorio de código para esta web en gitlab" class="footer-btn-link">
+                            Código en GitLab
+                        </a>
                     </p>
 
                     <p>
-                        GitHub
+                        <a href="https://github.com/raupulus/www.raupulus.dev.git" target="_blank"
+                            title="Enlace a repositorio de código para esta web en github" class="footer-btn-link">
+                            Código en GitHub
+                        </a>
                     </p>
                 </div>
             </div>
@@ -162,7 +171,9 @@
                 </div>
 
                 <div>
-                    <BtnGeneric text="Explorar" />
+                    <BtnGeneric text="Explorar"
+                        title="Enlace a mi blog personal sobre programación, software libre, tecnología, IOT y también inteligencia artificial"
+                        to="https://blog.raupulus.dev" />
                 </div>
             </div>
         </div>
@@ -170,6 +181,10 @@
     </footer>
 </template>
 
+<script lang="ts" setup>
+//const platformData = usePlatformData();
+
+</script>
 
 <style lang="css" scoped>
 .footer-container {
@@ -207,6 +222,13 @@
 .footer-box-right {
     text-align: center;
     align-self: center;
+}
+
+.footer-btn-link {
+    color: #E6E6E6;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-decoration: none;
 }
 
 @media (max-width: 678px) {

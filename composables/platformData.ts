@@ -1,4 +1,4 @@
-import { type PlatformDataType } from "@/types/Platform/PlatformDataType";
+import type { PlatformDataType } from "@/types/Platform/PlatformDataType";
 
 const platformData = ref<PlatformDataType>();
 
