@@ -73,40 +73,6 @@
         </div>
     </section>
 
-    <!-- Especializaciones -->
-    <section class="mt-2">
-        <div class="block text-center">
-            <div>
-                <h2 class="text-center">
-                    Especializaciones
-                </h2>
-            </div>
-
-            <div>
-                <div class="inline-block">
-                    <img class="technolgy-element" src="@/assets/images/specializations/web-developer.webp"
-                        alt="Desarrollador Web">
-                </div>
-
-                <div class="inline-block">
-                    <img class="technolgy-element" src="@/assets/images/specializations/api-rest.webp"
-                        alt="Api Rest tag">
-                </div>
-
-                <div class="inline-block">
-                    <img class="technolgy-element" src="@/assets/images/specializations/backend-developer.webp"
-                        alt="Backend Developer tag">
-                </div>
-
-                <div class="inline-block">
-                    <img class="technolgy-element" src="@/assets/images/technologies/linux.webp" alt="Linux tag">
-                </div>
-            </div>
-        </div>
-
-        <div class="section-separator"></div>
-    </section>
-
     <!-- Tecnologías -->
     <section class="mt-2">
         <div class="block text-center">
@@ -127,83 +93,84 @@
                         alt="Framework Laravel" />
                 </StackBadgeHexagon>
 
-                <StackBadgeHexagon text="Vue" color="#2f3239" colorLight="#454850">
-                    <img src="@/assets/images/technologies/vuejs_60x60.webp" title="Framework VueJs"
-                        alt="Framework VueJs" />
-                </StackBadgeHexagon>
+                <div class="inline-block">
+                    <StackBadgeHexagon text="Vue" color="#2f3239" colorLight="#454850">
+                        <img src="@/assets/images/technologies/vuejs_60x60.webp" title="Framework VueJs"
+                            alt="Framework VueJs" />
+                    </StackBadgeHexagon>
 
-                <StackBadgeHexagon text="Javascript" color="#d7af21" colorLight="#e9c853">
-                    <img src="@/assets/images/technologies/javascript_60x60.webp"
-                        title="Lenguaje de Programación Javascript" alt="Lenguaje de Programación Javascript" />
-                </StackBadgeHexagon>
+                    <StackBadgeHexagon text="Javascript" color="#d7af21" colorLight="#e9c853">
+                        <img src="@/assets/images/technologies/javascript_60x60.webp"
+                            title="Lenguaje de Programación Javascript" alt="Lenguaje de Programación Javascript" />
+                    </StackBadgeHexagon>
 
-                <StackBadgeHexagon text="PostgreSQL" color="#336791" colorLight="#68ace4">
-                    <img src="@/assets/images/technologies/postgresql_60x60.webp" title="Logo base de datos PostgreSQL"
-                        alt="Logo base de datos PostgreSQL" />
-                </StackBadgeHexagon>
+                    <StackBadgeHexagon text="PostgreSQL" color="#336791" colorLight="#68ace4">
+                        <img src="@/assets/images/technologies/postgresql_60x60.webp"
+                            title="Logo base de datos PostgreSQL" alt="Logo base de datos PostgreSQL" />
+                    </StackBadgeHexagon>
+                </div>
             </div>
+        </div>
+
+        <div class="section-separator"></div>
+    </section>
+
+    <!-- Especializaciones -->
+    <section class="mt-2">
+        <div class="block text-center">
+            <div>
+                <h2 class="text-center">
+                    Especializaciones
+                </h2>
+            </div>
+
+            <div>
+                <SpecializationBadge text="Web">
+                    <img src="@/assets/images/specializations/world_50x50.webp" alt="Web" title="Web"
+                        style="object-fit: cover;width: 100%;">
+                </SpecializationBadge>
+
+                <SpecializationBadge text="Api Rest">
+                    <img src="@/assets/images/specializations/cloud_50x50.webp" alt="Api Rest" title="Api Rest"
+                        style="object-fit: cover;width: 100%;">
+                </SpecializationBadge>
+
+                <SpecializationBadge text="Back-End">
+                    <img src="@/assets/images/specializations/chip_50x50.webp" alt="Back-End" title="Back-End"
+                        style="object-fit: cover;width: 100%;">
+                </SpecializationBadge>
+
+                <SpecializationBadge text="Linux">
+                    <img src="@/assets/images/specializations/linux_50x50.webp" alt="Linux" title="Linux"
+                        style="object-fit: cover;width: 100%;">
+                </SpecializationBadge>
+            </div>
+
+
 
             <!--
             <div>
-                <StackBadge class="technolgy-element" text="PHP" color="#777bb3">
-                    <img src="@/assets/images/technologies/php.webp" title="Lenguaje de Programación PHP"
-                        alt="Lenguaje de Programación PHP" />
-                </StackBadge>
-
-                <StackBadge class="technolgy-element" text="Laravel" color="#c54b4b">
-                    <img src="@/assets/images/technologies/laravel.webp" title="Framework Laravel"
-                        alt="Framework Laravel" />
-                </StackBadge>
-
-                <div class=" inline-block">
-                    <StackBadge class="technolgy-element" text="Vue" color="#2f3239">
-                        <img src="@/assets/images/technologies/vuejs.webp" title="Framework VueJs"
-                            alt="Framework VueJs" />
-                    </StackBadge>
-
-                    <StackBadge class="technolgy-element" text="Javascript" color="#d7af21">
-                        <img src="@/assets/images/technologies/javascript.webp"
-                            title="Lenguaje de Programación Javascript" alt="Lenguaje de Programación Javascript" />
-                    </StackBadge>
-
-                    <StackBadge class="technolgy-element" text="PostgreSQL" color="#336791">
-                        <img src="@/assets/images/technologies/postgresql.webp" title="Logo base de datos PostgreSQL"
-                            alt="Logo base de datos PostgreSQL" />
-                    </StackBadge>
-                </div>
-            </div>
-
-            <div>
-                <div class=" inline-block">
-                    <img class="technolgy-element" src="@/assets/images/technologies/old/php.webp" alt="PHP tag">
+                <div class="inline-block">
+                    <img class="technolgy-element" src="@/assets/images/specializations/old/web-developer.webp"
+                        alt="Desarrollador Web">
                 </div>
 
                 <div class="inline-block">
-                    <img class="technolgy-element" src="@/assets/images/technologies/old/laravel.webp"
-                        alt="Laravel tag">
+                    <img class="technolgy-element" src="@/assets/images/specializations/old/api-rest.webp"
+                        alt="Api Rest tag">
                 </div>
-
-
 
                 <div class="inline-block">
-                    <div class="inline-block">
-                        <img class="technolgy-element" src="@/assets/images/technologies/old/vuejs.webp"
-                            alt="Vuejs tag">
-                    </div>
+                    <img class="technolgy-element" src="@/assets/images/specializations/old/backend-developer.webp"
+                        alt="Backend Developer tag">
+                </div>
 
-                    <div class="inline-block">
-                        <img class="technolgy-element" src="@/assets/images/technologies/old/javascript.webp"
-                            alt="Javascript tag">
-                    </div>
-
-                    <div class="inline-block">
-                        <img class="technolgy-element" src="@/assets/images/technologies/old/postgresql.webp"
-                            alt="Postgresql tag">
-                    </div>
+                <div class="inline-block">
+                    <img class="technolgy-element" src="@/assets/images/specializations/old/linux.webp" alt="Linux tag">
                 </div>
             </div>
-
             -->
+
         </div>
 
         <div class="section-separator"></div>
