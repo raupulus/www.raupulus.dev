@@ -1,4 +1,3 @@
-import { Title } from '../.nuxt/components';
 <template>
   <section class="box-trajectory">
     <div class="box-trajectory-first">

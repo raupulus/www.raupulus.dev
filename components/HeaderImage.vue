@@ -37,12 +37,11 @@
     </div>
 
     <div class="box-section-image-header-background">
-      <div class="">
-        <NuxtImg format="webp" src="/images/backgrounds/background_500x500.webp" quality="70" />
-        <!--
-        <img src="@/assets/images/backgrounds/background_500x500.webp" alt="Imagen" title="Imagen">
-        -->
-      </div>
+
+      <NuxtImg format="webp" src="/images/backgrounds/background_500x500.webp" quality="10" placeholder fit="cover"
+        alt="Imagen de fondo para el portfolio de Raúl Caro Pastorino (Raupulus)"
+        title="Portfolio de Raúl Caro Pastorino (Raupulus)" />
+
     </div>
   </section>
 </template>
@@ -88,17 +87,24 @@
 }
 
 .box-section-image-header-background {
-  display: grid;
   width: 100%;
   height: 100%;
-  align-items: center;
 }
 
 .box-section-image-header-background img {
   display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: auto;
   object-fit: cover;
   object-position: center;
+  -webkit-filter: blur(5px);
+  -moz-filter: blur(5px);
+  -o-filter: blur(5px);
+  -ms-filter: blur(5px);
+  filter: blur(5px);
+  z-index: -1;
 }
 </style>
