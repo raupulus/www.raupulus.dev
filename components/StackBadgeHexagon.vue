@@ -35,7 +35,7 @@ const props = defineProps({
 <style scoped>
 .box-badge-hexagon {
   position: relative;
-  margin: 1.5rem 3rem;
+  margin: 0.4rem 3rem;
   width: 4rem;
   height: 6.2rem;
   border-radius: 10px;
@@ -117,5 +117,13 @@ const props = defineProps({
 .box-badge-hexagon-color {
   background: linear-gradient(to bottom right, v-bind(colorLight) 0%, v-bind(color) 100%);
   color: v-bind(color);
+}
+
+
+@media (max-width: 500px) {
+  .box-badge-hexagon {
+    scale: 0.8;
+    margin: 0.4rem 1.5rem;
+  }
 }
 </style>

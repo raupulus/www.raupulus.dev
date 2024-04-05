@@ -1,5 +1,13 @@
 <template>
+    <HeaderImage />
+
     <!-- Mi trayectoria -->
+    <Trajectory />
+
+
+
+    <!-- Mi trayectoria -->
+    <!--
     <section class="box-my-history">
         <div class="box-my-history-description">
             <div>
@@ -61,19 +69,20 @@
 
                     </template>
 
-                </BtnGeneric>
-                <BtnGeneric text="Contáctame" title="Enlace a mi página de contacto" to="/contact"
-                    class="text-white bg-dark" />
-            </div>
-        </div>
+</BtnGeneric>
+<BtnGeneric text="Contáctame" title="Enlace a mi página de contacto" to="/contact" class="text-white bg-dark" />
+</div>
+</div>
 
-        <div class="box-my-history-img">
-            <img class="my-history-img" src="@/assets/images/my-history.webp" alt="Oficina en casa">
+<div class="box-my-history-img">
+    <img class="my-history-img" src="@/assets/images/my-history.webp" alt="Oficina en casa">
 
-        </div>
-    </section>
+</div>
+</section>
+-->
 
     <!-- Tecnologías -->
+    <!--
     <section class="mt-2">
         <div class="block text-center">
             <div>
@@ -114,8 +123,10 @@
 
         <div class="section-separator"></div>
     </section>
+    -->
 
     <!-- Especializaciones -->
+    <!--
     <section class="mt-2">
         <div class="block text-center">
             <div>
@@ -126,7 +137,7 @@
 
             <div>
                 <SpecializationBadge text="Web">
-                    <img src="@/assets/images/specializations/world_50x50.webp" alt="Web" title="Web"
+                    <img src="@/assets/images/specializations/earth_50x50.webp" alt="Web" title="Web"
                         style="object-fit: cover;width: 100%;">
                 </SpecializationBadge>
 
@@ -145,36 +156,11 @@
                         style="object-fit: cover;width: 100%;">
                 </SpecializationBadge>
             </div>
-
-
-
-            <!--
-            <div>
-                <div class="inline-block">
-                    <img class="technolgy-element" src="@/assets/images/specializations/old/web-developer.webp"
-                        alt="Desarrollador Web">
-                </div>
-
-                <div class="inline-block">
-                    <img class="technolgy-element" src="@/assets/images/specializations/old/api-rest.webp"
-                        alt="Api Rest tag">
-                </div>
-
-                <div class="inline-block">
-                    <img class="technolgy-element" src="@/assets/images/specializations/old/backend-developer.webp"
-                        alt="Backend Developer tag">
-                </div>
-
-                <div class="inline-block">
-                    <img class="technolgy-element" src="@/assets/images/specializations/old/linux.webp" alt="Linux tag">
-                </div>
-            </div>
-            -->
-
         </div>
 
         <div class="section-separator"></div>
     </section>
+    -->
 
     <!-- Cards SoftSkills -->
     <section class="mt-2">

@@ -29,9 +29,10 @@ const props = defineProps({
 .box-specialization-badge {
   position: relative;
   display: inline-grid;
-  margin: 3rem 1.3rem;
-  width: 210px;
-  height: 120px;
+  /*margin: 3rem 1.3rem;*/
+  margin: auto;
+  width: 180px;
+  height: 105px;
   align-items: center;
   box-sizing: border-box;
 }
@@ -54,6 +55,7 @@ const props = defineProps({
 
 .box-specialization-badge:after {
   transform: rotate(60deg);
+  background: linear-gradient(to bottom right, #555 0%, #2f3239 100%);
   /*
   background: linear-gradient(to left, #555 0%, #2f3239 100%);
   */
@@ -61,6 +63,7 @@ const props = defineProps({
 
 .box-specialization-badge:before {
   transform: rotate(-60deg);
+  background: linear-gradient(to bottom right, #555 0%, #2f3239 100%);
   /*
   background: linear-gradient(to right, #555 0%, #2f3239 100%);
   */
@@ -68,11 +71,12 @@ const props = defineProps({
 
 .container-specialization-badge {
   position: absolute;
-  width: 210px;
+  width: 200px;
   display: grid;
   grid-template-columns: 60px 1fr;
   align-content: center;
   z-index: 1;
+  translate: -15px 0;
 }
 
 .specialization-badge-image {
@@ -86,6 +90,7 @@ const props = defineProps({
   background: linear-gradient(to left, #555 10%, #2f3239 90%);
   overflow: hidden;
   border-radius: 50%;
+  border: 1px solid #f3f3f3;
 }
 
 .specialization-badge-image img {
@@ -109,5 +114,7 @@ const props = defineProps({
   padding: 0.6rem 32px 0.6rem 0.6rem;
   border-radius: 0 4px 4px 0;
   font-family: sans-serif;
+  border: 1px solid #f3f3f3;
+  z-index: -1;
 }
 </style>
