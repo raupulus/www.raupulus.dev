@@ -329,7 +329,7 @@ const showConfirmModal = async (e) => {
                             :class="{ 'valid': dataForm.name.valid, 'invalid': dataForm.name.errors && dataForm.name.errors.length }"
                             name="name" />
 
-                        <IconsInfo :size="16" class="check-errors-icon" :show="dataForm.name.valid !== null"
+                        <IconsInfo size="16px" class="check-errors-icon" :show="dataForm.name.valid !== null"
                             :type="dataForm.name.valid ? 'success' : 'error'"></IconsInfo>
 
                         <span v-for="error in dataForm.name.errors" class="error-message">
