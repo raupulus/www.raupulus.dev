@@ -3,6 +3,7 @@
 export default defineNuxtConfig({
     ssr: true,
     devtools: { enabled: true },
+
     plugins: [
 
     ],
@@ -42,6 +43,7 @@ export default defineNuxtConfig({
             }
         }
     },
+
     app: {
         head: {
             title: 'Portfolio de Raúl Caro Pastorino Web Developer (@raupulus)',
@@ -109,7 +111,6 @@ export default defineNuxtConfig({
         //'highlight.js/styles/github.css', //if using code highlight
     ],
 
-
     /*
     app: {
         //buildAssetsDir: '/',
@@ -135,9 +136,11 @@ export default defineNuxtConfig({
         }
     },
     */
+    //plugins: [{ src: '~/plugins/vuejs-medium-editor', ssr: false }]
     typescript: {
         strict: true,
         typeCheck: true,
     },
-    //plugins: [{ src: '~/plugins/vuejs-medium-editor', ssr: false }]
+
+    modules: ["@nuxt/image"]
 })
