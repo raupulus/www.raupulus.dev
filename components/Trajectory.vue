@@ -109,6 +109,10 @@
   box-sizing: border-box;
 }
 
+.box-trajectory-text {
+  text-align: justify;
+}
+
 @media (max-width: 1230px) {
 
   .box-trajectory-text {
