@@ -9,20 +9,30 @@ const props = defineProps({
   }
 });
 
+const showContent = ref(false);
+const currentContent = ref();
+
 function isHorizontal(pos: number) {
   return ((pos + 1) % 3) === 0
 }
 
+function handleShowProjectEvent(project: ContentType) {
+  console.log(project);
+  showContent.value = true;
+  currentContent.value = project;
+}
 </script>
 
 <template>
   <div class="box-grid-projects">
+    <ModalsProjectShow :project="currentContent" :visible="showContent" @closemodalprojectshow="showContent = false" />
+
     <div v-for="project, key in projects" :key="project.slug"
       :class="isHorizontal(key) ? 'box-horizontal' : 'box-vertical'">
 
-      <CardProjectHorizontal v-if="isHorizontal(key)" :data="project" />
+      <CardProjectHorizontal v-if="isHorizontal(key)" :data="project" @projecteventshow="handleShowProjectEvent" />
 
-      <CardProjectVertical v-else :data="project" />
+      <CardProjectVertical v-else :data="project" @projecteventshow="handleShowProjectEvent" />
     </div>
   </div>
 </template>

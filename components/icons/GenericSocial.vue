@@ -23,7 +23,12 @@ const props = defineProps({
     size: {
         type: String,
         required: false,
-        default: "24px"
+        default: "24px",
+    },
+    color: {
+        type: String,
+        required: false,
+        default: '#2a64a3'
     }
 })
 </script>
@@ -41,8 +46,25 @@ const props = defineProps({
 <style scoped>
 .box-icon {
     display: v-bind(display);
-    margin: auto;
+    margin: 0;
     width: v-bind(size);
+    height: v-bind(size);
+    padding: 17%;
+    background-color: v-bind(color);
+    border-radius: 17%;
+    box-sizing: border-box;
+    box-shadow: 9px 9px 8px 2px rgba(0, 0, 0, 0.4);
+}
+
+.box-icon>a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 20%;
+    background-color: #f3f3f3;
+    border-radius: 25%;
+    box-sizing: border-box;
+    box-shadow: 8px 8px 8px 2px rgba(0, 0, 0, 0.25);
 }
 
 .icon-grayscale {

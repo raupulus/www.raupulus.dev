@@ -1,4 +1,4 @@
-<script setup>
+<script lang="ts" setup>
 const responsiveMenuActive = ref(false);
 const emit = defineEmits(['disablescroll'])
 
@@ -28,10 +28,10 @@ const toggleMenu = () => {
     emit('disablescroll', responsiveMenuActive.value);
 
     if (!responsiveMenuActive.value) {
-        console.log('Evento eliminado, quitando el listener')
+        //console.log('Evento eliminado, quitando el listener')
         window.removeEventListener("resize", checkDimensions);
     } else {
-        console.log('Evento agregado, agregando el listener')
+        //console.log('Evento agregado, agregando el listener')
         window.addEventListener("resize", checkDimensions);
     }
 }

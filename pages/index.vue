@@ -286,35 +286,35 @@
 
             <div class="box-social-icons inline-block">
                 <div class="inline-block">
-                    <IconsYoutube :size="64" />
+                    <IconsYoutube size="80px" :decored="true" />
                 </div>
 
                 <div class="inline-block">
-                    <IconsLinkedin :size="64" />
+                    <IconsLinkedin size="80px" :decored="true" />
                 </div>
 
                 <div class="inline-block">
-                    <IconsTwitch :size="64" />
-                </div>
-            </div>
-
-            <div class="box-social-icons inline-block">
-                <div class="inline-block">
-                    <IconsGitlab :size="64" />
+                    <IconsTwitch size="80px" :decored="true" />
                 </div>
             </div>
 
             <div class="box-social-icons inline-block">
                 <div class="inline-block">
-                    <IconsGithub :size="64" />
+                    <IconsGitlab size="80px" :decored="true" />
+                </div>
+            </div>
+
+            <div class="box-social-icons inline-block">
+                <div class="inline-block">
+                    <IconsGithub size="80px" :decored="true" />
                 </div>
 
                 <div class="inline-block">
-                    <IconsMastodon :size="64" />
+                    <IconsMastodon size="80px" :decored="true" />
                 </div>
 
                 <div class="inline-block">
-                    <IconsTwitter :size="64" />
+                    <IconsTwitter size="80px" :decored="true" />
                 </div>
             </div>
         </div>

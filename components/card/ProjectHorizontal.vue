@@ -2,14 +2,13 @@
 import type { ContentType } from '@/types/ContentType';
 
 const props = defineProps({
-
-  /** TODO: Una vez terminada la api, crear tipo **/
-
   data: {
     type: Object as PropType<ContentType>,
     required: true
   },
 });
+
+const emit = defineEmits(['projecteventshow']);
 
 const componentNames = {
   gitlab: 'IconsGitlab',
@@ -43,9 +42,9 @@ const componentNames = {
         </div>
 
         <div class="card-project-readmore">
-          <a href="#" :title="'Leer más sobre el proyecto ' + data.title" target="_blank">
+          <span @click="emit('projecteventshow', data)">
             Leer más
-          </a>
+          </span>
         </div>
       </div>
 
@@ -172,7 +171,8 @@ const componentNames = {
   text-align: center;
 }
 
-.card-project-readmore a {
+.card-project-readmore a,
+.card-project-readmore span {
   display: inline-block;
   text-decoration: none;
   color: #f3f3f3;
@@ -182,7 +182,8 @@ const componentNames = {
   box-shadow: 1px 1px 3px rgba(52, 58, 64, 0.6);
 }
 
-.card-project-readmore a:hover {
+.card-project-readmore a:hover,
+.card-project-readmore span:hover {
   color: #e6e5e5;
   background-color: #2a64a3;
   box-shadow: 1px 1px 1px #343a4033;
