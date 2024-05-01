@@ -2,13 +2,17 @@
 const responsiveMenuActive = ref(false);
 const emit = defineEmits(['disablescroll'])
 
+
+const scrollDisabled = useScrollDisabled();
+
 /**
  * @description Check the dimensions of the window to close the menu
  */
 const checkDimensions = () => {
     if (window.innerWidth > 690) {
         responsiveMenuActive.value = false;
-        emit('disablescroll', responsiveMenuActive.value);
+        //emit('disablescroll', responsiveMenuActive.value);
+        scrollDisabled.value = responsiveMenuActive.value;
         window.removeEventListener("resize", checkDimensions)
     }
 };
@@ -25,7 +29,9 @@ const checkDimensions = () => {
  */
 const toggleMenu = () => {
     responsiveMenuActive.value = !responsiveMenuActive.value;
-    emit('disablescroll', responsiveMenuActive.value);
+
+    scrollDisabled.value = responsiveMenuActive.value;
+    //emit('disablescroll', responsiveMenuActive.value);
 
     if (!responsiveMenuActive.value) {
         //console.log('Evento eliminado, quitando el listener')

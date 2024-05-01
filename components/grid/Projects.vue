@@ -17,7 +17,7 @@ function isHorizontal(pos: number) {
 }
 
 function handleShowProjectEvent(project: ContentType) {
-  console.log(project);
+  //console.log(project);
   showContent.value = true;
   currentContent.value = project;
 }
