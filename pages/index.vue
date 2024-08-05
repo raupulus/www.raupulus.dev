@@ -1,166 +1,40 @@
 <template>
+
+    <!--
     <HeaderImage />
+    -->
+
+    <div style="text-align: center;">
+        <StackBadgeHexagon text="PHP" color="#777bb3" colorLight="#9b9fd8">
+            <img src="@/assets/images/technologies/php_60x60.webp" title="Lenguaje de Programación PHP"
+                alt="Lenguaje de Programación PHP" />
+        </StackBadgeHexagon>
+
+        <StackBadgeHexagon text="Laravel" color="#c54b4b" colorLight="#d56565">
+            <img src="@/assets/images/technologies/laravel_60x60.webp" title="Framework Laravel"
+                alt="Framework Laravel" />
+        </StackBadgeHexagon>
+
+        <div class="inline-block">
+            <StackBadgeHexagon text="Vue" color="#2f3239" colorLight="#454850">
+                <img src="@/assets/images/technologies/vuejs_60x60.webp" title="Framework VueJs"
+                    alt="Framework VueJs" />
+            </StackBadgeHexagon>
+
+            <StackBadgeHexagon text="Javascript" color="#d7af21" colorLight="#e9c853">
+                <img src="@/assets/images/technologies/javascript_60x60.webp"
+                    title="Lenguaje de Programación Javascript" alt="Lenguaje de Programación Javascript" />
+            </StackBadgeHexagon>
+
+            <StackBadgeHexagon text="PostgreSQL" color="#336791" colorLight="#68ace4">
+                <img src="@/assets/images/technologies/postgresql_60x60.webp" title="Logo base de datos PostgreSQL"
+                    alt="Logo base de datos PostgreSQL" />
+            </StackBadgeHexagon>
+        </div>
+    </div>
 
     <!-- Mi trayectoria -->
     <Trajectory />
-
-
-
-    <!-- Mi trayectoria -->
-    <!--
-    <section class="box-my-history">
-        <div class="box-my-history-description">
-            <div>
-                <h2>
-                    Conoce
-                    <span class="text-primary font-bold">
-                        ¡Mi Trayectoria!
-                    </span>
-                </h2>
-            </div>
-
-            <div>
-                <p>
-                    Soy un desarrollador web con amplia experiencia en el desarrollo backend, con especialización en
-                    PHP, Laravel, Python y Bash.
-                </p>
-
-                <p>
-                    Poseo también conocimientos en JavaScript, Vue.js, PostgreSQL y MariaDB.
-                </p>
-
-                <p>
-                    También he trabajado en algunos proyectos con angular, ionic, typescript, jquery,
-                    bootstrap, tailwindcss y nodejs.
-                </p>
-
-                <p>
-                    A lo largo de mi carrera he participado en una variedad de proyectos, desde pequeños sitios
-                    web hasta grandes aplicaciones empresariales.
-                </p>
-
-                <p>
-                    En este portfolio web encontrará una selección de mis proyectos más relevantes, así como mi
-                    currículum vitae y mis datos de contacto. Le invito a explorar mi trabajo
-                </p>
-
-                <p>
-                    Afinidad por el software libre, programación, iot y la tecnología en general.
-                </p>
-
-                <p>
-                    Me gusta programar y crear contenido en mi tiempo libre, tengo varios proyectos con guías,
-                    tutoriales y
-                    apuntes propios.
-                </p>
-            </div>
-
-            <div class="btn-group">
-                <BtnGeneric text="Curriculum Vitae " title="Enlace a mi Curriculum Vitae"
-                    to="https://curriculum.raupulus.dev">
-
-                    <template #after>
-                        <svg class="btn-curriculum-icon-after" viewBox="0 0 16 16" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M8.9374 15.4933L15.7175 8.71318C15.8202 8.61045 15.8932 8.49916 15.9363 8.37931C15.9788 8.25946 16 8.13105 16 7.99408C16 7.85711 15.9788 7.72869 15.9363 7.60884C15.8932 7.48899 15.8202 7.3777 15.7175 7.27498L8.9374 0.49488C8.74906 0.306544 8.51382 0.207925 8.23165 0.199021C7.94881 0.190803 7.70466 0.289422 7.4992 0.49488C7.29374 0.683216 7.18656 0.918465 7.17766 1.20063C7.16944 1.48347 7.26806 1.72762 7.47352 1.93308L12.5072 6.96679H1.02729C0.736223 6.96679 0.492071 7.06507 0.294832 7.26162C0.0982779 7.45886 0 7.70301 0 7.99408C0 8.28514 0.0982779 8.52895 0.294832 8.7255C0.492071 8.92274 0.736223 9.02136 1.02729 9.02136H12.5072L7.47352 14.0551C7.28518 14.2434 7.18656 14.4831 7.17766 14.7742C7.16944 15.0652 7.26806 15.3049 7.47352 15.4933C7.66185 15.6987 7.90155 15.8015 8.19262 15.8015C8.48368 15.8015 8.73194 15.6987 8.9374 15.4933Z"
-                                fill="#E6E6E6" />
-                        </svg>
-
-                    </template>
-
-</BtnGeneric>
-<BtnGeneric text="Contáctame" title="Enlace a mi página de contacto" to="/contact" class="text-white bg-dark" />
-</div>
-</div>
-
-<div class="box-my-history-img">
-    <img class="my-history-img" src="@/assets/images/my-history.webp" alt="Oficina en casa">
-
-</div>
-</section>
--->
-
-    <!-- Tecnologías -->
-    <!--
-    <section class="mt-2">
-        <div class="block text-center">
-            <div>
-                <h2 class="text-center">
-                    Stack
-                </h2>
-            </div>
-
-            <div>
-                <StackBadgeHexagon text="PHP" color="#777bb3" colorLight="#9b9fd8">
-                    <img src="@/assets/images/technologies/php_60x60.webp" title="Lenguaje de Programación PHP"
-                        alt="Lenguaje de Programación PHP" />
-                </StackBadgeHexagon>
-
-                <StackBadgeHexagon text="Laravel" color="#c54b4b" colorLight="#d56565">
-                    <img src="@/assets/images/technologies/laravel_60x60.webp" title="Framework Laravel"
-                        alt="Framework Laravel" />
-                </StackBadgeHexagon>
-
-                <div class="inline-block">
-                    <StackBadgeHexagon text="Vue" color="#2f3239" colorLight="#454850">
-                        <img src="@/assets/images/technologies/vuejs_60x60.webp" title="Framework VueJs"
-                            alt="Framework VueJs" />
-                    </StackBadgeHexagon>
-
-                    <StackBadgeHexagon text="Javascript" color="#d7af21" colorLight="#e9c853">
-                        <img src="@/assets/images/technologies/javascript_60x60.webp"
-                            title="Lenguaje de Programación Javascript" alt="Lenguaje de Programación Javascript" />
-                    </StackBadgeHexagon>
-
-                    <StackBadgeHexagon text="PostgreSQL" color="#336791" colorLight="#68ace4">
-                        <img src="@/assets/images/technologies/postgresql_60x60.webp"
-                            title="Logo base de datos PostgreSQL" alt="Logo base de datos PostgreSQL" />
-                    </StackBadgeHexagon>
-                </div>
-            </div>
-        </div>
-
-        <div class="section-separator"></div>
-    </section>
-    -->
-
-    <!-- Especializaciones -->
-    <!--
-    <section class="mt-2">
-        <div class="block text-center">
-            <div>
-                <h2 class="text-center">
-                    Especializaciones
-                </h2>
-            </div>
-
-            <div>
-                <SpecializationBadge text="Web">
-                    <img src="@/assets/images/specializations/earth_50x50.webp" alt="Web" title="Web"
-                        style="object-fit: cover;width: 100%;">
-                </SpecializationBadge>
-
-                <SpecializationBadge text="Api Rest">
-                    <img src="@/assets/images/specializations/cloud_50x50.webp" alt="Api Rest" title="Api Rest"
-                        style="object-fit: cover;width: 100%;">
-                </SpecializationBadge>
-
-                <SpecializationBadge text="Back-End">
-                    <img src="@/assets/images/specializations/chip_50x50.webp" alt="Back-End" title="Back-End"
-                        style="object-fit: cover;width: 100%;">
-                </SpecializationBadge>
-
-                <SpecializationBadge text="Linux">
-                    <img src="@/assets/images/specializations/linux_50x50.webp" alt="Linux" title="Linux"
-                        style="object-fit: cover;width: 100%;">
-                </SpecializationBadge>
-            </div>
-        </div>
-
-        <div class="section-separator"></div>
-    </section>
-    -->
 
     <!-- Cards SoftSkills -->
     <section class="mt-2">
