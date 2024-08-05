@@ -54,10 +54,10 @@ const props = defineProps({
     },
 })
 
-
+/*
+ * Devuelve la paginación cuando hay más de 5 páginas.
+ */
 const getArrayPaginationPositions = () => {
-    // TODO Controlar cuando poner los puntos
-
     const currentPage = props.currentpage;
     const totalpages = props.totalpages;
 
