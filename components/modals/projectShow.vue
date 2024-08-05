@@ -42,24 +42,7 @@
       <div class="modal-project-show-footer">
 
         <!-- Paginador -->
-        <div>
-          <span>
-            &lt;
-          </span>
-
-
-          <span v-for="idx of  Array((project.total_pages ?? 0)).keys()" key="idx"
-            @click="() => getAjaxPage(idx + 1, project?.slug)">
-            [{{ idx + 1 }}]
-          </span>
-
-
-          <span>
-            &gt;
-          </span>
-
-        </div>
-
+        <ContentPaginator :contentslug="project?.slug" :currentpage="page?.order" :totalpages="project?.total_pages" />
       </div>
     </div>
   </div>
@@ -69,6 +52,7 @@
 
 import type { ContentType } from '@/types/ContentType';
 import type { ContentPageType } from '@/types/ContentPageType';
+import { usePageData, getPageData } from '../../composables/fetchPageData';
 
 const props = defineProps({
   visible: {
@@ -81,54 +65,23 @@ const props = defineProps({
   }
 })
 
-const runtimeConfig = useRuntimeConfig();
 const emit = defineEmits(['disablescroll', 'closemodalprojectshow']);
 const scrollDisabled = useScrollDisabled();
 
-const page: Ref<ContentPageType | undefined> = ref(undefined);
-const currentPageOrder: Ref<Number> = ref(1);
+const page = getPageData();
 
 watch(props, (allProps) => {
   scrollDisabled.value = allProps.visible;
 })
 
-const getAjaxPage = async (pageOrder: number, contentSlug: string | undefined) => {
 
-  if (!contentSlug || !pageOrder) {
-    return;
-  }
-
-  const API_BASE = runtimeConfig.public.api.base;
-
-  // TODO: Dinamizar esta parte en base a la página pulsada
-  const url = API_BASE + '/content/' + contentSlug + '/get/page/' + pageOrder + '/json';
-
-
-  return await fetch(url, {
-    'method': 'GET',
-    //'mode': 'cors',
-    //'cache': 'no-cache',
-    //'credentials': 'include',
-    'headers': {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-    }
-  })
-    .then(res => res.json())
-    .then(data => {
-
-      // TODO: Poner estos datos en el contenido de la página y actualizar paginación.
-
-      // TODO: Plantear crear componentes por cada tipo de bloque y plantear si es viable subirlos a NPM.
-
-      page.value = data?.page;
-      currentPageOrder.value = pageOrder;
-    });
-
-};
-
-
-
+/*
+ * Acciones a realizar cuando se cambia de proyecto
+ */
+watch(() => props.project, (newProject, oldProject) => {
+  console.log('Cambia proyecto:', newProject)
+  usePageData(1, newProject?.slug);
+})
 </script>
 
 <style scoped>
