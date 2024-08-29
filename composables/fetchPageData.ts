@@ -21,6 +21,12 @@ async function getPage(pageOrder: number, contentSlug: string | undefined) {
   })
     .then(res => res.json())
     .then(data => {
+      const tmpPage = data?.page
+
+      if (tmpPage) {
+        tmpPage.content = JSON.parse(data.page.content)
+      }
+
       page.value = data?.page;
     });
 }

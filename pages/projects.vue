@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 import { projectsData, projectsDataSearch } from '@/composables/projectsData';
 import { getPlatformData } from '@/composables/platformData';
-import type { ContentType } from '@/types/ContentType';
+//import type { ContentType } from '@/types/ContentType';
 
 let datas = projectsData();
 let platformData = getPlatformData();

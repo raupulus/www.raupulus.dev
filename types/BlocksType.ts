@@ -3,7 +3,7 @@ export type BlockTunesType = {
 }
 
 export type BlockType = {
-    id: number,
+    id: string,
     type: string,
     tunes?: BlockTunesType
 }
@@ -63,7 +63,7 @@ export type BlockListType = BlockType & {
     }
 }
 
-export type BlockCheckboxType = BlockType & {
+export type BlockCheckListType = BlockType & {
     data: {
         items: [
             {
@@ -132,7 +132,7 @@ export type BlockDelimiterType = BlockType & {
 
 export type BlockAlertType = BlockType & {
     data: {
-        type: string, // info, success, warning, danger
+        type: string, // info, success, warning, danger, primary, secondary, dark, light
         title: string,
         message: string,
         align: string, // left, center, right
@@ -148,8 +148,10 @@ export type BlockLinkToolType = BlockType & { // Link Preview
             keywords: string,
             image?: {
                 url: string,
-                //TODO: Mirar si guarda más metadatos
-            },
+            }
+            images?: string[], // Imágenes en base64
+            content_page_id?: number,
+            content_page_url?: string,
         }
     }
 }

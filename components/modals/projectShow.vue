@@ -33,6 +33,22 @@
       <div class="modal-project-show-body">
 
         <div class="modal-project-show-body-content" v-if="page?.content">
+
+          TODO: Preparar sistema para incluir componente según el tipo de Bloque
+
+          <br />
+          <br />
+
+          Cantidad de bloques: {{ page.content.blocks.length }}
+
+          <br />
+          <br />
+
+          <ContentBlocksBlock v-for="block in page.content.blocks" :block="block" />
+
+          <br />
+          <br />
+
           {{ page.content }}
         </div>
 
@@ -51,7 +67,7 @@
 <script lang="ts" setup>
 
 import type { ContentType } from '@/types/ContentType';
-import type { ContentPageType } from '@/types/ContentPageType';
+//import type { ContentPageType } from '@/types/ContentPageType';
 import { usePageData, getPageData } from '../../composables/fetchPageData';
 
 const props = defineProps({
@@ -79,7 +95,7 @@ watch(props, (allProps) => {
  * Acciones a realizar cuando se cambia de proyecto
  */
 watch(() => props.project, (newProject, oldProject) => {
-  console.log('Cambia proyecto:', newProject)
+  //console.log('Cambia proyecto:', newProject)
   usePageData(1, newProject?.slug);
 })
 </script>
@@ -123,7 +139,7 @@ watch(() => props.project, (newProject, oldProject) => {
   width: 100%;
   height: 100%;
   grid-template-columns: auto 1fr auto;
-  background-color: red;
+  background-color: var(--primary);
   background-image: v-bind("`url('${page?.images?.large ?? project?.urlImage}')`");
   /* Imagen principal del proyecto */
   background-position: center;

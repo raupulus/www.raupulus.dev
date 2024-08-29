@@ -1,7 +1,8 @@
+import type { BlocksType } from "@/types/BlocksType"
 
 export type ContentPageType = {
     id: number,
-    content: string, //TODO??????? Crear tipo para contenido -> json?? compatible con editor JS
+    content: BlocksType, //TODO??????? Crear tipo para contenido -> json?? compatible con editor JS
     title: string,
     slug: string,
     order?: number,
