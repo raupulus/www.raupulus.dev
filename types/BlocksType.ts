@@ -91,6 +91,7 @@ export type BlockAttachesType = BlockType & {
             url_large: string,
             path_large: string,
             content_id: number,
+            content_file_id: number,
             file_id: number,
             module: string, // content
         },

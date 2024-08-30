@@ -13,6 +13,7 @@
     <ContentBlocksBlockAlert v-else-if="block.type === 'alert'" :block="block" />
     <ContentBlocksBlockLinkTool v-else-if="block.type === 'linkTool'" :block="block" />
     <ContentBlocksBlockTable v-else-if="block.type === 'table'" :block="block" />
+    <ContentBlocksBlockAttaches v-else-if="block.type === 'attaches'" :block="block" />
 
     <div v-else>
       {{ block.type }}
