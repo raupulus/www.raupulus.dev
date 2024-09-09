@@ -71,7 +71,6 @@ export default defineNuxtConfig({
             ],
             htmlAttrs: { dir: 'ltr', lang: 'es' },
 
-            /*
             link: [
                 {
                     rel: 'icon',
@@ -80,7 +79,6 @@ export default defineNuxtConfig({
                 },
                 //{ rel: 'stylesheet', href: 'https://awesome-lib.css' }
             ],
-            */
             script: [
                 //{ src: 'https://awesome-lib.js' }
             ],

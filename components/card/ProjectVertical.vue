@@ -164,6 +164,7 @@ const componentNames = {
 }
 
 .card-project-readmore {
+  cursor: pointer;
   padding: 1.3rem;
   text-align: center;
 }
