@@ -46,7 +46,7 @@ function scrollToggle(disabled) {
 
 
 watch(scrollDisabled, (current) => {
-    console.log('Valor actual: ', current);
+    //console.log('Valor actual: ', current);
     scrollToggle(current);
 });
 

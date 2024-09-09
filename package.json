@@ -9,14 +9,15 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "@nuxt/devtools": "1.1.5",
+    "@nuxt/devtools": "^1.4.1",
     "@nuxt/image": "^1.5.0",
     "@types/node": "20.12.2",
-    "nuxt": "3.11.1",
+    "nuxt": "^3.13.1",
     "typescript": "^5.4.3",
-    "vue-tsc": "1.8.27"
+    "vue-tsc": "^2.1.6"
   },
   "dependencies": {
+    "@vue/devtools": "^7.4.4",
     "vue-recaptcha-v3": "^2.0.1"
   }
 }
