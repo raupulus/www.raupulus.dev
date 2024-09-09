@@ -27,31 +27,13 @@
           </span>
         </div>
 
-
       </div>
 
       <div class="modal-project-show-body">
 
         <div class="modal-project-show-body-content" v-if="page?.content">
-
-          TODO: Preparar sistema para incluir componente según el tipo de Bloque
-
-          <br />
-          <br />
-
-          Cantidad de bloques: {{ page.content.blocks.length }}
-
-          <br />
-          <br />
-
           <ContentBlocksBlock v-for="block in page.content.blocks" :block="block" />
-
-          <br />
-          <br />
-
-          {{ page.content }}
         </div>
-
 
       </div>
 

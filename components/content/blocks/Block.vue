@@ -14,6 +14,7 @@
     <ContentBlocksBlockLinkTool v-else-if="block.type === 'linkTool'" :block="block" />
     <ContentBlocksBlockTable v-else-if="block.type === 'table'" :block="block" />
     <ContentBlocksBlockAttaches v-else-if="block.type === 'attaches'" :block="block" />
+    <ContentBlocksBlockImage v-else-if="block.type === 'image'" :block="block" />
 
     <div v-else>
       {{ block.type }}
@@ -37,7 +38,6 @@ const props = defineProps({
   margin: 0;
   padding: 0;
   width: 100%;
-  background-color: aquamarine;
   box-sizing: border-box;
 }
 </style>

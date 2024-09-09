@@ -32,7 +32,6 @@ const props = defineProps({
 })
 
 const paragraph = props.block as BlockParagraphType
-
 </script>
 
 <style>
