@@ -71,7 +71,7 @@ const props = defineProps({
 
 .box-description {
     font-size: 1rem;
-    color: #AEAEAE;
+    color: #645757;
     margin: 10px 9px;
 }
 </style>
