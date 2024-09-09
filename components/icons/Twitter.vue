@@ -25,10 +25,12 @@ const props = defineProps({
 
 <template>
     <IconsGenericSocial v-if="decored" :url="url" :title="title" :size="size" color="#00ACEE">
-        <NuxtImg format="webp" quality="80" src="/icons/twitter.svg" width="32" style="width: 100%;" />
+        <NuxtImg format="webp" quality="80" src="/icons/twitter.svg" width="32" style="width: 100%;"
+            alt="Logo de Twitter" />
     </IconsGenericSocial>
 
     <IconsGeneric v-else :url="url" :title="title" :size="size" color="#00ACEE">
-        <NuxtImg format="webp" quality="80" src="/icons/twitter.svg" width="24" style="width: 100%;" />
+        <NuxtImg format="webp" quality="80" src="/icons/twitter.svg" width="24" style="width: 100%;"
+            alt="Logo de Twitter" />
     </IconsGeneric>
 </template>
