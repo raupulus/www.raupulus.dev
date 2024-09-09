@@ -38,9 +38,10 @@ const props = defineProps({
 
 <template>
     <IconsGeneric :url="url" v-if="show" :display="display" :title="title" :size="size">
-        <NuxtImg format="webp" quality="80" src="/icons/info.svg" style="width: 100%;"
+        <NuxtImg format="webp" quality="80" src="/icons/info.svg" style="width: 100%;" alt="Icono de Información"
             v-if="type === 'info' || type === 'error'" />
-        <NuxtImg format="webp" quality="80" src="/icons/success.svg" style="width: 100%;" v-if="type === 'success'" />
+        <NuxtImg format="webp" quality="80" src="/icons/success.svg" style="width: 100%;" alt="Icono de Información"
+            v-if="type === 'success'" />
     </IconsGeneric>
 
     <!--
