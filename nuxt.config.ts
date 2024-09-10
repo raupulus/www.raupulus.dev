@@ -41,7 +41,7 @@ export default defineNuxtConfig({
             meta: [
                 { name: 'description', content: 'Portfolio de presentación con la información de Raúl Caro Pastorino (@raupulus) Desarrollador Web (Chipiona, Andalucía, Cádiz, España)' },
                 { name: 'application-name', content: 'www.raupulus.dev' },
-                { name: 'keywords', content: 'Raúl, Raúl Caro, Raul, Raul Caro, Raúl Caro Pastorino, Raul Caro Pastorino, raupulus, desarrollador, desarrollador web, web, developer, web developer, iot, maker, php, laravel, vue, vue3, vuejs, next, nextjs, next3, nextjs3, js, javascript' },
+                { name: 'keywords', content: 'Raúl Caro Pastorino, raupulus, desarrollador, desarrollador web, web developer, iot, maker, php, laravel, vue, vue3, vuejs, nuxt, js, javascript, python, bash, linux, Raul Caro Pastorino' },
                 { name: 'author', content: 'Raúl Caro Pastorino' },
                 { name: 'twitter:card', content: 'summary_large_image' },
                 { name: 'twitter:site', content: '@raupulus' },
