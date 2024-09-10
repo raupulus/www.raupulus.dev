@@ -3,6 +3,7 @@
     font-style: normal;
     font-weight: 400;
     src: url('@/assets/fonts/open_sans/OpenSans-Regular.woff2') format('woff2'), url('@/assets/fonts/open_sans/OpenSans-Regular.woff') format('woff'), url('@/assets/fonts/open_sans/OpenSans-Regular.ttf') format('truetype');
+    font-display: swap;
 }
 
 @font-face {
@@ -10,4 +11,5 @@
     font-style: bold;
     font-weight: 700;
     src: url('@/assets/fonts/open_sans/OpenSans-Bold.woff2') format('woff2'), url('@/assets/fonts/open_sans/OpenSans-Bold.woff') format('woff'), url('@/assets/fonts/open_sans/OpenSans-Bold.ttf') format('truetype');
+    font-display: swap;
 }

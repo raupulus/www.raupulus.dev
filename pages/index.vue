@@ -41,20 +41,21 @@
         <div class="block text-center">
             <CardVertical background="#2F3239" title="Estudiar, Practicar" tag="Autodidacta"
                 description="Formación constante, poder ser autodidacta es maravilloso">
-                <img src="@/assets/images/soft-skills/logotipo.webp" title="Formación Autodidacta"
-                    alt="Formación Autodidacta">
+
+                <NuxtImg src="/images/soft-skills/logotipo.webp" format="webp" width="250" quality="90"
+                    title="Formación Autodidacta" alt="Formación Autodidacta" loading="lazy" />
             </CardVertical>
 
             <CardVertical background="#005db5" title="Lógica API REST" tag="Backend"
                 description="Especilizándome en apis. Destreza creando lógica y estructuras ">
-                <img src="@/assets/images/soft-skills/cloud.webp" title="Backend Web Developer"
-                    alt="Backend Web Developer">
+                <NuxtImg src="/images/soft-skills/cloud.webp" format="webp" width="250" quality="90"
+                    title="Backend Web Developer" alt="Backend Web Developer" loading="lazy" />
             </CardVertical>
 
             <CardVertical background="#EEB624" title="Libertad en lo Digital" tag="Open Source"
                 description="Desarrollo publicando mis proyectos OSS Desde 2001 con software libre ">
-                <img src="@/assets/images/soft-skills/gnu_linux.webp" title="Open Source Developer"
-                    alt="Open Source Developer">
+                <NuxtImg src="/images/soft-skills/gnu_linux.webp" format="webp" width="250" quality="90"
+                    title="Open Source Developer" alt="Open Source Developer" loading="lazy" />
             </CardVertical>
         </div>
 
