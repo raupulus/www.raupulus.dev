@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { projectsData, projectsDataSearch } from '@/composables/projectsData';
+import { useProjectsData, projectsDataSearch } from '@/composables/projectsData';
 import { getPlatformData } from '@/composables/platformData';
 //import type { ContentType } from '@/types/ContentType';
 
-let datas = projectsData();
 let platformData = getPlatformData();
+let datas = useProjectsData();
 
 useHead({
     title: 'Proyectos de Raúl Caro Pastorino',
