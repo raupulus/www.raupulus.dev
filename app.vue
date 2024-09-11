@@ -61,7 +61,7 @@ onNuxtReady(() => {
     */
 
     usePlatformData()
-    projectsData()
+    //useProjectsData()
 })
 
 </script>
