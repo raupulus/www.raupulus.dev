@@ -61,8 +61,8 @@ const props = defineProps({
                 </div>
 
                 <div class="text-center">
-                    <BtnGeneric text="Cancelar" class="btn-cancel" @click="emit('cancel')" />
-                    <BtnGeneric text="Confirmar" @click="emit('submit')" />
+                    <BtnGeneric text="Cancelar" class="btn-cancel" @click="emit('cancel')" title="Botón de Cancelar" />
+                    <BtnGeneric text="Confirmar" @click="emit('submit')" title="Botón para enviar email" />
                 </div>
             </div>
 
@@ -131,7 +131,7 @@ const props = defineProps({
 
 
                 <div>
-                    <BtnGeneric text="Cerrar" @click="emit('finished')" />
+                    <BtnGeneric text="Cerrar" @click="emit('finished')" title="Botón para Finalizar envío" />
                 </div>
             </div>
         </div>

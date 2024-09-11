@@ -1,10 +1,16 @@
-<script setup>
-import { useReCaptcha } from 'vue-recaptcha-v3';
+<script setup lang="ts">
+import useGoogleRecaptcha, {
+    RecaptchaAction,
+} from "~/composables/useGoogleRecaptcha";
 import fetchPost from '@/composables/fetchPostData'
+
+import { useReCaptcha } from 'vue-recaptcha-v3'
+
 
 const runtimeConfig = useRuntimeConfig()
 
-const recaptchaInstance = useReCaptcha();
+//const recaptchaInstance = useReCaptcha();
+const { executeRecaptcha } = useGoogleRecaptcha();
 
 //const appConfig = useAppConfig()
 //console.log(runtimeConfig.public.captcha.siteKey)
@@ -12,8 +18,20 @@ const recaptchaInstance = useReCaptcha();
 const API_BASE = runtimeConfig.public.api.base
 const API_PATH_CONTACT = runtimeConfig.public.api.contact
 
+const recaptchaIns = useReCaptcha().instance
+
 useHead({
     title: 'Contactar con Raúl Caro Pastorino',
+})
+
+onMounted(() => {
+    setTimeout(() => {
+        recaptchaIns.value.showBadge()
+    }, 1000)
+})
+
+onBeforeUnmount(() => {
+    recaptchaIns.value.hideBadge()
 })
 
 const stepsInfo = ref({
@@ -38,21 +56,6 @@ const stepsInfo = ref({
 });
 
 let canSubmit = false;
-
-const recaptcha = async () => {
-
-    try {
-        // optional you can await for the reCaptcha load
-        await recaptchaInstance?.recaptchaLoaded();
-
-        // get the token, a custom action could be added as argument to the method
-        return await recaptchaInstance?.executeRecaptcha('contact');
-    } catch (error) {
-        console.error('ERROR CAPTCHA', error);
-    }
-
-    return null;
-};
 
 const dataForm = ref({
     name: {
@@ -146,6 +149,7 @@ watch(dataForm.value.message.value, async () => {
  */
 const checkRegexp = (pattern, value) => {
     let reg = new RegExp(pattern);
+
     return reg.test(value);
 }
 
@@ -206,7 +210,7 @@ const handleSubmit = async (e) => {
     // Muestra el segundo paso con el resumen del email a enviar
     info.step = 2;
 
-    const token = await recaptcha();
+    const { token } = await executeRecaptcha(RecaptchaAction.contact);
 
     if (!token) {
         //console.log(captchaClient)
@@ -231,18 +235,49 @@ const handleSubmit = async (e) => {
 
     const apiUrl = API_BASE + '/' + API_PATH_CONTACT;
 
-
     fetchPost(apiUrl, data)
         .then((response) => response.json())
         .then((data) => {
-            info.messages.errors = data.messages?.errors ?? [];
-            info.messages.success = info.messages.errors ? [] : (data.messages?.success ?? []);
+
+            console.log(data);
+
+            if (Array.isArray(data.messages?.errors)) {
+                info.messages.errors = data.messages.errors;
+            } else if (data.messages?.errors && typeof data.messages.errors === 'object') {
+                info.messages.errors = Object.values(data.messages.errors).flat();
+            } else {
+                info.messages.errors = [];
+            }
+
+            if (Array.isArray(data.messages?.success)) {
+                info.messages.success = data.messages.success;
+            } else if (data.messages?.success && typeof data.messages.success === 'object') {
+                info.messages.success = Object.values(data.messages.success).flat();
+            } else {
+                info.messages.success = [];
+            }
+
 
             // TODO: Limpiar todo el modal completado.
-            info.validated = false; // Check from api
+            info.validated = info.messages.errors.length ? false : true;
 
             // TODO: Quitar el botón para volver a enviar mensaje.
-            info.submitted = true;
+            info.submitted = data.data.send;
+
+
+            if (info.validated && info.submitted) {
+                // TODO: Limpiar modal y deshabilitar modal. Quizás reemplazar formulario por mensaje de enviado.
+            }
+
+            console.log('data.messages?.errors?.length', data.messages?.errors?.length)
+            console.log('data.messages?.errors', data.messages?.errors)
+            console.log('data.messages?.success?.length', data.messages?.success?.length)
+            console.log('data.messages?.success', data.messages?.success)
+            console.log('data', data)
+            console.log('info', info)
+            console.log('stepsInfo.value', stepsInfo.value)
+            console.log('messages', info.messages)
+
         })
         .catch((error) => {
             console.error('Error:', error);
@@ -256,7 +291,6 @@ const handleSubmit = async (e) => {
 
         }).finally(() => {
             info.step = 3;
-
         });
 }
 
@@ -329,7 +363,7 @@ const showConfirmModal = async (e) => {
                             :class="{ 'valid': dataForm.name.valid, 'invalid': dataForm.name.errors && dataForm.name.errors.length }"
                             name="name" />
 
-                        <IconsInfo size="16px" class="check-errors-icon" :show="dataForm.name.valid !== null"
+                        <IconsInfo :size="16" class="check-errors-icon" :show="dataForm.name.valid !== null"
                             :type="dataForm.name.valid ? 'success' : 'error'"></IconsInfo>
 
                         <span v-for="error in dataForm.name.errors" class="error-message">
