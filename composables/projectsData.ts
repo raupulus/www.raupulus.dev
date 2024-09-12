@@ -76,32 +76,32 @@ export function useProjectsData() {
     let API_URL = API_BASE + '/platform/portfolio/content/type/project'
 
 
-    onBeforeMount(() => {
-        useFetch(API_URL, {
-            lazy: true,
-            onResponse({ request, response, options }) {
-                const res = prepareData(response._data)
-                datas.value = res
-            },
-            onResponseError({ request, response, options }) {
-                console.log('FETCH projectsData ERROR', response, options)
-            }
+    //onBeforeMount(() => {
+    useFetch(API_URL, {
+        //lazy: true,
+        onResponse({ request, response, options }) {
+            const res = prepareData(response._data)
+            datas.value = res
+        },
+        onResponseError({ request, response, options }) {
+            console.log('FETCH projectsData ERROR', response, options)
+        }
 
-            /*
+        /*
 
-            onRequestError({ request, options, error }) {
-                // Handle the request errors
-            },
-            onResponse({ request, response, options }) {
-                // Process the response data
-                localStorage.setItem('token', response._data.token)
-            },
-            onResponseError({ request, response, options }) {
-                // Handle the response errors
-            }
-            */
-        })
+        onRequestError({ request, options, error }) {
+            // Handle the request errors
+        },
+        onResponse({ request, response, options }) {
+            // Process the response data
+            localStorage.setItem('token', response._data.token)
+        },
+        onResponseError({ request, response, options }) {
+            // Handle the response errors
+        }
+        */
     })
+    //})
 
 
     return datas

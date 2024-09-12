@@ -1,5 +1,5 @@
 <script setup>
-import fetchCsrfToken from '@/composables/fetchPostData'
+//import fetchCsrfToken from '@/composables/fetchPostData'
 
 const webTitle = 'Portfolio de Raúl Caro Pastorino Web Developer (@raupulus)';
 const webDescription = 'Portfolio de presentación con la información de Raúl Caro Pastorino (@raupulus) Desarrollador Web (Chipiona, Andalucía, Cádiz, España)';

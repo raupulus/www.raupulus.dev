@@ -7,15 +7,16 @@
       </svg>
     </p>
 
-    <p class="r-blockquote-title" v-html="quote.data.text"></p>
+    <p class="r-blockquote-title" v-html="computedQuoteText"></p>
 
-    <p class="r-blockquote-caption" v-html="'&mdash;' + quote.data.caption"></p>
+    <p class="r-blockquote-caption" v-html="computedQuoteCaption"></p>
 
     <hr>
   </blockquote>
 </template>
 
 <script lang="ts" setup>
+import { computed } from 'vue';
 import type { BlockQuoteType } from '@/types/BlocksType';
 import type { BlockType } from '@/types/BlocksType';
 
@@ -24,9 +25,13 @@ const props = defineProps({
     type: Object as PropType<BlockType>,
     required: true,
   },
-})
+});
 
-const quote = props.block as BlockQuoteType
+const quote = props.block as BlockQuoteType;
+
+// Computed properties to handle text and caption
+const computedQuoteText = computed(() => quote.data.text || '');
+const computedQuoteCaption = computed(() => `&mdash;${quote.data.caption || ''}`);
 
 </script>
 
