@@ -3,7 +3,7 @@
 
     <div class="modal-container-project-show">
       <!-- Header -->
-      <div class="modal-project-show-header">
+      <div class="modal-project-show-header" :style="{ backgroundImage: `url('${backgroundImageUrl}')` }">
 
         <!-- Izquierda, imagen del proyecto -->
         <div class="modal-project-show-header-main-img">
@@ -49,7 +49,7 @@
 <script lang="ts" setup>
 
 import type { ContentType } from '@/types/ContentType';
-//import type { ContentPageType } from '@/types/ContentPageType';
+import type { ContentPageType } from '@/types/ContentPageType';
 import { usePageData, getPageData } from '../../composables/fetchPageData';
 
 const props = defineProps({
@@ -60,26 +60,32 @@ const props = defineProps({
   },
   project: {
     type: Object as PropType<ContentType>,
+    required: true
   }
 })
 
 const emit = defineEmits(['disablescroll', 'closemodalprojectshow']);
 const scrollDisabled = useScrollDisabled();
 
-const page = getPageData();
+const page = ref<ContentPageType | undefined>(undefined);
 
 watch(props, (allProps) => {
   scrollDisabled.value = allProps.visible;
 })
 
-
 /*
  * Acciones a realizar cuando se cambia de proyecto
  */
-watch(() => props.project, (newProject, oldProject) => {
-  //console.log('Cambia proyecto:', newProject)
-  usePageData(1, newProject?.slug);
-})
+watch(() => props.project, (newProject: ContentType) => {
+  usePageData(1, newProject.slug).then((data) => {
+    page.value = data;
+  });
+});
+
+
+// Computed property for background image URL
+const backgroundImageUrl = computed(() => page.value?.images?.large ?? props.project.urlImage);
+
 </script>
 
 <style scoped>
@@ -122,7 +128,7 @@ watch(() => props.project, (newProject, oldProject) => {
   height: 100%;
   grid-template-columns: auto 1fr auto;
   background-color: var(--primary);
-  background-image: v-bind("`url('${page?.images?.large ?? project?.urlImage}')`");
+  /*background-image: v-bind("`url('${page?.images?.large ?? project?.urlImage}')`");*/
   /* Imagen principal del proyecto */
   background-position: center;
   background-repeat: no-repeat;

@@ -15,24 +15,55 @@ const { executeRecaptcha } = useGoogleRecaptcha();
 //const appConfig = useAppConfig()
 //console.log(runtimeConfig.public.captcha.siteKey)
 //const captchaSiteKey = runtimeConfig.public.captcha.siteKey;
-const API_BASE = runtimeConfig.public.api.base
-const API_PATH_CONTACT = runtimeConfig.public.api.contact
+const API_BASE: string = runtimeConfig.public.api.base
+const API_PATH_CONTACT: string = runtimeConfig.public.api.contact
 
-const recaptchaIns = useReCaptcha().instance
+const recaptchaIns = useReCaptcha()?.instance
 
 useHead({
     title: 'Contactar con Raúl Caro Pastorino',
 })
 
-onMounted(() => {
+onMounted((): void => {
     setTimeout(() => {
-        recaptchaIns.value.showBadge()
+        recaptchaIns?.value?.showBadge()
     }, 1000)
 })
 
-onBeforeUnmount(() => {
-    recaptchaIns.value.hideBadge()
+onBeforeUnmount((): void => {
+    recaptchaIns?.value?.hideBadge()
 })
+
+interface Validation {
+    minLength?: { value: number; message: string };
+    maxLength?: { value: number; message: string };
+    regexp?: { value: string; message: string };
+    required?: { value: boolean; message: string };
+}
+
+interface FormField {
+    valid: boolean;
+    value: string | boolean;
+    validations: Validation;
+    errors?: string[];
+}
+
+interface FormData {
+    valid: boolean;
+    [key: string]: FormField | boolean;
+}
+
+interface StepsInfo {
+    step: number;
+    show: boolean;
+    validated: boolean;
+    submitted: boolean;
+    fail: boolean;
+    messages: {
+        success: string[];
+        errors: string[];
+    };
+}
 
 const stepsInfo = ref({
     step: 1,
@@ -55,12 +86,13 @@ const stepsInfo = ref({
     }
 });
 
-let canSubmit = false;
+let canSubmit: boolean = false;
 
-const dataForm = ref({
+const dataForm: Ref<FormData> = ref({
+    valid: false,
     name: {
         value: 'adfsasdfasdfasdfasdfasd',
-        valid: null,
+        valid: true,
         validations: {
             minLength: {
                 value: 5,
@@ -74,7 +106,7 @@ const dataForm = ref({
     },
     email: {
         value: 'asdfasdfasdf@dsfsdf.es',
-        valid: null,
+        valid: true,
         validations: {
             minLength: {
                 value: 8,
@@ -93,7 +125,7 @@ const dataForm = ref({
     },
     subject: {
         value: 'asdfasdfas dfasdf asdf asd fasdf asdf asdf asdf asdf',
-        valid: null,
+        valid: true,
         validations: {
             minLength: {
                 value: 10,
@@ -107,7 +139,7 @@ const dataForm = ref({
     },
     message: {
         value: 'asdf asdf asdf asd fasdf asd fasdf asdf asdf asd fasdf asdf asd fasd fasd fas dfasd fasd fas',
-        valid: null,
+        valid: true,
         validations: {
             minLength: {
                 value: 30,
@@ -122,7 +154,7 @@ const dataForm = ref({
 
     privacity: {
         value: false,
-        valid: null,
+        valid: false,
         validations: {
             required: {
                 value: true,
@@ -147,7 +179,7 @@ watch(dataForm.value.message.value, async () => {
  * @param {*} pattern Patrón a comprobar
  * @param {*} value Valor a comprobar contra el patrón
  */
-const checkRegexp = (pattern, value) => {
+const checkRegexp = (pattern: string, value: string): boolean => {
     let reg = new RegExp(pattern);
 
     return reg.test(value);
@@ -158,11 +190,23 @@ const checkRegexp = (pattern, value) => {
  *
  * @param {*} e Evento que lanza la revisión de validaciones.
  */
-const checkValidationsFromEvent = (e) => {
-    const ele = e.target;
+const checkValidationsFromEvent = (e: Event): void => {
+    const ele = e.target as HTMLInputElement;
     const currentObject = dataForm.value[ele.name];
 
-    checkValidations(currentObject)
+    if (isFormField(currentObject)) {
+        checkValidations(currentObject);
+    }
+}
+
+/**
+ *
+ * Comprueba si es formfield
+ *
+ * @param field
+ */
+const isFormField = (field: any): field is FormField => {
+    return field && typeof field === 'object' && 'value' in field;
 }
 
 /**
@@ -171,11 +215,11 @@ const checkValidationsFromEvent = (e) => {
  *
  * @param {*} currentObject
  */
-const checkValidations = (currentObject) => {
-    const value = currentObject.value;
+const checkValidations = (currentObject: FormField): void => {
+    const value = currentObject.value as string;
     const validations = currentObject.validations;
 
-    let errors = [];
+    let errors: string[] = [];
 
     if (validations.minLength && value.length < validations.minLength.value) {
         errors.push(validations.minLength.message ?? 'El campo no cumple con la longitud mínima');
@@ -189,7 +233,7 @@ const checkValidations = (currentObject) => {
         errors.push(validations.regexp.message ?? 'El campo no cumple con el patrón de validación');
     }
 
-    if (validations.required && validations.required.value && value !== true) {
+    if (validations.required && validations.required.value && !value) {
         errors.push(validations.required.message ?? 'El campo es obligatorio');
     }
 
@@ -203,7 +247,28 @@ const checkValidations = (currentObject) => {
 }
 
 
-const handleSubmit = async (e) => {
+/**
+ *
+ * Evento para revisar texto introducido en los campos del formulario.
+ *
+ * @param event
+ * @param field
+ */
+const handleKeyup = (event: KeyboardEvent, field: string): void => {
+    const target = event.target as HTMLElement;
+
+    if (target && isFormField(dataForm.value[field])) {
+        dataForm.value[field].value = target.innerText.trim();
+        checkValidations(dataForm.value[field]);
+    }
+};
+
+const onSubmit = async (e: Event) => {
+    e.preventDefault();
+    await handleSubmit(e);
+};
+
+const handleSubmit = async (e: Event): Promise<void> => {
 
     const info = stepsInfo.value;
 
@@ -224,12 +289,12 @@ const handleSubmit = async (e) => {
         app_name: runtimeConfig.public.app.name,
         app_domain: runtimeConfig.public.app.domain,
         language: runtimeConfig.public.app.currentLocale,
-        name: dataForm.value.name.value,
-        email: dataForm.value.email.value,
-        subject: dataForm.value.subject.value,
-        message: dataForm.value.message.value,
-        privacity: dataForm.value.privacity.value,
-        contactme: dataForm.value.privacity.value,
+        name: isFormField(dataForm.value.name) ? dataForm.value.name.value : '',
+        email: isFormField(dataForm.value.email) ? dataForm.value.email.value : '',
+        subject: isFormField(dataForm.value.subject) ? dataForm.value.subject.value : '',
+        message: isFormField(dataForm.value.message) ? dataForm.value.message.value : '',
+        privacity: isFormField(dataForm.value.privacity) ? dataForm.value.privacity.value : false,
+        contactme: isFormField(dataForm.value.privacity) ? dataForm.value.privacity.value : false,
         captcha_token: token,
     };
 
@@ -239,12 +304,12 @@ const handleSubmit = async (e) => {
         .then((response) => response.json())
         .then((data) => {
 
-            console.log(data);
+            //console.log(data)
 
             if (Array.isArray(data.messages?.errors)) {
                 info.messages.errors = data.messages.errors;
             } else if (data.messages?.errors && typeof data.messages.errors === 'object') {
-                info.messages.errors = Object.values(data.messages.errors).flat();
+                info.messages.errors = Object.values(data.messages.errors).flat() as string[];;
             } else {
                 info.messages.errors = [];
             }
@@ -252,7 +317,7 @@ const handleSubmit = async (e) => {
             if (Array.isArray(data.messages?.success)) {
                 info.messages.success = data.messages.success;
             } else if (data.messages?.success && typeof data.messages.success === 'object') {
-                info.messages.success = Object.values(data.messages.success).flat();
+                info.messages.success = Object.values(data.messages.success).flat() as string[];
             } else {
                 info.messages.success = [];
             }
@@ -281,12 +346,13 @@ const handleSubmit = async (e) => {
         })
         .catch((error) => {
             console.error('Error:', error);
+            console.error('Data:', data);
             info.validated = false;
             info.submitted = false;
 
             // TODO: Comprobar si vino mensaje de error desde la api o poner default.
 
-            info.messages.errors.push = ['Error desconocido'];
+            info.messages.errors.push('Error desconocido');
 
 
         }).finally(() => {
@@ -297,30 +363,28 @@ const handleSubmit = async (e) => {
 /**
  * Comprueba si el formulario es válido.
  */
-const formIsValid = () => {
+const formIsValid = (): boolean => {
     let isValid = true;
 
     Object.keys(dataForm.value).forEach((key) => {
         const currentObject = dataForm.value[key];
 
-        if (currentObject.validations) {
-            checkValidations(dataForm.value[key]);
-
-            if (!dataForm.value[key].valid) {
+        if (isFormField(currentObject)) {
+            checkValidations(currentObject);
+            if (!currentObject.valid) {
                 isValid = false;
             }
         }
     });
 
     dataForm.value.valid = isValid;
-
     return isValid;
 }
 
 /**
  * Cancela el envío del email y cierra el modal.
  */
-const cancelModal = () => {
+const cancelModal = (): void => {
     const info = stepsInfo.value;
     info.step = 1;
     info.show = false;
@@ -331,7 +395,7 @@ const cancelModal = () => {
  *
  * @param {*} e Evento que lanza la confirmación de envío de email.
  */
-const showConfirmModal = async (e) => {
+const showConfirmModal = async (e: Event): Promise<void> => {
     e.preventDefault();
 
     if (!formIsValid()) {
@@ -359,14 +423,16 @@ const showConfirmModal = async (e) => {
                     <div class="box-input">
                         <label for="name">Nombre</label>
                         <input type="text" id="name" @keyup="checkValidationsFromEvent"
-                            v-model.trim="dataForm.name.value"
-                            :class="{ 'valid': dataForm.name.valid, 'invalid': dataForm.name.errors && dataForm.name.errors.length }"
+                            v-model.trim="(dataForm.name as FormField).value as string"
+                            :class="{ 'valid': isFormField(dataForm.name) && dataForm.name.valid, 'invalid': isFormField(dataForm.name) && dataForm.name.errors && dataForm.name.errors.length }"
                             name="name" />
 
-                        <IconsInfo :size="16" class="check-errors-icon" :show="dataForm.name.valid !== null"
-                            :type="dataForm.name.valid ? 'success' : 'error'"></IconsInfo>
+                        <IconsInfo :size="16" class="check-errors-icon"
+                            :show="isFormField(dataForm.name) && dataForm.name.valid !== null"
+                            :type="isFormField(dataForm.name) && dataForm.name.valid ? 'success' : 'error'"></IconsInfo>
 
-                        <span v-for="error in dataForm.name.errors" class="error-message">
+                        <span v-if="isFormField(dataForm.name)" v-for="error in dataForm.name.errors"
+                            class="error-message">
                             {{ error }}
                         </span>
                     </div>
@@ -374,13 +440,16 @@ const showConfirmModal = async (e) => {
                     <div class="box-input">
                         <label for="email">Email</label>
                         <input type="email" @keyup="checkValidationsFromEvent"
-                            :class="{ 'valid': dataForm.email.valid, 'invalid': dataForm.email.errors && dataForm.email.errors.length }"
-                            v-model.trim="dataForm.email.value" id="email" name="email" />
+                            :class="{ 'valid': isFormField(dataForm.email) && dataForm.email.valid, 'invalid': isFormField(dataForm.email) && dataForm.email.errors && dataForm.email.errors.length }"
+                            v-model.trim="(dataForm.email as FormField).value as string" id="email" name="email" />
 
-                        <IconsInfo :size="16" class="check-errors-icon" :show="dataForm.email.valid !== null"
-                            :type="dataForm.email.valid ? 'success' : 'error'"></IconsInfo>
+                        <IconsInfo :size="16" class="check-errors-icon"
+                            :show="isFormField(dataForm.email) && dataForm.email.valid !== null"
+                            :type="isFormField(dataForm.email) && dataForm.email.valid ? 'success' : 'error'">
+                        </IconsInfo>
 
-                        <span v-for="error in dataForm.email.errors" class="error-message">
+                        <span v-if="isFormField(dataForm.email)" v-for="error in dataForm.email.errors"
+                            class="error-message">
                             {{ error }}
                         </span>
                     </div>
@@ -389,31 +458,37 @@ const showConfirmModal = async (e) => {
                 <div class="form-section box-input">
                     <label for="subject">Asunto</label>
                     <input type="text" id="subject" @keyup="checkValidationsFromEvent"
-                        :class="{ 'valid': dataForm.subject.valid, 'invalid': dataForm.subject.errors && dataForm.subject.errors.length }"
-                        v-model.trim="dataForm.subject.value" name="subject" />
+                        :class="{ 'valid': isFormField(dataForm.subject) && dataForm.subject.valid, 'invalid': isFormField(dataForm.subject) && dataForm.subject.errors && dataForm.subject.errors.length }"
+                        v-model.trim="(dataForm.subject as FormField).value as string" name="subject" />
 
-                    <IconsInfo :size="16" class="check-errors-icon" :show="dataForm.subject.valid !== null"
-                        :type="dataForm.subject.valid ? 'success' : 'error'"></IconsInfo>
-                    <span v-for="error in dataForm.subject.errors" class="error-message">
+                    <IconsInfo :size="16" class="check-errors-icon"
+                        :show="isFormField(dataForm.subject) && dataForm.subject.valid !== null"
+                        :type="isFormField(dataForm.subject) && dataForm.subject.valid ? 'success' : 'error'">
+                    </IconsInfo>
+                    <span v-if="isFormField(dataForm.subject)" v-for="error in dataForm.subject.errors"
+                        class="error-message">
                         {{ error }}
                     </span>
                 </div>
 
                 <div class="form-section hidden">
-                    <textarea id="message" v-model.trim="dataForm.message.value" name="message"></textarea>
+                    <textarea id="message" v-model.trim="(dataForm.message as FormField).value as string"
+                        name="message"></textarea>
                 </div>
 
                 <div class="form-section box-input">
                     <label for="message">Mensaje</label>
-                    <span class="textarea" role="textbox"
-                        @keyup="dataForm.message.value = $event.target.innerText.trim(); checkValidations(dataForm.message);"
-                        :class="{ 'valid': dataForm.message.valid, 'invalid': dataForm.message.errors && dataForm.message.errors.length }"
+                    <span class="textarea" role="textbox" @keyup="handleKeyup($event, 'message')"
+                        :class="{ 'valid': isFormField(dataForm.message) && dataForm.message.valid, 'invalid': isFormField(dataForm.message) && dataForm.message.errors && dataForm.message.errors.length }"
                         contenteditable></span>
 
-                    <IconsInfo :size="16" class="check-errors-icon" :show="dataForm.message.valid !== null"
-                        :type="dataForm.message.valid ? 'success' : 'error'"></IconsInfo>
+                    <IconsInfo :size="16" class="check-errors-icon"
+                        :show="isFormField(dataForm.message) && dataForm.message.valid !== null"
+                        :type="isFormField(dataForm.message) && dataForm.message.valid ? 'success' : 'error'">
+                    </IconsInfo>
 
-                    <span v-for="       error       in       dataForm.message.errors      " class="error-message">
+                    <span v-if="isFormField(dataForm.message)" v-for="error in dataForm.message.errors"
+                        class="error-message">
                         {{ error }}
                     </span>
                 </div>
@@ -423,23 +498,25 @@ const showConfirmModal = async (e) => {
         <div class="box-actions">
             <div class="form-section">
                 <input type="checkbox" id="privacity" @change="checkValidationsFromEvent"
-                    v-model="dataForm.privacity.value" name="privacity" />
+                    v-model="(dataForm.privacity as FormField).value" name="privacity" />
                 <label for="privacity">
                     <span class="inline-block">
                         Acepta recibir correos
                     </span>
-
 
                     <span class="inline-block">
                         &nbsp;
                         electrónicos de mi parte.
                     </span>
 
-                    <IconsInfo :size="16" class="check-errors-icon" :show="dataForm.privacity.valid !== null"
-                        :type="dataForm.privacity.valid ? 'success' : 'error'"></IconsInfo>
+                    <IconsInfo :size="16" class="check-errors-icon"
+                        :show="isFormField(dataForm.privacity) && dataForm.privacity.valid !== null"
+                        :type="isFormField(dataForm.privacity) && dataForm.privacity.valid ? 'success' : 'error'">
+                    </IconsInfo>
                 </label>
 
-                <span v-for="       error        in        dataForm.privacity.errors       " class="error-message">
+                <span v-if="isFormField(dataForm.privacity)" v-for="error in dataForm.privacity.errors"
+                    class="error-message">
                     {{ error }}
                 </span>
             </div>
@@ -448,7 +525,6 @@ const showConfirmModal = async (e) => {
 
         </div>
     </section>
-
 
     <ModalsSubmitContact :show="stepsInfo.show" :step="stepsInfo.step" :messages="stepsInfo.messages"
         @finished="cancelModal" :dataForm="dataForm" @cancel="cancelModal" @submit="handleSubmit" />
