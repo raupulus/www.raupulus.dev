@@ -1,4 +1,4 @@
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue';
 import { type ContentType } from '@/types/ContentType';
 import { type MetadataType } from '@/types/MetadataType';
 import { type PaginationType } from '@/types/PaginationType';
@@ -11,13 +11,13 @@ type ResponseContentType = {
 }
 
 const datas = ref<ResponseContentType>({});
-//const searchParams = ref<SearchParamsType>({});
 
 function prepareData(res: ResponseContentType) {
     if (res.contents) {
-        res.contents.forEach(ele => ele = prepareDataContent(ele));
+        res.contents.forEach(ele => {
+            ele = prepareDataContent(ele);
+        });
     }
-
     return res;
 }
 
@@ -25,7 +25,6 @@ function prepareDataContent(content: ContentType) {
     if (content.metadata) {
         content.metadata = prepareDataMetadata(content.metadata);
     }
-
     return content;
 }
 
@@ -37,96 +36,67 @@ function prepareDataMetadata(metadata: MetadataType) {
     ];
 
     let results: MetadataType = {};
-
     let counter = 0;
 
-    if (metadata && Object.keys(metadata).length) {
+    if (metadata) {
         priority.forEach(p => {
             if ((p === 'youtube_channel') || (p === 'youtube_video')) {
                 if (metadata[p] && counter < 4) {
-
                     if (!results.youtube) {
                         counter++;
                     }
-
                     results.youtube = metadata[p];
                 }
             } else if (counter < 4 && metadata[p]) {
                 counter++;
-
                 results[p] = metadata[p];
             }
         });
     }
 
-
-    // TODO: Compone y añade la url a los usuarios recibidos.
-
-    //console.log(metadata);
-    //console.log(results);
-
     return results;
 }
 
 export function useProjectsData() {
-    const runtimeConfig = useRuntimeConfig()
+    const runtimeConfig = useRuntimeConfig();
+    const API_BASE = runtimeConfig.public.api.base;
+    const API_URL = `${API_BASE}/platform/portfolio/content/type/project`;
 
-    const API_BASE = runtimeConfig.public.api.base
-
-    let API_URL = API_BASE + '/platform/portfolio/content/type/project'
-
-
-    //onBeforeMount(() => {
-    useFetch(API_URL, {
-        //lazy: true,
-        onResponse({ request, response, options }) {
-            const res = prepareData(response._data)
-            datas.value = res
-        },
-        onResponseError({ request, response, options }) {
-            console.log('FETCH projectsData ERROR', response, options)
+    const fetchData = async () => {
+        const response = await fetch(API_URL);
+        if (response.ok) {
+            const res = await response.json();
+            datas.value = prepareData(res);
+        } else {
+            console.error('FETCH projectsData ERROR', response);
         }
+    };
 
-        /*
+    onMounted(fetchData);
 
-        onRequestError({ request, options, error }) {
-            // Handle the request errors
-        },
-        onResponse({ request, response, options }) {
-            // Process the response data
-            localStorage.setItem('token', response._data.token)
-        },
-        onResponseError({ request, response, options }) {
-            // Handle the response errors
-        }
-        */
-    })
-    //})
-
-
-    return datas
+    return {
+        datas,
+        fetchData, // exposing fetchData in case it needs to be called manually
+    };
 }
 
 export function projectsDataSearch(params: {} | null = null) {
-    const runtimeConfig = useRuntimeConfig()
-    const API_BASE = runtimeConfig.public.api.base
-    const API_URL = API_BASE + '/platform/portfolio/content/type/project'
-    const URL = params ? API_URL + '?' + new URLSearchParams(params).toString() : API_URL
+    const runtimeConfig = useRuntimeConfig();
+    const API_BASE = runtimeConfig.public.api.base;
+    const API_URL = `${API_BASE}/platform/portfolio/content/type/project`;
+    const URL = params ? `${API_URL}?${new URLSearchParams(params).toString()}` : API_URL;
 
     fetch(URL, {
-        'mode': 'cors',
-        'cache': 'no-cache',
-        //'credentials': 'include',
-        'headers': {
-            'Accept': 'application/json',
+        mode: 'cors',
+        cache: 'no-cache',
+        headers: {
+            Accept: 'application/json',
             'Content-Type': 'application/json',
-            //'Access-Control-Allow-Origin': 'true',
-            //"Access-Control-Allow-Credentials": 'true',
-            //'X-XSRF-TOKEN': useCookie('XSRF-TOKEN').value ?? '',
         },
     })
         .then(response => response.json())
-        .then(res => datas.value = prepareData(res))
-        .catch(err => console.log('FETCH 3', err));
-
+        .then(res => {
+            datas.value = prepareData(res);
+        })
+        .catch(err => console.error('FETCH projectsDataSearch ERROR', err));
 }

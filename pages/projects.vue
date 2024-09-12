@@ -1,15 +1,14 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { useProjectsData, projectsDataSearch } from '@/composables/projectsData';
 import { getPlatformData } from '@/composables/platformData';
-//import type { ContentType } from '@/types/ContentType';
-
-let platformData = getPlatformData();
-let datas = useProjectsData();
 
 useHead({
     title: 'Proyectos de Raúl Caro Pastorino',
-})
+});
+
+let platformData = getPlatformData();
+const { datas } = useProjectsData();
 
 let searchInput = '';
 let clearSelectOption = false;
@@ -17,20 +16,18 @@ const technologySelect = ref(''); // Slug de la tecnología actual
 const currentTechnology = ref(); // Tecnología actual
 
 /*
- * Cuando cambia el slug de tecnología se actualiza la tecnología.
+ * When the technology slug changes, update the current technology.
  */
-watch(technologySelect, (currentSlug, previousSlug) => {
-    //console.log(technologySelect.value)
+watch(technologySelect, (currentSlug) => {
     currentTechnology.value = getTechnologyBySlug(currentSlug);
-    //console.log(currentTechnology.value);
-})
+});
 
 function btnSearch() {
-    clearSelectOption = technologySelect.value ? false : true;
+    clearSelectOption = !technologySelect.value;
     projectsDataSearch({
         search: searchInput,
         technology: technologySelect.value,
-    })
+    });
 }
 
 function btnClear() {
@@ -40,26 +37,19 @@ function btnClear() {
     projectsDataSearch();
 }
 
-
 function handleClickTechnology(params: any) {
     technologySelect.value = params.technologySelect;
-
-    clearSelectOption = technologySelect.value ? false : true;
-
+    clearSelectOption = !technologySelect.value;
     projectsDataSearch({
         search: searchInput,
         technology: technologySelect.value,
-    })
+    });
 }
 </script>
 
 <template>
     <div>
-
-
-        <!-- Proyectos -->
         <section class="box-search">
-
             <div class="box-search-title text-center">
                 <h2>
                     Mis
@@ -69,31 +59,25 @@ function handleClickTechnology(params: any) {
                 </h2>
             </div>
 
-            <!-- Buscador -->
             <div class="box-search-fields text-center">
                 <div v-if="technologySelect && currentTechnology?.name">
                     Buscando por tecnología
-
                     <img v-if="currentTechnology?.urlImageSmall" class="img-technology-search"
-                        :src="currentTechnology?.urlImageSmall" :alt="currentTechnology?.name"
-                        :title="currentTechnology?.name">
-
+                        :src="currentTechnology.urlImageSmall" :alt="currentTechnology.name"
+                        :title="currentTechnology.name">
                     <span class="technology-select-feature" :style="'color:' + (currentTechnology?.color ?? '#E29244')">
                         {{ currentTechnology?.name }}
                     </span>
                 </div>
 
-                <!-- Input de búsqueda -->
                 <div class="category-input">
                     <input type="search" name="search" placeholder="Buscar Proyecto" v-model="searchInput">
-
                     <span></span>
                 </div>
 
                 <GridTechnologies :technologies="platformData?.technologies"
                     @clickTechnologySelect="handleClickTechnology" :technologySelect="technologySelect" />
 
-                <!-- Botón de búsqueda -->
                 <div>
                     <BtnGeneric text="Buscar" :callback="btnSearch" title="Buscar Proyectos" />
                     <BtnGeneric text="Limpiar" :callback="btnClear" title="Limpiar Filtro" />
@@ -102,24 +86,14 @@ function handleClickTechnology(params: any) {
         </section>
 
         <section class="box-projects">
-            <!-- Grid de proyectos -->
             <div class="projects-content-resume">
                 <img v-if="currentTechnology?.urlImageSmall" class="img-technology-search"
-                    :src="currentTechnology?.urlImageSmall" :alt="currentTechnology?.name"
-                    :title="currentTechnology?.name">
-
+                    :src="currentTechnology.urlImageSmall" :alt="currentTechnology.name"
+                    :title="currentTechnology.name">
                 {{ datas.pagination?.totalElements ? 'Hay ' + datas.pagination.totalElements + ' proyectos' : '' }}
             </div>
-
-            <!--
-            <div>
-                {{ 'Mostrando ' + (datas.contents?.length ?? 0) + ' Proyectos' }}
-            </div>
-            -->
-
             <GridProjects :projects="datas.contents" />
         </section>
-
     </div>
 </template>
 
