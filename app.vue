@@ -2,7 +2,7 @@
 //import fetchCsrfToken from '@/composables/fetchPostData'
 
 const webTitle = 'Portfolio de Raúl Caro Pastorino Web Developer (@raupulus)';
-const webDescription = 'Portfolio de presentación con la información de Raúl Caro Pastorino (@raupulus) Desarrollador Web (Chipiona, Andalucía, Cádiz, España)';
+const webDescription = 'Portal como desarrollador web de Raúl Caro Pastorino (@raupulus) Developer & Maker';
 
 useSeoMeta({
     description: webDescription,

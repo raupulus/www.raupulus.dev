@@ -15,6 +15,11 @@ const props = defineProps({
         required: false,
         default: 'Enlace a repositorio en GitHub'
     },
+    legacy: {
+        type: Boolean,
+        required: false,
+        default: false,
+    },
     decored: {
         type: Boolean,
         required: false,
@@ -24,13 +29,18 @@ const props = defineProps({
 </script>
 
 <template>
-    <IconsGenericSocial v-if="decored" :url="url" :title="title" :size="size" color="#050505">
-        <NuxtImg format="webp" quality="80" src="/icons/github.svg" width="32" style="width: 100%;"
+    <IconsGeneric v-if="legacy" :url="url" :title="title" :size="size" color="#050505">
+        <img src="@/public/images/icons/github.svg" width="24" style="width: 100%;"
+            alt="Logo de Youtube" />
+    </IconsGeneric>
+
+    <IconsGenericSocial v-else-if="decored" :url="url" :title="title" :size="size" color="#050505">
+        <NuxtImg src="/images/icons/github.svg" width="32" style="width: 100%;"
             alt="Logo de Github" />
     </IconsGenericSocial>
 
     <IconsGeneric v-else :url="url" :title="title" :size="size" color="#050505">
-        <NuxtImg format="webp" quality="80" src="/icons/github.svg" width="24" style="width: 100%;"
+        <NuxtImg src="/images/icons/github.svg" width="24" style="width: 100%;"
             alt="Logo de Github" />
     </IconsGeneric>
 </template>

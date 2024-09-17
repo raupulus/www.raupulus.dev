@@ -60,28 +60,28 @@ const componentNames = {
         :class="(idx > 0 && (idx) < Object.keys(data.metadata).length) ? 'link-margin' : ''">
 
         <IconsYoutube v-if="key === 'youtube'" :margin="0" :url="data.metadata.youtube" :grayscale="true"
-          display="block" />
-        <IconsEarth v-if="key === 'web'" :margin="0" :url="data.metadata.web" :grayscale="true" display="block" />
+          display="block" :legacy="true"/>
+        <IconsEarth v-if="key === 'web'" :margin="0" :url="data.metadata.web" :grayscale="true" display="block" :legacy="true" />
         <IconsTwitter v-if="key === 'twitter'" :margin="0" :url="data.metadata.twitter" :grayscale="true"
-          display="block" />
+          display="block" :legacy="true" />
 
         <IconsGitlab v-if="key === 'gitlab'" :margin="0" :url="data.metadata.gitlab" :grayscale="true"
-          display="block" />
+          display="block" :legacy="true" />
 
         <IconsTelegram v-if="key === 'telegram_channel'" :margin="0" :url="data.metadata.telegram_channel"
-          :grayscale="true" display="block" />
+          :grayscale="true" display="block" :legacy="true" />
 
         <IconsGithub v-if="key === 'github'" :margin="0" :url="data.metadata.github" :grayscale="true"
-          display="block" />
+          display="block" :legacy="true" />
 
         <IconsLinkedin v-if="key === 'linkedin'" :margin="0" :url="data.metadata.linkedin" :grayscale="true"
-          display="block" />
+          display="block" :legacy="true" />
 
         <IconsMastodon v-if="key === 'mastodon'" :margin="0" :url="data.metadata.mastodon" :grayscale="true"
-          display="block" />
+          display="block" :legacy="true" />
 
         <IconsTwitch v-if="key === 'twitch'" :margin="0" :url="data.metadata.twitch" :grayscale="true"
-          display="block" />
+          display="block" :legacy="true" />
       </div>
     </div>
   </div>
