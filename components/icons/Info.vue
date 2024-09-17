@@ -23,6 +23,11 @@ const props = defineProps({
             return ['info', 'success', 'error'].includes(value);
         }
     },
+    legacy: {
+        type: Boolean,
+        required: false,
+        default: false,
+    },
     display: {
         type: String,
         required: false,
@@ -38,9 +43,9 @@ const props = defineProps({
 
 <template>
     <IconsGeneric :url="url" v-if="show" :display="display" :title="title" :size="size">
-        <NuxtImg format="webp" quality="80" src="/icons/info.svg" style="width: 100%;" alt="Icono de Información"
+        <NuxtImg src="/images/icons/info.svg" style="width: 100%;" alt="Icono de Información"
             v-if="type === 'info' || type === 'error'" />
-        <NuxtImg format="webp" quality="80" src="/icons/success.svg" style="width: 100%;" alt="Icono de Información"
+        <NuxtImg src="/images/icons/success.svg" style="width: 100%;" alt="Icono de Información"
             v-if="type === 'success'" />
     </IconsGeneric>
 

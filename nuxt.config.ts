@@ -8,6 +8,17 @@ export default defineNuxtConfig({
 
     ],
 
+    // Configuración para generación de sitios estáticos
+    /*
+    nitro: {
+        prerender: {
+            routes: [
+                // Agrega aquí las rutas estáticas si es necesario
+            ]
+        }
+    },
+    */
+
     runtimeConfig: {
         captcha: {
             secretKey: process.env.CAPTCHA_SITE_PRIVATE_KEY,
@@ -136,5 +147,32 @@ export default defineNuxtConfig({
     },
 
     modules: ["@nuxt/image"],
+
+    image: {
+        provider: 'ipx',
+        dir: 'public', // Directorio base donde se guardan las imágenes
+        domains: ['localhost', 'raupulus.dev'],
+    },
+    nitro: {
+        preset: 'static',
+        prerender: {
+            routes: ['/'], // Manteniendo la prerenderización de la ruta raíz
+        },
+    },
+    /*
+    image: {
+        providers: {
+            // Usa el proveedor predeterminado 'static'
+            static: {},
+        },
+        domains: ['localhost', 'raupulus.dev'], // Asegúrate de incluir tu dominio
+        alias: {
+            // Aliases para acceso directo a los recursos desde la carpeta public
+            specializations: '/specializations',
+            icons: '/icons',
+        },
+    },
+    */
+
     compatibilityDate: '2024-09-10'
 })

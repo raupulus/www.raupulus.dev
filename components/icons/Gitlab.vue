@@ -15,6 +15,11 @@ const props = defineProps({
         required: false,
         default: 'Enlace a repositorio GitLab'
     },
+    legacy: {
+        type: Boolean,
+        required: false,
+        default: false,
+    },
     decored: {
         type: Boolean,
         required: false,
@@ -24,13 +29,18 @@ const props = defineProps({
 </script>
 
 <template>
-    <IconsGenericSocial v-if="decored" :url="url" :title="title" :size="size" color="#FCA326">
-        <NuxtImg format="webp" quality="80" src="/icons/gitlab.svg" width="32" style="width: 100%;"
+    <IconsGeneric v-if="legacy" :url="url" :title="title" :size="size" color="#FCA326">
+        <img src="@/public/images/icons/gitlab.svg" width="24" style="width: 100%;"
+            alt="Logo de Youtube" />
+    </IconsGeneric>
+
+    <IconsGenericSocial v-else-if="decored" :url="url" :title="title" :size="size" color="#FCA326">
+        <NuxtImg src="/images/icons/gitlab.svg" width="32" style="width: 100%;"
             alt="Logo de Gitlab" />
     </IconsGenericSocial>
 
     <IconsGeneric v-else :url="url" :title="title" :size="size" color="#FCA326">
-        <NuxtImg format="webp" quality="80" src="/icons/gitlab.svg" width="24" style="width: 100%;"
+        <NuxtImg src="/images/icons/gitlab.svg" width="24" style="width: 100%;"
             alt="Logo de Gitlab" />
     </IconsGeneric>
 </template>
