@@ -213,7 +213,7 @@ const backgroundImageUrl = computed(() => page.value?.images?.large ?? props.pro
 }
 
 .modal-project-show-footer {
-  padding: 1.3rem;
+  padding: 0.1rem;
   background-color: #000;
 }
 

@@ -159,6 +159,7 @@ const onImageLoaded = () => {
   color: #3272b8;
   display: -webkit-box;
   -webkit-box-orient: vertical;
+  line-clamp: 2;
   -webkit-line-clamp: 2;
   overflow: hidden;
 }
@@ -168,6 +169,7 @@ const onImageLoaded = () => {
   display: -webkit-box;
   color: #585c60;
   -webkit-box-orient: vertical;
+  line-clamp: 4;
   -webkit-line-clamp: 4;
   overflow: hidden;
 }
@@ -200,6 +202,7 @@ const onImageLoaded = () => {
   display: grid;
   margin: 3px auto;
   padding: 0.6rem 2.6rem;
+  min-height: 28px;
   grid-gap: 0 5px;
   grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
   text-align: center;

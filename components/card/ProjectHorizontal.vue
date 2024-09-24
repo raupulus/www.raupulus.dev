@@ -161,6 +161,7 @@ const onImageLoaded = () => {
   color: #3272b8;
   display: -webkit-box;
   -webkit-box-orient: vertical;
+  line-clamp: 2;
   -webkit-line-clamp: 2;
   overflow: hidden;
 }
@@ -170,6 +171,7 @@ const onImageLoaded = () => {
   display: -webkit-box;
   color: #585c60;
   -webkit-box-orient: vertical;
+  line-clamp: 4;
   -webkit-line-clamp: 4;
   overflow: hidden;
 }
@@ -202,6 +204,7 @@ const onImageLoaded = () => {
   display: grid;
   margin: 0 0 0 3px;
   padding: 1.6rem 0.6rem;
+  min-width: 28px;
   grid-gap: 0 5px;
   grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
   text-align: center;
@@ -302,7 +305,7 @@ const onImageLoaded = () => {
 
   .card-project-footer {
     margin: 3px 0 0 0;
-    border-radius: 0 0 0.3rem 0.3rem;
+    border-radius: 0 0 1rem 1rem;
   }
 
   .card-project-footer>div:not(:first-child) {

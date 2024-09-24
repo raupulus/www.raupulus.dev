@@ -55,4 +55,14 @@ function handleShowProjectEvent(project: ContentType) {
 }
 
 .box-vertical {}
+
+@media (max-width: 880px) {
+  .box-grid-projects {
+    grid-gap: 0.6rem;
+  }
+
+  .box-vertical {
+    grid-column: 1 / span 2;
+  }
+}
 </style>

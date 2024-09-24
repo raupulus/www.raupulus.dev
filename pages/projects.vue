@@ -195,4 +195,11 @@ function handleClickTechnology(params: any) {
 .projects-content-resume {
     text-align: right;
 }
+
+@media (max-width: 880px) {
+    .box-projects {
+        margin-top: 0.6rem;
+        padding: 1.3rem 0.6rem;
+    }
+}
 </style>
