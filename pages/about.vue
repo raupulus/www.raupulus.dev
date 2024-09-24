@@ -1,7 +1,30 @@
 <script lang="ts" setup>
+
+const config = useRuntimeConfig();
+
+const url = config.public.app.url;
+const title = 'Sobre mí - Raúl Caro Pastorino | Desarrollador Web Full Stack Backend';
+const description = 'Conoce a Raúl Caro Pastorino, un experimentado desarrollador web full stack especializado en backend. Descubre mi trayectoria profesional, habilidades destacadas y proyectos realizados.';
+const keywords = 'sobre mí, Raúl Caro Pastorino, desarrollador web, full stack, backend, proyectos, experiencia, habilidades';
+
 useHead({
-    title: 'Información Sobre Raúl Caro Pastorino',
-})
+    title: title,
+    meta: [
+        { name: 'description', content: description },
+        { name: 'keywords', content: keywords },
+        { name: 'robots', content: 'index, follow' },
+        { property: 'og:type', content: 'website' },
+        { property: 'og:title', content: title },
+        { property: 'og:description', content: description },
+        { property: 'og:url', content: url + '/projects' },
+        { property: 'og:image', content: url + '/social/about.webp' },
+        { name: 'twitter:card', content: 'summary_large_image' },
+        { name: 'twitter:title', content: title },
+        { name: 'twitter:description', content: description },
+        { name: 'twitter:image', content: url + '/social/about.webp' }
+    ]
+});
+
 </script>
 
 <template>
