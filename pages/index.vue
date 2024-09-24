@@ -6,29 +6,30 @@
 
     <div style="text-align: center;">
         <StackBadgeHexagon text="PHP" color="#777bb3" colorLight="#9b9fd8">
-            <img src="@/assets/images/technologies/php_60x60.webp" title="Lenguaje de Programación PHP"
-                alt="Lenguaje de Programación PHP" />
+            <NuxtImg src="/images/technologies/php_60x60.webp" format="webp" width="60" height="60" quality="90"
+                title="Lenguaje de Programación PHP" alt="Lenguaje de Programación PHP" />
         </StackBadgeHexagon>
 
         <StackBadgeHexagon text="Laravel" color="#c54b4b" colorLight="#d56565">
-            <img src="@/assets/images/technologies/laravel_60x60.webp" title="Framework Laravel"
-                alt="Framework Laravel" />
+            <NuxtImg src="/images/technologies/laravel_60x60.webp" format="webp" width="60" height="60" quality="90"
+                title="Framework Laravel" alt="Framework Laravel" />
         </StackBadgeHexagon>
 
         <div class="inline-block">
             <StackBadgeHexagon text="Vue" color="#2f3239" colorLight="#454850">
-                <img src="@/assets/images/technologies/vuejs_60x60.webp" title="Framework VueJs"
-                    alt="Framework VueJs" />
+                <NuxtImg src="/images/technologies/vuejs_60x60.webp" format="webp" width="60" height="60" quality="90"
+                    title="Framework VueJs" alt="Framework VueJs" />
             </StackBadgeHexagon>
 
             <StackBadgeHexagon text="Javascript" color="#d7af21" colorLight="#e9c853">
-                <img src="@/assets/images/technologies/javascript_60x60.webp"
-                    title="Lenguaje de Programación Javascript" alt="Lenguaje de Programación Javascript" />
+                <NuxtImg src="/images/technologies/javascript_60x60.webp" format="webp" width="60" height="60"
+                    quality="90" title="Lenguaje de Programación Javascript"
+                    alt="Lenguaje de Programación Javascript" />
             </StackBadgeHexagon>
 
             <StackBadgeHexagon text="PostgreSQL" color="#336791" colorLight="#68ace4">
-                <img src="@/assets/images/technologies/postgresql_60x60.webp" title="Logo base de datos PostgreSQL"
-                    alt="Logo base de datos PostgreSQL" />
+                <NuxtImg src="/images/technologies/postgresql_60x60.webp" format="webp" width="60" height="60"
+                    quality="90" title="Bases de datos PostgreSQL" alt="Bases de datos PostgreSQL" />
             </StackBadgeHexagon>
         </div>
     </div>
