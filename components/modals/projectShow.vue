@@ -67,7 +67,8 @@ const props = defineProps({
 const emit = defineEmits(['disablescroll', 'closemodalprojectshow']);
 const scrollDisabled = useScrollDisabled();
 
-const page = ref<ContentPageType | undefined>(undefined);
+//const page = ref<ContentPageType | undefined>(undefined);
+const page = getPageData();
 
 watch(props, (allProps) => {
   scrollDisabled.value = allProps.visible;
@@ -78,7 +79,7 @@ watch(props, (allProps) => {
  */
 watch(() => props.project, (newProject: ContentType) => {
   usePageData(1, newProject.slug).then((data) => {
-    page.value = data;
+    //page.value = data.value;
   });
 });
 
@@ -151,6 +152,7 @@ const backgroundImageUrl = computed(() => page.value?.images?.large ?? props.pro
   margin: 0.3rem;
   width: 100%;
   -webkit-box-orient: vertical;
+  line-clamp: 2;
   -webkit-line-clamp: 2;
   overflow: hidden;
 }
@@ -254,6 +256,7 @@ const backgroundImageUrl = computed(() => page.value?.images?.large ?? props.pro
     padding: 0 3.2rem;
     box-sizing: border-box;
     font-size: 1.6rem;
+    line-clamp: 3;
     -webkit-line-clamp: 3;
     display: block;
   }
