@@ -3,7 +3,7 @@ import { ref } from 'vue';
 
 const page = ref<ContentPageType>();
 
-async function getPage(pageOrder: number, contentSlug: string | undefined): Promise<ContentPageType | undefined> {
+async function getPage(pageOrder: number, contentSlug: string | undefined): Promise<typeof page> {
   const runtimeConfig = useRuntimeConfig();
   const API_BASE = runtimeConfig.public.api.base;
 
@@ -15,7 +15,7 @@ async function getPage(pageOrder: number, contentSlug: string | undefined): Prom
       'Accept': 'application/json',
       'Content-Type': 'application/json',
     },
-  });
+  }).catch(page.value = undefined);
 
   const data = await response.json();
   const tmpPage = data?.page;
@@ -25,10 +25,10 @@ async function getPage(pageOrder: number, contentSlug: string | undefined): Prom
     page.value = tmpPage;
   }
 
-  return tmpPage;
+  return page;
 }
 
-export const usePageData = (pageOrder: number, contentSlug: string | undefined): Promise<ContentPageType | undefined> => {
+export const usePageData = (pageOrder: number, contentSlug: string | undefined): Promise<typeof page> => {
   return getPage(pageOrder, contentSlug);
 };
 

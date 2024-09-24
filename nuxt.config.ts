@@ -107,46 +107,15 @@ export default defineNuxtConfig({
         '@/assets/css/fonts.css',
         '@/assets/css/theme.css',
         '@/assets/css/styles.css',
-
-
-        // Medium Editor
-        //'medium-editor/dist/css/medium-editor.css',
-        //'vuejs-medium-editor/dist/themes/default.css',
-        //'highlight.js/styles/github.css', //if using code highlight
     ],
 
-    /*
-    app: {
-        //buildAssetsDir: '/',
-        head: {
-            htmlAttrs: { dir: 'ltr', lang: 'es' },
-            link: [{
-                rel: 'icon',
-                type: 'image/x-icon',
-                href: "/assets/favicons/favicon.ico"
-            }]
-        },
-    },
-    */
-
-    /*
-    runtimeConfig: {
-        // The private keys which are only available server-side
-        apiSecret: '123',
-        // Keys within public are also exposed client-side
-        public: {
-            apiBase: '/api',
-            test: 'INTERIOR'
-        }
-    },
-    */
     //plugins: [{ src: '~/plugins/vuejs-medium-editor', ssr: false }]
     typescript: {
         strict: true,
         typeCheck: true,
     },
 
-    modules: ["@nuxt/image"],
+    modules: ["@nuxt/image", '@nuxtjs/sitemap'],
 
     image: {
         provider: 'ipx',
@@ -159,20 +128,35 @@ export default defineNuxtConfig({
             routes: ['/'], // Manteniendo la prerenderización de la ruta raíz
         },
     },
-    /*
-    image: {
-        providers: {
-            // Usa el proveedor predeterminado 'static'
-            static: {},
+    site: {
+        url: process.env.APP_URL,
+        name: process.env.APP_NAME
+    },
+    sitemap: {
+        exclude: [
+            '/admin/**',
+            '/login'
+        ],
+        // TODO: Añadir aquí proyectos cuando dinamice urls
+        /*
+        urls: async () => {
+            const posts = await fetch('https://api.tu-dominio.com/posts')
+                .then(res => res.json());
+
+            return posts.map((post: any) => ({
+                loc: `/post/${post.slug}`,
+                changefreq: 'daily',
+                priority: 0.9,
+                lastmod: post.updatedAt
+            }));
         },
-        domains: ['localhost', 'raupulus.dev'], // Asegúrate de incluir tu dominio
-        alias: {
-            // Aliases para acceso directo a los recursos desde la carpeta public
-            specializations: '/specializations',
-            icons: '/icons',
+        */
+        defaults: {
+            changefreq: 'weekly',
+            priority: 0.5,
+            lastmod: new Date()
         },
     },
-    */
 
     compatibilityDate: '2024-09-10'
 })
