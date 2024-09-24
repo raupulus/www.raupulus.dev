@@ -21,13 +21,21 @@ const componentNames = {
   web: 'IconsEarth',
   telegram: 'IconsTelegram',
 }
+
+const currentImgSrc = ref(props.data.urlImageSmall);
+
+const onImageLoaded = () => {
+  currentImgSrc.value = props.data.urlImage;
+};
+
 </script>
 
 <template>
   <div class="card-project-box">
     <div class="card-project-content">
       <div class="card-project-img">
-        <img :src="data.urlImageMedium" :alt="data.title" :title="data.title" />
+        <NuxtImg :src="currentImgSrc" width="440" height="300" :alt="data.title" :title="data.title"
+          @load="onImageLoaded" />
       </div>
 
       <div class="card-project-info">
@@ -61,18 +69,19 @@ const componentNames = {
 
         <IconsYoutube v-if="key === 'youtube'" :margin="0" :url="data.metadata.youtube" :grayscale="true"
           display="block" :legacy="true" />
-        <IconsEarth v-if="key === 'web'" :margin="0" :url="data.metadata.web" :grayscale="true" display="block" :legacy="true" />
+        <IconsEarth v-if="key === 'web'" :margin="0" :url="data.metadata.web" :grayscale="true" display="block"
+          :legacy="true" />
         <IconsTwitter v-if="key === 'twitter'" :margin="0" :url="data.metadata.twitter" :grayscale="true"
           display="block" :legacy="true" />
 
-        <IconsGitlab v-if="key === 'gitlab'" :margin="0" :url="data.metadata.gitlab" :grayscale="true"
-          display="block" :legacy="true" />
+        <IconsGitlab v-if="key === 'gitlab'" :margin="0" :url="data.metadata.gitlab" :grayscale="true" display="block"
+          :legacy="true" />
 
         <IconsTelegram v-if="key === 'telegram_channel'" :margin="0" :url="data.metadata.telegram_channel"
           :grayscale="true" display="block" :legacy="true" />
 
-        <IconsGithub v-if="key === 'github'" :margin="0" :url="data.metadata.github" :grayscale="true"
-          display="block" :legacy="true" />
+        <IconsGithub v-if="key === 'github'" :margin="0" :url="data.metadata.github" :grayscale="true" display="block"
+          :legacy="true" />
 
         <IconsLinkedin v-if="key === 'linkedin'" :margin="0" :url="data.metadata.linkedin" :grayscale="true"
           display="block" :legacy="true" />
@@ -80,8 +89,8 @@ const componentNames = {
         <IconsMastodon v-if="key === 'mastodon'" :margin="0" :url="data.metadata.mastodon" :grayscale="true"
           display="block" :legacy="true" />
 
-        <IconsTwitch v-if="key === 'twitch'" :margin="0" :url="data.metadata.twitch" :grayscale="true"
-          display="block" :legacy="true" />
+        <IconsTwitch v-if="key === 'twitch'" :margin="0" :url="data.metadata.twitch" :grayscale="true" display="block"
+          :legacy="true" />
       </div>
     </div>
   </div>
