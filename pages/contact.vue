@@ -3,11 +3,33 @@ import useGoogleRecaptcha, {
     RecaptchaAction,
 } from "~/composables/useGoogleRecaptcha";
 import fetchPost from '@/composables/fetchPostData'
-
 import { useReCaptcha } from 'vue-recaptcha-v3'
 
-
 const runtimeConfig = useRuntimeConfig()
+
+const url = runtimeConfig.public.app.url;
+const title = 'Contacto - Raúl Caro Pastorino | Desarrollador Web Full Stack Backend';
+const description = 'Ponte en contacto con Raúl Caro Pastorino, un desarrollador web full stack especializado en backend. Descubre cómo puedo ayudarte a llevar tu proyecto al siguiente nivel con soluciones tecnológicas innovadoras.';
+const keywords = 'contacto, Raúl Caro Pastorino, desarrollador web, full stack, backend, soluciones tecnológicas, proyectos web';
+
+useHead({
+    title: title,
+    meta: [
+        { name: 'description', content: description },
+        { name: 'keywords', content: keywords },
+        { name: 'robots', content: 'index, follow' },
+        { property: 'og:type', content: 'website' },
+        { property: 'og:title', content: title },
+        { property: 'og:description', content: description },
+        { property: 'og:url', content: url + '/projects' },
+        { property: 'og:image', content: url + '/social/contact.webp' },
+        { name: 'twitter:card', content: 'summary_large_image' },
+        { name: 'twitter:title', content: title },
+        { name: 'twitter:description', content: description },
+        { name: 'twitter:image', content: url + '/social/contact.webp' }
+    ]
+});
+
 
 //const recaptchaInstance = useReCaptcha();
 const { executeRecaptcha } = useGoogleRecaptcha();

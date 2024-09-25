@@ -3,9 +3,31 @@ import { ref, watch } from 'vue';
 import { useProjectsData, projectsDataSearch } from '@/composables/projectsData';
 import { getPlatformData } from '@/composables/platformData';
 
+const config = useRuntimeConfig();
+
+const url = config.public.app.url;
+const title = 'Proyectos de Raúl Caro Pastorino';
+const description = 'Explora una colección de proyectos destacados realizados por Raúl Caro Pastorino. Descubre innovaciones y desarrollos tecnológicos en diferentes áreas.';
+const keywords = 'proyectos, Raúl Caro Pastorino, desarrollo, tecnología, innovaciones';
+
 useHead({
-    title: 'Proyectos de Raúl Caro Pastorino',
+    title: title,
+    meta: [
+        { name: 'description', content: description },
+        { name: 'keywords', content: keywords },
+        { name: 'robots', content: 'index, follow' },
+        { property: 'og:type', content: 'website' },
+        { property: 'og:title', content: title },
+        { property: 'og:description', content: description },
+        { property: 'og:url', content: url + '/projects' },
+        { property: 'og:image', content: url + '/social/projects.webp' },
+        { name: 'twitter:card', content: 'summary_large_image' },
+        { name: 'twitter:title', content: title },
+        { name: 'twitter:description', content: description },
+        { name: 'twitter:image', content: url + '/social/projects.webp' }
+    ]
 });
+
 
 let platformData = getPlatformData();
 const { datas } = useProjectsData();
@@ -172,5 +194,12 @@ function handleClickTechnology(params: any) {
 
 .projects-content-resume {
     text-align: right;
+}
+
+@media (max-width: 880px) {
+    .box-projects {
+        margin-top: 0.6rem;
+        padding: 1.3rem 0.6rem;
+    }
 }
 </style>
