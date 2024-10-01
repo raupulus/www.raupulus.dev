@@ -39,7 +39,8 @@
       <div class="modal-project-show-footer">
 
         <!-- Paginador -->
-        <ContentPaginator :contentslug="project?.slug" :currentpage="page?.order" :totalpages="project?.total_pages" />
+        <ContentPaginator v-if="project?.total_pages && project?.total_pages > 1" :contentslug="project?.slug"
+          :currentpage="page?.order" :totalpages="project?.total_pages" />
       </div>
     </div>
   </div>
