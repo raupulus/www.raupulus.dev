@@ -40,7 +40,7 @@ const replaceBreakLine = (text: string) => text.replace(/\n|\r/g, '<br>').trim()
 
 </script>
 
-<style scoped>
+<style>
 .r-list-container {
   margin: 1rem 0;
   padding: 0;
@@ -82,5 +82,16 @@ const replaceBreakLine = (text: string) => text.replace(/\n|\r/g, '<br>').trim()
   color: #d3d3d3;
   font-size: 1.1rem;
   word-break: break-all;
+}
+
+.r-list-item-content a {
+  color: #90cdf4;
+  font-weight: bold;
+  transition: color 0.3s ease-in-out;
+}
+
+.r-list-item-content a:hover {
+  color: #ffa07a;
+  text-decoration: underline;
 }
 </style>
