@@ -1,6 +1,5 @@
 <template>
   <div v-if="visible && project" class="modal-project-show">
-
     <div class="modal-container-project-show">
       <!-- Header -->
       <div class="modal-project-show-header" :style="{ backgroundImage: `url('${backgroundImageUrl}')` }">
@@ -49,7 +48,7 @@
 <script lang="ts" setup>
 
 import type { ContentType } from '@/types/ContentType';
-import type { ContentPageType } from '@/types/ContentPageType';
+//import type { ContentPageType } from '@/types/ContentPageType';
 import { usePageData, getPageData } from '../../composables/fetchPageData';
 
 const props = defineProps({
@@ -59,8 +58,9 @@ const props = defineProps({
     default: false,
   },
   project: {
-    type: Object as PropType<ContentType>,
-    required: true
+    type: Object as PropType<ContentType | undefined>,
+    required: false,
+    default: undefined
   }
 })
 
@@ -77,15 +77,18 @@ watch(props, (allProps) => {
 /*
  * Acciones a realizar cuando se cambia de proyecto
  */
-watch(() => props.project, (newProject: ContentType) => {
-  usePageData(1, newProject.slug).then((data) => {
-    //page.value = data.value;
-  });
+watch(() => props.project, (newProject: ContentType | undefined) => {
+  if (newProject) {
+    usePageData(1, newProject.slug).then((data) => {
+      //page.value = data.value;
+    });
+  }
+
 });
 
 
 // Computed property for background image URL
-const backgroundImageUrl = computed(() => page.value?.images?.large ?? props.project.urlImage);
+const backgroundImageUrl = computed(() => page.value?.images?.large ?? props.project?.urlImage);
 
 </script>
 

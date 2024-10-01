@@ -4,6 +4,20 @@ import { useProjectsData, projectsDataSearch } from '@/composables/projectsData'
 import { getPlatformData } from '@/composables/platformData';
 
 const config = useRuntimeConfig();
+const route = useRoute();
+const slugContent = ref(route.params.slugs[0]);
+const slugPage = ref(route.params.slugs[1]);
+
+
+
+
+console.log(slugContent.value);
+console.log(slugPage.value);
+
+
+
+
+
 
 const url = config.public.app.url;
 const title = 'Proyectos de Raúl Caro Pastorino';
@@ -31,6 +45,8 @@ useHead({
 
 let platformData = getPlatformData();
 const { datas } = useProjectsData();
+
+
 
 let searchInput = '';
 let clearSelectOption = false;
@@ -114,7 +130,8 @@ function handleClickTechnology(params: any) {
                     :title="currentTechnology.name">
                 {{ datas.pagination?.totalElements ? 'Hay ' + datas.pagination.totalElements + ' proyectos' : '' }}
             </div>
-            <GridProjects :projects="datas.contents" />
+
+            <GridProjects v-if="datas?.contents" :projects="datas?.contents" />
         </section>
     </div>
 </template>
@@ -122,11 +139,13 @@ function handleClickTechnology(params: any) {
 
 <style scoped>
 /** TODO: background select cambiar color **/
+/*
 .box-search {}
 
 .box-search-title {}
 
 .box-search-fields {}
+*/
 
 .img-technology-search {
     margin-left: 2px;

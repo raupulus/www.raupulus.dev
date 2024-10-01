@@ -10,7 +10,7 @@ const props = defineProps({
 });
 
 const showContent = ref(false);
-const currentContent = ref();
+const currentContent = ref<ContentType | undefined>(undefined);
 
 function isHorizontal(pos: number) {
   return ((pos + 1) % 3) === 0
@@ -21,6 +21,7 @@ function handleShowProjectEvent(project: ContentType) {
   showContent.value = true;
   currentContent.value = project;
 }
+
 </script>
 
 <template>
