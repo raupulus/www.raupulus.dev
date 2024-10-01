@@ -132,7 +132,7 @@ const backgroundImageUrl = computed(() => page.value?.images?.large ?? props.pro
   width: 100%;
   height: 100%;
   grid-template-columns: auto 1fr auto;
-  background-color: var(--primary);
+  background-color: #f1f1f1;
   /*background-image: v-bind("`url('${page?.images?.large ?? project?.urlImage}')`");*/
   /* Imagen principal del proyecto */
   background-position: center;
@@ -144,6 +144,10 @@ const backgroundImageUrl = computed(() => page.value?.images?.large ?? props.pro
   gap: 0.3rem;
   padding: 0.3rem;
   box-sizing: border-box;
+
+  /* Animación para entrar la imagen */
+  -webkit-transition: background-image 0.4s ease-in-out;
+  transition: background-image 0.4s ease-in-out;
 }
 
 .modal-project-header-center {
