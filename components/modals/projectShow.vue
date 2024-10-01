@@ -1,6 +1,5 @@
 <template>
   <div v-if="visible && project" class="modal-project-show">
-
     <div class="modal-container-project-show">
       <!-- Header -->
       <div class="modal-project-show-header" :style="{ backgroundImage: `url('${backgroundImageUrl}')` }">
@@ -40,7 +39,8 @@
       <div class="modal-project-show-footer">
 
         <!-- Paginador -->
-        <ContentPaginator :contentslug="project?.slug" :currentpage="page?.order" :totalpages="project?.total_pages" />
+        <ContentPaginator v-if="project?.total_pages && project?.total_pages > 1" :contentslug="project?.slug"
+          :currentpage="page?.order" :totalpages="project?.total_pages" />
       </div>
     </div>
   </div>
@@ -49,7 +49,7 @@
 <script lang="ts" setup>
 
 import type { ContentType } from '@/types/ContentType';
-import type { ContentPageType } from '@/types/ContentPageType';
+//import type { ContentPageType } from '@/types/ContentPageType';
 import { usePageData, getPageData } from '../../composables/fetchPageData';
 
 const props = defineProps({
@@ -59,8 +59,9 @@ const props = defineProps({
     default: false,
   },
   project: {
-    type: Object as PropType<ContentType>,
-    required: true
+    type: Object as PropType<ContentType | undefined>,
+    required: false,
+    default: undefined
   }
 })
 
@@ -77,15 +78,18 @@ watch(props, (allProps) => {
 /*
  * Acciones a realizar cuando se cambia de proyecto
  */
-watch(() => props.project, (newProject: ContentType) => {
-  usePageData(1, newProject.slug).then((data) => {
-    //page.value = data.value;
-  });
+watch(() => props.project, (newProject: ContentType | undefined) => {
+  if (newProject) {
+    usePageData(1, newProject.slug).then((data) => {
+      //page.value = data.value;
+    });
+  }
+
 });
 
 
 // Computed property for background image URL
-const backgroundImageUrl = computed(() => page.value?.images?.large ?? props.project.urlImage);
+const backgroundImageUrl = computed(() => page.value?.images?.large ?? props.project?.urlImage);
 
 </script>
 
@@ -128,7 +132,7 @@ const backgroundImageUrl = computed(() => page.value?.images?.large ?? props.pro
   width: 100%;
   height: 100%;
   grid-template-columns: auto 1fr auto;
-  background-color: var(--primary);
+  background-color: #f1f1f1;
   /*background-image: v-bind("`url('${page?.images?.large ?? project?.urlImage}')`");*/
   /* Imagen principal del proyecto */
   background-position: center;
@@ -140,6 +144,10 @@ const backgroundImageUrl = computed(() => page.value?.images?.large ?? props.pro
   gap: 0.3rem;
   padding: 0.3rem;
   box-sizing: border-box;
+
+  /* Animación para entrar la imagen */
+  -webkit-transition: background-image 0.4s ease-in-out;
+  transition: background-image 0.4s ease-in-out;
 }
 
 .modal-project-header-center {

@@ -4,7 +4,8 @@
     <div class="r-image-box">
       <figure class="r-image-figure">
         <img :src="image.data.file.url_thumbnail" class="r-image-img" :data-url_medium="image.data.file.url"
-          :data-url_full="image.data.file.url_large" :alt="image.data.caption" :title="image.data.caption">
+          :data-url_full="image.data.file.url_large" :alt="image.data.caption" :title="image.data.caption"
+          @load="loadHighQualityImage" />
 
         <figcaption v-if="image.data.caption" class="r-image-caption">
           {{ image.data.caption }}
@@ -28,6 +29,11 @@ const props = defineProps({
 
 const image = props.block as BlockImageType
 image.data.caption = image?.data?.caption?.replace(/\n|\r/g, '<br>').trim();
+
+const loadHighQualityImage = (event: Event) => {
+  const imgElement = event.target as HTMLImageElement;
+  imgElement.src = image.data.file.url;
+};
 
 const formatBytes = (bytes: number, precision: number = 2) => {
   var units = ['B', 'KB', 'MB', 'GB', 'TB'];
@@ -92,7 +98,7 @@ const formatBytes = (bytes: number, precision: number = 2) => {
 }
 
 .r-image-img:hover {
-  filter: blur(0.3px) brightness(0.9) contrast(0.9) grayscale(0.1);
+  filter: blur(0.1px) brightness(0.9) contrast(0.9) grayscale(0.1);
 }
 
 .r-image-img:hover+.r-image-caption,
