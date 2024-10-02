@@ -21,7 +21,8 @@
 
         <!-- Derecha, tecnologías y cerrar modal -->
         <div class="modal-project-show-header-main-last">
-          <span class="modal-project-show-header-close" @click="emit('closemodalprojectshow')">
+          <span class="modal-project-show-header-close"
+            @click="() => { emit('closemodalprojectshow'); emit('slugchange') }">
             X
           </span>
         </div>
@@ -40,7 +41,8 @@
 
         <!-- Paginador -->
         <ContentPaginator v-if="project?.total_pages && project?.total_pages > 1" :contentslug="project?.slug"
-          :currentpage="page?.order" :totalpages="project?.total_pages" />
+          @slugchange="(slugProject, slugPage) => emit('slugchange', slugProject, slugPage)" :currentpage="page?.order"
+          :totalpages="project?.total_pages" />
       </div>
     </div>
   </div>
@@ -65,7 +67,7 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['disablescroll', 'closemodalprojectshow']);
+const emit = defineEmits(['disablescroll', 'closemodalprojectshow', 'slugchange']);
 const scrollDisabled = useScrollDisabled();
 
 //const page = ref<ContentPageType | undefined>(undefined);
@@ -74,19 +76,6 @@ const page = getPageData();
 watch(props, (allProps) => {
   scrollDisabled.value = allProps.visible;
 })
-
-/*
- * Acciones a realizar cuando se cambia de proyecto
- */
-watch(() => props.project, (newProject: ContentType | undefined) => {
-  if (newProject) {
-    usePageData(1, newProject.slug).then((data) => {
-      //page.value = data.value;
-    });
-  }
-
-});
-
 
 // Computed property for background image URL
 const backgroundImageUrl = computed(() => page.value?.images?.large ?? props.project?.urlImage);

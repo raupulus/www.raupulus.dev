@@ -1,4 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import { type ContentType } from '@/types/ContentType';
+import { usefetchProjectsPaginated } from './composables/projectsData';
 
 export default defineNuxtConfig({
     ssr: true,
@@ -115,7 +117,7 @@ export default defineNuxtConfig({
         typeCheck: true,
     },
 
-    modules: ["@nuxt/image", '@nuxtjs/sitemap'],
+    modules: ["@nuxt/image", '@nuxtjs/sitemap', 'nuxt-gtag', '@dargmuesli/nuxt-cookie-control'],
 
     image: {
         provider: 'ipx',
@@ -137,25 +139,155 @@ export default defineNuxtConfig({
             '/admin/**',
             '/login'
         ],
-        // TODO: Añadir aquí proyectos cuando dinamice urls
-        /*
-        urls: async () => {
-            const posts = await fetch('https://api.tu-dominio.com/posts')
-                .then(res => res.json());
+        urls: async (): Promise<any> => {
+            const projects: ContentType[] = await usefetchProjectsPaginated();
 
-            return posts.map((post: any) => ({
-                loc: `/post/${post.slug}`,
-                changefreq: 'daily',
-                priority: 0.9,
-                lastmod: post.updatedAt
-            }));
+            const urls = projects.flatMap((project: ContentType) => {
+                // URL para el proyecto principal
+                const mainProjectUrl = {
+                    loc: `/project/${project.slug}`,
+                    changefreq: 'weekly',
+                    priority: 0.9,
+                    lastmod: project.updated_at
+                };
+
+                // URLs para las páginas del proyecto
+                let pageUrls = project.pages_slug?.map((pageSlug: string) => ({
+                    loc: `/project/${project.slug}/${pageSlug}`,
+                    changefreq: 'weekly',
+                    priority: 0.7,
+                    lastmod: project.updated_at
+                }));
+
+                if (!pageUrls) {
+                    pageUrls = [];
+                }
+
+                return [mainProjectUrl, ...pageUrls];
+            });
+
+            return urls;
         },
-        */
         defaults: {
             changefreq: 'weekly',
             priority: 0.5,
             lastmod: new Date()
         },
+    },
+
+    // https://github.com/johannschopplich/nuxt-gtag#readme
+    gtag: {
+        id: process.env.GTAG_ID,
+        enabled: process.env.NODE_ENV === 'production',
+        initMode: 'auto',
+        initCommands: [
+            // Setup up consent mode
+            ['consent', 'default', {
+                ad_user_data: 'granted',
+                ad_personalization: 'denied',
+                ad_storage: 'denied',
+                analytics_storage: 'denied',
+                wait_for_update: 500,
+            }]
+        ]
+    },
+
+    cookieControl: {
+        barPosition: 'bottom-right', // Posición del banner de cookies
+        closeModalOnClickOutside: true, // Cerrar modal al hacer clic fuera
+        colors: {
+            barBackground: '#000', // Fondo del banner
+            barButtonBackground: '#fff', // Fondo del botón del banner
+            barButtonColor: '#000', // Color del texto del botón del banner
+            barButtonHoverBackground: '#333', // Fondo del botón al pasar el ratón
+            barButtonHoverColor: '#fff', // Color del texto del botón al pasar el ratón
+            barTextColor: '#fff', // Color del texto del banner
+            checkboxActiveBackground: '#000', // Fondo del checkbox activo
+            checkboxActiveCircleBackground: '#fff', // Fondo del círculo del checkbox activo
+            checkboxDisabledBackground: '#ddd', // Fondo del checkbox deshabilitado
+            checkboxDisabledCircleBackground: '#fff', // Fondo del círculo del checkbox deshabilitado
+            checkboxInactiveBackground: '#000', // Fondo del checkbox inactivo
+            checkboxInactiveCircleBackground: '#fff', // Fondo del círculo del checkbox inactivo
+            controlButtonBackground: '#fff', // Fondo del botón de control
+            controlButtonHoverBackground: '#000', // Fondo del botón de control al pasar el ratón
+            controlButtonIconColor: '#000', // Color del icono del botón de control
+            controlButtonIconHoverColor: '#fff', // Color del icono del botón de control al pasar el ratón
+            focusRingColor: '#808080', // Color del anillo de enfoque
+            modalBackground: '#fff', // Fondo del modal
+            modalButtonBackground: '#000', // Fondo del botón del modal
+            modalButtonColor: '#fff', // Color del texto del botón del modal
+            modalButtonHoverBackground: '#333', // Fondo del botón del modal al pasar el ratón
+            modalButtonHoverColor: '#fff', // Color del texto del botón del modal al pasar el ratón
+            modalOverlay: '#000', // Superposición del modal
+            modalOverlayOpacity: 0.8, // Opacidad de la superposición del modal
+            modalTextColor: '#000', // Color del texto del modal
+            modalUnsavedColor: '#fff', // Color del texto no guardado del modal
+        },
+        cookies: {
+            necessary: [
+                {
+                    id: 'necessary', // ID necesario de la cookie
+                    name: {
+                        en: 'Necessary Cookies',
+                        es: 'Cookies Necesarias'
+                    },
+                    description: {
+                        en: 'These cookies are essential for the website to function properly.',
+                        es: 'Estas cookies son esenciales para el correcto funcionamiento del sitio web.',
+                    },
+                    // Lista de enlaces
+                    links: {
+                        '/privacy': 'Política de Privacidad',
+                    },
+                },
+            ],
+            optional: [
+                {
+                    id: 'google-analytics', // ID opcional de la cookie
+                    name: {
+                        en: 'Analytics Cookies',
+                        es: 'Cookies de Analítica'
+                    },
+                    description: {
+                        en: 'These cookies provide analytic data about site traffic.',
+                        es: 'Estas cookies proporcionan datos analíticos sobre el tráfico del sitio.',
+                    },
+                    isPreselected: true,
+                    //src: 'https://example.com/analytics/js?id=<API-KEY>',
+                    //targetCookieIds: ['_ga', '_gid', 'google-analytics'], // IDs de cookies objetivo
+                },
+            ],
+        },
+        cookieExpiryOffsetMs: 1000 * 60 * 60 * 24 * 365, // Un año
+        cookieNameIsConsentGiven: 'ncc_c', // Nombre de la cookie para consentimiento dado
+        cookieNameCookiesEnabledIds: 'ncc_e', // Nombre de la cookie para cookies habilitadas
+        cookieOptions: {
+            path: '/',
+            sameSite: 'strict',
+        },
+        isAcceptNecessaryButtonEnabled: false, // Mostrar botón "Aceptar necesarias"
+        isControlButtonEnabled: true, // Mostrar botón de control
+        isIframeBlocked: false, // No bloquear iframes
+        isModalForced: false, // No forzar mostrar el modal
+
+        // Switch to toggle the separation of cookie name and description in the configuration modal by a dash.
+        isDashInDescriptionEnabled: true,
+
+        locales: ['es', 'en'], // Idiomas
+        localeTexts: {
+            es: {
+                save: 'Recordar',
+                acceptAll: 'Aceptar Todas',
+                declineAll: 'Rechazar Todas',
+                manageCookies: 'Gestionar Cookies',
+            },
+            en: {
+                save: 'Remember',
+                acceptAll: 'Accept All',
+                declineAll: 'Decline All',
+                manageCookies: 'Manage Cookies',
+            }
+        }
     },
 
     compatibilityDate: '2024-09-10'

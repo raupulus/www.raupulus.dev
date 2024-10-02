@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 //import fetchCsrfToken from '@/composables/fetchPostData'
 
 const webTitle = 'Portfolio de Raúl Caro Pastorino Web Developer (@raupulus)';
@@ -36,7 +36,7 @@ const scrollDisabled = useScrollDisabled();
  *
  * @param {boolean} disabled
  */
-function scrollToggle(disabled) {
+function scrollToggle(disabled: boolean) {
     if (disabled) {
         document.body.classList.add('disable-scroll');
     } else {
@@ -64,6 +64,40 @@ onNuxtReady(() => {
     //useProjectsData()
 })
 
+
+/* Cookies */
+const {
+    cookiesEnabled,
+    cookiesEnabledIds,
+    isConsentGiven,
+    isModalActive,
+    moduleOptions,
+} = useCookieControl()
+
+watch(
+    () => cookiesEnabledIds.value,
+    (current, previous) => {
+        console.log('cambia cookes');
+        if (
+            !previous?.includes('google-analytics') &&
+            current?.includes('google-analytics')
+        ) {
+            console.log('se habilita google analytics');
+            // cookie con id `google-analytics` se ha añadido
+            //window.location.reload() // placeholder para tu manejador de cambios personalizado
+            const { gtag, initialize } = useGtag()
+            gtag('consent', 'update', {
+                ad_user_data: 'granted',
+                ad_personalization: 'granted',
+                ad_storage: 'granted',
+                analytics_storage: 'granted'
+            })
+
+            //initialize();
+        }
+    },
+    { deep: true },
+)
 </script>
 
 <template>
@@ -75,6 +109,8 @@ onNuxtReady(() => {
         </div>
 
         <AppFooter />
+
+        <CookieControl locale="es" />
     </div>
 </template>
 

@@ -10,10 +10,12 @@ export type ContentType = {
     urlImageMedium: string,
     urlImage: string,
     created_at?: string,
+    updated_at?: string,
     created_at_human?: string,
     total_pages?: number,
     categories?: string[],
     tags?: string[],
     metadata?: MetadataType,
     technologies?: TechnologyType[],
+    pages_slug?: string[],
 }

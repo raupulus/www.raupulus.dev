@@ -1,6 +1,6 @@
 <template>
     <div class="navigation-box" v-if="totalpages">
-        <span @click="(currentpage > 1) ? usePageData(currentpage - 1, contentslug) : null"
+        <span @click="(currentpage > 1) ? changePageEmit(currentpage - 1, contentslug) : null"
             :class="(currentpage <= 1) ? 'navigation-arrow-disabled' : 'navigation-arrow-pointer'">
             <svg :class="'navigation-arrow-left' + ((currentpage <= 1) ? ' navigation-arrow-disabled' : '')"
                 fill="currentColor" viewBox="0 0 20 20">
@@ -12,18 +12,18 @@
         </span>
 
         <span :class="'navigation-page' + ((idx + 1) === currentpage ? ' navigation-page-current' : '')"
-            v-if="totalpages <= 5" v-for="idx of  Array((totalpages ?? 0)).keys()" key="idx"
-            @click="() => (currentpage !== (idx + 1)) ? usePageData(idx + 1, contentslug) : null">
+            v-if="totalpages <= 5" v-for="idx of Array((totalpages ?? 0)).keys()" key="idx"
+            @click="() => (currentpage !== (idx + 1)) ? changePageEmit(idx + 1, contentslug) : null">
             {{ idx + 1 }}
         </span>
 
         <span :class="'navigation-page' + ((pos) === currentpage ? ' navigation-page-current' : '')"
             v-if="totalpages > 5" v-for="pos in getArrayPaginationPositions()" key="idx"
-            @click="() => (currentpage !== (pos)) ? usePageData(pos, contentslug) : null">
+            @click="() => (currentpage !== (pos)) ? changePageEmit(pos, contentslug) : null">
             {{ pos }}
         </span>
 
-        <span @click="(currentpage < totalpages) ? usePageData(currentpage + 1, contentslug) : null"
+        <span @click="(currentpage < totalpages) ? changePageEmit(currentpage + 1, contentslug) : null"
             :class="(currentpage >= totalpages) ? 'navigation-arrow-disabled' : 'navigation-arrow-pointer'">
             <svg :class="'navigation-arrow-right' + ((currentpage >= totalpages) ? ' navigation-arrow-disabled' : '')"
                 fill="currentColor" viewBox="0 0 20 20">
@@ -39,6 +39,9 @@
 </template>
 
 <script lang="ts" setup>
+
+const emit = defineEmits(['slugchange']);
+
 const props = defineProps({
     contentslug: {
         required: true,
@@ -53,6 +56,16 @@ const props = defineProps({
         default: 1
     },
 })
+
+const changePageEmit = (page: number, projectSlug: string) => {
+    usePageData(page, projectSlug).then((contentPage) => {
+
+        // Emito evento al padre para actualizar el slug de la url
+        emit('slugchange', projectSlug, contentPage.value?.slug)
+    });
+
+
+}
 
 /*
  * Devuelve la paginación cuando hay más de 5 páginas.

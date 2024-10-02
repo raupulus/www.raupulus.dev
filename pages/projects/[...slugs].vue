@@ -7,17 +7,11 @@ const config = useRuntimeConfig();
 const route = useRoute();
 const slugContent = ref(route.params.slugs[0]);
 const slugPage = ref(route.params.slugs[1]);
+let openProjetOnLoad = ref(false);
 
-
-
-
-console.log(slugContent.value);
-console.log(slugPage.value);
-
-
-
-
-
+if (slugContent) {
+    openProjetOnLoad.value = true;
+}
 
 const url = config.public.app.url;
 const title = 'Proyectos de Raúl Caro Pastorino';
@@ -83,6 +77,42 @@ function handleClickTechnology(params: any) {
         technology: technologySelect.value,
     });
 }
+
+
+
+
+
+
+
+
+
+
+
+// En desarrollo -->
+
+// Función para cambiar el slug en la URL
+// Posteriormente se deberán detectar los slug de entrada para abrir el modal con el proyecto correspondiente.
+const handleChangeUrlSlug = (contentSlug: string | undefined, pageSlug: string | undefined) => {
+    let newUrl = window.location.origin + '/projects';
+
+    if (contentSlug) {
+        slugContent.value = contentSlug;
+        slugPage.value = pageSlug ?? '';
+
+        const newSlug = pageSlug ? contentSlug + '/' + pageSlug : contentSlug;
+        newUrl += '/' + newSlug;
+    } else {
+        slugContent.value = '';
+        slugPage.value = '';
+    }
+
+    window.history.pushState({}, '', newUrl);
+};
+
+
+
+
+
 </script>
 
 <template>
@@ -131,7 +161,8 @@ function handleClickTechnology(params: any) {
                 {{ datas.pagination?.totalElements ? 'Hay ' + datas.pagination.totalElements + ' proyectos' : '' }}
             </div>
 
-            <GridProjects v-if="datas?.contents" :projects="datas?.contents" />
+            <GridProjects v-if="datas?.contents" :projects="datas?.contents" @slugchange="handleChangeUrlSlug"
+                :slugContent="slugContent" :slugPage="slugPage" :openProjetOnLoad="openProjetOnLoad" />
         </section>
     </div>
 </template>
