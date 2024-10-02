@@ -80,6 +80,7 @@ watch(props, (allProps) => {
 /*
  * Acciones a realizar cuando se cambia de proyecto
  */
+/*
 watch(() => props.project, (newProject: ContentType | undefined) => {
   if (newProject) {
     usePageData(1, newProject.slug).then((data) => {
@@ -90,7 +91,7 @@ watch(() => props.project, (newProject: ContentType | undefined) => {
   }
 
 });
-
+*/
 
 // Computed property for background image URL
 const backgroundImageUrl = computed(() => page.value?.images?.large ?? props.project?.urlImage);

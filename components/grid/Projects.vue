@@ -22,8 +22,12 @@ function handleShowProjectEvent(project: ContentType) {
   showContent.value = true;
   currentContent.value = project;
 
-  // Emito evento al padre para actualizar el slug de la url
-  emit('slugchange', currentContent.value.slug)
+  usePageData(1, project.slug).then((page) => {
+    // Emito evento al padre para actualizar el slug de la url
+    emit('slugchange', currentContent.value?.slug, page.value?.slug)
+  })
+
+
 }
 
 </script>

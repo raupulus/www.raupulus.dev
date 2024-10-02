@@ -96,13 +96,11 @@ const handleChangeUrlSlug = (contentSlug: string | undefined, pageSlug: string |
         slugPage.value = pageSlug ?? '';
 
         const newSlug = pageSlug ? contentSlug + '/' + pageSlug : contentSlug;
-        newUrl = window.location.origin + '/projects/' + newSlug;
+        newUrl += '/' + newSlug;
     } else {
         slugContent.value = '';
         slugPage.value = '';
     }
-
-
 
     window.history.pushState({}, '', newUrl);
 };
