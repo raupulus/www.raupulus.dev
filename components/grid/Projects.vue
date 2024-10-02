@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import type { ContentType } from '~/types/ContentType';
 
+const emit = defineEmits(['slugchange']);
+
 const props = defineProps({
   projects: {
     type: Array as PropType<Array<ContentType>>,
@@ -17,16 +19,19 @@ function isHorizontal(pos: number) {
 }
 
 function handleShowProjectEvent(project: ContentType) {
-  //console.log(project);
   showContent.value = true;
   currentContent.value = project;
+
+  // Emito evento al padre para actualizar el slug de la url
+  emit('slugchange', currentContent.value.slug)
 }
 
 </script>
 
 <template>
   <div class="box-grid-projects">
-    <ModalsProjectShow :project="currentContent" :visible="showContent" @closemodalprojectshow="showContent = false" />
+    <ModalsProjectShow :project="currentContent" :visible="showContent" @closemodalprojectshow="showContent = false"
+      @slugchange="(slugProject, slugPage) => emit('slugchange', slugProject, slugPage)" />
 
     <div v-for="project, key in projects" :key="project.slug"
       :class="isHorizontal(key) ? 'box-horizontal' : 'box-vertical'">
