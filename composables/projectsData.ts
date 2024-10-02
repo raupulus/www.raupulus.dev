@@ -10,6 +10,11 @@ type ResponseContentType = {
     contents?: ContentType[],
 }
 
+type ResponseProjectType = {
+    ok?: boolean,
+    content?: ContentType,
+}
+
 const datas = ref<ResponseContentType>({});
 
 function prepareData(res: ResponseContentType) {
@@ -18,6 +23,14 @@ function prepareData(res: ResponseContentType) {
             ele = prepareDataContent(ele);
         });
     }
+    return res;
+}
+
+function prepareDataProjectResponse(res: ResponseProjectType) {
+    if (res.content) {
+        res.content = prepareDataContent(res.content);
+    }
+
     return res;
 }
 
@@ -99,4 +112,23 @@ export function projectsDataSearch(params: {} | null = null) {
             datas.value = prepareData(res);
         })
         .catch(err => console.error('FETCH projectsDataSearch ERROR', err));
+}
+
+
+export async function useGetProjectBySlug(slug: string): Promise<ContentType | null> {
+    const runtimeConfig = useRuntimeConfig();
+    const API_BASE = runtimeConfig.public.api.base;
+    const API_URL = `${API_BASE}/content/portfolio/${slug}/get`;
+
+    let project: ContentType | null = null;
+
+    const response = await fetch(API_URL);
+    if (response.ok) {
+        const res = await response.json();
+        project = prepareDataProjectResponse(res).content ?? null;
+    } else {
+        console.error('FETCH projectBySlug ERROR', response);
+    }
+
+    return project;
 }

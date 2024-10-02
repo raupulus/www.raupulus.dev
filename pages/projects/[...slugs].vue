@@ -7,7 +7,11 @@ const config = useRuntimeConfig();
 const route = useRoute();
 const slugContent = ref(route.params.slugs[0]);
 const slugPage = ref(route.params.slugs[1]);
+let openProjetOnLoad = ref(false);
 
+if (slugContent) {
+    openProjetOnLoad.value = true;
+}
 
 const url = config.public.app.url;
 const title = 'Proyectos de Raúl Caro Pastorino';
@@ -157,7 +161,8 @@ const handleChangeUrlSlug = (contentSlug: string | undefined, pageSlug: string |
                 {{ datas.pagination?.totalElements ? 'Hay ' + datas.pagination.totalElements + ' proyectos' : '' }}
             </div>
 
-            <GridProjects v-if="datas?.contents" :projects="datas?.contents" @slugchange="handleChangeUrlSlug" />
+            <GridProjects v-if="datas?.contents" :projects="datas?.contents" @slugchange="handleChangeUrlSlug"
+                :slugContent="slugContent" :slugPage="slugPage" :openProjetOnLoad="openProjetOnLoad" />
         </section>
     </div>
 </template>

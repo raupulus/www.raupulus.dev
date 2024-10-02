@@ -16,4 +16,5 @@ export type ContentType = {
     tags?: string[],
     metadata?: MetadataType,
     technologies?: TechnologyType[],
+    pages_slug?: string[],
 }

@@ -77,22 +77,6 @@ watch(props, (allProps) => {
   scrollDisabled.value = allProps.visible;
 })
 
-/*
- * Acciones a realizar cuando se cambia de proyecto
- */
-/*
-watch(() => props.project, (newProject: ContentType | undefined) => {
-  if (newProject) {
-    usePageData(1, newProject.slug).then((data) => {
-      //page.value = data.value;
-      // Emito evento al padre para actualizar el slug de la url al cambiar de página
-      //emit('slugchange', newProject.slug, data.value?.slug)
-    });
-  }
-
-});
-*/
-
 // Computed property for background image URL
 const backgroundImageUrl = computed(() => page.value?.images?.large ?? props.project?.urlImage);
 
