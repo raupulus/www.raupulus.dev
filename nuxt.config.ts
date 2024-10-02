@@ -1,4 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import { type ContentType } from '@/types/ContentType';
+import { usefetchProjectsPaginated } from './composables/projectsData';
 
 export default defineNuxtConfig({
     ssr: true,
@@ -137,20 +139,35 @@ export default defineNuxtConfig({
             '/admin/**',
             '/login'
         ],
-        // TODO: Añadir aquí proyectos cuando dinamice urls
-        /*
-        urls: async () => {
-            const posts = await fetch('https://api.tu-dominio.com/posts')
-                .then(res => res.json());
+        urls: async (): Promise<any> => {
+            const projects: ContentType[] = await usefetchProjectsPaginated();
 
-            return posts.map((post: any) => ({
-                loc: `/post/${post.slug}`,
-                changefreq: 'daily',
-                priority: 0.9,
-                lastmod: post.updatedAt
-            }));
+            const urls = projects.flatMap((project: ContentType) => {
+                // URL para el proyecto principal
+                const mainProjectUrl = {
+                    loc: `/project/${project.slug}`,
+                    changefreq: 'weekly',
+                    priority: 0.9,
+                    lastmod: project.updated_at
+                };
+
+                // URLs para las páginas del proyecto
+                let pageUrls = project.pages_slug?.map((pageSlug: string) => ({
+                    loc: `/project/${project.slug}/${pageSlug}`,
+                    changefreq: 'weekly',
+                    priority: 0.7,
+                    lastmod: project.updated_at
+                }));
+
+                if (!pageUrls) {
+                    pageUrls = [];
+                }
+
+                return [mainProjectUrl, ...pageUrls];
+            });
+
+            return urls;
         },
-        */
         defaults: {
             changefreq: 'weekly',
             priority: 0.5,

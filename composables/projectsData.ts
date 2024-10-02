@@ -114,7 +114,12 @@ export function projectsDataSearch(params: {} | null = null) {
         .catch(err => console.error('FETCH projectsDataSearch ERROR', err));
 }
 
-
+/**
+ * Busca un contenido de por el slug
+ *
+ * @param slug
+ * @returns
+ */
 export async function useGetProjectBySlug(slug: string): Promise<ContentType | null> {
     const runtimeConfig = useRuntimeConfig();
     const API_BASE = runtimeConfig.public.api.base;
@@ -131,4 +136,37 @@ export async function useGetProjectBySlug(slug: string): Promise<ContentType | n
     }
 
     return project;
+}
+
+/**
+ *
+ * Devuelve todos los proyectos paginando hasta obtenerlos todos.
+ * Usado principalmente para el sitemap
+ *
+ * @param apiBaseUrl
+ * @returns
+ */
+export async function usefetchProjectsPaginated(): Promise<ContentType[]> {
+    const apiBaseUrl = process.env.API_BASE_URL; // Asegúrate de sustituir esta línea por la URL correcta
+
+    let page = 1;
+    const quantity = 10; // Cantidad de proyectos por página
+    let totalProjects: ContentType[] = [];
+    let hasMorePages = true;
+
+    interface ProjectResponseType {
+        pagination: PaginationType;
+        contents: ContentType[];
+    }
+
+    while (hasMorePages) {
+        const response = await fetch(`${apiBaseUrl}/platform/portfolio/content/type/project?page=${page}&quantity=${quantity}`);
+        const data: ProjectResponseType = await response.json();
+        totalProjects = [...totalProjects, ...data.contents];
+
+        hasMorePages = data.pagination.hasNextPage;
+        page++;
+    }
+
+    return totalProjects;
 }
