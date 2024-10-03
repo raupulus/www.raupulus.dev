@@ -1,6 +1,55 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import { type ContentType } from '@/types/ContentType';
 import { usefetchProjectsPaginated } from './composables/projectsData';
+import fs from 'fs';
+import path from 'path';
+/*
+
+// Ruta donde se guardarán las rutas generadas
+const cachedRoutesPath = path.resolve('cachedRoutes.json');
+
+// Función para generar y guardar las rutas
+const fetchAndGenerateRoutes = async (): Promise<void> => {
+    console.log('Generando rutas dinámicas');
+
+    const projects: ContentType[] = await usefetchProjectsPaginated();
+    const urls: string[] = projects.flatMap((project: ContentType) => {
+        const mainProjectUrl = `/project/${project.slug}`;
+        const pageUrls = project.pages_slug?.map((pageSlug: string) =>
+            `/project/${project.slug}/${pageSlug}`
+        ) || [];
+        return [mainProjectUrl, ...pageUrls];
+    });
+
+    fs.writeFileSync(cachedRoutesPath, JSON.stringify(['/', ...urls]));
+    console.log(`Archivo '${cachedRoutesPath}' generado con éxito.`);
+};
+
+// Rutas predeterminadas (vacías)
+let cachedRoutes: string[] = [];
+
+// Función para leer las rutas desde el archivo caché
+const readCachedRoutes = () => {
+    if (fs.existsSync(cachedRoutesPath)) {
+        console.log("Leyendo rutas desde 'cachedRoutes.json'.");
+        cachedRoutes = JSON.parse(fs.readFileSync(cachedRoutesPath, 'utf-8'));
+    } else {
+        console.warn(`Advertencia: No se encontró 'cachedRoutes.json'. Usando un array vacío.`);
+    }
+};
+
+// Genera las rutas y luego lee el archivo caché
+//await fetchAndGenerateRoutes();
+//readCachedRoutes();
+
+//console.log('Termina rutas');
+
+*/
+
+
+// Define la ruta del archivo JSON donde se almacenarán las rutas
+const cachedRoutesPath = path.resolve('cachedRoutes.json');
+
 
 export default defineNuxtConfig({
     ssr: true,
@@ -10,16 +59,6 @@ export default defineNuxtConfig({
 
     ],
 
-    // Configuración para generación de sitios estáticos
-    /*
-    nitro: {
-        prerender: {
-            routes: [
-                // Agrega aquí las rutas estáticas si es necesario
-            ]
-        }
-    },
-    */
 
     runtimeConfig: {
         captcha: {
@@ -127,8 +166,39 @@ export default defineNuxtConfig({
     nitro: {
         preset: 'static',
         prerender: {
-            routes: ['/'], // Manteniendo la prerenderización de la ruta raíz
+            routes: [],
+            //routes: ['/projects/slug-contenido/slug-page1',],
         },
+        hooks: {
+            async 'prerender:routes'(routes: Set<string>) {
+                console.log('Generando rutas dinámicas');
+
+                // Obtener los proyectos paginados
+                const projects = await usefetchProjectsPaginated();
+                const urls = projects.flatMap((project) => {
+                    const mainProjectUrl = `/projects/${project.slug}`;
+                    const pageUrls = project.pages_slug?.map((pageSlug) =>
+                        `/projects/${project.slug}/${pageSlug}`
+                    ) ?? [];
+                    return [mainProjectUrl, ...pageUrls];
+                });
+
+                // Si el archivo ya existe, se eliminará antes de generar uno nuevo
+                if (fs.existsSync(cachedRoutesPath)) {
+                    fs.unlinkSync(cachedRoutesPath);
+                }
+
+                // Escribir las rutas generadas en el archivo JSON
+                fs.writeFileSync(cachedRoutesPath, JSON.stringify(['/', ...urls], null, 2));
+
+                // Añadir cada URL generada a las rutas de prerender
+                urls.forEach(url => routes.add(url));
+
+                console.log('Rutas generadas:');
+                urls.forEach(url => console.log(url));
+            },
+        },
+
     },
     site: {
         url: process.env.APP_URL,
