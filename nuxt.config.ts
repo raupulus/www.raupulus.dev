@@ -215,7 +215,7 @@ export default defineNuxtConfig({
             const urls = projects.flatMap((project: ContentType) => {
                 // URL para el proyecto principal
                 const mainProjectUrl = {
-                    loc: `/project/${project.slug}`,
+                    loc: `/projects/${project.slug}`,
                     changefreq: 'weekly',
                     priority: 0.9,
                     lastmod: project.updated_at
@@ -223,7 +223,7 @@ export default defineNuxtConfig({
 
                 // URLs para las páginas del proyecto
                 let pageUrls = project.pages_slug?.map((pageSlug: string) => ({
-                    loc: `/project/${project.slug}/${pageSlug}`,
+                    loc: `/projects/${project.slug}/${pageSlug}`,
                     changefreq: 'weekly',
                     priority: 0.7,
                     lastmod: project.updated_at
