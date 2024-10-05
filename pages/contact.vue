@@ -41,20 +41,31 @@ const API_BASE: string = runtimeConfig.public.api.base
 const API_PATH_CONTACT: string = runtimeConfig.public.api.contact
 
 const recaptchaIns = useReCaptcha()?.instance
+const router = useRouter();
 
 useHead({
     title: 'Contactar con Raúl Caro Pastorino',
 })
 
-onMounted((): void => {
-    setTimeout(() => {
-        recaptchaIns?.value?.showBadge()
-    }, 1000)
-})
+router.afterEach((to, from) => {
+    if (to.path === '/contact') {
+        setTimeout(() => {
+            recaptchaIns?.value?.showBadge();
+        }, 1000);
+    } else {
+        recaptchaIns?.value?.hideBadge();
+    }
+});
 
-onBeforeUnmount((): void => {
-    recaptchaIns?.value?.hideBadge()
-})
+onMounted(() => {
+    setTimeout(() => {
+        recaptchaIns?.value?.showBadge();
+    }, 1000);
+});
+
+onBeforeUnmount(() => {
+    recaptchaIns?.value?.hideBadge();
+});
 
 interface Validation {
     minLength?: { value: number; message: string };
