@@ -59,14 +59,14 @@ const buttons = [
         title: 'Información sobre Mi',
     },
     {
-        text: 'Collaborations',
-        to: '/collaborations',
-        title: 'Proyectos en los que he colaborado',
+        text: 'Webs',
+        to: '/webs',
+        title: 'Sitios Webs Propios',
     },
     {
-        text: 'Services',
-        to: '/services',
-        title: 'Servicios que ofrezco',
+        text: 'Social',
+        to: '/social',
+        title: 'Mis Redes Sociales',
     },
     {
         text: 'Contact',

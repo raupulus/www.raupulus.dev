@@ -82,7 +82,7 @@ watch(
             !previous?.includes('google-analytics') &&
             current?.includes('google-analytics')
         ) {
-            console.log('se habilita google analytics');
+            //console.log('se habilita google analytics');
             // cookie con id `google-analytics` se ha añadido
             //window.location.reload() // placeholder para tu manejador de cambios personalizado
             const { gtag, initialize } = useGtag()
