@@ -26,6 +26,12 @@ useHead({
 
 const webs = [
     {
+        title: 'AI Dyslexic',
+        image: '/images/icons/webs/aidyslexic.webp',
+        description: 'Proyecto que crear una "idea" con un sistema de roles usando GPT-3.5 Instruct para generar un prompt que produzca imágenes mediante Stable Diffusion o Dall-e. Subir imágenes a una API como galería y publicarlas en redes (Twitter, Instagram, Mastodon, Telegram). Crear un slideshow con ffmpeg y subirlo a TikTok y YouTube, sincronizando con la API para establecer el video como portada de la colección.',
+        url: 'https://aidyslexic.raupulus.dev',
+    },
+    {
         title: 'Portfolio Web Personal',
         image: '/logo_128x128.webp',
         description: 'Esta es mi web personal, donde comparto mis proyectos y experiencia.',
