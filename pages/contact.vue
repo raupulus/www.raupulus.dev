@@ -452,6 +452,20 @@ const showConfirmModal = async (e: Event): Promise<void> => {
                     Contacto
                 </span>
             </h1>
+
+            <p>
+                <small>
+                    Fuera de servicio temporalmente mientras termino de implementar medidas de seguridad anti bots y
+                    anti spam usando mi propia AI para ello.
+                </small>
+            </p>
+
+            <p>
+                <small>
+                    Puedes contactarme mediante alguna de las redes sociales con una cuenta que sea real y te contestaré
+                    en cuanto me sea posible.
+                </small>
+            </p>
         </div>
 
         <div class="box-form">
