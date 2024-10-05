@@ -123,25 +123,56 @@ export function useProjectsData() {
     };
 }
 
-export function projectsDataSearch(params: {} | null = null) {
+export async function projectsDataSearch(params: {} | null = null) {
     const runtimeConfig = useRuntimeConfig();
     const API_BASE = runtimeConfig.public.api.base;
     const API_URL = `${API_BASE}/platform/portfolio/content/type/project`;
-    const URL = params ? `${API_URL}?${new URLSearchParams(params).toString()}` : API_URL;
 
-    fetch(URL, {
-        mode: 'cors',
-        cache: 'no-cache',
-        headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-        },
-    })
-        .then(response => response.json())
-        .then(res => {
-            datas.value = prepareData(res);
-        })
-        .catch(err => console.error('FETCH projectsDataSearch ERROR', err));
+    datas.value.contents = [];  // Limpiar los datos existentes
+    datas.value.pagination = undefined;  // Reiniciar la paginación
+
+    let hasMore = true;
+    let page = 1;
+    const quantity = 15;  // Cantidad de proyectos por página
+
+    while (hasMore) {
+        const searchParams = new URLSearchParams(params as Record<string, string> || []);
+        searchParams.append('page', page.toString());
+        searchParams.append('quantity', quantity.toString());
+        const requestURL = `${API_URL}?${searchParams.toString()}`;
+
+        //console.log(`Fetching search data for page: ${page}`);  // Log para depuración
+        const response = await fetch(requestURL, {
+            mode: 'cors',
+            cache: 'no-cache',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (response.ok) {
+            const res: ResponseContentType = await response.json();
+            const newData = prepareData(res);
+
+            if (page === 1) {
+                datas.value = newData;
+            } else {
+                if (newData.contents) {
+                    datas.value.contents = [...(datas.value.contents ?? []), ...newData.contents];
+                }
+                if (newData.pagination) {
+                    datas.value.pagination = newData.pagination;
+                }
+            }
+
+            hasMore = newData.pagination?.hasNextPage ?? false;
+            page++;
+        } else {
+            console.error('FETCH projectsDataSearch ERROR', response);
+            hasMore = false;
+        }
+    }
 }
 
 /**
