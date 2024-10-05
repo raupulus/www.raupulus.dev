@@ -6,7 +6,7 @@ import { type SearchParamsType } from '@/types/SearchParamsType';
 
 type ResponseContentType = {
     pagination?: PaginationType,
-    search_content?: SearchParamsType,
+    search_params?: SearchParamsType,
     contents?: ContentType[],
 }
 
@@ -75,21 +75,51 @@ export function useProjectsData() {
     const API_BASE = runtimeConfig.public.api.base;
     const API_URL = `${API_BASE}/platform/portfolio/content/type/project`;
 
-    const fetchData = async () => {
-        const response = await fetch(API_URL);
+    const fetchData = async (page = 1, quantity = 10) => {
+        console.log(`Fetching data for page: ${page}`);  // Log for debugging
+        const params = new URLSearchParams({ page: page.toString(), quantity: quantity.toString() });
+        const response = await fetch(`${API_URL}?${params}`);
+
         if (response.ok) {
             const res = await response.json();
-            datas.value = prepareData(res);
+            const newData = prepareData(res);
+
+            if (page === 1) {
+                datas.value = newData;
+            } else {
+                if (newData.contents) {
+                    datas.value.contents = [...(datas.value.contents ?? []), ...newData.contents];
+                }
+                if (newData.pagination) {
+                    datas.value.pagination = newData.pagination;
+                }
+            }
+            return newData.pagination?.hasNextPage ?? false;
         } else {
             console.error('FETCH projectsData ERROR', response);
+            return false;
         }
     };
 
-    onMounted(fetchData);
+    onMounted(async () => {
+        await fetchData();
+
+        setTimeout(async () => {
+            let hasMore = datas.value.pagination?.hasNextPage;
+            let currentPage = 1;
+
+            while (hasMore) {
+                currentPage += 1;  // Increment page number
+                //console.log(`Requesting page: ${currentPage}`);  // Log for debugging
+                hasMore = await fetchData(currentPage);
+            }
+        }, 50);
+
+    });
 
     return {
         datas,
-        fetchData, // exposing fetchData in case it needs to be called manually
+        fetchData,
     };
 }
 
@@ -150,7 +180,7 @@ export async function usefetchProjectsPaginated(): Promise<ContentType[]> {
     const apiBaseUrl = process.env.API_BASE_URL; // Asegúrate de sustituir esta línea por la URL correcta
 
     let page = 1;
-    const quantity = 10; // Cantidad de proyectos por página
+    const quantity = 15; // Cantidad de proyectos por página
     let totalProjects: ContentType[] = [];
     let hasMorePages = true;
 
