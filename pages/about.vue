@@ -16,7 +16,7 @@ useHead({
         { property: 'og:type', content: 'website' },
         { property: 'og:title', content: title },
         { property: 'og:description', content: description },
-        { property: 'og:url', content: url + '/projects' },
+        { property: 'og:url', content: url + '/about' },
         { property: 'og:image', content: url + '/social/about.webp' },
         { name: 'twitter:card', content: 'summary_large_image' },
         { name: 'twitter:title', content: title },

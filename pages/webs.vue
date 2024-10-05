@@ -56,7 +56,11 @@ const webs = [
     <section>
         <div class="text-center">
             <h1>
-                Mis Sitios Webs
+                Mis
+
+                <span class="text-primary font-bold">
+                    Sitios Webs
+                </span>
             </h1>
         </div>
 

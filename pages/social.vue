@@ -162,7 +162,10 @@ const groups = [
     <section>
         <div class="text-center">
             <h1>
-                Mis Redes Sociales
+                Mis
+                <span class="text-primary font-bold">
+                    Redes Sociales
+                </span>
             </h1>
         </div>
 
