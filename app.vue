@@ -120,4 +120,8 @@ body.disable-scroll {
     overflow: hidden;
     box-sizing: border-box;
 }
+
+#app-box-content {
+    height: 100%;
+}
 </style>
