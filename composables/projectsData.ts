@@ -76,7 +76,7 @@ export function useProjectsData() {
     const API_URL = `${API_BASE}/platform/portfolio/content/type/project`;
 
     const fetchData = async (page = 1, quantity = 10) => {
-        console.log(`Fetching data for page: ${page}`);  // Log for debugging
+        //console.log(`Fetching data for page: ${page}`);  // Log for debugging
         const params = new URLSearchParams({ page: page.toString(), quantity: quantity.toString() });
         const response = await fetch(`${API_URL}?${params}`);
 
