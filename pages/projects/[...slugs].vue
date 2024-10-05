@@ -108,11 +108,6 @@ const handleChangeUrlSlug = (contentSlug: string | undefined, pageSlug: string |
 
     window.history.pushState({}, '', newUrl);
 };
-
-
-
-
-
 </script>
 
 <template>

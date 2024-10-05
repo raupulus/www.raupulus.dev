@@ -152,6 +152,8 @@ const backgroundImageUrl = computed(() => page.value?.images?.large ?? props.pro
   line-clamp: 2;
   -webkit-line-clamp: 2;
   overflow: hidden;
+  text-decoration: wavy;
+  text-shadow: 1px 1px 2px var(--primary), 0 0 1em var(--primary), 0 0 0.2em var(--primary);
 }
 
 .modal-project-show-header-technologies {

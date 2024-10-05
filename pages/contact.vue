@@ -21,7 +21,7 @@ useHead({
         { property: 'og:type', content: 'website' },
         { property: 'og:title', content: title },
         { property: 'og:description', content: description },
-        { property: 'og:url', content: url + '/projects' },
+        { property: 'og:url', content: url + '/contact' },
         { property: 'og:image', content: url + '/social/contact.webp' },
         { name: 'twitter:card', content: 'summary_large_image' },
         { name: 'twitter:title', content: title },
@@ -41,20 +41,31 @@ const API_BASE: string = runtimeConfig.public.api.base
 const API_PATH_CONTACT: string = runtimeConfig.public.api.contact
 
 const recaptchaIns = useReCaptcha()?.instance
+const router = useRouter();
 
 useHead({
     title: 'Contactar con Raúl Caro Pastorino',
 })
 
-onMounted((): void => {
-    setTimeout(() => {
-        recaptchaIns?.value?.showBadge()
-    }, 1000)
-})
+router.afterEach((to, from) => {
+    if (to.path === '/contact') {
+        setTimeout(() => {
+            recaptchaIns?.value?.showBadge();
+        }, 1000);
+    } else {
+        recaptchaIns?.value?.hideBadge();
+    }
+});
 
-onBeforeUnmount((): void => {
-    recaptchaIns?.value?.hideBadge()
-})
+onMounted(() => {
+    setTimeout(() => {
+        recaptchaIns?.value?.showBadge();
+    }, 1000);
+});
+
+onBeforeUnmount(() => {
+    recaptchaIns?.value?.hideBadge();
+});
 
 interface Validation {
     minLength?: { value: number; message: string };
@@ -434,9 +445,13 @@ const showConfirmModal = async (e: Event): Promise<void> => {
 <template>
     <section>
         <div class="box-title">
-            <h2>
-                Contáctame
-            </h2>
+            <h1>
+                Formulario de
+
+                <span class="text-primary font-bold">
+                    Contacto
+                </span>
+            </h1>
         </div>
 
         <div class="box-form">
@@ -528,7 +543,16 @@ const showConfirmModal = async (e: Event): Promise<void> => {
 
                     <span class="inline-block">
                         &nbsp;
-                        electrónicos de mi parte.
+                        electrónicos de mi parte
+                    </span>
+
+                    <span class="inline-block">
+                        &nbsp;
+                        y la
+
+                        <NuxtLink to="/privacy" target="_blank">
+                            política de privacidad.
+                        </NuxtLink>
                     </span>
 
                     <IconsInfo :size="16" class="check-errors-icon"
