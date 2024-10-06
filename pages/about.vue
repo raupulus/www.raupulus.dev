@@ -268,6 +268,8 @@ const showImageSlide = (idx: number) => {
 
         <ModalsImageSlide :show="showImageModal" :galleryPaths="galleryPaths" :selectedIndex="selectedIndex"
             @update:show="showImageModal = $event" />
+
+        <div style="margin-top: 1.3rem;"></div>
     </section>
 </template>
 

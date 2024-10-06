@@ -1,7 +1,7 @@
 <template>
     <div v-if="show && galleryPaths.length > 0" class="modal" @click.self="closeModal">
         <div class="modal-content">
-            <button @click="closeModal" class="close">&times;</button>
+            <button @click="closeModal" class="close">X</button>
 
             <div class="main-image-container">
                 <NuxtImg v-if="currentImage" :src="currentImage.image" class="large-image" />
@@ -32,7 +32,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, watch } from 'vue';
+import { defineComponent, ref, computed, watch, onMounted, onBeforeUnmount } from 'vue';
 import type { GalleryPathType } from '@/types/GalleryPathType';
 
 export default defineComponent({
@@ -54,7 +54,6 @@ export default defineComponent({
     },
     setup(props, { emit }) {
         const currentIndex = ref<number>(props.selectedIndex);
-
         const currentImage = computed(() => props.galleryPaths[currentIndex.value]);
 
         watch(() => props.selectedIndex, (newIndex) => {
@@ -70,16 +69,34 @@ export default defineComponent({
         };
 
         const previousImage = () => {
-            if (props.galleryPaths.length > 0) {
-                currentIndex.value = (currentIndex.value - 1 + props.galleryPaths.length) % props.galleryPaths.length;
+            if (currentIndex.value > 0) {
+                currentIndex.value -= 1;
             }
         };
 
         const nextImage = () => {
-            if (props.galleryPaths.length > 0) {
-                currentIndex.value = (currentIndex.value + 1) % props.galleryPaths.length;
+            if (currentIndex.value < props.galleryPaths.length - 1) {
+                currentIndex.value += 1;
             }
         };
+
+        const handleKeydown = (event: KeyboardEvent) => {
+            if (props.show) {
+                if (event.key === 'ArrowLeft') {
+                    previousImage();
+                } else if (event.key === 'ArrowRight') {
+                    nextImage();
+                }
+            }
+        };
+
+        onMounted(() => {
+            window.addEventListener('keydown', handleKeydown);
+        });
+
+        onBeforeUnmount(() => {
+            window.removeEventListener('keydown', handleKeydown);
+        });
 
         return {
             currentIndex,
@@ -125,22 +142,23 @@ export default defineComponent({
 
 .close {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: var(--primary);
-    color: white;
-    font-size: 28px;
-    font-weight: bold;
-    border: none;
+    padding: 1.3rem 1.3rem 2.3rem 2.3rem;
+    right: 0;
+    top: 0;
+    opacity: 0.4;
     cursor: pointer;
-    transition: background-color 0.3s;
+    background-color: var(--primary);
+    border-radius: 0 0 0 66px;
+    text-align: center;
+    font-size: 2rem;
+    color: #f1f1f1;
+    border: transparent;
 }
 
 .close:hover,
 .close:focus {
+    opacity: 1;
     background-color: var(--warning);
-    color: white;
-    text-decoration: none;
 }
 
 .main-image-container {
@@ -198,6 +216,7 @@ export default defineComponent({
     align-items: center;
     width: 100%;
     padding: 0 1rem;
+    box-sizing: border-box;
 }
 
 .prev-button,
