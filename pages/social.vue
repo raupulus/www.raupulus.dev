@@ -37,13 +37,13 @@ const groups = [
             {
                 title: 'Gitlab',
                 image: '/images/icons/social/gitlab.svg',
-                description: 'Explora mis proyectos y contribuciones en mi perfil de Gitlab. Contacta conmigo fácilmente desde esta plataforma.',
+                description: 'Explora mis proyectos y contribuciones en mi perfil de Gitlab. ¡Conéctate conmigo fácilmente desde Gitlab!',
                 url: 'https://gitlab.com/raupulus',
             },
             {
                 title: 'Github',
                 image: '/images/icons/social/github.svg',
-                description: 'Visita mi perfil en Github para ver mi código y contribuciones a proyectos de código abierto. Utilizo principalmente Gitlab, por lo que este perfil sirve como respaldo de repositorios (mirrors).',
+                description: 'Visita mi perfil en Github para ver mi código y contribuciones a proyectos de código abierto. Principalmente uso Gitlab, por lo que GitHub es mi respaldo de repositorios.',
                 url: 'https://github.com/raupulus',
             },
             {
@@ -79,6 +79,36 @@ const groups = [
         ]
     },
     {
+        title: 'Recursos Compartidos',
+        networks: [
+            {
+                title: 'Codepen (Diseños CSS)',
+                image: '/images/icons/social/codepen.svg',
+                description: 'Aquí comparto mis diseños en CSS para que puedan ser reutilizados. ¡Sígueme para ser notificado con nuevas publicaciones de diseños!',
+                url: 'https://codepen.io/raupulus',
+            },
+            {
+                title: 'Thingiverse (Modelos Impresora 3D)',
+                image: '/images/icons/social/thingiverse.webp',
+                description: 'Descubre mis modelos 3D en Thingiverse, donde comparto mis creaciones para impresoras 3D. ¡Sígueme y mantente al día con mis últimos diseños innovadores!',
+                url: 'https://www.thingiverse.com/raupulus/designs',
+            },
+            {
+                title: 'Printables (Modelos Impresora 3D)',
+                image: '/images/icons/social/printables.svg',
+                description: 'Explora mis diseños 3D en Printables y encuentra modelos únicos para tus proyectos de impresión 3D. ¡Sígueme para no perderte ninguna de mis nuevas creaciones!',
+                url: 'https://www.printables.com/@raupulus_2109175',
+            },
+            {
+                title: 'Maker World (Modelos Impresora 3D)',
+                image: '/images/icons/social/bambulab.svg',
+                description: 'Visita mi perfil en Maker World y descubre una variedad de modelos 3D originales. Te invito a seguirme para estar al tanto de mis últimas aportaciones al mundo de la impresión 3D.',
+                url: 'https://makerworld.com/es/@raupulus',
+            }
+
+        ]
+    },
+    {
         title: 'Social',
         networks: [
             {
@@ -102,14 +132,14 @@ const groups = [
             {
                 title: 'Instagram',
                 image: '/images/icons/social/instagram.svg',
-                description: 'Descubre mis publicaciones y fotografías en Instagram, donde comparto proyectos y fotografías capturados con mis cámaras.',
+                description: 'Descubre mis publicaciones y fotografías en Instagram, donde comparto proyectos y algunas imágenes de mis cámaras.',
                 url: 'https://www.instagram.com/raupulus/',
             },
 
         ]
     },
     {
-        title: 'Vídeo',
+        title: 'Streaming y Vídeos',
         networks: [
             {
                 title: 'Youtube (Raul Caro Pastorino)',
@@ -149,7 +179,7 @@ const groups = [
             {
                 title: 'Telegram Canal AI Automations Experimental',
                 image: '/images/icons/social/telegram.svg',
-                description: 'Canal para el proyecto dónde creo contenido con inteligencia artificial y lo comparto en redes automáticamente. En este canal encontrarás imágenes y vídeos creados así',
+                description: 'Este canal es para un proyecto donde creo contenido con inteligencia artificial y lo comparto automáticamente en redes. En este canal encontrarás imágenes y vídeos creados así',
                 url: 'https://t.me/ai_automations_experimental',
             },
             {
@@ -191,7 +221,7 @@ const groups = [
                 </div>
 
                 <div class="box-btns">
-                    <BtnGeneric text="Ir" :title="network.title" :to="network.url" width="50px" />
+                    <BtnGeneric text="Ir" :title="network.title" :to="network.url" width="50px" target="_blank" />
                 </div>
 
             </div>
