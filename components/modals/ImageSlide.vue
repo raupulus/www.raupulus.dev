@@ -4,14 +4,14 @@
             <button @click="closeModal" class="close">X</button>
 
             <div class="main-image-container">
-                <NuxtImg v-if="currentImage" :src="currentImage.image" class="large-image" />
+                <img v-if="currentImage" :src="currentImage.image" class="large-image" />
             </div>
 
             <div class="thumbnails-container">
                 <div class="thumbnails">
                     <div v-for="(path, index) in galleryPaths" :key="index" @click="selectImage(index)"
                         :class="{ active: index === currentIndex }" class="thumbnail-item">
-                        <NuxtImg :src="path.thumbnail" class="thumbnail-image" />
+                        <NuxtImg :src="path.thumbnail" class="thumbnail-image" loading="lazy" />
                     </div>
                 </div>
             </div>
@@ -199,7 +199,7 @@ export default defineComponent({
 }
 
 .thumbnail-item.active .thumbnail-image {
-    border: 2px solid var(--primary);
+    border: 3px solid var(--primary);
 }
 
 .thumbnail-image {

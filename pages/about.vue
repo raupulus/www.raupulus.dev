@@ -38,7 +38,7 @@ const generateGalleryPaths = (): GalleryPathType[] => {
     const basePath = '/images/pages/about/gallery/';
 
     // Cantidad de imágenes en la galería
-    const quantity = 44;
+    const quantity = 50;
 
     for (let i = 0; i < quantity; i++) {
         galleryPaths.push({
@@ -262,7 +262,8 @@ const showImageSlide = (idx: number) => {
 
         <div class="box-about-gallery">
             <div v-for="(galleryPath, idx) in galleryPaths" :key="idx" class="about-gallery-item">
-                <NuxtImg class="about-gallery-image" :src="galleryPath.thumbnail" @click="() => showImageSlide(idx)" />
+                <NuxtImg class="about-gallery-image" loading="lazy" :src="galleryPath.thumbnail"
+                    @click="() => showImageSlide(idx)" />
             </div>
         </div>
 
