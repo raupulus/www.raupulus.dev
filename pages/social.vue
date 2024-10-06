@@ -152,6 +152,12 @@ const groups = [
                 description: 'Canal para el proyecto dónde creo contenido con inteligencia artificial y lo comparto en redes automáticamente. En este canal encontrarás imágenes y vídeos creados así',
                 url: 'https://t.me/ai_automations_experimental',
             },
+            {
+                title: 'Telegram Canal La Guía Linux',
+                image: '/images/icons/social/telegram.svg',
+                description: 'Canal de Difusión oficial sobre Guías y vídeotutoriales GNU/Linux por el proyecto LaGuiaLinux LGL',
+                url: 'https://t.me/laguialinux',
+            },
         ]
     },
 ];
