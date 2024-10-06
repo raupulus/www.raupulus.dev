@@ -170,6 +170,70 @@ useHead({
                 </div>
             </div>
         </div>
+
+        <!-- Imagen del entorno de trabajo con callout para ver CV -->
+        <div class="box-about-work-environment">
+            <div class="box-about-work-environment-image">
+
+            </div>
+
+            <div class="box-about-work-environment-callout">
+                <div>
+                    <NuxtImg src="/logo_128x128.webp" alt="Logotipo de Raúl Caro Pastorino"
+                        title="Logotipo de Raúl Caro Pastorino" />
+                </div>
+
+                <div>
+                    <BtnGeneric to="https://curriculum.raupulus.dev" text="Ver CV Online" target="_blank"
+                        title="Enlace a mi Curriculum Vitae" />
+                </div>
+            </div>
+        </div>
+
+        <!-- Hobbies y pasatiempos -->
+        <div class="box-about-hobbies box-about-card">
+            <div class="about-hobbies about-card">
+                <h3 class="about-card-title">Hobbies</h3>
+
+                <div class="about-card-content">
+                    <ul>
+                        <li>asdasd</li>
+                        <li>asdasd</li>
+                        <li>asdasd</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="about-hobbies2 about-card">
+                <h3 class="about-card-title">Aficiones???</h3>
+
+                <div class="about-card-content">
+                    <ul>
+                        <li>asdasd</li>
+                        <li>asdasd</li>
+                        <li>asdasd</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="box-about-gallery">
+            <NuxtImg class="about-gallery-image" src="/images/pages/about/gallery/img1_thumbnail.webp" />
+            <NuxtImg class="about-gallery-image" src="/images/pages/about/gallery/img2_thumbnail.webp" />
+            <NuxtImg class="about-gallery-image" src="/images/pages/about/gallery/img2_thumbnail.webp" />
+            <NuxtImg class="about-gallery-image" src="/images/pages/about/gallery/img2_thumbnail.webp" />
+            <NuxtImg class="about-gallery-image" src="/images/pages/about/gallery/img2_thumbnail.webp" />
+            <NuxtImg class="about-gallery-image" src="/images/pages/about/gallery/img2_thumbnail.webp" />
+            <NuxtImg class="about-gallery-image" src="/images/pages/about/gallery/img2_thumbnail.webp" />
+            <NuxtImg class="about-gallery-image" src="/images/pages/about/gallery/img2_thumbnail.webp" />
+            <NuxtImg class="about-gallery-image" src="/images/pages/about/gallery/img2_thumbnail.webp" />
+            <NuxtImg class="about-gallery-image" src="/images/pages/about/gallery/img2_thumbnail.webp" />
+            <NuxtImg class="about-gallery-image" src="/images/pages/about/gallery/img2_thumbnail.webp" />
+            <NuxtImg class="about-gallery-image" src="/images/pages/about/gallery/img2_thumbnail.webp" />
+            <NuxtImg class="about-gallery-image" src="/images/pages/about/gallery/img2_thumbnail.webp" />
+            <NuxtImg class="about-gallery-image" src="/images/pages/about/gallery/img2_thumbnail.webp" />
+            <NuxtImg class="about-gallery-image" src="/images/pages/about/gallery/img2_thumbnail.webp" />
+        </div>
     </section>
 </template>
 
@@ -212,6 +276,7 @@ useHead({
 .box-about-card {
     position: relative;
     display: grid;
+    margin-top: 1.3rem;
     padding: 1.3rem;
     grid-template-columns: 1fr 1fr;
     align-items: center;
@@ -270,9 +335,54 @@ useHead({
     /* Ajusta según el tamaño de tu imagen */
 }
 
+/* Imagen del entorno de trabajo con callout */
+.box-about-work-environment {
+    display: grid;
+    position: relative;
+    margin-top: 1.3rem;
+    width: 100%;
+    height: 400px;
+    text-align: center;
+    grid-template-columns: 1fr;
+    align-items: center;
+    text-align: center;
+    box-sizing: border-box;
+    background-image: url("/images/pages/about/work_environment.webp");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
 
+.box-about-work-environment>.box-about-work-environment-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
 
+.box-about-work-environment>.box-about-work-environment-callout {
+    text-align: center;
+}
 
+/* Galería de imágenes */
+.box-about-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-gap: 0.3rem;
+    /* Espacio entre las imágenes, ajusta según sea necesario */
+    justify-items: center;
+    /* Centra las imágenes horizontalmente */
+    align-items: center;
+    /* Centra las imágenes verticalmente */
+}
+
+.about-gallery-image {
+    max-height: 200px;
+    object-fit: cover;
+    /* Ajusta las imágenes para que mantengan su proporción y cubran completamente el contenedor */
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+}
 
 @media (max-width: 920px) {
     .box-about-main {
