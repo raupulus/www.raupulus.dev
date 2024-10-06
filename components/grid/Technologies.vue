@@ -45,9 +45,10 @@ const props = defineProps({
 
 .box-container-technologies img {
   display: inline-block;
-  margin: 1px 2px;
-  width: 25px;
-  height: 25px;
+  margin: 2px 4px;
+  padding-bottom: 2px;
+  width: 35px;
+  height: 35px;
   cursor: pointer;
   object-fit: cover;
   object-position: center;
@@ -58,6 +59,7 @@ const props = defineProps({
 .box-container-technologies img.technology-selected {
   transform: scale(1.3);
   filter: grayscale(0%);
+  border-bottom: 4px solid var(--primary);
 }
 
 .box-container-technologies img.technology-selected {

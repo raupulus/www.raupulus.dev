@@ -39,6 +39,11 @@ export default defineComponent({
             type: String,
             required: false,
             default: 'auto'
+        },
+        target: {
+            type: String,
+            required: false,
+            default: '_self'
         }
     },
     setup(props) {
@@ -53,7 +58,7 @@ export default defineComponent({
 
 <template>
     <span v-if="to" class="box-button">
-        <NuxtLink :to="to" :title="title">
+        <NuxtLink :to="to" :title="title" :target="target">
             <span :class="allClass">
                 <slot name="before" />
 
@@ -67,15 +72,23 @@ export default defineComponent({
     </span>
 
     <span v-else-if="typeof callback === 'function'" @click="callback" :class="allClass" class="box-button">
+        <slot name="before" />
+
         <span>
             {{ text }}
         </span>
+
+        <slot name="after" />
     </span>
 
     <span v-else :class="allClass" class="box-button">
+        <slot name="before" />
+
         <span>
             {{ text }}
         </span>
+
+        <slot name="after" />
     </span>
 </template>
 
@@ -88,6 +101,7 @@ export default defineComponent({
     text-align: center;
     /*font-family: 'Open Sans', sans-serif;*/
     border-radius: 8px;
+    box-sizing: border-box;
 }
 
 .btn:hover {
@@ -107,6 +121,21 @@ export default defineComponent({
 
 .btn-cancel {
     background-color: var(--danger);
+    color: var(--white);
+}
+
+.btn-red {
+    background-color: #ff6347;
+    color: var(--white);
+}
+
+.btn-black {
+    background-color: #000;
+    color: var(--white);
+}
+
+.btn-color-blue-linkedin {
+    background-color: #0056b3;
     color: var(--white);
 }
 
