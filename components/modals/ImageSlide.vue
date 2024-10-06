@@ -1,21 +1,32 @@
 <template>
-    <div v-if="show && galleryPaths.length > 0" class="modal">
+    <div v-if="show && galleryPaths.length > 0" class="modal" @click.self="closeModal">
         <div class="modal-content">
             <button @click="closeModal" class="close">&times;</button>
 
-            <div class="main-image">
+            <div class="main-image-container">
                 <NuxtImg v-if="currentImage" :src="currentImage.image" class="large-image" />
             </div>
 
-            <div class="thumbnails">
-                <div v-for="(path, index) in galleryPaths" :key="index" @click="selectImage(index)"
-                    :class="{ active: index === currentIndex }" class="thumbnail-item">
-                    <NuxtImg :src="path.thumbnail" class="thumbnail-image" />
+            <div class="thumbnails-container">
+                <div class="thumbnails">
+                    <div v-for="(path, index) in galleryPaths" :key="index" @click="selectImage(index)"
+                        :class="{ active: index === currentIndex }" class="thumbnail-item">
+                        <NuxtImg :src="path.thumbnail" class="thumbnail-image" />
+                    </div>
                 </div>
             </div>
 
-            <button @click="previousImage" class="prev-button">&laquo; Prev</button>
-            <button @click="nextImage" class="next-button">Next &raquo;</button>
+            <div class="button-container">
+                <button @click="previousImage" class="prev-button" :class="{ disabled: currentIndex === 0 }"
+                    :disabled="currentIndex === 0">
+                    Anterior
+                </button>
+                <button @click="nextImage" class="next-button"
+                    :class="{ disabled: currentIndex === galleryPaths.length - 1 }"
+                    :disabled="currentIndex === galleryPaths.length - 1">
+                    Siguiente
+                </button>
+            </div>
         </div>
     </div>
 </template>
@@ -32,7 +43,7 @@ export default defineComponent({
             required: true
         },
         galleryPaths: {
-            type: Array as PropType<GalleryPathType[]>,
+            type: Array as () => GalleryPathType[],
             default: () => [],
             required: true
         },
@@ -83,7 +94,6 @@ export default defineComponent({
 </script>
 
 <style scoped>
-/* Your styles here */
 .modal {
     display: flex;
     justify-content: center;
@@ -94,87 +104,123 @@ export default defineComponent({
     top: 0;
     width: 100%;
     height: 100%;
-    overflow: auto;
+    overflow: hidden;
     background-color: rgba(0, 0, 0, 0.8);
 }
 
 .modal-content {
+    position: relative;
+    display: grid;
+    grid-template-rows: auto 110px 60px;
+    /* Ajustamos la altura de los thumbnails */
+    align-items: center;
     background-color: #fefefe;
-    margin: auto;
     padding: 1rem;
     border: 1px solid #888;
-    width: 80%;
-    max-width: 800px;
-    position: relative;
+    width: 90%;
+    max-width: 1400px;
+    height: 90%;
+    box-sizing: border-box;
 }
 
 .close {
     position: absolute;
-    top: 15px;
-    right: 20px;
-    color: #aaa;
+    top: 10px;
+    right: 10px;
+    background-color: var(--primary);
+    color: white;
     font-size: 28px;
     font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 .close:hover,
 .close:focus {
-    color: black;
+    background-color: var(--warning);
+    color: white;
     text-decoration: none;
-    cursor: pointer;
 }
 
-.main-image {
+.main-image-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 1rem;
+    overflow: hidden;
+    height: 100%;
 }
 
 .large-image {
+    max-height: 100%;
     max-width: 100%;
-    max-height: 400px;
     object-fit: contain;
+}
+
+.thumbnails-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    overflow: hidden;
 }
 
 .thumbnails {
     display: flex;
     overflow-x: auto;
-    margin-bottom: 1rem;
+    scroll-behavior: smooth;
+    white-space: nowrap;
+    width: 100%;
+    padding: 0 10px;
 }
 
 .thumbnail-item {
-    margin-right: 0.5rem;
+    display: inline-block;
+    margin: 0 5px;
+    flex-shrink: 0;
     cursor: pointer;
 }
 
 .thumbnail-item.active .thumbnail-image {
-    border: 2px solid #007bff;
+    border: 2px solid var(--primary);
 }
 
 .thumbnail-image {
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    /* Ajustamos el tamaño de los thumbnails */
+    height: 80px;
     object-fit: cover;
     transition: transform 0.3s ease;
 }
 
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0 1rem;
+}
+
 .prev-button,
 .next-button {
-    background-color: #007bff;
+    background-color: var(--primary);
     border: none;
-    color: white;
+    color: #fff;
     padding: 0.5rem 1rem;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
-    margin: 0.5rem;
     cursor: pointer;
     border-radius: 4px;
+    transition: background-color 0.3s;
 }
 
-.prev-button:hover,
-.next-button:hover {
-    background-color: #0056b3;
+.prev-button.disabled,
+.next-button.disabled {
+    background-color: var(--gray);
+    cursor: not-allowed;
+}
+
+.prev-button:hover:not(.disabled),
+.next-button:hover:not(.disabled) {
+    background-color: var(--warning);
 }
 </style>
