@@ -1,5 +1,6 @@
-import { BtnGeneric } from '../.nuxt/components';
 <script lang="ts" setup>
+
+import type { GalleryPathType } from '@/types/GalleryPathType';
 
 const config = useRuntimeConfig();
 
@@ -27,16 +28,13 @@ useHead({
 });
 
 // Define the type for gallery paths
-interface GalleryPath {
-    thumbnail: string;
-    image: string;
-}
+
 
 // Initialize galleryPaths with the type
-const galleryPaths: GalleryPath[] = [];
+const galleryPaths: GalleryPathType[] = [];
 
 // Function to generate gallery paths
-const generateGalleryPaths = (): GalleryPath[] => {
+const generateGalleryPaths = (): GalleryPathType[] => {
     const basePath = '/images/pages/about/gallery/';
 
     // Cantidad de imágenes en la galería
@@ -55,10 +53,13 @@ const generateGalleryPaths = (): GalleryPath[] => {
 // Call the function to generate paths
 generateGalleryPaths();
 
+const showImageModal = ref(false);
+const selectedIndex = ref(0);
+
 const showImageSlide = (idx: number) => {
-    console.log(idx)
-    alert('Galería de imágenes aún no implementada: Work In Progress');
-}
+    selectedIndex.value = idx;
+    showImageModal.value = true;
+};
 
 </script>
 
@@ -264,6 +265,9 @@ const showImageSlide = (idx: number) => {
                 <NuxtImg class="about-gallery-image" :src="galleryPath.thumbnail" @click="() => showImageSlide(idx)" />
             </div>
         </div>
+
+        <ModalsImageSlide :show="showImageModal" :galleryPaths="galleryPaths" :selectedIndex="selectedIndex"
+            @update:show="showImageModal = $event" />
     </section>
 </template>
 
