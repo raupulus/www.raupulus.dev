@@ -26,6 +26,40 @@ useHead({
     ]
 });
 
+// Define the type for gallery paths
+interface GalleryPath {
+    thumbnail: string;
+    image: string;
+}
+
+// Initialize galleryPaths with the type
+const galleryPaths: GalleryPath[] = [];
+
+// Function to generate gallery paths
+const generateGalleryPaths = (): GalleryPath[] => {
+    const basePath = '/images/pages/about/gallery/';
+
+    // Cantidad de imágenes en la galería
+    const quantity = 44;
+
+    for (let i = 0; i < quantity; i++) {
+        galleryPaths.push({
+            thumbnail: `${basePath}${i + 1}_250px.webp`,
+            image: `${basePath}${i + 1}_1280px.webp`,
+        });
+    }
+
+    return galleryPaths;
+};
+
+// Call the function to generate paths
+generateGalleryPaths();
+
+const showImageSlide = (idx: number) => {
+    console.log(idx)
+    alert('Galería de imágenes aún no implementada: Work In Progress');
+}
+
 </script>
 
 <template>
@@ -197,42 +231,38 @@ useHead({
 
                 <div class="about-card-content">
                     <ul>
-                        <li>asdasd</li>
-                        <li>asdasd</li>
-                        <li>asdasd</li>
+                        <li>Electrónica</li>
+                        <li>Raspberry Pi</li>
+                        <li>Inteligencia Artificial</li>
+                        <li>Planificar nuevos proyectos</li>
+                        <li>IOT con microcontroladores y sensores</li>
+                        <li>Automatizar tareas en Linux y MacOS con scripts</li>
+                        <li>Probar nuevas tecnologías software/hardware (nuevos microcontroladores, frameworks...)</li>
                     </ul>
                 </div>
             </div>
 
             <div class="about-hobbies2 about-card">
-                <h3 class="about-card-title">Aficiones???</h3>
+                <h3 class="about-card-title">Pasatiempos</h3>
 
                 <div class="about-card-content">
                     <ul>
-                        <li>asdasd</li>
-                        <li>asdasd</li>
-                        <li>asdasd</li>
+                        <li>Fotografía</li>
+                        <li>Diseño gráfico 2D</li>
+                        <li>Correr por la Playa</li>
+                        <li>Libros de fantasía, terror, historia...</li>
+                        <li>Diseño y modelado 3D para proyectos</li>
+                        <li>Ver Streamings de otros programadores y makers</li>
+                        <li>Creación de contenido (Entradas en blogs/foros y vídeos)</li>
                     </ul>
                 </div>
             </div>
         </div>
 
         <div class="box-about-gallery">
-            <NuxtImg class="about-gallery-image" src="/images/pages/about/gallery/img1_thumbnail.webp" />
-            <NuxtImg class="about-gallery-image" src="/images/pages/about/gallery/img2_thumbnail.webp" />
-            <NuxtImg class="about-gallery-image" src="/images/pages/about/gallery/img2_thumbnail.webp" />
-            <NuxtImg class="about-gallery-image" src="/images/pages/about/gallery/img2_thumbnail.webp" />
-            <NuxtImg class="about-gallery-image" src="/images/pages/about/gallery/img2_thumbnail.webp" />
-            <NuxtImg class="about-gallery-image" src="/images/pages/about/gallery/img2_thumbnail.webp" />
-            <NuxtImg class="about-gallery-image" src="/images/pages/about/gallery/img2_thumbnail.webp" />
-            <NuxtImg class="about-gallery-image" src="/images/pages/about/gallery/img2_thumbnail.webp" />
-            <NuxtImg class="about-gallery-image" src="/images/pages/about/gallery/img2_thumbnail.webp" />
-            <NuxtImg class="about-gallery-image" src="/images/pages/about/gallery/img2_thumbnail.webp" />
-            <NuxtImg class="about-gallery-image" src="/images/pages/about/gallery/img2_thumbnail.webp" />
-            <NuxtImg class="about-gallery-image" src="/images/pages/about/gallery/img2_thumbnail.webp" />
-            <NuxtImg class="about-gallery-image" src="/images/pages/about/gallery/img2_thumbnail.webp" />
-            <NuxtImg class="about-gallery-image" src="/images/pages/about/gallery/img2_thumbnail.webp" />
-            <NuxtImg class="about-gallery-image" src="/images/pages/about/gallery/img2_thumbnail.webp" />
+            <div v-for="(galleryPath, idx) in galleryPaths" :key="idx" class="about-gallery-item">
+                <NuxtImg class="about-gallery-image" :src="galleryPath.thumbnail" @click="() => showImageSlide(idx)" />
+            </div>
         </div>
     </section>
 </template>
@@ -268,8 +298,10 @@ useHead({
     padding: 10px 2rem;
     background-color: rgba(50, 114, 184, 0.1);
     font-size: 1.3rem;
-    box-sizing: border-box;
     border-radius: 5px;
+    border: 10px solid var(--primary);
+    box-shadow: 1px 1px 15px #000;
+    box-sizing: border-box;
 }
 
 /* Tarjetas a 2 por fila */
@@ -366,22 +398,34 @@ useHead({
 /* Galería de imágenes */
 .box-about-gallery {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     grid-gap: 0.3rem;
-    /* Espacio entre las imágenes, ajusta según sea necesario */
     justify-items: center;
-    /* Centra las imágenes horizontalmente */
     align-items: center;
-    /* Centra las imágenes verticalmente */
+}
+
+.about-gallery-item {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%;
+    /* La proporción de aspecto 16:9 (ajusta según necesites) */
+    overflow: hidden;
 }
 
 .about-gallery-image {
-    max-height: 200px;
-    object-fit: cover;
-    /* Ajusta las imágenes para que mantengan su proporción y cubran completamente el contenedor */
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease, opacity 0.3s ease;
     background-color: #fff;
+    cursor: zoom-in;
+}
+
+.about-gallery-image:hover {
+    transform: scale(1.1);
 }
 
 @media (max-width: 920px) {
