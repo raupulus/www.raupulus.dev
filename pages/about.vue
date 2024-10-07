@@ -27,7 +27,8 @@ useHead({
     ]
 });
 
-// Define the type for gallery paths
+const domainApi = config.public.api.domain;
+const urlToPdfCv = domainApi + '/cv/get/pdf/raupulus/default';
 
 
 // Initialize galleryPaths with the type
@@ -106,7 +107,7 @@ const showImageSlide = (idx: number) => {
 
                 <div class="about-callout">
                     <div>
-                        <BtnGeneric to="https://curriculum.raupulus.dev" text="Descargar CV" class="btn-red"
+                        <BtnGeneric :to="urlToPdfCv" text="Descargar CV" class="btn-red"
                             title="Enlace a mi Curriculum Vitae en PDF" width="100%" target="_blank">
                             <template #before>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="#fff" width="30px"
