@@ -50,7 +50,7 @@ const onImageLoaded = () => {
 
         <div class="card-project-readmore">
           <span @click="emit('projecteventshow', data)">
-            Leer más
+            Ver Proyecto
           </span>
         </div>
       </div>
