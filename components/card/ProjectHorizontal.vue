@@ -34,7 +34,7 @@ const onImageLoaded = () => {
     <div class="card-project-content">
       <div class="card-project-img">
         <NuxtImg :src="currentImgSrc" width="440" height="300" :alt="data.title" :title="data.title"
-          @load="onImageLoaded" />
+          @click="emit('projecteventshow', data)" @load="onImageLoaded" />
       </div>
 
       <div class="card-project-info">
@@ -50,7 +50,7 @@ const onImageLoaded = () => {
 
         <div class="card-project-readmore">
           <span @click="emit('projecteventshow', data)">
-            Leer más
+            Ver Proyecto
           </span>
         </div>
       </div>

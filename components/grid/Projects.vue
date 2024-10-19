@@ -1,7 +1,11 @@
 <script lang="ts" setup>
+import { title } from 'process';
 import type { ContentType } from '~/types/ContentType';
 
-const emit = defineEmits(['slugchange']);
+const config = useRuntimeConfig();
+const urlBase = config.public.app.url;
+
+const emit = defineEmits(['slugchange', 'metatagchange']);
 
 const props = defineProps({
   openProjetOnLoad: {
@@ -38,13 +42,36 @@ function handleShowProjectEvent(project: ContentType) {
   let page = 1;
 
   if (project.pages_slug && project.pages_slug.length && props.slugPage) {
-    console.log('SE CUMPLE');
+    //console.log('SE CUMPLE');
     page = project.pages_slug.indexOf(props.slugPage) + 1;
   }
 
   usePageData(page, project.slug).then((page) => {
     // Emito evento al padre para actualizar el slug de la url
     emit('slugchange', currentContent.value?.slug, page.value?.slug)
+
+    // Preparo datos para actualizar metatags
+    const title = project?.title + ' - ' + page.value?.title;
+    const description = project?.excerpt;
+
+    const categories = project?.categories ?? [];
+    const tags = project?.tags ?? [];
+    const technologies = project?.technologies?.map(technology => technology.name) ?? [];
+
+    const keywords = [...categories, ...tags, ...technologies].join(',');
+
+    let url = undefined;
+
+    if (project?.slug && page.value?.slug) {
+      url = `${urlBase}/projects/${project?.slug}/${page.value?.slug}`;
+    } else if (project?.slug) {
+      url = `${urlBase}/projects/${project?.slug}`;
+    }
+
+    const image = page.value?.images?.large;
+
+    // Cambio los metatags de la página
+    emit('metatagchange', title, description, keywords, url, image);
   })
 }
 
@@ -63,6 +90,7 @@ if (props.openProjetOnLoad && props.slugContent) {
 <template>
   <div class="box-grid-projects">
     <ModalsProjectShow :project="currentContent" :visible="showContent" @closemodalprojectshow="showContent = false"
+      @metatagchange="(title, description, keywords, url, image) => emit('metatagchange', title, description, keywords, url, image)"
       @slugchange="(slugProject, slugPage) => emit('slugchange', slugProject, slugPage)" />
 
     <div v-for="project, key in projects" :key="project.slug"

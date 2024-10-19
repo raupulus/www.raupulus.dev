@@ -39,10 +39,18 @@
 </template>
 
 <script lang="ts" setup>
+import type { ContentType } from '@/types/ContentType';
 
-const emit = defineEmits(['slugchange']);
+const config = useRuntimeConfig();
+const urlBase = config.public.app.url;
+
+const emit = defineEmits(['slugchange', 'metatagchange']);
 
 const props = defineProps({
+    project: {
+        required: true,
+        type: Object as PropType<ContentType | undefined>,
+    },
     contentslug: {
         required: true,
         default: ''
@@ -62,6 +70,30 @@ const changePageEmit = (page: number, projectSlug: string) => {
 
         // Emito evento al padre para actualizar el slug de la url
         emit('slugchange', projectSlug, contentPage.value?.slug)
+
+
+        // Preparo datos para actualizar metatags
+        const title = props.project?.title + ' - ' + contentPage.value?.title;
+        const description = props.project?.excerpt;
+
+        const categories = props.project?.categories ?? [];
+        const tags = props.project?.tags ?? [];
+        const technologies = props.project?.technologies?.map(technology => technology.name) ?? [];
+
+        const keywords = [...categories, ...tags, ...technologies].join(',');
+
+        let url = undefined;
+
+        if (props.project?.slug && contentPage.value?.slug) {
+            url = `${urlBase}/projects/${props.project?.slug}/${contentPage.value?.slug}`;
+        } else if (props.project?.slug) {
+            url = `${urlBase}/projects/${props.project?.slug}`;
+        }
+
+        const image = contentPage.value?.images?.large;
+
+        // Cambio los metatags de la página
+        emit('metatagchange', title, description, keywords, url, image);
     });
 
 

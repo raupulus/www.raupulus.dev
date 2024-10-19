@@ -15,6 +15,7 @@
     <ContentBlocksBlockTable v-else-if="block.type === 'table'" :block="block" />
     <ContentBlocksBlockAttaches v-else-if="block.type === 'attaches'" :block="block" />
     <ContentBlocksBlockImage v-else-if="block.type === 'image'" :block="block" />
+    <ContentBlocksBlockEmbed v-else-if="block.type === 'embed'" :block="block" />
 
     <div v-else>
       {{ block.type }}

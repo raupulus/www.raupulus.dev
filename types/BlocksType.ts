@@ -159,7 +159,7 @@ export type BlockLinkToolType = BlockType & { // Link Preview
 
 export type BlockEmbedType = BlockType & {
     data: {
-        link: string,
+        link: string,  // Enlace del vídeo embebido
         service: string, // youtube, vimeo, twitter, instagram, facebook, vine, vk
         source: string,
         embed: string,

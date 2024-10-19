@@ -3,53 +3,9 @@ import { type ContentType } from '@/types/ContentType';
 import { usefetchProjectsPaginated } from './composables/projectsData';
 import fs from 'fs';
 import path from 'path';
-/*
-
-// Ruta donde se guardarán las rutas generadas
-const cachedRoutesPath = path.resolve('cachedRoutes.json');
-
-// Función para generar y guardar las rutas
-const fetchAndGenerateRoutes = async (): Promise<void> => {
-    console.log('Generando rutas dinámicas');
-
-    const projects: ContentType[] = await usefetchProjectsPaginated();
-    const urls: string[] = projects.flatMap((project: ContentType) => {
-        const mainProjectUrl = `/project/${project.slug}`;
-        const pageUrls = project.pages_slug?.map((pageSlug: string) =>
-            `/project/${project.slug}/${pageSlug}`
-        ) || [];
-        return [mainProjectUrl, ...pageUrls];
-    });
-
-    fs.writeFileSync(cachedRoutesPath, JSON.stringify(['/', ...urls]));
-    console.log(`Archivo '${cachedRoutesPath}' generado con éxito.`);
-};
-
-// Rutas predeterminadas (vacías)
-let cachedRoutes: string[] = [];
-
-// Función para leer las rutas desde el archivo caché
-const readCachedRoutes = () => {
-    if (fs.existsSync(cachedRoutesPath)) {
-        console.log("Leyendo rutas desde 'cachedRoutes.json'.");
-        cachedRoutes = JSON.parse(fs.readFileSync(cachedRoutesPath, 'utf-8'));
-    } else {
-        console.warn(`Advertencia: No se encontró 'cachedRoutes.json'. Usando un array vacío.`);
-    }
-};
-
-// Genera las rutas y luego lee el archivo caché
-//await fetchAndGenerateRoutes();
-//readCachedRoutes();
-
-//console.log('Termina rutas');
-
-*/
-
 
 // Define la ruta del archivo JSON donde se almacenarán las rutas
 const cachedRoutesPath = path.resolve('cachedRoutes.json');
-
 
 export default defineNuxtConfig({
     ssr: true,
@@ -58,7 +14,6 @@ export default defineNuxtConfig({
     plugins: [
 
     ],
-
 
     runtimeConfig: {
         captcha: {
@@ -92,7 +47,7 @@ export default defineNuxtConfig({
             viewport: 'width=device-width, initial-scale=1',
             meta: [
                 { name: 'description', content: 'Portfolio de presentación con la información de Raúl Caro Pastorino (@raupulus) Desarrollador Web (Chipiona, Andalucía, Cádiz, España)' },
-                { name: 'application-name', content: 'www.raupulus.dev' },
+                { name: 'application-name', content: 'raupulus.dev' },
                 { name: 'keywords', content: 'Raúl Caro Pastorino, raupulus, desarrollador, desarrollador web, web developer, iot, maker, php, laravel, vue, vue3, vuejs, nuxt, js, javascript, python, bash, linux, Raul Caro Pastorino' },
                 { name: 'author', content: 'Raúl Caro Pastorino' },
                 { name: 'twitter:card', content: 'summary_large_image' },
@@ -101,14 +56,14 @@ export default defineNuxtConfig({
                 { name: 'twitter:title', content: 'Raúl Caro Pastorino' },
                 { name: 'twitter:description', content: 'Desarrollador Web Backend, Laravel & Vuejs (@raupulus)' },
                 { name: 'twitter:image', content: 'https://raw.githubusercontent.com/raupulus/raupulus/master/images/banner.webp' },
-                { name: 'og:title', content: 'Raúl Caro Pastorino' },
-                { name: 'og:type', content: 'website' },
-                { name: 'og:url', content: 'https://raupulus.dev' },
-                { name: 'og:image', content: 'https://raw.githubusercontent.com/raupulus/raupulus/master/images/banner.webp' },
-                { name: 'og:description', content: 'Desarrollador Web Backend, Laravel & Vuejs (@raupulus)' },
-                { name: 'og:site_name', content: 'Portfolio de Raúl Caro Pastorino' },
-                { name: 'og:locale', content: 'es_ES' },
-                { name: 'og:locale:alternate', content: 'en_EN' },
+                { property: 'og:title', content: 'Raúl Caro Pastorino' },
+                { property: 'og:type', content: 'website' },
+                { property: 'og:url', content: 'https://raupulus.dev' },
+                { property: 'og:image', content: 'https://raw.githubusercontent.com/raupulus/raupulus/master/images/banner.webp' },
+                { property: 'og:description', content: 'Desarrollador Web Backend, Laravel & Vuejs (@raupulus)' },
+                { property: 'og:site_name', content: 'Portfolio de Raúl Caro Pastorino' },
+                { property: 'og:locale', content: 'es_ES' },
+                { property: 'og:locale:alternate', content: 'en_EN' },
             ],
             htmlAttrs: { dir: 'ltr', lang: 'es' },
 

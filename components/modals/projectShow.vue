@@ -22,7 +22,7 @@
         <!-- Derecha, tecnologías y cerrar modal -->
         <div class="modal-project-show-header-main-last">
           <span class="modal-project-show-header-close"
-            @click="() => { emit('closemodalprojectshow'); emit('slugchange') }">
+            @click="() => { emit('closemodalprojectshow'); emit('slugchange'); emit('metatagchange') }">
             X
           </span>
         </div>
@@ -40,8 +40,10 @@
       <div class="modal-project-show-footer">
 
         <!-- Paginador -->
-        <ContentPaginator v-if="project?.total_pages && project?.total_pages > 1" :contentslug="project?.slug"
+        <ContentPaginator v-if="project && project?.total_pages && project?.total_pages > 1"
+          :contentslug="project?.slug" :project="project"
           @slugchange="(slugProject, slugPage) => emit('slugchange', slugProject, slugPage)" :currentpage="page?.order"
+          @metatagchange="(title, description, keywords, url, image) => emit('metatagchange', title, description, keywords, url, image)"
           :totalpages="project?.total_pages" />
       </div>
     </div>
@@ -67,7 +69,7 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['disablescroll', 'closemodalprojectshow', 'slugchange']);
+const emit = defineEmits(['disablescroll', 'closemodalprojectshow', 'slugchange', 'metatagchange']);
 const scrollDisabled = useScrollDisabled();
 
 //const page = ref<ContentPageType | undefined>(undefined);
