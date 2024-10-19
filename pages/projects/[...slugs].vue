@@ -14,25 +14,35 @@ if (slugContent) {
 }
 
 const url = config.public.app.url;
+const urlProjects = url + '/projects';
 const title = 'Proyectos de Raúl Caro Pastorino';
 const description = 'Explora una colección de proyectos destacados realizados por Raúl Caro Pastorino. Descubre innovaciones y desarrollos tecnológicos en diferentes áreas.';
 const keywords = 'proyectos, Raúl Caro Pastorino, desarrollo, tecnología, innovaciones';
+const imageProjects = url + '/social/projects.webp'
+
+const metadatas = reactive({
+    title: title,
+    description: description,
+    keywords: keywords,
+    url: urlProjects,
+    image: imageProjects,
+});
 
 useHead({
-    title: title,
+    title: metadatas.title,
     meta: [
-        { name: 'description', content: description },
-        { name: 'keywords', content: keywords },
+        { name: 'description', content: metadatas.description },
+        { name: 'keywords', content: metadatas.keywords },
         { name: 'robots', content: 'index, follow' },
         { property: 'og:type', content: 'website' },
-        { property: 'og:title', content: title },
-        { property: 'og:description', content: description },
-        { property: 'og:url', content: url + '/projects' },
-        { property: 'og:image', content: url + '/social/projects.webp' },
+        { property: 'og:title', content: metadatas.title },
+        { property: 'og:description', content: metadatas.description },
+        { property: 'og:url', content: metadatas.url },
+        { property: 'og:image', content: metadatas.image },
         { name: 'twitter:card', content: 'summary_large_image' },
-        { name: 'twitter:title', content: title },
-        { name: 'twitter:description', content: description },
-        { name: 'twitter:image', content: url + '/social/projects.webp' }
+        { name: 'twitter:title', content: metadatas.title },
+        { name: 'twitter:description', content: metadatas.description },
+        { name: 'twitter:image', content: metadatas.image }
     ]
 });
 
@@ -96,6 +106,46 @@ const handleChangeUrlSlug = (contentSlug: string | undefined, pageSlug: string |
 
     window.history.pushState({}, '', newUrl);
 };
+
+/**
+ *
+ * Modificación de los metatags en base al proyecto que se está previsualizando y/o su página.
+ *
+ * @param title
+ * @param description
+ * @param keywords
+ * @param url
+ * @param image
+ */
+const handleChangeMetatags = (newTitle: string | undefined, newDescription: string | undefined, newKeywords: string | undefined, newUrl: string | undefined, newImage: string | undefined) => {
+    metadatas.title = newTitle || title;
+    metadatas.description = newDescription || description;
+    metadatas.keywords = newKeywords || keywords;
+    metadatas.url = newUrl || urlProjects;
+    metadatas.image = newImage || imageProjects;
+
+    useHead({
+        title: metadatas.title,
+        meta: [
+            { name: 'description', content: metadatas.description },
+            { name: 'keywords', content: metadatas.keywords },
+            { name: 'robots', content: 'index, follow' },
+            { property: 'og:type', content: 'website' },
+            { property: 'og:title', content: metadatas.title },
+            { property: 'og:description', content: metadatas.description },
+            { property: 'og:url', content: metadatas.url },
+            { property: 'og:image', content: metadatas.image },
+            { name: 'twitter:card', content: 'summary_large_image' },
+            { name: 'twitter:title', content: metadatas.title },
+            { name: 'twitter:description', content: metadatas.description },
+            { name: 'twitter:image', content: metadatas.image }
+        ]
+    });
+
+
+    console.log('Cambiando metatags', metadatas);
+};
+
 </script>
 
 <template>
@@ -149,7 +199,8 @@ const handleChangeUrlSlug = (contentSlug: string | undefined, pageSlug: string |
             </div>
 
             <GridProjects v-if="datas?.contents" :projects="datas?.contents" @slugchange="handleChangeUrlSlug"
-                :slugContent="slugContent" :slugPage="slugPage" :openProjetOnLoad="openProjetOnLoad" />
+                @metatagchange="handleChangeMetatags" :slugContent="slugContent" :slugPage="slugPage"
+                :openProjetOnLoad="openProjetOnLoad" />
         </section>
     </div>
 </template>
