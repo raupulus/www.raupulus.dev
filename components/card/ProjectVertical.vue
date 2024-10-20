@@ -176,7 +176,7 @@ const onImageLoaded = () => {
 
 .card-project-readmore {
   cursor: pointer;
-  padding: 1.3rem;
+  padding: 1.6rem;
   text-align: center;
 }
 

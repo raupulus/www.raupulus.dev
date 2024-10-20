@@ -178,7 +178,7 @@ const onImageLoaded = () => {
 
 .card-project-readmore {
   cursor: pointer;
-  margin-top: 0.6rem;
+  margin-top: 1.3rem;
   text-align: center;
 }
 
@@ -285,6 +285,12 @@ const onImageLoaded = () => {
     translate: 0 -78px;
   }
 
+  .card-project-readmore {
+    cursor: pointer;
+    margin: 1.6rem;
+    text-align: center;
+  }
+
   .card-project-box-technologies {
     position: absolute;
     display: flex;
@@ -327,8 +333,16 @@ const onImageLoaded = () => {
     translate: 0 -45px;
   }
 
+  .card-project-footer {
+    padding: 0.6rem 1.8rem;
+  }
+
   .card-project-box-technologies {
-    translate: 0 10px;
+    display: block;
+    width: 100%;
+    text-align: right;
+    translate: 0 -10px;
+    bottom: 0;
   }
 }
 </style>
