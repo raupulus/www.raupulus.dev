@@ -26,16 +26,10 @@ useHead({
 
 const webs = [
     {
-        title: 'AI Dyslexic',
-        image: '/images/icons/webs/aidyslexic.webp',
-        description: 'Proyecto que crea una "idea" en base a un sistema de roles usando AI para generar un prompt que produzca imágenes mediante Stable Diffusion o Dall-e. Subo imágenes a una API como galería y publica en redes (Twitter, Instagram, Mastodon, Telegram). Crea un slideshow con ffmpeg y subirlo a TikTok y YouTube, sincronizando con la API para establecer el video como portada de la colección.',
-        url: 'https://aidyslexic.raupulus.dev',
-    },
-    {
-        title: 'Portfolio Web Personal',
-        image: '/logo_128x128.webp',
-        description: 'Esta es mi web personal, donde comparto mis proyectos y experiencia.',
-        url: 'https://raupulus.dev',
+        title: 'Jaja Project',
+        image: '/images/icons/webs/jajaproject.webp',
+        description: 'Plataforma web comunitaria dónde puedes compartir tus chistes, adivinanzas y preguntas quiz para consumirla mediante api de comunidad',
+        url: 'https://jaja.raupulus.dev',
     },
     {
         title: 'Api Personal (Para debug y desarrollo iot)',
@@ -55,6 +49,19 @@ const webs = [
         description: 'Web para mi proyecto de software libre, donde comparto información sobre GNU/Linux y software libre.',
         url: 'https://laguialinux.es/',
     },
+
+    {
+        title: 'AI Dyslexic',
+        image: '/images/icons/webs/aidyslexic.webp',
+        description: 'Proyecto que crea una "idea" en base a un sistema de roles usando AI para generar un prompt que produzca imágenes mediante Stable Diffusion o Dall-e. Subo imágenes a una API como galería y publica en redes (Twitter, Instagram, Mastodon, Telegram). Crea un slideshow con ffmpeg y subirlo a TikTok y YouTube, sincronizando con la API para establecer el video como portada de la colección.',
+        url: 'https://aidyslexic.raupulus.dev',
+    },
+    {
+        title: 'Portfolio Web Personal',
+        image: '/logo_128x128.webp',
+        description: 'Esta es mi web personal, donde comparto mis proyectos y experiencia.',
+        url: 'https://raupulus.dev',
+    }
 ];
 </script>
 
