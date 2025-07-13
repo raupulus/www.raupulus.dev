@@ -135,6 +135,12 @@ const groups = [
                 description: 'Descubre mis publicaciones y fotografías en Instagram, donde comparto proyectos y algunas imágenes de mis cámaras.',
                 url: 'https://www.instagram.com/raupulus/',
             },
+            {
+                title: 'Blue Sky',
+                image: '/images/icons/social/bluesky.svg',
+                description: 'Nuevo por esta red social pero me está encantando y actualmente estoy bastante activo en ella.',
+                url: 'https://bsky.app/profile/raupulus.bsky.social',
+            },
 
         ]
     },
