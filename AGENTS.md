@@ -192,3 +192,8 @@ La documentación técnica de cada módulo se encuentra en `docs/info/`. **Es ob
    - Relaciones, scopes y métodos relevantes
    - Rutas (web y API) si aplica
    - Configuración si aplica
+
+## Información de Contacto (Norma Estricta)
+
+El único correo electrónico visible para fines públicos es **public@raupulus.dev**.
+Queda terminantemente prohibido publicar o hacer visible el correo anterior (la cuenta personal de gmail) en ningún archivo del código, documentación, o configuraciones.
