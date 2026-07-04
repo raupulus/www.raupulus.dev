@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts" setup>
-const props = defineProps({
+defineProps({
   text: {
     type: String,
     required: false,
@@ -93,6 +93,7 @@ const props = defineProps({
 
 .box-badge-hexagon .box-badge-hexagon-title {
   position: absolute;
+  box-sizing: content-box;
   display: grid;
   margin-left: -55px;
   padding: 5px 7px 4px;
@@ -104,6 +105,7 @@ const props = defineProps({
   align-content: center;
   text-align: center;
   font-size: 1rem;
+  white-space: nowrap;
   text-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.27);

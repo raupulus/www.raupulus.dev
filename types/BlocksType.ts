@@ -5,7 +5,8 @@ export type BlockTunesType = {
 export type BlockType = {
     id: string,
     type: string,
-    tunes?: BlockTunesType
+    tunes?: BlockTunesType,
+    data?: unknown,
 }
 
 export type BlocksType = {
@@ -128,7 +129,7 @@ export type BlockImageType = BlockType & {
 }
 
 export type BlockDelimiterType = BlockType & {
-    data: {}
+    data: Record<string, never>
 }
 
 export type BlockAlertType = BlockType & {

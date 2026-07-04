@@ -1,5 +1,5 @@
 <script setup>
-const props = defineProps({
+defineProps({
     tag: {
         type: String,
         default: ''

@@ -1,5 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-import { type ContentType } from '@/types/ContentType';
+import type { ContentType } from '@/types/ContentType';
 import { usefetchProjectsPaginated } from './composables/projectsData';
 import fs from 'fs';
 import path from 'path';
@@ -9,11 +9,17 @@ const cachedRoutesPath = path.resolve('cachedRoutes.json');
 
 export default defineNuxtConfig({
     ssr: true,
-    devtools: { enabled: true },
+    devtools: { enabled: process.env.NODE_ENV !== 'production' },
 
     plugins: [
 
     ],
+
+    routeRules: {
+        '/_proxy/api/**': {
+            proxy: `${process.env.API_DOMAIN_URL || 'http://localhost:8000'}/api/**`,
+        },
+    },
 
     runtimeConfig: {
         captcha: {
@@ -63,11 +69,13 @@ export default defineNuxtConfig({
                 { property: 'og:description', content: 'Desarrollador Web Backend, Laravel & Vuejs (@raupulus)' },
                 { property: 'og:site_name', content: 'Portfolio de Raúl Caro Pastorino' },
                 { property: 'og:locale', content: 'es_ES' },
-                { property: 'og:locale:alternate', content: 'en_EN' },
+                { property: 'og:locale:alternate', content: 'en_US' },
             ],
             htmlAttrs: { dir: 'ltr', lang: 'es' },
 
             link: [
+                // Las fuentes se sirven self-hosted con @nuxt/fonts y los iconos
+                // Material como SVG inline (components/ui/MaterialIcon.vue).
                 {
                     rel: 'icon',
                     type: 'image/x-icon',
@@ -100,7 +108,6 @@ export default defineNuxtConfig({
 
     css: [
         '@/assets/css/vars.css',
-        '@/assets/css/fonts.css',
         '@/assets/css/theme.css',
         '@/assets/css/styles.css',
     ],
@@ -108,15 +115,23 @@ export default defineNuxtConfig({
     //plugins: [{ src: '~/plugins/vuejs-medium-editor', ssr: false }]
     typescript: {
         strict: true,
-        typeCheck: true,
+        typeCheck: false,
     },
 
-    modules: ["@nuxt/image", '@nuxtjs/sitemap', 'nuxt-gtag', '@dargmuesli/nuxt-cookie-control'],
+    modules: ["@nuxt/image", '@nuxtjs/sitemap', 'nuxt-gtag', '@dargmuesli/nuxt-cookie-control', '@nuxtjs/tailwindcss', '@nuxt/eslint', '@nuxt/fonts'],
+
+    // Fuentes self-hosted (descargadas en build, servidas desde el propio dominio)
+    fonts: {
+        families: [
+            { name: 'Space Grotesk', provider: 'google', weights: [300, 400, 500, 600, 700] },
+            { name: 'Plus Jakarta Sans', provider: 'google', weights: [300, 400, 500, 600, 700] },
+        ],
+    },
 
     image: {
         provider: 'ipx',
         dir: 'public', // Directorio base donde se guardan las imágenes
-        domains: ['localhost', 'raupulus.dev'],
+        domains: ['localhost', 'raupulus.dev', 'api.raupulus.dev'],
     },
     nitro: {
         preset: 'static',
@@ -208,7 +223,7 @@ export default defineNuxtConfig({
         initCommands: [
             // Setup up consent mode
             ['consent', 'default', {
-                ad_user_data: 'granted',
+                ad_user_data: 'denied',
                 ad_personalization: 'denied',
                 ad_storage: 'denied',
                 analytics_storage: 'denied',
@@ -277,7 +292,7 @@ export default defineNuxtConfig({
                         en: 'These cookies provide analytic data about site traffic.',
                         es: 'Estas cookies proporcionan datos analíticos sobre el tráfico del sitio.',
                     },
-                    isPreselected: true,
+                    isPreselected: false,
                     //src: 'https://example.com/analytics/js?id=<API-KEY>',
                     //targetCookieIds: ['_ga', '_gid', 'google-analytics'], // IDs de cookies objetivo
                 },

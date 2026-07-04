@@ -1,5 +1,5 @@
-<script setup>
-const emit = defineEmits(['disablescroll'])
+<script setup lang="ts">
+const emit = defineEmits(['disablescroll', 'finished', 'cancel', 'submit'])
 
 const props = defineProps({
     show: {
@@ -25,12 +25,31 @@ const props = defineProps({
         }),
     },
 });
+
+// Cerrar modal con Escape
+const handleKeydown = (e: KeyboardEvent) => {
+    if (e.key === 'Escape' && props.show) {
+        if (props.step === 1) {
+            emit('cancel');
+        } else if (props.step === 3) {
+            emit('finished');
+        }
+    }
+};
+
+onMounted(() => {
+    document.addEventListener('keydown', handleKeydown);
+});
+
+onBeforeUnmount(() => {
+    document.removeEventListener('keydown', handleKeydown);
+});
 </script>
 
 <template>
-    <div class="box-modal" v-if="show">
+    <div v-if="show" class="box-modal" role="dialog" aria-modal="true" aria-label="Confirmación de envío de email">
         <div class="box-modal-overlay">
-            <div class="box-resume" v-if="step === 1">
+            <div v-if="step === 1" class="box-resume">
                 <div class="resume-title">
                     Resumen de los datos introducidos
                 </div>
@@ -61,12 +80,12 @@ const props = defineProps({
                 </div>
 
                 <div class="text-center">
-                    <BtnGeneric text="Cancelar" class="btn-cancel" @click="emit('cancel')" title="Botón de Cancelar" />
-                    <BtnGeneric text="Confirmar" @click="emit('submit')" title="Botón para enviar email" />
+                    <BtnGeneric text="Cancelar" class="btn-cancel" title="Botón de Cancelar" @click="emit('cancel')" />
+                    <BtnGeneric text="Confirmar" title="Botón para enviar email" @click="emit('submit')" />
                 </div>
             </div>
 
-            <div class="box-loading" v-if="step === 2">
+            <div v-if="step === 2" class="box-loading">
 
                 <div class="loading-title">
                     Procesando datos
@@ -91,7 +110,7 @@ const props = defineProps({
 
 
 
-            <div class="box-submitted" v-if="step === 3">
+            <div v-if="step === 3" class="box-submitted">
                 <div class="submitted-title">
                     Email
                     {{ !messages.errors.length && messages.success.length ? 'Enviado' : 'No enviado' }}
@@ -103,35 +122,37 @@ const props = defineProps({
                 </div>
 
                 <!-- Mensaje No enviado -->
-                <div class="submitted-info" v-if="messages.errors.length">
+                <div v-if="messages.errors.length" class="submitted-info">
                     <div>HAY ERRORES</div>
 
-                    <div v-if="messages.errors.captcha && messages.errors.captcha.length"
-                        v-for="err in messages.errors.captcha">
-                        <p>
-                            {{ err }}
-                        </p>
-                    </div>
+                    <template v-if="messages.errors.captcha && messages.errors.captcha.length">
+                        <div v-for="(err, idx) in messages.errors.captcha" :key="idx">
+                            <p>
+                                {{ err }}
+                            </p>
+                        </div>
+                    </template>
 
-                    <div v-if="messages.errors.testeando && messages.errors.testeando.length"
-                        v-for="err in messages.errors.testeando">
-                        <p>
-                            {{ err }}
-                        </p>
-                    </div>
+                    <template v-if="messages.errors.testeando && messages.errors.testeando.length">
+                        <div v-for="(err, idx) in messages.errors.testeando" :key="idx">
+                            <p>
+                                {{ err }}
+                            </p>
+                        </div>
+                    </template>
                 </div>
 
-                <div class="submitted-info" v-if="messages.success.length">
+                <div v-if="messages.success.length" class="submitted-info">
                     <div>HAY SUCCESS</div>
 
-                    <p v-for="suc in messages.success">
+                    <p v-for="(suc, idx) in messages.success" :key="idx">
                         {{ suc }}
                     </p>
                 </div>
 
 
                 <div>
-                    <BtnGeneric text="Cerrar" @click="emit('finished')" title="Botón para Finalizar envío" />
+                    <BtnGeneric text="Cerrar" title="Botón para Finalizar envío" @click="emit('finished')" />
                 </div>
             </div>
         </div>

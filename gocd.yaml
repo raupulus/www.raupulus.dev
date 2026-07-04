@@ -1,0 +1,78 @@
+format_version: 10
+
+pipelines:
+  www-raupulus-dev:
+    group: raupulus
+    label_template: "${COUNT}-${git[:8]}"
+    lock_behavior: unlockWhenFinished
+
+    materials:
+      git:
+        git: https://gitlab.com/raupulus/www.raupulus.dev.git
+        branch: main
+        auto_update: true
+
+    environment_variables:
+      NODE_ENV: production
+
+    stages:
+      - lint:
+          clean_workspace: true
+          jobs:
+            lint:
+              tasks:
+                - exec:
+                    command: bash
+                    arguments:
+                      - -c
+                      - |
+                        npm ci
+                        npm run lint
+
+      - test:
+          jobs:
+            test:
+              tasks:
+                - exec:
+                    command: bash
+                    arguments:
+                      - -c
+                      - |
+                        npm ci
+                        npm run test:run
+
+      - build:
+          jobs:
+            generate:
+              artifacts:
+                - build:
+                    source: .output/public
+                    destination: dist
+              tasks:
+                - exec:
+                    command: bash
+                    arguments:
+                      - -c
+                      - |
+                        npm ci
+                        npm run generate
+
+      - deploy:
+          approval:
+            type: manual
+            roles:
+              - admin
+          jobs:
+            deploy:
+              tasks:
+                - exec:
+                    command: bash
+                    arguments:
+                      - -c
+                      - |
+                        # Copiar archivos generados al directorio de producción
+                        rsync -avz --delete .output/public/ /var/www/public/www.raupulus.dev/.output/public/
+
+                        # Verificar que el despliegue fue exitoso
+                        curl -s -o /dev/null -w "%{http_code}" https://raupulus.dev | grep -q "200"
+                        echo "Despliegue completado exitosamente"

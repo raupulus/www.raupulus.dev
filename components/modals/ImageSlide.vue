@@ -1,29 +1,32 @@
 <template>
-    <div v-if="show && galleryPaths.length > 0" class="modal" @click.self="closeModal">
+    <div v-if="show && galleryPaths.length > 0" class="modal" role="dialog" aria-modal="true" aria-label="Visor de galería de imágenes" @click.self="closeModal">
         <div class="modal-content">
-            <button @click="closeModal" class="close">X</button>
+            <button class="close" aria-label="Cerrar galería" @click="closeModal">X</button>
 
             <div class="main-image-container">
-                <img v-if="currentImage" :src="currentImage.image" class="large-image" />
+                <NuxtImg v-if="currentImage" :src="currentImage.image" class="large-image" :alt="'Imagen de galería ' + (currentIndex + 1)" loading="eager" />
             </div>
 
             <div class="thumbnails-container">
                 <div class="thumbnails">
-                    <div v-for="(path, index) in galleryPaths" :key="index" @click="selectImage(index)"
-                        :class="{ active: index === currentIndex }" class="thumbnail-item">
+                    <div
+v-for="(path, index) in galleryPaths" :key="index" :class="{ active: index === currentIndex }"
+                        class="thumbnail-item" @click="selectImage(index)">
                         <NuxtImg :src="path.thumbnail" class="thumbnail-image" loading="lazy" />
                     </div>
                 </div>
             </div>
 
             <div class="button-container">
-                <button @click="previousImage" class="prev-button" :class="{ disabled: currentIndex === 0 }"
-                    :disabled="currentIndex === 0">
+                <button
+class="prev-button" :class="{ disabled: currentIndex === 0 }" :disabled="currentIndex === 0"
+                    @click="previousImage">
                     Anterior
                 </button>
-                <button @click="nextImage" class="next-button"
-                    :class="{ disabled: currentIndex === galleryPaths.length - 1 }"
-                    :disabled="currentIndex === galleryPaths.length - 1">
+                <button
+class="next-button" :class="{ disabled: currentIndex === galleryPaths.length - 1 }"
+                    :disabled="currentIndex === galleryPaths.length - 1"
+                    @click="nextImage">
                     Siguiente
                 </button>
             </div>
@@ -82,7 +85,9 @@ export default defineComponent({
 
         const handleKeydown = (event: KeyboardEvent) => {
             if (props.show) {
-                if (event.key === 'ArrowLeft') {
+                if (event.key === 'Escape') {
+                    closeModal();
+                } else if (event.key === 'ArrowLeft') {
                     previousImage();
                 } else if (event.key === 'ArrowRight') {
                     nextImage();

@@ -1,10 +1,10 @@
 <template>
-  <div class="r-raw-html" v-html="raw.data.html"></div>
+  <div class="r-raw-html" v-html="sanitizeRawHtml(raw.data.html)"/>
 </template>
 
 <script lang="ts" setup>
-import type { BlockType } from '@/types/BlocksType';
-import type { BlockRawType } from '@/types/BlocksType';
+import type { BlockType, BlockRawType  } from '@/types/BlocksType';
+import { sanitizeRawHtml } from '~/utils/sanitize';
 
 const props = defineProps({
   block: {

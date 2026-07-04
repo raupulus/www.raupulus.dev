@@ -1,37 +1,32 @@
 import type { ContentPageType } from "~/types/ContentPageType";
-import { ref } from 'vue';
 
-const page = ref<ContentPageType>();
-
-async function getPage(pageOrder: number, contentSlug: string | undefined): Promise<typeof page> {
-  const runtimeConfig = useRuntimeConfig();
-  const API_BASE = runtimeConfig.public.api.base;
-
+export const usePageData = async (pageOrder: number, contentSlug: string | undefined) => {
+  const page = useState<ContentPageType | undefined>(`page-${contentSlug}-${pageOrder}`, () => undefined);
+  const API_BASE = useApiBase();
   const url = `${API_BASE}/content/${contentSlug}/get/page/${pageOrder}/json`;
 
-  const response = await fetch(url, {
-    'method': 'GET',
-    'headers': {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-    },
-  }).catch(page.value = undefined);
+  try {
+    const data = await $fetch<{ page: ContentPageType & { content: string } }>(url, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+      },
+    });
 
-  const data = await response.json();
-  const tmpPage = data?.page;
+    const tmpPage = data?.page;
 
-  if (tmpPage) {
-    tmpPage.content = JSON.parse(data.page.content);
-    page.value = tmpPage;
+    if (tmpPage) {
+      tmpPage.content = JSON.parse(data.page.content);
+      page.value = tmpPage;
+    }
+  } catch (error) {
+    console.error('Error fetching page data:', error);
+    page.value = undefined;
   }
 
   return page;
-}
-
-export const usePageData = (pageOrder: number, contentSlug: string | undefined): Promise<typeof page> => {
-  return getPage(pageOrder, contentSlug);
 };
 
-export function getPageData() {
-  return page;
+export function getPageData(contentSlug: string, pageOrder: number) {
+  return useState<ContentPageType | undefined>(`page-${contentSlug}-${pageOrder}`, () => undefined);
 }

@@ -1,17 +1,18 @@
 <template>
-  <div :id="alert.id"
+  <div
+:id="alert.id"
     :class="'r-alert-container r-alert-align-' + alert.data.align + ' r-alert-type-' + alert.data.type">
     <div class="r-alert">
-      <div v-if="alert.data.title" class="r-alert-title" v-html="replaceBreakLine(alert.data.title)"></div>
-      <div class="r-alert-content" v-html="replaceBreakLine(alert.data.message)"></div>
+      <div v-if="alert.data.title" class="r-alert-title" v-html="sanitizeHtml(replaceBreakLine(alert.data.title))"/>
+      <div class="r-alert-content" v-html="sanitizeHtml(replaceBreakLine(alert.data.message))"/>
     </div>
   </div>
 
 </template>
 
 <script lang="ts" setup>
-import type { BlockAlertType } from '@/types/BlocksType';
-import type { BlockType } from '@/types/BlocksType';
+import type { BlockAlertType, BlockType  } from '@/types/BlocksType';
+import { sanitizeHtml } from '~/utils/sanitize';
 
 const props = defineProps({
   block: {

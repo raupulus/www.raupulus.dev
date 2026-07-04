@@ -1,139 +1,23 @@
-.inline-block {
-    display: inline-block;
-}
+/**
+ * Estilos globales complementarios al design system "Silicon Architect".
+ *
+ * IMPORTANTE: no definir aquí clases utilitarias con nombres de Tailwind
+ * (.p-1, .m-1, .text-primary, .bg-primary, .font-bold, .w-1, ...). Al cargarse
+ * después de Tailwind, sobreescriben los tokens del design system con valores
+ * legacy y rompen la integración visual.
+ */
 
-.block {
-    display: block;
-}
+/* Accesibilidad: respetar la preferencia de movimiento reducido */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
 
-
-.hidden {
-    display: none;
-}
-
-/** Margen y padding **/
-.p-1 {
-    padding: 1rem;
-}
-
-.p-2 {
-    padding: 2rem;
-}
-
-.m-0 {
-    margin: 0;
-}
-
-.m-1 {
-    margin: 1rem;
-}
-
-.m-2 {
-    margin: 2rem;
-}
-
-.mt-1 {
-    margin-top: 1rem;
-}
-
-.mt-2 {
-    margin-top: 2rem;
-}
-
-.mt-5 {
-    margin-top: 5rem;
-}
-
-/** Estilos de posición **/
-.w-1 {
-    width: 1rem;
-}
-
-.w-2 {
-    width: 2rem;
-}
-
-.h-1 {
-    height: 1rem;
-}
-
-.h-2 {
-    height: 2rem;
-}
-
-
-/** Estilos tipografía **/
-.font-w-1 {
-    font-size: 1rem;
-}
-
-.font-w-2 {
-    font-size: 2rem;
-}
-
-.font-bold {
-    font-weight: bold;
-}
-
-.font-regular {
-    font-weight: normal;
-    font-size: 1rem;
-}
-
-.font-small {
-    font-size: 0.8rem;
-}
-
-.font-title {
-    font-size: 1.6rem;
-}
-
-.text-center {
-    text-align: center;
-}
-
-.text-black {
-    color: var(--black);
-}
-
-.text-primary {
-    color: var(--primary);
-}
-
-.text-secondary {
-    color: var(--secondary);
-}
-
-.text-warning {
-    color: var(--warning);
-}
-
-.text-white {
-    color: var(--white);
-}
-
-.bg-primary {
-    background-color: var(--primary);
-}
-
-.bg-warning {
-    background-color: var(--warning);
-}
-
-.bg-dark {
-    background-color: var(--black);
-}
-
-/** Sections **/
-.section-separator {
-    margin: 3rem auto;
-    width: 80%;
-    height: 3px;
-    max-width: 500px;
-    background-color: var(--gray);
-    border-radius: 35%;
-    -webkit-border-radius: 35%;
-    -moz-border-radius: 35%;
-    -ms-border-radius: 35%;
-    -o-border-radius: 35%;
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
 }

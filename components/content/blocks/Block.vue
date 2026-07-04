@@ -26,7 +26,7 @@
 <script lang="ts" setup>
 import type { BlockType } from '@/types/BlocksType';
 
-const props = defineProps({
+defineProps({
   block: {
     type: Object as PropType<BlockType>,
     required: true,

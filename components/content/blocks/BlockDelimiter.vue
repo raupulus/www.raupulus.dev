@@ -1,15 +1,14 @@
 <template>
   <div :id="delimiter.id" class="r-delimiter-container">
     <div class="r-delimiter">
-      <span class="r-delimiter-content"></span>
+      <span class="r-delimiter-content"/>
     </div>
   </div>
 
 </template>
 
 <script lang="ts" setup>
-import type { BlockDelimiterType } from '@/types/BlocksType';
-import type { BlockType } from '@/types/BlocksType';
+import type { BlockDelimiterType, BlockType  } from '@/types/BlocksType';
 
 const props = defineProps({
   block: {

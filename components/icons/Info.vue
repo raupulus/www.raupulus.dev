@@ -1,12 +1,12 @@
 <script setup>
-const props = defineProps({
+defineProps({
     url: {
         type: String,
         required: false,
         default: null
     },
     size: {
-        type: Number,
+        type: String,
         required: false,
         default: "24px"
     },
@@ -42,11 +42,13 @@ const props = defineProps({
 </script>
 
 <template>
-    <IconsGeneric :url="url" v-if="show" :display="display" :title="title" :size="size">
-        <NuxtImg src="/images/icons/info.svg" style="width: 100%;" alt="Icono de Información"
-            v-if="type === 'info' || type === 'error'" />
-        <NuxtImg src="/images/icons/success.svg" style="width: 100%;" alt="Icono de Información"
-            v-if="type === 'success'" />
+    <IconsGeneric v-if="show" :url="url" :display="display" :title="title" :size="size">
+        <NuxtImg
+v-if="type === 'info' || type === 'error'" src="/images/icons/info.svg" style="width: 100%;"
+            alt="Icono de Información" />
+        <NuxtImg
+v-if="type === 'success'" src="/images/icons/success.svg" style="width: 100%;"
+            alt="Icono de Información" />
     </IconsGeneric>
 
     <!--

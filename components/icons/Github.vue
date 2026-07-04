@@ -1,5 +1,5 @@
 <script setup>
-const props = defineProps({
+defineProps({
     url: {
         type: String,
         required: false,
@@ -30,17 +30,20 @@ const props = defineProps({
 
 <template>
     <IconsGeneric v-if="legacy" :url="url" :title="title" :size="size" color="#050505">
-        <img src="@/public/images/icons/github.svg" width="24" style="width: 100%;"
-            alt="Logo de Youtube" />
+        <img
+src="@/public/images/icons/github.svg" width="24" style="width: 100%;"
+            alt="Logo de Youtube" >
     </IconsGeneric>
 
     <IconsGenericSocial v-else-if="decored" :url="url" :title="title" :size="size" color="#050505">
-        <NuxtImg src="/images/icons/github.svg" width="32" style="width: 100%;"
+        <NuxtImg
+src="/images/icons/github.svg" width="32" style="width: 100%;"
             alt="Logo de Github" />
     </IconsGenericSocial>
 
     <IconsGeneric v-else :url="url" :title="title" :size="size" color="#050505">
-        <NuxtImg src="/images/icons/github.svg" width="24" style="width: 100%;"
+        <NuxtImg
+src="/images/icons/github.svg" width="24" style="width: 100%;"
             alt="Logo de Github" />
     </IconsGeneric>
 </template>

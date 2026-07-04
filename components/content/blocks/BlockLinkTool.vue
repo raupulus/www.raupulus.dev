@@ -3,13 +3,14 @@
     <div class="r-web-preview-box">
       <a class="r-web-preview-link" target="_blank" rel="nofollow noindex noreferrer" :href="linkTool.data.link">
 
-        <div v-if="linkTool.data.meta.image?.url" class="r-web-preview-image"
-          v-bind:style="{ backgroundImage: `url(${linkTool.data.meta.image.url})` }"></div>
+        <div
+v-if="linkTool.data.meta.image?.url" class="r-web-preview-image"
+          :style="{ backgroundImage: `url(${linkTool.data.meta.image.url})` }"/>
 
-        <div v-if="linkTool.data.meta.title" class="r-web-preview-title" v-html="linkTool.data.meta.title"></div>
-
-        <div v-if="linkTool.data.meta.description" class="r-web-preview-description"
-          v-html="replaceBreakLine(linkTool.data.meta.description)"></div>
+        <div v-if="linkTool.data.meta.title" class="r-web-preview-title" v-html="sanitizeHtml(linkTool.data.meta.title)"/>
+        <div
+v-if="linkTool.data.meta.description" class="r-web-preview-description"
+          v-html="sanitizeHtml(replaceBreakLine(linkTool.data.meta.description))"/>
 
         <span class="r-web-preview-anchor">{{ linkTool.data.link.replace(/https*:\/\//, '') }}</span>
       </a>
@@ -19,8 +20,8 @@
 </template>
 
 <script lang="ts" setup>
-import type { BlockLinkToolType } from '@/types/BlocksType';
-import type { BlockType } from '@/types/BlocksType';
+import type { BlockLinkToolType, BlockType  } from '@/types/BlocksType';
+import { sanitizeHtml } from '~/utils/sanitize';
 
 const props = defineProps({
   block: {

@@ -37,17 +37,14 @@ const { executeRecaptcha } = useGoogleRecaptcha();
 //const appConfig = useAppConfig()
 //console.log(runtimeConfig.public.captcha.siteKey)
 //const captchaSiteKey = runtimeConfig.public.captcha.siteKey;
-const API_BASE: string = runtimeConfig.public.api.base
+// useApiBase() resuelve la URL correcta (proxy en dev para evitar CORS)
+const apiBase = useApiBase()
 const API_PATH_CONTACT: string = runtimeConfig.public.api.contact
 
 const recaptchaIns = useReCaptcha()?.instance
 const router = useRouter();
 
-useHead({
-    title: 'Contactar con Raúl Caro Pastorino',
-})
-
-router.afterEach((to, from) => {
+router.afterEach((to) => {
     if (to.path === '/contact') {
         setTimeout(() => {
             recaptchaIns?.value?.showBadge();
@@ -61,6 +58,9 @@ onMounted(() => {
     setTimeout(() => {
         recaptchaIns?.value?.showBadge();
     }, 1000);
+
+    // Pre-carga la cookie CSRF para que el primer envío no falle ni tarde
+    fetchCsrfToken().catch(() => { /* se reintentará al enviar */ });
 });
 
 onBeforeUnmount(() => {
@@ -98,7 +98,7 @@ interface StepsInfo {
     };
 }
 
-const stepsInfo = ref({
+const stepsInfo = ref<StepsInfo>({
     step: 1,
     show: false,
     //loading: false,
@@ -119,13 +119,11 @@ const stepsInfo = ref({
     }
 });
 
-let canSubmit: boolean = false;
-
 const dataForm: Ref<FormData> = ref({
     valid: false,
     name: {
-        value: 'adfsasdfasdfasdfasdfasd',
-        valid: true,
+        value: '',
+        valid: false,
         validations: {
             minLength: {
                 value: 5,
@@ -138,8 +136,8 @@ const dataForm: Ref<FormData> = ref({
         },
     },
     email: {
-        value: 'asdfasdfasdf@dsfsdf.es',
-        valid: true,
+        value: '',
+        valid: false,
         validations: {
             minLength: {
                 value: 8,
@@ -150,15 +148,15 @@ const dataForm: Ref<FormData> = ref({
                 message: 'El email no puede tener más de 50 caracteres',
             },
             regexp: {
-                value: "^[a-z0-9]+[\@][a-z0-9]+[\.][a-z]{2,3}$",
+                value: "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
                 message: 'El email no es válido',
             },
 
         },
     },
     subject: {
-        value: 'asdfasdfas dfasdf asdf asd fasdf asdf asdf asdf asdf',
-        valid: true,
+        value: '',
+        valid: false,
         validations: {
             minLength: {
                 value: 10,
@@ -171,8 +169,8 @@ const dataForm: Ref<FormData> = ref({
         },
     },
     message: {
-        value: 'asdf asdf asdf asd fasdf asd fasdf asdf asdf asd fasdf asdf asd fasd fasd fas dfasd fasd fas',
-        valid: true,
+        value: '',
+        valid: false,
         validations: {
             minLength: {
                 value: 30,
@@ -195,7 +193,7 @@ const dataForm: Ref<FormData> = ref({
             },
         },
     },
-}); 1
+});
 
 /**
  * Al modificar el contenido del mensaje, comprueba su validación.
@@ -213,7 +211,7 @@ watch(dataForm.value.message.value, async () => {
  * @param {*} value Valor a comprobar contra el patrón
  */
 const checkRegexp = (pattern: string, value: string): boolean => {
-    let reg = new RegExp(pattern);
+    const reg = new RegExp(pattern);
 
     return reg.test(value);
 }
@@ -252,7 +250,7 @@ const checkValidations = (currentObject: FormField): void => {
     const value = currentObject.value as string;
     const validations = currentObject.validations;
 
-    let errors: string[] = [];
+    const errors: string[] = [];
 
     if (validations.minLength && value.length < validations.minLength.value) {
         errors.push(validations.minLength.message ?? 'El campo no cumple con la longitud mínima');
@@ -296,25 +294,59 @@ const handleKeyup = (event: KeyboardEvent, field: string): void => {
     }
 };
 
+// Enviar el formulario con Enter pasa por la misma validación y confirmación que el botón
 const onSubmit = async (e: Event) => {
     e.preventDefault();
-    await handleSubmit(e);
+    await showConfirmModal(e);
 };
 
-const handleSubmit = async (e: Event): Promise<void> => {
+/* Protección anti-bots (además del reCAPTCHA v3 validado en servidor):
+ * - Honeypot: campo oculto que los humanos no ven; si llega relleno, es un bot.
+ * - Tiempo mínimo: un humano tarda varios segundos en rellenar el formulario.
+ * - Bloqueo de doble envío mientras hay una petición en curso. */
+const honeypot = ref('');
+const formLoadedAt = Date.now();
+const MIN_FILL_TIME_MS = 3000;
+const isSubmitting = ref(false);
+
+const handleSubmit = async (): Promise<void> => {
+
+    if (isSubmitting.value) {
+        return;
+    }
 
     const info = stepsInfo.value;
 
     // Muestra el segundo paso con el resumen del email a enviar
     info.step = 2;
 
-    const { token } = await executeRecaptcha(RecaptchaAction.contact);
+    // Trampas anti-bot: se simula un envío correcto sin llamar a la API
+    if (honeypot.value || (Date.now() - formLoadedAt) < MIN_FILL_TIME_MS) {
+        info.validated = true;
+        info.submitted = true;
+        info.messages.errors = [];
+        info.messages.success = ['El mensaje se ha enviado correctamente'];
+        info.step = 3;
+        return;
+    }
+
+    isSubmitting.value = true;
+
+    let token: string;
+
+    try {
+        ({ token } = await executeRecaptcha(RecaptchaAction.contact));
+    } catch {
+        token = '';
+    }
 
     if (!token) {
-        //console.log(captchaClient)
-        //console.log('NO VALIDA EL CAPTCHA')
-
-        // TODO: Ir al step 3 e informar del problema con captcha
+        info.step = 3;
+        info.validated = false;
+        info.submitted = false;
+        info.fail = true;
+        info.messages.errors = ['Error al verificar el captcha. Por favor, recarga la página e inténtalo de nuevo.'];
+        isSubmitting.value = false;
         return;
     }
 
@@ -331,10 +363,9 @@ const handleSubmit = async (e: Event): Promise<void> => {
         captcha_token: token,
     };
 
-    const apiUrl = API_BASE + '/' + API_PATH_CONTACT;
+    const apiUrl = apiBase + '/' + API_PATH_CONTACT;
 
     fetchPost(apiUrl, data)
-        .then((response) => response.json())
         .then((data) => {
 
             //console.log(data)
@@ -355,41 +386,31 @@ const handleSubmit = async (e: Event): Promise<void> => {
                 info.messages.success = [];
             }
 
-
-            // TODO: Limpiar todo el modal completado.
-            info.validated = info.messages.errors.length ? false : true;
-
-            // TODO: Quitar el botón para volver a enviar mensaje.
-            info.submitted = data.data.send;
-
-
-            if (info.validated && info.submitted) {
-                // TODO: Limpiar modal y deshabilitar modal. Quizás reemplazar formulario por mensaje de enviado.
+            // Formato alternativo de error de la API: { status: 'ko', error: { message } }
+            if (!info.messages.errors.length && data?.status === 'ko') {
+                info.messages.errors = [
+                    data?.error?.message ?? 'No se ha podido enviar el mensaje. Inténtalo de nuevo más tarde.',
+                ];
             }
 
-            console.log('data.messages?.errors?.length', data.messages?.errors?.length)
-            console.log('data.messages?.errors', data.messages?.errors)
-            console.log('data.messages?.success?.length', data.messages?.success?.length)
-            console.log('data.messages?.success', data.messages?.success)
-            console.log('data', data)
-            console.log('info', info)
-            console.log('stepsInfo.value', stepsInfo.value)
-            console.log('messages', info.messages)
+
+            info.validated = info.messages.errors.length ? false : true;
+            info.submitted = data?.data?.send ?? false;
 
         })
         .catch((error) => {
             console.error('Error:', error);
-            console.error('Data:', data);
             info.validated = false;
             info.submitted = false;
 
-            // TODO: Comprobar si vino mensaje de error desde la api o poner default.
-
-            info.messages.errors.push('Error desconocido');
-
-
+            if (!info.messages.errors.length) {
+                info.messages.errors = [
+                    'No se ha podido enviar el mensaje. Por favor, inténtalo de nuevo más tarde o contáctame por LinkedIn.',
+                ];
+            }
         }).finally(() => {
             info.step = 3;
+            isSubmitting.value = false;
         });
 }
 
@@ -432,7 +453,6 @@ const showConfirmModal = async (e: Event): Promise<void> => {
     e.preventDefault();
 
     if (!formIsValid()) {
-        console.log('NO VALIDA EL FORM')
         return;
     }
 
@@ -442,277 +462,269 @@ const showConfirmModal = async (e: Event): Promise<void> => {
 }
 </script>
 
+
 <template>
-    <section>
-        <div class="box-title">
-            <h1>
-                Formulario de
+    <div class="min-h-screen bg-background circuit-pattern">
 
-                <span class="text-primary font-bold">
-                    Contacto
-                </span>
+        <!-- Cabecera -->
+        <div class="pt-12 pb-8 px-8 max-w-7xl mx-auto">
+            <span class="font-label text-tertiary tracking-[0.3em] uppercase mb-4 flex items-center gap-3 text-xs">
+                <span class="w-8 h-[1px] bg-tertiary"/>
+                Canal de Contacto
+            </span>
+            <h1 class="font-headline text-6xl md:text-8xl font-bold tracking-tighter text-primary mb-6">
+                Formulario de <span class="text-on-surface-variant font-light">Contacto</span>
             </h1>
-
-            <p>
-                <small>
-                    Fuera de servicio temporalmente mientras termino de implementar medidas de seguridad anti bots y
-                    anti spam usando mi propia AI para ello.
-                </small>
-            </p>
-
-            <p>
-                <small>
-                    Puedes contactarme mediante alguna de las redes sociales con una cuenta que sea real y te contestaré
-                    en cuanto me sea posible.
-                </small>
+            <p class="text-on-surface-variant text-lg max-w-2xl border-l-2 border-secondary pl-6 py-2">
+                Ponte en contacto conmigo. Respondo en cuanto me sea posible.
             </p>
         </div>
 
-        <div class="box-form">
-            <form @submit.prevent="onSubmit">
-                <div class="form-section two-columns">
-                    <div class="box-input">
-                        <label for="name">Nombre</label>
-                        <input type="text" id="name" @keyup="checkValidationsFromEvent"
-                            v-model.trim="(dataForm.name as FormField).value as string"
-                            :class="{ 'valid': isFormField(dataForm.name) && dataForm.name.valid, 'invalid': isFormField(dataForm.name) && dataForm.name.errors && dataForm.name.errors.length }"
-                            name="name" />
-
-                        <IconsInfo :size="16" class="check-errors-icon"
-                            :show="isFormField(dataForm.name) && dataForm.name.valid !== null"
-                            :type="isFormField(dataForm.name) && dataForm.name.valid ? 'success' : 'error'"></IconsInfo>
-
-                        <span v-if="isFormField(dataForm.name)" v-for="error in dataForm.name.errors"
-                            class="error-message">
-                            {{ error }}
-                        </span>
-                    </div>
-
-                    <div class="box-input">
-                        <label for="email">Email</label>
-                        <input type="email" @keyup="checkValidationsFromEvent"
-                            :class="{ 'valid': isFormField(dataForm.email) && dataForm.email.valid, 'invalid': isFormField(dataForm.email) && dataForm.email.errors && dataForm.email.errors.length }"
-                            v-model.trim="(dataForm.email as FormField).value as string" id="email" name="email" />
-
-                        <IconsInfo :size="16" class="check-errors-icon"
-                            :show="isFormField(dataForm.email) && dataForm.email.valid !== null"
-                            :type="isFormField(dataForm.email) && dataForm.email.valid ? 'success' : 'error'">
-                        </IconsInfo>
-
-                        <span v-if="isFormField(dataForm.email)" v-for="error in dataForm.email.errors"
-                            class="error-message">
-                            {{ error }}
-                        </span>
-                    </div>
+        <!-- Aviso temporal -->
+        <div class="px-8 pb-8 max-w-7xl mx-auto">
+            <div class="p-6 bg-secondary/5 border border-secondary/30 rounded-xl flex items-start gap-4">
+                <UiMaterialIcon class="text-secondary shrink-0 mt-0.5" name="info" />
+                <div>
+                    <p class="text-on-surface-variant text-sm leading-relaxed mb-1">
+                        Fuera de servicio temporalmente mientras termino de implementar medidas de seguridad anti bots y
+                        anti spam usando mi propia AI para ello.
+                    </p>
+                    <p class="text-on-surface-variant text-sm leading-relaxed">
+                        Puedes contactarme mediante alguna de las
+                        <NuxtLink to="/social" class="text-tertiary hover:underline">redes sociales</NuxtLink>
+                        con una cuenta real y te contestaré en cuanto me sea posible.
+                    </p>
                 </div>
-
-                <div class="form-section box-input">
-                    <label for="subject">Asunto</label>
-                    <input type="text" id="subject" @keyup="checkValidationsFromEvent"
-                        :class="{ 'valid': isFormField(dataForm.subject) && dataForm.subject.valid, 'invalid': isFormField(dataForm.subject) && dataForm.subject.errors && dataForm.subject.errors.length }"
-                        v-model.trim="(dataForm.subject as FormField).value as string" name="subject" />
-
-                    <IconsInfo :size="16" class="check-errors-icon"
-                        :show="isFormField(dataForm.subject) && dataForm.subject.valid !== null"
-                        :type="isFormField(dataForm.subject) && dataForm.subject.valid ? 'success' : 'error'">
-                    </IconsInfo>
-                    <span v-if="isFormField(dataForm.subject)" v-for="error in dataForm.subject.errors"
-                        class="error-message">
-                        {{ error }}
-                    </span>
-                </div>
-
-                <div class="form-section hidden">
-                    <textarea id="message" v-model.trim="(dataForm.message as FormField).value as string"
-                        name="message"></textarea>
-                </div>
-
-                <div class="form-section box-input">
-                    <label for="message">Mensaje</label>
-                    <span class="textarea" role="textbox" @keyup="handleKeyup($event, 'message')"
-                        :class="{ 'valid': isFormField(dataForm.message) && dataForm.message.valid, 'invalid': isFormField(dataForm.message) && dataForm.message.errors && dataForm.message.errors.length }"
-                        contenteditable></span>
-
-                    <IconsInfo :size="16" class="check-errors-icon"
-                        :show="isFormField(dataForm.message) && dataForm.message.valid !== null"
-                        :type="isFormField(dataForm.message) && dataForm.message.valid ? 'success' : 'error'">
-                    </IconsInfo>
-
-                    <span v-if="isFormField(dataForm.message)" v-for="error in dataForm.message.errors"
-                        class="error-message">
-                        {{ error }}
-                    </span>
-                </div>
-            </form>
-        </div>
-
-        <div class="box-actions">
-            <div class="form-section">
-                <input type="checkbox" id="privacity" @change="checkValidationsFromEvent"
-                    v-model="(dataForm.privacity as FormField).value" name="privacity" />
-                <label for="privacity">
-                    <span class="inline-block">
-                        Acepta recibir correos
-                    </span>
-
-                    <span class="inline-block">
-                        &nbsp;
-                        electrónicos de mi parte
-                    </span>
-
-                    <span class="inline-block">
-                        &nbsp;
-                        y la
-
-                        <NuxtLink to="/privacy" target="_blank">
-                            política de privacidad.
-                        </NuxtLink>
-                    </span>
-
-                    <IconsInfo :size="16" class="check-errors-icon"
-                        :show="isFormField(dataForm.privacity) && dataForm.privacity.valid !== null"
-                        :type="isFormField(dataForm.privacity) && dataForm.privacity.valid ? 'success' : 'error'">
-                    </IconsInfo>
-                </label>
-
-                <span v-if="isFormField(dataForm.privacity)" v-for="error in dataForm.privacity.errors"
-                    class="error-message">
-                    {{ error }}
-                </span>
             </div>
-
-            <BtnGeneric text="Enviar Mensaje" @click="showConfirmModal" title="Enviar Mensaje" />
-
         </div>
-    </section>
 
-    <ModalsSubmitContact :show="stepsInfo.show" :step="stepsInfo.step" :messages="stepsInfo.messages"
-        @finished="cancelModal" :dataForm="dataForm" @cancel="cancelModal" @submit="handleSubmit" />
+        <!-- Formulario -->
+        <div class="px-8 pb-24 max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+                <!-- Columna formulario -->
+                <div class="lg:col-span-2">
+                    <form class="bg-surface-container-high rounded-xl border border-outline-variant/20 p-8 space-y-6" @submit.prevent="onSubmit">
+
+                        <!-- Honeypot anti-bots: invisible para humanos, los bots lo rellenan -->
+                        <div class="absolute -left-[9999px] top-auto w-px h-px overflow-hidden" aria-hidden="true">
+                            <label for="website">No rellenar este campo</label>
+                            <input
+                                id="website"
+                                v-model="honeypot"
+                                type="text"
+                                name="website"
+                                tabindex="-1"
+                                autocomplete="off"
+                            >
+                        </div>
+
+                        <!-- Nombre y Email -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="flex flex-col gap-2">
+                                <label for="name" class="font-label text-xs uppercase tracking-widest text-outline">Nombre</label>
+                                <input
+                                    id="name"
+                                    v-model.trim="(dataForm.name as FormField).value as string"
+                                    type="text"
+                                    name="name"
+                                    maxlength="50"
+                                    autocomplete="name"
+                                    :class="[
+                                        'w-full bg-surface-container-lowest border-b-2 outline-none px-4 py-3 text-on-surface font-body placeholder:text-outline transition-colors',
+                                        isFormField(dataForm.name) && dataForm.name.valid ? 'border-tertiary' : (isFormField(dataForm.name) && dataForm.name.errors?.length ? 'border-error' : 'border-outline-variant focus:border-secondary')
+                                    ]"
+                                    placeholder="Tu nombre completo"
+                                    @keyup="checkValidationsFromEvent"
+                                >
+                                <template v-if="isFormField(dataForm.name) && dataForm.name.errors?.length">
+                                    <span
+                                        v-for="error in dataForm.name.errors"
+                                        :key="error"
+                                        class="text-error text-xs font-label"
+                                    >{{ error }}</span>
+                                </template>
+                            </div>
+
+                            <div class="flex flex-col gap-2">
+                                <label for="email" class="font-label text-xs uppercase tracking-widest text-outline">Email</label>
+                                <input
+                                    id="email"
+                                    v-model.trim="(dataForm.email as FormField).value as string"
+                                    type="email"
+                                    name="email"
+                                    maxlength="50"
+                                    autocomplete="email"
+                                    :class="[
+                                        'w-full bg-surface-container-lowest border-b-2 outline-none px-4 py-3 text-on-surface font-body placeholder:text-outline transition-colors',
+                                        isFormField(dataForm.email) && dataForm.email.valid ? 'border-tertiary' : (isFormField(dataForm.email) && dataForm.email.errors?.length ? 'border-error' : 'border-outline-variant focus:border-secondary')
+                                    ]"
+                                    placeholder="tu@email.com"
+                                    @keyup="checkValidationsFromEvent"
+                                >
+                                <template v-if="isFormField(dataForm.email) && dataForm.email.errors?.length">
+                                    <span
+                                        v-for="error in dataForm.email.errors"
+                                        :key="error"
+                                        class="text-error text-xs font-label"
+                                    >{{ error }}</span>
+                                </template>
+                            </div>
+                        </div>
+
+                        <!-- Asunto -->
+                        <div class="flex flex-col gap-2">
+                            <label for="subject" class="font-label text-xs uppercase tracking-widest text-outline">Asunto</label>
+                            <input
+                                id="subject"
+                                v-model.trim="(dataForm.subject as FormField).value as string"
+                                type="text"
+                                name="subject"
+                                maxlength="100"
+                                autocomplete="off"
+                                :class="[
+                                    'w-full bg-surface-container-lowest border-b-2 outline-none px-4 py-3 text-on-surface font-body placeholder:text-outline transition-colors',
+                                    isFormField(dataForm.subject) && dataForm.subject.valid ? 'border-tertiary' : (isFormField(dataForm.subject) && dataForm.subject.errors?.length ? 'border-error' : 'border-outline-variant focus:border-secondary')
+                                ]"
+                                placeholder="Asunto del mensaje"
+                                @keyup="checkValidationsFromEvent"
+                            >
+                            <template v-if="isFormField(dataForm.subject) && dataForm.subject.errors?.length">
+                                <span
+                                    v-for="error in dataForm.subject.errors"
+                                    :key="error"
+                                    class="text-error text-xs font-label"
+                                >{{ error }}</span>
+                            </template>
+                        </div>
+
+                        <!-- Textarea oculto real -->
+                        <div class="hidden">
+                            <textarea
+                                id="message"
+                                v-model.trim="(dataForm.message as FormField).value as string"
+                                name="message"
+                            />
+                        </div>
+
+                        <!-- Mensaje contenteditable -->
+                        <div class="flex flex-col gap-2">
+                            <label class="font-label text-xs uppercase tracking-widest text-outline">Mensaje</label>
+                            <span
+                                role="textbox"
+                                contenteditable
+                                :class="[
+                                    'min-h-[160px] w-full bg-surface-container-lowest border-b-2 outline-none px-4 py-3 text-on-surface font-body transition-colors block',
+                                    isFormField(dataForm.message) && dataForm.message.valid ? 'border-tertiary' : (isFormField(dataForm.message) && dataForm.message.errors?.length ? 'border-error' : 'border-outline-variant focus:border-secondary')
+                                ]"
+                                @keyup="handleKeyup($event, 'message')"
+                            />
+                            <template v-if="isFormField(dataForm.message) && dataForm.message.errors?.length">
+                                <span
+                                    v-for="error in dataForm.message.errors"
+                                    :key="error"
+                                    class="text-error text-xs font-label"
+                                >{{ error }}</span>
+                            </template>
+                        </div>
+
+                        <!-- Privacidad -->
+                        <div class="flex flex-col gap-2">
+                            <label class="flex items-start gap-3 cursor-pointer">
+                                <input
+                                    id="privacity"
+                                    v-model="(dataForm.privacity as FormField).value"
+                                    type="checkbox"
+                                    name="privacity"
+                                    class="mt-1 w-4 h-4 accent-primary shrink-0"
+                                    @change="checkValidationsFromEvent"
+                                >
+                                <span class="text-sm text-on-surface-variant leading-relaxed">
+                                    Acepto recibir correos electrónicos y la
+                                    <NuxtLink to="/privacy" target="_blank" class="text-tertiary hover:underline">
+                                        política de privacidad
+                                    </NuxtLink>.
+                                </span>
+                            </label>
+                            <template v-if="isFormField(dataForm.privacity) && dataForm.privacity.errors?.length">
+                                <span
+                                    v-for="error in dataForm.privacity.errors"
+                                    :key="error"
+                                    class="text-error text-xs font-label"
+                                >{{ error }}</span>
+                            </template>
+                        </div>
+
+                        <!-- Botón enviar -->
+                        <div class="pt-4">
+                            <button
+                                type="button"
+                                class="px-8 py-4 bg-gradient-to-br from-primary to-primary-container text-on-primary font-headline font-bold text-sm tracking-widest uppercase rounded-lg hover:scale-95 transition-all duration-300"
+                                @click="showConfirmModal"
+                            >
+                                Enviar Mensaje
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Columna info lateral -->
+                <div class="flex flex-col gap-6">
+                    <div class="bg-surface-container-high rounded-xl border border-outline-variant/20 p-8">
+                        <h3 class="font-headline text-lg font-bold mb-6 tracking-tight">Información de Contacto</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                                    <UiMaterialIcon class="text-primary text-sm" name="alternate_email" />
+                                </div>
+                                <div>
+                                    <p class="font-label text-[10px] text-outline uppercase tracking-widest">Email</p>
+                                    <p class="text-sm text-on-surface">public@raupulus.dev</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-lg bg-tertiary/10 flex items-center justify-center shrink-0">
+                                    <UiMaterialIcon class="text-tertiary text-sm" name="location_on" />
+                                </div>
+                                <div>
+                                    <p class="font-label text-[10px] text-outline uppercase tracking-widest">Ubicación</p>
+                                    <p class="text-sm text-on-surface">España</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-lg bg-secondary/10 flex items-center justify-center shrink-0">
+                                    <UiMaterialIcon class="text-secondary text-sm" name="schedule" />
+                                </div>
+                                <div>
+                                    <p class="font-label text-[10px] text-outline uppercase tracking-widest">Respuesta</p>
+                                    <p class="text-sm text-on-surface">En cuanto sea posible</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-surface-container-low rounded-xl border border-outline-variant/10 p-6">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="w-2 h-2 rounded-full bg-tertiary animate-pulse"/>
+                            <span class="font-label text-xs text-tertiary uppercase tracking-widest">Sistema Activo</span>
+                        </div>
+                        <p class="text-xs text-on-surface-variant leading-relaxed">
+                            Formulario protegido con Google reCAPTCHA v3 para evitar spam.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal de confirmación -->
+        <ModalsSubmitContact
+            :show="stepsInfo.show"
+            :step="stepsInfo.step"
+            :messages="stepsInfo.messages"
+            :data-form="dataForm"
+            @finished="cancelModal"
+            @cancel="cancelModal"
+            @submit="handleSubmit"
+        />
+    </div>
 </template>
-
-
-<style lang="css" scoped>
-.box-title {
-    margin: 0 auto;
-    text-align: center;
-    padding: 1.3rem 1.3rem 0 1.3rem;
-    box-sizing: border-box;
-}
-
-.box-form {
-    margin: 0 auto;
-    padding: 1.7rem 1.3rem;
-    width: 80%;
-    box-sizing: border-box;
-}
-
-.box-form form {
-    width: 100%;
-}
-
-.box-form form label {
-    display: block;
-    margin-bottom: 0.6rem;
-    box-sizing: border-box;
-}
-
-.box-form form input {
-    width: calc(100% - 1.5rem);
-    max-width: calc(100% - 1.5rem);
-    box-sizing: border-box;
-    border: none;
-    border-bottom: 3px solid #B0B0B0;
-    background-color: transparent;
-    color: rgba(20, 20, 20, 0.64);
-}
-
-.box-input {
-    text-align: center;
-}
-
-.box-input label {
-    padding-left: 0.6rem;
-    text-align: left;
-}
-
-/* Icono para mostrar error en cada campo */
-.check-errors-icon {
-    position: absolute;
-    width: 1rem;
-    height: 1rem;
-    /* translate: -1.3rem; */
-}
-
-.box-form form span.textarea {
-    color: rgba(20, 20, 20, 0.64);
-}
-
-.box-form form input:focus,
-.box-form form span.textarea:focus {
-    border-color: var(--primary);
-    outline: none;
-}
-
-
-.box-form form .textarea {
-    display: inline-block;
-    width: calc(100% - 1.5rem);
-    max-width: calc(100% - 1.5rem);
-    resize: block;
-    box-sizing: border-box;
-    border-bottom: 3px solid #B0B0B0;
-    text-align: left;
-    word-wrap: break-word;
-}
-
-.box-form .form-section {
-    padding: 2rem;
-    box-sizing: border-box;
-    max-width: calc(100vw - 2.5rem);
-}
-
-.box-form .form-section.two-columns {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 2rem;
-}
-
-
-.box-actions {
-    margin: 1.3rem auto 5rem auto;
-    max-width: 80%;
-    text-align: center;
-}
-
-.box-actions>span {
-    cursor: pointer;
-}
-
-
-.invalid {
-    border-bottom: 3px solid #B72020 !important;
-}
-
-.valid {
-    border-bottom: 3px solid #34B832 !important;
-}
-
-
-.error-message {
-    display: block;
-    width: 100%;
-    color: #B72020;
-    font-size: 0.8rem;
-    font-style: italic;
-}
-
-@media (max-width: 768px) {
-    .box-form .form-section.two-columns {
-        grid-template-columns: 1fr;
-    }
-
-    .box-form {
-        width: 100%;
-    }
-}
-</style>

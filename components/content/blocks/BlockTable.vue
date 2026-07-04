@@ -3,19 +3,17 @@
     <table class="r-table">
       <thead v-if="table.data.withHeadings && table.data.content.length">
         <tr>
-          <th v-for="cell in table.data.content[0]">{{ cell }}</th>
+          <th v-for="(cell, idx) in table.data.content[0]" :key="idx">{{ cell }}</th>
         </tr>
       </thead>
 
 
       <tbody v-if="table.data.content.length">
 
-        <tr v-for="row, idxRow in table.data.content">
-          <td v-if="table.data.withHeadings && idxRow >= 1" v-for="cell, idx in row">
-            <span class="r-table-field-head">{{ table.data.content[0][idx] }}:</span>{{ cell }}
+        <tr v-for="(row, idxRow) in bodyRows" :key="idxRow">
+          <td v-for="(cell, idx) in row" :key="idx">
+            <span v-if="table.data.withHeadings" class="r-table-field-head">{{ table.data.content[0]?.[idx] }}:</span>{{ cell }}
           </td>
-
-          <td v-else-if="!table.data.withHeadings" v-for="cell in row">{{ cell }}</td>
         </tr>
 
       </tbody>
@@ -24,8 +22,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { BlockTableType } from '@/types/BlocksType';
-import type { BlockType } from '@/types/BlocksType';
+import type { BlockTableType, BlockType  } from '@/types/BlocksType';
 
 const props = defineProps({
   block: {
@@ -35,6 +32,11 @@ const props = defineProps({
 })
 
 const table = props.block as BlockTableType
+
+// Con cabeceras, la primera fila del contenido es la cabecera y no va en el cuerpo
+const bodyRows = table.data.withHeadings
+  ? table.data.content.slice(1)
+  : table.data.content
 </script>
 
 <style scoped>

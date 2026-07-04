@@ -1,5 +1,5 @@
 <script setup>
-const props = defineProps({
+defineProps({
     url: {
         type: String,
         required: false,
@@ -35,7 +35,7 @@ const props = defineProps({
 
 <template>
     <span class="box-icon">
-        <a v-if="url" :href="url" :title="title" target="_blank" :class="grayscale ? 'icon-grayscale' : ''">
+        <a v-if="url" :href="url" :title="title" target="_blank" rel="noopener noreferrer" :aria-label="title" :class="grayscale ? 'icon-grayscale' : ''">
             <slot />
         </a>
 

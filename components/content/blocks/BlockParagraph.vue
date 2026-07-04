@@ -1,28 +1,30 @@
 <template>
-  <p :id="paragraph.id" :class="'r-paragraph' + (paragraph.tunes?.textVariant
-    ? ' r-paragraph-' + paragraph.tunes?.textVariant : '')">
-
-    <cite v-if="paragraph.tunes?.textVariant === 'citation'" v-html="paragraph.data.text"></cite>
-
-    <span v-else-if="paragraph.tunes?.textVariant === 'call-out'" class="r-call-out">
-      <span class="r-call-out-left"></span>
-      <span class="r-call-out-right" v-html="paragraph.data.text"></span>
-    </span>
-
-  <details v-else-if="paragraph.tunes?.textVariant === 'details'">
+  <details v-if="paragraph.tunes?.textVariant === 'details'" :id="paragraph.id" class="r-paragraph r-paragraph-details">
     <summary>Detalles</summary>
 
-    <span v-html="paragraph.data.text"></span>
+    <span v-html="sanitizeHtml(paragraph.data.text)" />
   </details>
 
-  <span v-else v-html="paragraph.data.text"></span>
+  <p
+    v-else
+    :id="paragraph.id"
+    :class="'r-paragraph' + (paragraph.tunes?.textVariant
+      ? ' r-paragraph-' + paragraph.tunes?.textVariant : '')"
+  >
+    <cite v-if="paragraph.tunes?.textVariant === 'citation'" v-html="sanitizeHtml(paragraph.data.text)" />
 
+    <span v-else-if="paragraph.tunes?.textVariant === 'call-out'" class="r-call-out">
+      <span class="r-call-out-left" />
+      <span class="r-call-out-right" v-html="sanitizeHtml(paragraph.data.text)" />
+    </span>
+
+    <span v-else v-html="sanitizeHtml(paragraph.data.text)" />
   </p>
 </template>
 
 <script lang="ts" setup>
-import type { BlockParagraphType } from '@/types/BlocksType';
-import type { BlockType } from '@/types/BlocksType';
+import type { BlockParagraphType, BlockType  } from '@/types/BlocksType';
+import { sanitizeHtml } from '~/utils/sanitize';
 
 const props = defineProps({
   block: {

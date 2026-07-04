@@ -7,29 +7,33 @@
 
       <div class="box-section-image-header-overlay-bottom">
         <div style="text-align: center;">
-          <StackBadgeHexagon text="PHP" color="#777bb3" colorLight="#9b9fd8">
-            <img src="@/assets/images/technologies/php_60x60.webp" title="Lenguaje de Programación PHP"
-              alt="Lenguaje de Programación PHP" />
+          <StackBadgeHexagon text="PHP" color="#777bb3" color-light="#9b9fd8">
+            <img
+src="@/assets/images/technologies/php_60x60.webp" title="Lenguaje de Programación PHP"
+              alt="Lenguaje de Programación PHP" >
           </StackBadgeHexagon>
 
-          <StackBadgeHexagon text="Laravel" color="#c54b4b" colorLight="#d56565">
-            <img src="@/assets/images/technologies/laravel_60x60.webp" title="Framework Laravel"
-              alt="Framework Laravel" />
+          <StackBadgeHexagon text="Laravel" color="#c54b4b" color-light="#d56565">
+            <img
+src="@/assets/images/technologies/laravel_60x60.webp" title="Framework Laravel"
+              alt="Framework Laravel" >
           </StackBadgeHexagon>
 
           <div class="inline-block">
-            <StackBadgeHexagon text="Vue" color="#2f3239" colorLight="#454850">
-              <img src="@/assets/images/technologies/vuejs_60x60.webp" title="Framework VueJs" alt="Framework VueJs" />
+            <StackBadgeHexagon text="Vue" color="#2f3239" color-light="#454850">
+              <img src="@/assets/images/technologies/vuejs_60x60.webp" title="Framework VueJs" alt="Framework VueJs" >
             </StackBadgeHexagon>
 
-            <StackBadgeHexagon text="Javascript" color="#d7af21" colorLight="#e9c853">
-              <img src="@/assets/images/technologies/javascript_60x60.webp" title="Lenguaje de Programación Javascript"
-                alt="Lenguaje de Programación Javascript" />
+            <StackBadgeHexagon text="Javascript" color="#d7af21" color-light="#e9c853">
+              <img
+src="@/assets/images/technologies/javascript_60x60.webp" title="Lenguaje de Programación Javascript"
+                alt="Lenguaje de Programación Javascript" >
             </StackBadgeHexagon>
 
-            <StackBadgeHexagon text="PostgreSQL" color="#336791" colorLight="#68ace4">
-              <img src="@/assets/images/technologies/postgresql_60x60.webp" title="Logo base de datos PostgreSQL"
-                alt="Logo base de datos PostgreSQL" />
+            <StackBadgeHexagon text="PostgreSQL" color="#336791" color-light="#68ace4">
+              <img
+src="@/assets/images/technologies/postgresql_60x60.webp" title="Logo base de datos PostgreSQL"
+                alt="Logo base de datos PostgreSQL" >
             </StackBadgeHexagon>
           </div>
         </div>
@@ -38,7 +42,8 @@
 
     <div class="box-section-image-header-background">
 
-      <NuxtImg format="webp" src="/images/backgrounds/background_500x500.webp" quality="10" placeholder fit="cover"
+      <NuxtImg
+format="webp" src="/images/backgrounds/background_500x500.webp" quality="10" placeholder fit="cover"
         alt="Imagen de fondo para el portfolio de Raúl Caro Pastorino (Raupulus)"
         title="Portfolio de Raúl Caro Pastorino (Raupulus)" />
 

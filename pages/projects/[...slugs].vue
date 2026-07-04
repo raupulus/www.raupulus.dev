@@ -5,11 +5,12 @@ import { getPlatformData } from '@/composables/platformData';
 
 const config = useRuntimeConfig();
 const route = useRoute();
-const slugContent = ref(route.params.slugs[0]);
-const slugPage = ref(route.params.slugs[1]);
-let openProjetOnLoad = ref(false);
+const slugs = Array.isArray(route.params.slugs) ? route.params.slugs : [];
+const slugContent = ref(slugs[0]);
+const slugPage = ref(slugs[1]);
+const openProjetOnLoad = ref(false);
 
-if (slugContent) {
+if (slugContent.value) {
     openProjetOnLoad.value = true;
 }
 
@@ -46,84 +47,67 @@ useHead({
     ]
 });
 
+const platformData = getPlatformData();
+const { datas, hasMorePages, isLoading, fetchNextPage } = useProjectsData();
 
-let platformData = getPlatformData();
-const { datas } = useProjectsData();
+const searchInput = ref('');
+const technologySelect = ref('');
+const currentTechnology = ref();
 
-
-
-let searchInput = '';
-let clearSelectOption = false;
-const technologySelect = ref(''); // Slug de la tecnología actual
-const currentTechnology = ref(); // Tecnología actual
-
-/*
- * When the technology slug changes, update the current technology.
- */
+// Actualiza la tecnología actual cuando cambia el slug seleccionado
 watch(technologySelect, (currentSlug) => {
     currentTechnology.value = getTechnologyBySlug(currentSlug);
 });
 
 function btnSearch() {
-    clearSelectOption = !technologySelect.value;
     projectsDataSearch({
-        search: searchInput,
+        search: searchInput.value,
         technology: technologySelect.value,
     });
 }
 
 function btnClear() {
-    searchInput = '';
+    searchInput.value = '';
     technologySelect.value = '';
-    clearSelectOption = true;
     projectsDataSearch();
 }
 
 function handleClickTechnology(params: any) {
     technologySelect.value = params.technologySelect;
-    clearSelectOption = !technologySelect.value;
     projectsDataSearch({
-        search: searchInput,
+        search: searchInput.value,
         technology: technologySelect.value,
     });
 }
 
-
-// Función para cambiar el slug en la URL
+// Actualiza el slug en la URL sin recargar la página
 const handleChangeUrlSlug = (contentSlug: string | undefined, pageSlug: string | undefined) => {
     let newUrl = window.location.origin + '/projects';
-
     if (contentSlug) {
         slugContent.value = contentSlug;
         slugPage.value = pageSlug ?? '';
-
         const newSlug = pageSlug ? contentSlug + '/' + pageSlug : contentSlug;
         newUrl += '/' + newSlug;
     } else {
         slugContent.value = '';
         slugPage.value = '';
     }
-
     window.history.pushState({}, '', newUrl);
 };
 
-/**
- *
- * Modificación de los metatags en base al proyecto que se está previsualizando y/o su página.
- *
- * @param title
- * @param description
- * @param keywords
- * @param url
- * @param image
- */
-const handleChangeMetatags = (newTitle: string | undefined, newDescription: string | undefined, newKeywords: string | undefined, newUrl: string | undefined, newImage: string | undefined) => {
+// Actualiza los metatags según el proyecto visualizado
+const handleChangeMetatags = (
+    newTitle: string | undefined,
+    newDescription: string | undefined,
+    newKeywords: string | undefined,
+    newUrl: string | undefined,
+    newImage: string | undefined
+) => {
     metadatas.title = newTitle || title;
     metadatas.description = newDescription || description;
     metadatas.keywords = newKeywords || keywords;
     metadatas.url = newUrl || urlProjects;
     metadatas.image = newImage || imageProjects;
-
     useHead({
         title: metadatas.title,
         meta: [
@@ -141,191 +125,128 @@ const handleChangeMetatags = (newTitle: string | undefined, newDescription: stri
             { name: 'twitter:image', content: metadatas.image }
         ]
     });
-
-
-    console.log('Cambiando metatags', metadatas);
 };
-
 </script>
 
 <template>
-    <div>
-        <section class="box-search">
-            <div class="box-search-title text-center">
-                <h2>
-                    Mis
-                    <span class="text-primary font-bold">
-                        Proyectos
-                    </span>
-                </h2>
+    <div class="min-h-screen bg-background">
+        <!-- Cabecera de la sección -->
+        <div class="pt-12 pb-8 px-8 max-w-7xl mx-auto">
+            <span class="font-label text-secondary tracking-[0.3em] uppercase mb-4 flex items-center gap-3 text-xs">
+                <span class="w-8 h-[1px] bg-secondary"/>
+                Engineering Repository
+            </span>
+            <h1 class="font-headline text-4xl sm:text-6xl md:text-8xl font-bold tracking-tighter text-primary mb-6 max-w-4xl break-words">
+                ENGINEERING <span class="text-on-surface-variant font-light">SYSTEMS &amp;</span> ARCHITECTURES
+            </h1>
+            <p class="text-on-surface-variant text-lg max-w-2xl border-l-2 border-secondary pl-6 py-2">
+                {{ description }}
+            </p>
+        </div>
+
+        <!-- Sección de búsqueda y filtros -->
+        <section class="px-8 pb-12 max-w-7xl mx-auto">
+            <!-- Indicador de tecnología activa -->
+            <div v-if="technologySelect && currentTechnology?.name" class="mb-6 flex items-center gap-3">
+                <span class="font-label text-xs text-outline uppercase tracking-widest">Filtrando por:</span>
+                <div class="flex items-center gap-2 px-4 py-2 bg-surface-container-high rounded border border-primary/30">
+                    <NuxtImg
+                        v-if="currentTechnology?.urlImageSmall"
+                        :src="currentTechnology.urlImageSmall"
+                        :alt="currentTechnology.name"
+                        :title="currentTechnology.name"
+                        width="20"
+                        height="20"
+                        class="w-5 h-5 object-contain"
+                    />
+                    <span class="font-headline font-bold text-sm text-primary">{{ currentTechnology?.name }}</span>
+                    <button class="ml-2 text-outline hover:text-error transition-colors" aria-label="Quitar filtro de tecnología" @click="btnClear">
+                        <UiMaterialIcon class="text-sm" name="close" />
+                    </button>
+                </div>
             </div>
 
-            <div class="box-search-fields text-center">
-                <div v-if="technologySelect && currentTechnology?.name">
-                    Buscando por tecnología
-                    <img v-if="currentTechnology?.urlImageSmall" class="img-technology-search"
-                        :src="currentTechnology.urlImageSmall" :alt="currentTechnology.name"
-                        :title="currentTechnology.name">
-                    <span class="technology-select-feature" :style="'color:' + (currentTechnology?.color ?? '#E29244')">
-                        {{ currentTechnology?.name }}
-                    </span>
+            <!-- Barra de búsqueda -->
+            <div class="flex gap-3 mb-8">
+                <div class="flex-1 relative max-w-xl">
+                    <input
+                        v-model="searchInput"
+                        type="search"
+                        name="search"
+                        aria-label="Buscar proyecto"
+                        placeholder="Buscar proyecto..."
+                        class="w-full bg-surface-container-lowest border-b-2 border-outline-variant focus:border-secondary outline-none px-4 py-3 text-on-surface font-body placeholder:text-outline transition-colors"
+                        @keydown.enter="btnSearch"
+                    >
+                    <UiMaterialIcon class="absolute right-3 top-1/2 -translate-y-1/2 text-outline" name="search" />
                 </div>
+                <button
+                    class="px-6 py-3 bg-primary text-on-primary font-headline font-bold text-xs tracking-widest uppercase rounded hover:bg-primary-container transition-colors"
+                    @click="btnSearch"
+                >
+                    Buscar
+                </button>
+                <button
+                    class="px-4 py-3 border border-outline-variant hover:border-error text-outline hover:text-error rounded transition-colors"
+                    title="Limpiar búsqueda"
+                    aria-label="Limpiar búsqueda"
+                    @click="btnClear"
+                >
+                    <UiMaterialIcon class="text-sm" name="delete_sweep" />
+                </button>
+            </div>
 
-                <div class="category-input">
-                    <div class="box-search">
-                        <input type="search" @keydown.enter="btnSearch" name="search" placeholder="Buscar Proyecto"
-                            v-model="searchInput">
-
-                        <span class="btn-search" @click="btnSearch"></span>
-                    </div>
-
-
-                    <span class="btn-clean">
-                        <NuxtImg src="/images/icons/delete_left.svg" @click="btnClear" />
-                    </span>
-                </div>
-
-                <GridTechnologies :technologies="platformData?.technologies"
-                    @clickTechnologySelect="handleClickTechnology" :technologySelect="technologySelect" />
+            <!-- Filtro de tecnologías -->
+            <div class="mb-4">
+                <h3 class="font-label text-xs uppercase tracking-[0.2em] text-secondary font-bold mb-4">
+                    Filter by Ecosystem
+                </h3>
+                <GridTechnologies
+                    :technologies="platformData?.technologies"
+                    :technology-select="technologySelect"
+                    @click-technology-select="handleClickTechnology"
+                />
             </div>
         </section>
 
-        <section class="box-projects">
-            <div class="projects-content-resume">
-                <img v-if="currentTechnology?.urlImageSmall" class="img-technology-search"
-                    :src="currentTechnology.urlImageSmall" :alt="currentTechnology.name"
-                    :title="currentTechnology.name">
-                {{ datas.pagination?.totalElements ? 'Tengo ' + datas.pagination.totalElements + ' proyectos' : '' }}
+        <!-- Grid de proyectos -->
+        <section class="px-8 pb-24 max-w-7xl mx-auto">
+            <!-- Contador de resultados -->
+            <div v-if="datas.pagination?.totalElements" class="mb-8 flex items-center gap-3">
+                <span class="w-2 h-2 rounded-full bg-tertiary animate-pulse"/>
+                <span class="font-label text-xs text-outline uppercase tracking-widest">
+                    {{ datas.pagination.totalElements }} proyectos encontrados
+                </span>
             </div>
 
-            <GridProjects v-if="datas?.contents" :projects="datas?.contents" @slugchange="handleChangeUrlSlug"
-                @metatagchange="handleChangeMetatags" :slugContent="slugContent" :slugPage="slugPage"
-                :openProjetOnLoad="openProjetOnLoad" />
+            <!-- Componente de grid de proyectos -->
+            <GridProjects
+                v-if="datas?.contents"
+                :projects="datas?.contents"
+                :slug-content="slugContent"
+                :slug-page="slugPage"
+                :open-projet-on-load="openProjetOnLoad"
+                @slugchange="handleChangeUrlSlug"
+                @metatagchange="handleChangeMetatags"
+            />
+
+            <!-- Botón cargar más -->
+            <div v-if="hasMorePages" class="mt-20 flex flex-col items-center">
+                <button
+                    :disabled="isLoading"
+                    class="group flex items-center gap-4 px-10 py-4 bg-surface-container-highest border border-outline-variant/30 rounded hover:border-secondary transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                    @click="() => fetchNextPage()"
+                >
+                    <span class="text-sm font-label uppercase tracking-[0.3em] font-bold">
+                        {{ isLoading ? 'Cargando...' : 'Cargar más proyectos' }}
+                    </span>
+                    <UiMaterialIcon
+                        class="text-secondary transition-transform duration-500"
+                        :class="isLoading ? 'animate-spin' : 'group-hover:rotate-180'"
+                        name="sync"
+                    />
+                </button>
+            </div>
         </section>
     </div>
 </template>
-
-
-<style scoped>
-/** TODO: background select cambiar color **/
-/*
-.box-search {}
-
-.box-search-title {}
-
-.box-search-fields {}
-*/
-
-.img-technology-search {
-    margin-left: 1px;
-    margin-right: 3px;
-    width: 23px;
-    height: 23px;
-    translate: 0 3px;
-}
-
-.technology-select-feature {
-    font-weight: bold;
-    font-size: 1.3rem;
-    text-shadow: 1px 1px 1px #000;
-}
-
-.category-input {
-    display: grid;
-    margin: auto;
-    width: 80%;
-    max-width: 600px;
-    grid-template-columns: 1fr 50px;
-    align-items: center;
-    box-sizing: border-box;
-}
-
-.category-input>.box-search>input {
-    margin: 0 auto;
-    padding: 10px 45px 10px 10px;
-    width: 100%;
-    font-size: 1.3rem;
-    font-weight: bold;
-    color: rgba(20, 20, 20, 0.64);
-    background-color: var(--gray);
-    border: none;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-
-.category-input>.box-search>input::placeholder {
-    font-style: italic;
-}
-
-.category-input>.btn-clean {
-    display: grid;
-    padding-left: 0.5rem;
-    height: 100%;
-    align-items: center;
-    box-sizing: border-box;
-    cursor: pointer;
-}
-
-.category-input>.btn-clean>img {
-    width: 100%;
-    fill: rgba(20, 20, 20, 0.64);
-}
-
-.category-input>.btn-clean>img:hover {
-    filter: brightness(10%);
-}
-
-.category-input>.box-search>.btn-search {
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    padding: 0;
-    margin: 0;
-    translate: -50px;
-    border: 1px solid transparent;
-    border-radius: inherit;
-    background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'%3E%3C/path%3E%3C/svg%3E") no-repeat center;
-    cursor: pointer;
-    opacity: 0.5;
-}
-
-.category-input>.box-search>span:hover {
-    opacity: 1;
-}
-
-.category-input>.box-search>span:focus,
-.category-input>.box-search>input:focus {
-    box-shadow: 0 0 3px 0 var(--primary);
-    border-color: var(--primary);
-    outline: none;
-}
-
-/*** Proyectos ***/
-.box-projects {
-    /*
-    margin-top: 4rem;
-    padding: 2rem 1.3rem
-    */
-    padding: 0.9rem 0.6rem
-}
-
-.projects-content-resume {
-    text-align: right;
-}
-
-@media (max-width: 880px) {
-    .category-input {
-        width: 100%;
-        padding: 0 1.3rem;
-    }
-
-    .box-projects {
-        margin-top: 0.6rem;
-        padding: 1.3rem 0.6rem;
-    }
-
-    .projects-content-resume {
-        text-align: center;
-    }
-}
-</style>

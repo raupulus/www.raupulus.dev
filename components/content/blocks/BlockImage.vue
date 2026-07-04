@@ -1,10 +1,15 @@
 <template>
-  <div :id="image.id"
+  <div
+:id="image.id"
     :class="'r-image-container' + (image.data.withBorder ? ' r-image-container-with-border' : '') + (image.data.withBackground ? ' r-image-container-withBackground' : '') + (image.data.stretched ? ' r-image-container-stretched' : '')">
     <div class="r-image-box">
       <figure class="r-image-figure">
-        <img :src="image.data.file.url_thumbnail" class="r-image-img" :data-url_medium="image.data.file.url"
-          :data-url_full="image.data.file.url_large" :alt="image.data.caption" :title="image.data.caption"
+        <NuxtImg
+:src="image.data.file.url_thumbnail" class="r-image-img" :data-url_medium="image.data.file.url"
+          :data-url_full="image.data.file.url_large"
+          :alt="image.data.caption || image.data.file?.name || 'Imagen del proyecto'"
+          :title="image.data.caption || image.data.file?.name || ''"
+          loading="lazy" format="webp"
           @load="loadHighQualityImage" />
 
         <figcaption v-if="image.data.caption" class="r-image-caption">
@@ -17,8 +22,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { BlockImageType } from '@/types/BlocksType';
-import type { BlockType } from '@/types/BlocksType';
+import type { BlockImageType, BlockType  } from '@/types/BlocksType';
 
 const props = defineProps({
   block: {
@@ -35,17 +39,6 @@ const loadHighQualityImage = (event: Event) => {
   imgElement.src = image.data.file.url;
 };
 
-const formatBytes = (bytes: number, precision: number = 2) => {
-  var units = ['B', 'KB', 'MB', 'GB', 'TB'];
-
-  bytes = Math.max(bytes, 0);
-  var pow = Math.floor((bytes ? Math.log(bytes) : 0) / Math.log(1024));
-  pow = Math.min(pow, units.length - 1);
-
-  bytes /= Math.pow(1024, pow);
-
-  return (Math.round(bytes * Math.pow(10, precision)) / Math.pow(10, precision)).toFixed(precision) + ' ' + units[pow];
-}
 </script>
 
 <style scoped>

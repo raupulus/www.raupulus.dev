@@ -1,7 +1,7 @@
-import { type TechnologyType } from "@/types/TechnologyType";
-import { type ContentPageResumeType } from "@/types/Platform/ContentPageResumeType";
-import { type ContentResumeType } from "@/types/Platform/ContentResumeType";
-import { type PlatformSocialNetworkType } from '@/types/Platform/PlatformSocialNetworkType';
+import type { TechnologyType } from "@/types/TechnologyType";
+import type { ContentPageResumeType } from "@/types/Platform/ContentPageResumeType";
+import type { ContentResumeType } from "@/types/Platform/ContentResumeType";
+import type { PlatformSocialNetworkType } from '@/types/Platform/PlatformSocialNetworkType';
 
 export type PlatformDataType = {
     title: string

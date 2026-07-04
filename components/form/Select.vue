@@ -1,5 +1,5 @@
 <script setup>
-const props = defineProps({
+defineProps({
   name: {
     type: String,
     required: true,
@@ -8,7 +8,7 @@ const props = defineProps({
   datas: {
     type: Array,
     required: true,
-    default: []
+    default: () => []
   },
   callback: {
     type: Function,
@@ -20,7 +20,7 @@ const props = defineProps({
 
 <template>
   <div class="form-select">
-    <select :name="name" v-on:change="() => console.log('CAMBIA Select en componente FormSelect')">
+    <select :name="name">
       <option v-for="(ele, key) in datas" :key="key" :value="ele.slug">
         {{ ele.name }}
       </option>

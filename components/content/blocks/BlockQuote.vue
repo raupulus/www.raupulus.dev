@@ -7,9 +7,9 @@
       </svg>
     </p>
 
-    <p class="r-blockquote-title" v-html="computedQuoteText"></p>
+    <p class="r-blockquote-title" v-html="computedQuoteText"/>
 
-    <p class="r-blockquote-caption" v-html="computedQuoteCaption"></p>
+    <p class="r-blockquote-caption" v-html="computedQuoteCaption"/>
 
     <hr>
   </blockquote>
@@ -17,8 +17,8 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue';
-import type { BlockQuoteType } from '@/types/BlocksType';
-import type { BlockType } from '@/types/BlocksType';
+import type { BlockQuoteType, BlockType  } from '@/types/BlocksType';
+import { sanitizeHtml } from '~/utils/sanitize';
 
 const props = defineProps({
   block: {
@@ -30,8 +30,8 @@ const props = defineProps({
 const quote = props.block as BlockQuoteType;
 
 // Computed properties to handle text and caption
-const computedQuoteText = computed(() => quote.data.text || '');
-const computedQuoteCaption = computed(() => `&mdash;${quote.data.caption || ''}`);
+const computedQuoteText = computed(() => sanitizeHtml(quote.data.text || ''));
+const computedQuoteCaption = computed(() => sanitizeHtml(`&mdash;${quote.data.caption || ''}`));
 
 </script>
 

@@ -1,15 +1,16 @@
 <template>
-  <div :id="attaches.id" class="r-attaches-container" :data-content_id="attaches.data.file.content_id"
+  <div
+:id="attaches.id" class="r-attaches-container" :data-content_id="attaches.data.file.content_id"
     :data-content_file_id="attaches.data.file.content_file_id" :data-file_id="attaches.data.file.file_id">
 
     <div class="r-attaches-box">
 
       <div v-if="attaches.data.file.url_thumbnail" class="r-attaches-img">
-        <img :src="attaches.data.file.url_thumbnail" :alt="attaches.data.title">
+        <NuxtImg :src="attaches.data.file.url_thumbnail" :alt="attaches.data.title || 'Adjunto'" loading="lazy" />
       </div>
 
       <div v-else-if="attaches.data.file.file_type_image" class="r-attaches-img">
-        <img :src="attaches.data.file.file_type_image" :alt="attaches.data.title">
+        <NuxtImg :src="attaches.data.file.file_type_image" :alt="attaches.data.title || 'Adjunto'" loading="lazy" />
       </div>
 
       <div class="r-attaches-info">
@@ -24,10 +25,11 @@
       </div>
 
       <div class="r-attaches-download" :data-url_download="attaches.data.file.url">
-        <a :href="attaches.data.file.url" download target="_blank" class="r-attaches-download-link">
+        <a :href="attaches.data.file.url" download target="_blank" rel="noopener noreferrer" class="r-attaches-download-link">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-            <path stroke="currentColor" stroke-linecap="round" stroke-width="2"
-              d="M7 10L11.8586 14.8586C11.9367 14.9367 12.0633 14.9367 12.1414 14.8586L17 10"></path>
+            <path
+stroke="currentColor" stroke-linecap="round" stroke-width="2"
+              d="M7 10L11.8586 14.8586C11.9367 14.9367 12.0633 14.9367 12.1414 14.8586L17 10"/>
           </svg>
         </a>
       </div>
@@ -36,8 +38,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { BlockAttachesType } from '@/types/BlocksType';
-import type { BlockType } from '@/types/BlocksType';
+import type { BlockAttachesType, BlockType  } from '@/types/BlocksType';
 
 const props = defineProps({
   block: {
@@ -49,10 +50,10 @@ const props = defineProps({
 const attaches = props.block as BlockAttachesType
 
 const formatBytes = (bytes: number, precision: number = 2) => {
-  var units = ['B', 'KB', 'MB', 'GB', 'TB'];
+  const units = ['B', 'KB', 'MB', 'GB', 'TB'];
 
   bytes = Math.max(bytes, 0);
-  var pow = Math.floor((bytes ? Math.log(bytes) : 0) / Math.log(1024));
+  let pow = Math.floor((bytes ? Math.log(bytes) : 0) / Math.log(1024));
   pow = Math.min(pow, units.length - 1);
 
   bytes /= Math.pow(1024, pow);

@@ -1,37 +1,46 @@
 <template>
-    <div class="navigation-box" v-if="totalpages">
-        <span @click="(currentpage > 1) ? changePageEmit(currentpage - 1, contentslug) : null"
-            :class="(currentpage <= 1) ? 'navigation-arrow-disabled' : 'navigation-arrow-pointer'">
-            <svg :class="'navigation-arrow-left' + ((currentpage <= 1) ? ' navigation-arrow-disabled' : '')"
+    <div v-if="totalpages" class="navigation-box">
+        <span
+:class="(currentpage <= 1) ? 'navigation-arrow-disabled' : 'navigation-arrow-pointer'"
+            @click="(currentpage > 1) ? changePageEmit(currentpage - 1, contentslug) : null">
+            <svg
+:class="'navigation-arrow-left' + ((currentpage <= 1) ? ' navigation-arrow-disabled' : '')"
                 fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd"
+                <path
+fill-rule="evenodd"
                     d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                    clip-rule="evenodd">
-                </path>
+                    clip-rule="evenodd"/>
             </svg>
         </span>
 
-        <span :class="'navigation-page' + ((idx + 1) === currentpage ? ' navigation-page-current' : '')"
-            v-if="totalpages <= 5" v-for="idx of Array((totalpages ?? 0)).keys()" key="idx"
-            @click="() => (currentpage !== (idx + 1)) ? changePageEmit(idx + 1, contentslug) : null">
-            {{ idx + 1 }}
-        </span>
+        <template v-if="totalpages <= 5">
+            <span
+                v-for="page of totalpages" :key="page"
+                :class="'navigation-page' + (page === currentpage ? ' navigation-page-current' : '')"
+                @click="() => (currentpage !== page) ? changePageEmit(page, contentslug) : null">
+                {{ page }}
+            </span>
+        </template>
 
-        <span :class="'navigation-page' + ((pos) === currentpage ? ' navigation-page-current' : '')"
-            v-if="totalpages > 5" v-for="pos in getArrayPaginationPositions()" key="idx"
-            @click="() => (currentpage !== (pos)) ? changePageEmit(pos, contentslug) : null">
-            {{ pos }}
-        </span>
+        <template v-else>
+            <span
+                v-for="pos in getArrayPaginationPositions()" :key="pos"
+                :class="'navigation-page' + ((pos) === currentpage ? ' navigation-page-current' : '')"
+                @click="() => (currentpage !== (pos)) ? changePageEmit(pos, contentslug) : null">
+                {{ pos }}
+            </span>
+        </template>
 
-        <span @click="(currentpage < totalpages) ? changePageEmit(currentpage + 1, contentslug) : null"
-            :class="(currentpage >= totalpages) ? 'navigation-arrow-disabled' : 'navigation-arrow-pointer'">
-            <svg :class="'navigation-arrow-right' + ((currentpage >= totalpages) ? ' navigation-arrow-disabled' : '')"
+        <span
+:class="(currentpage >= totalpages) ? 'navigation-arrow-disabled' : 'navigation-arrow-pointer'"
+            @click="(currentpage < totalpages) ? changePageEmit(currentpage + 1, contentslug) : null">
+            <svg
+:class="'navigation-arrow-right' + ((currentpage >= totalpages) ? ' navigation-arrow-disabled' : '')"
                 fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd"
+                <path
+fill-rule="evenodd"
                     d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                    clip-rule="evenodd">
-
-                </path>
+                    clip-rule="evenodd"/>
             </svg>
         </span>
 
@@ -65,38 +74,34 @@ const props = defineProps({
     },
 })
 
-const changePageEmit = (page: number, projectSlug: string) => {
-    usePageData(page, projectSlug).then((contentPage) => {
+const changePageEmit = async (page: number, projectSlug: string) => {
+    const contentPage = await usePageData(page, projectSlug);
 
-        // Emito evento al padre para actualizar el slug de la url
-        emit('slugchange', projectSlug, contentPage.value?.slug)
+    // Emito evento al padre para actualizar el slug de la url
+    emit('slugchange', projectSlug, contentPage.value?.slug)
 
+    // Preparo datos para actualizar metatags
+    const title = props.project?.title + ' - ' + contentPage.value?.title;
+    const description = props.project?.excerpt;
 
-        // Preparo datos para actualizar metatags
-        const title = props.project?.title + ' - ' + contentPage.value?.title;
-        const description = props.project?.excerpt;
+    const categories = props.project?.categories ?? [];
+    const tags = props.project?.tags ?? [];
+    const technologies = props.project?.technologies?.map(technology => technology.name) ?? [];
 
-        const categories = props.project?.categories ?? [];
-        const tags = props.project?.tags ?? [];
-        const technologies = props.project?.technologies?.map(technology => technology.name) ?? [];
+    const keywords = [...categories, ...tags, ...technologies].join(',');
 
-        const keywords = [...categories, ...tags, ...technologies].join(',');
+    let url = undefined;
 
-        let url = undefined;
+    if (props.project?.slug && contentPage.value?.slug) {
+        url = `${urlBase}/projects/${props.project?.slug}/${contentPage.value?.slug}`;
+    } else if (props.project?.slug) {
+        url = `${urlBase}/projects/${props.project?.slug}`;
+    }
 
-        if (props.project?.slug && contentPage.value?.slug) {
-            url = `${urlBase}/projects/${props.project?.slug}/${contentPage.value?.slug}`;
-        } else if (props.project?.slug) {
-            url = `${urlBase}/projects/${props.project?.slug}`;
-        }
+    const image = contentPage.value?.images?.large;
 
-        const image = contentPage.value?.images?.large;
-
-        // Cambio los metatags de la página
-        emit('metatagchange', title, description, keywords, url, image);
-    });
-
-
+    // Cambio los metatags de la página
+    emit('metatagchange', title, description, keywords, url, image);
 }
 
 /*

@@ -1,12 +1,12 @@
 <template>
-  <div v-if="visible && project" class="modal-project-show">
+  <div v-if="visible && project" ref="modalRef" tabindex="-1" class="modal-project-show" role="dialog" :aria-label="project?.title" aria-modal="true">
     <div class="modal-container-project-show">
       <!-- Header -->
       <div class="modal-project-show-header" :style="{ backgroundImage: `url('${backgroundImageUrl}')` }">
 
         <!-- Izquierda, imagen del proyecto -->
         <div class="modal-project-show-header-main-img">
-          <img :src="project.urlImageSmall" :alt="project.title" :title="project.title">
+          <NuxtImg :src="project.urlImageSmall" :alt="project.title" :title="project.title" loading="lazy" format="webp" />
         </div>
 
         <!-- Centro, título y la imagen de la página actual -->
@@ -14,14 +14,16 @@
           <h3 class="modal-project-title-page">{{ page?.title ?? project.title }}</h3>
 
           <div class="modal-project-show-header-technologies">
-            <img v-for="technology in project.technologies" :src="technology.urlImageSmall" :title="technology.name"
-              :alt="technology.name">
+            <NuxtImg
+v-for="technology in project.technologies" :key="technology.slug" :src="technology.urlImageSmall" :title="technology.name"
+              :alt="technology.name" loading="lazy" />
           </div>
         </div>
 
         <!-- Derecha, tecnologías y cerrar modal -->
         <div class="modal-project-show-header-main-last">
-          <span class="modal-project-show-header-close"
+          <span
+class="modal-project-show-header-close"
             @click="() => { emit('closemodalprojectshow'); emit('slugchange'); emit('metatagchange') }">
             X
           </span>
@@ -31,8 +33,8 @@
 
       <div class="modal-project-show-body">
 
-        <div class="modal-project-show-body-content" v-if="page?.content">
-          <ContentBlocksBlock v-for="block in page.content.blocks" :block="block" />
+        <div v-if="page?.content" class="modal-project-show-body-content">
+          <ContentBlocksBlock v-for="(block, idx) in page.content.blocks" :key="block.id ?? idx" :block="block" />
         </div>
 
       </div>
@@ -40,11 +42,12 @@
       <div class="modal-project-show-footer">
 
         <!-- Paginador -->
-        <ContentPaginator v-if="project && project?.total_pages && project?.total_pages > 1"
+        <ContentPaginator
+v-if="project && project?.total_pages && project?.total_pages > 1"
           :contentslug="project?.slug" :project="project"
-          @slugchange="(slugProject, slugPage) => emit('slugchange', slugProject, slugPage)" :currentpage="page?.order"
-          @metatagchange="(title, description, keywords, url, image) => emit('metatagchange', title, description, keywords, url, image)"
-          :totalpages="project?.total_pages" />
+          :currentpage="page?.order" :totalpages="project?.total_pages"
+          @slugchange="(slugProject, slugPage) => emit('slugchange', slugProject, slugPage)"
+          @metatagchange="(title, description, keywords, url, image) => emit('metatagchange', title, description, keywords, url, image)" />
       </div>
     </div>
   </div>
@@ -53,8 +56,7 @@
 <script lang="ts" setup>
 
 import type { ContentType } from '@/types/ContentType';
-//import type { ContentPageType } from '@/types/ContentPageType';
-import { usePageData, getPageData } from '../../composables/fetchPageData';
+import type { ContentPageType } from '@/types/ContentPageType';
 
 const props = defineProps({
   visible: {
@@ -72,12 +74,31 @@ const props = defineProps({
 const emit = defineEmits(['disablescroll', 'closemodalprojectshow', 'slugchange', 'metatagchange']);
 const scrollDisabled = useScrollDisabled();
 
-//const page = ref<ContentPageType | undefined>(undefined);
-const page = getPageData();
+const page = ref<ContentPageType | undefined>(undefined);
+const modalRef = ref<HTMLElement | null>(null);
 
 watch(props, (allProps) => {
   scrollDisabled.value = allProps.visible;
+
+  if (allProps.visible) {
+    nextTick(() => modalRef.value?.focus());
+  }
 })
+
+// Cerrar modal con Escape
+const handleKeydown = (e: KeyboardEvent) => {
+  if (e.key === 'Escape' && props.visible) {
+    emit('closemodalprojectshow');
+  }
+};
+
+onMounted(() => {
+  document.addEventListener('keydown', handleKeydown);
+});
+
+onBeforeUnmount(() => {
+  document.removeEventListener('keydown', handleKeydown);
+});
 
 // Computed property for background image URL
 const backgroundImageUrl = computed(() => page.value?.images?.large ?? props.project?.urlImage);

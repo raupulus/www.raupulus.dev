@@ -6,9 +6,10 @@
       </div>
 
       <div class="r-embed-box-iframe">
-        <iframe class="r-embed-iframe" :data-width="embed.data.width" :data-height="embed.data.height"
+        <iframe
+class="r-embed-iframe" :data-width="embed.data.width" :data-height="embed.data.height"
           :style="'width: 100%; max-width: ' + embed.data.width + 'px; height: ' + embed.data.height + 'px;'"
-          :src="embed.data.embed" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          :src="embed.data.embed" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen/>
       </div>
     </div>
   </div>
@@ -16,8 +17,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { BlockType } from '@/types/BlocksType';
-import type { BlockEmbedType } from '@/types/BlocksType';
+import type { BlockType, BlockEmbedType  } from '@/types/BlocksType';
 
 const props = defineProps({
   block: {

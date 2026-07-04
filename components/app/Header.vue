@@ -1,280 +1,135 @@
-<script lang="ts" setup>
-const responsiveMenuActive = ref(false);
-const emit = defineEmits(['disablescroll'])
-
-
-const scrollDisabled = useScrollDisabled();
-
-/**
- * @description Check the dimensions of the window to close the menu
- */
-const checkDimensions = () => {
-    if (window.innerWidth > 690) {
-        responsiveMenuActive.value = false;
-        //emit('disablescroll', responsiveMenuActive.value);
-        scrollDisabled.value = responsiveMenuActive.value;
-        window.removeEventListener("resize", checkDimensions)
-    }
-};
-
-//onMounted(() => {
-//window.addEventListener("resize", checkDimensions);
-//});
-
-//onUnmounted(() => window.removeEventListener("resize", checkDimensions));
-
-
-/**
- * @description Toggle the responsive menu
- */
-const toggleMenu = () => {
-    responsiveMenuActive.value = !responsiveMenuActive.value;
-
-    scrollDisabled.value = responsiveMenuActive.value;
-    //emit('disablescroll', responsiveMenuActive.value);
-
-    if (!responsiveMenuActive.value) {
-        //console.log('Evento eliminado, quitando el listener')
-        window.removeEventListener("resize", checkDimensions);
-    } else {
-        //console.log('Evento agregado, agregando el listener')
-        window.addEventListener("resize", checkDimensions);
-    }
-}
-
-const buttons = [
-    {
-        text: 'Home',
-        to: '/',
-        title: 'Página principal del Portfolio',
-    },
-    {
-        text: 'Projects',
-        to: '/projects',
-        title: 'Mis proyectos',
-    },
-    {
-        text: 'About',
-        to: '/about',
-        title: 'Información sobre Mi',
-    },
-    {
-        text: 'Webs',
-        to: '/webs',
-        title: 'Sitios Webs Propios',
-    },
-    {
-        text: 'Social',
-        to: '/social',
-        title: 'Mis Redes Sociales',
-    },
-    {
-        text: 'Contact',
-        to: '/contact',
-        title: 'Contáctame',
-    },
-    {
-        text: 'Blog',
-        to: '/blog',
-        title: 'Mi blog'
-    },
-]
-
-</script>
-
 <template>
-    <header class="header-container">
-        <div class="box-header">
-            <div class="header-section-left">
-                <div class="header-section-left-img">
-                    <NuxtLink to="/" class="inline-block">
-                        <img src="@/assets/images/logo.webp"
-                            alt="Logotipo para el portfolio del programador Raúl Caro Pastorino, autor de la web (nick en redes sociales @raupulus)">
-                    </NuxtLink>
-                </div>
+    <!-- Barra de navegación principal fija -->
+    <header
+        class="fixed top-0 w-full z-50 transition-all duration-300 border-b border-outline-variant/10"
+        :class="isScrolled ? 'bg-[#091421]/95 backdrop-blur-xl shadow-lg' : 'bg-[#091421]/40 backdrop-blur-xl'"
+    >
+        <nav aria-label="Navegación principal" class="flex justify-between items-center max-w-7xl mx-auto px-8 py-4">
+            <!-- Logo / Nombre -->
+            <NuxtLink
+                to="/"
+                class="text-xl font-black tracking-tighter text-primary font-headline hover:opacity-80 transition-opacity"
+            >
+                RAÚL CARO PASTORINO
+            </NuxtLink>
 
-                <h1 class="inline-block text-primary m-0 font-title">
-                    Raúl Caro Pastorino
-                    <span class="block subtitle-header text-warning">
-                        Desarrollador web
-                    </span>
-                </h1>
+            <!-- Navegación escritorio -->
+            <div class="hidden md:flex gap-4 lg:gap-6 items-center flex-wrap">
+                <NuxtLink
+                    v-for="link in navLinks"
+                    :key="link.to"
+                    :to="link.to"
+                    class="font-headline tracking-tight text-sm font-bold uppercase transition-colors"
+                    :class="isActiveRoute(link.to)
+                        ? 'text-primary border-b-2 border-primary pb-1'
+                        : 'text-primary/60 hover:text-primary'"
+                >
+                    {{ link.label }}
+                </NuxtLink>
             </div>
 
+            <!-- Botón CTA escritorio -->
+            <NuxtLink
+                to="/contact"
+                class="hidden md:block bg-gradient-to-br from-primary to-primary-container text-on-primary px-4 py-2 rounded-md font-headline text-xs font-bold tracking-widest uppercase hover:scale-95 transition-all duration-300"
+            >
+                Contacto
+            </NuxtLink>
 
-            <nav class="header-section-right">
-                <!-- Desktop menu -->
-                <div class="box-desktop-menu">
-                    <div class="inline-block">
-                        <template v-for="button in buttons.slice(0, 4)" class="inline-block">
-                            <BtnGeneric :menu="true" :to="button.to" :text="button.text" :title="button.title" />
-                        </template>
-                    </div>
+            <!-- Botón menú móvil -->
+            <button
+                class="md:hidden text-primary p-2"
+                :aria-label="isMobileMenuOpen ? 'Cerrar menú' : 'Abrir menú'"
+                :aria-expanded="isMobileMenuOpen"
+                aria-controls="mobile-menu"
+                @click="toggleMobileMenu"
+            >
+                <UiMaterialIcon class="text-2xl" :name="isMobileMenuOpen ? 'close' : 'menu'" />
+            </button>
+        </nav>
 
-                    <div class="inline-block">
-                        <template v-for="button in buttons.slice(4, 7)" class="inline-block">
-                            <BtnGeneric :menu="true" :to="button.to" :text="button.text" :title="button.title" />
-                        </template>
-                    </div>
+        <!-- Menú móvil desplegable -->
+        <Transition name="slide-down">
+            <div
+                v-if="isMobileMenuOpen"
+                id="mobile-menu"
+                class="md:hidden bg-[#121c2a] border-t border-outline-variant/20 px-8 py-6"
+            >
+                <div class="flex flex-col gap-4">
+                    <NuxtLink
+                        v-for="link in navLinks"
+                        :key="link.to"
+                        :to="link.to"
+                        class="font-headline tracking-tight text-sm font-bold uppercase transition-colors py-2"
+                        :class="isActiveRoute(link.to) ? 'text-primary' : 'text-primary/60 hover:text-primary'"
+                        @click="isMobileMenuOpen = false"
+                    >
+                        {{ link.label }}
+                    </NuxtLink>
+                    <NuxtLink
+                        to="/contact"
+                        class="mt-2 bg-gradient-to-br from-primary to-primary-container text-on-primary px-6 py-3 rounded-md font-headline text-xs font-bold tracking-widest uppercase text-center"
+                        @click="isMobileMenuOpen = false"
+                    >
+                        Contacto
+                    </NuxtLink>
                 </div>
-
-                <!-- Responsive menu -->
-                <div class="box-responsive-menu">
-                    <span class="box-icon-menu" @click="toggleMenu">
-                        <svg v-if="!responsiveMenuActive" class="icon-full" viewBox="0 0 8.47 8.47"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <g>
-                                <circle cx="4.23" cy="4.23" r="4.23" fill="#3272b8" stroke-width=".0141" />
-                                <g transform="translate(.0165 .0992)" fill="#fff" stroke-width=".0126">
-                                    <rect x="1.79" y="2.07" width="4.81" height=".928" ry=".367" />
-                                    <rect x="1.83" y="5.27" width="4.81" height=".928" ry=".367" />
-                                    <rect x="1.83" y="3.67" width="4.81" height=".928" ry=".367" />
-                                </g>
-                            </g>
-                        </svg>
-
-                        <svg v-if="responsiveMenuActive" class="icon-full" viewBox="0 0 8.47 8.47"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="4.23" cy="4.23" r="4.23" fill="#3272b8" stroke-width=".0141" />
-                            <g transform="matrix(.56 0 0 .56 1.9 1.9)" fill="#fff" stroke-width=".0168">
-                                <rect transform="rotate(49.8)" x="1.28" y="-.991" width="9.24" height=".988"
-                                    ry=".494" />
-                                <rect transform="matrix(-.645 .764 .764 .645 0 0)" x="-4.11" y="5.47" width="9.24"
-                                    height=".988" ry=".494" />
-                            </g>
-                        </svg>
-                    </span>
-
-                    <div class="box-responsive-menu-active" v-if="responsiveMenuActive">
-                        <div v-for="button in buttons">
-                            <BtnGeneric :menu="true" @click="toggleMenu" width="80%" :to="button.to"
-                                :title="button.title" :text="button.text" />
-                        </div>
-                    </div>
-
-                </div>
-
-            </nav>
-
-        </div>
+            </div>
+        </Transition>
     </header>
 </template>
 
-
-<style lang="css" scoped>
-.header-container {
-    margin: auto;
-    width: 100%;
-    max-width: 1200px;
+<script setup lang="ts">
+// Enlace de navegación
+interface NavLink {
+    to: string
+    label: string
 }
 
-.box-header {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 5px;
-    color: #E6E6E6;
-    padding: 10px;
+// Rutas de navegación principal
+const navLinks: NavLink[] = [
+    { to: '/', label: 'Inicio' },
+    { to: '/projects', label: 'Proyectos' },
+    { to: '/blog', label: 'Blog' },
+    { to: '/about', label: 'Sobre Mí' },
+    { to: '/webs', label: 'Webs' },
+    { to: '/social', label: 'Social' },
+    { to: '/contact', label: 'Contacto' },
+]
+
+const route = useRoute()
+const isScrolled = ref(false)
+const isMobileMenuOpen = ref(false)
+
+// Detecta si la ruta actual coincide con el enlace
+const isActiveRoute = (path: string): boolean => {
+    if (path === '/') return route.path === '/'
+    return route.path.startsWith(path)
 }
 
-.header-section-left {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    justify-self: start;
-    vertical-align: middle;
-    border-radius: 8px;
+// Alterna el menú móvil
+const toggleMobileMenu = () => {
+    isMobileMenuOpen.value = !isMobileMenuOpen.value
 }
 
-.header-section-left-img img {
-    width: 80px;
-    height: 80px;
-    object-fit: cover;
-    object-position: center;
+// Detecta el scroll para cambiar el estilo del header
+onMounted(() => {
+    const handleScroll = () => {
+        isScrolled.value = window.scrollY > 20
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    onUnmounted(() => window.removeEventListener('scroll', handleScroll))
+})
+</script>
+
+<style scoped>
+.slide-down-enter-active,
+.slide-down-leave-active {
+    transition: all 0.3s ease;
 }
-
-.header-section-right {
-    align-self: start;
-    justify-self: right;
-    text-align: right;
-}
-
-.subtitle-header {
-    margin: 0;
-    padding: 0;
-    font-size: 1.4rem;
-    translate: 0 -9px;
-    font-weight: bold;
-}
-
-/**** Menú Responsive  ****/
-
-.box-responsive-menu {
-    display: none;
-}
-
-
-.box-icon-menu {
-    position: fixed;
-    top: 15px;
-    right: 15px;
-    width: 48px;
-    height: 48px;
-    cursor: pointer;
-    z-index: 11;
-}
-
-.box-responsive-menu-active {
-    position: fixed;
-    display: grid;
-    margin: 0;
-    padding: 80px 20px;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    max-height: 100vh;
-    text-align: left;
-    color: red;
-    text-align: center;
-    background-color: #000000cc;
-    overflow: hidden;
-    z-index: 10;
-    box-sizing: border-box;
+.slide-down-enter-from,
+.slide-down-leave-to {
     opacity: 0;
-    animation: fadein 0.8s;
-}
-
-.icon-full {
-    width: 100%;
-    height: 100%;
-}
-
-@media (max-width: 768px) {
-    .header-section-left {
-        display: block;
-        text-align: center;
-    }
-}
-
-@media (max-width: 690px) {
-    .box-header {
-        grid-template-columns: 1fr;
-    }
-
-    .header-section-left {
-        margin: auto;
-    }
-
-    .box-desktop-menu {
-        display: none;
-    }
-
-    .box-responsive-menu {
-        display: block;
-    }
-
-    .box-responsive-menu-active {
-        opacity: 1;
-        animation: fadein 0.5s;
-    }
+    transform: translateY(-10px);
 }
 </style>

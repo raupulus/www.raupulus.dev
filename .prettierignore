@@ -1,0 +1,7 @@
+node_modules
+.nuxt
+.output
+dist
+cachedRoutes.json
+package-lock.json
+pnpm-lock.yaml

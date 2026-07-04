@@ -1,4 +1,4 @@
-import { type SocialNetworkType } from "@/types/SocialNetworkType"
+import type { SocialNetworkType } from "@/types/SocialNetworkType"
 
 export type AuthorType = {
     name: string,

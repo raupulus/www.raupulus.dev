@@ -1,5 +1,5 @@
 <script setup>
-const props = defineProps({
+defineProps({
 
     /** TODO: Una vez terminada la api, crear tipo **/
 
@@ -8,26 +8,13 @@ const props = defineProps({
         required: true
     },
 });
-
-const componentNames = {
-    gitlab: 'IconsGitlab',
-    github: 'IconsGithub',
-    linkedin: 'IconsLinkedin',
-    twitter: 'IconsTwitter',
-    mastodon: 'IconsMastodon',
-    twitch: 'IconsTwitch',
-    youtube: 'IconsYoutube',
-    web: 'IconsEarth',
-    telegram: 'IconsTelegram',
-}
 </script>
 
 <template>
     <div class="box-project">
         <div class="box-card">
             <div class="box-img">
-                <img :src="data.urlImageMedium" :alt="data.title" />
-                {{ data.urlImageMedium }}
+                <NuxtImg :src="data.urlImageMedium" :alt="data.title" loading="lazy" format="webp" />
             </div>
 
             <div class="box-title">
@@ -41,10 +28,12 @@ const componentNames = {
             </div>
         </div>
 
-        <span class="separator"></span>
+        <span class="separator"/>
 
         <div v-if="data.metadata" class="box-links">
-            <div v-for="key, idx in Object.keys(data.metadata)"
+            <div
+                v-for="(key, idx) in Object.keys(data.metadata)"
+                :key="key"
                 :class="(idx > 0 && (idx) < Object.keys(data.metadata).length) ? 'link-margin' : ''">
 
                 <IconsYoutube v-if="key === 'youtube'" :margin="0" :url="data.metadata.youtube" display="block" />
@@ -53,7 +42,8 @@ const componentNames = {
 
                 <IconsGitlab v-if="key === 'gitlab'" :margin="0" :url="data.metadata.gitlab" display="block" />
 
-                <IconsTelegram v-if="key === 'telegram_channel'" :margin="0" :url="data.metadata.telegram_channel"
+                <IconsTelegram
+v-if="key === 'telegram_channel'" :margin="0" :url="data.metadata.telegram_channel"
                     display="block" />
 
                 <IconsGithub v-if="key === 'github'" :margin="0" :url="data.metadata.github" display="block" />

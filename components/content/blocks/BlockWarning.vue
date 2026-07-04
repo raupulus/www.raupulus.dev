@@ -14,8 +14,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { BlockWarningType } from '@/types/BlocksType';
-import type { BlockType } from '@/types/BlocksType';
+import type { BlockWarningType, BlockType  } from '@/types/BlocksType';
 
 const props = defineProps({
   block: {

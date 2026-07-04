@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { title } from 'process';
 import type { ContentType } from '~/types/ContentType';
 
 const config = useRuntimeConfig();
@@ -22,7 +21,7 @@ const props = defineProps({
   },
   projects: {
     type: Array as PropType<Array<ContentType>>,
-    default: [],
+    default: () => [],
     required: false,
   }
 });
@@ -34,7 +33,7 @@ function isHorizontal(pos: number) {
   return ((pos + 1) % 3) === 0
 }
 
-function handleShowProjectEvent(project: ContentType) {
+async function handleShowProjectEvent(project: ContentType) {
   showContent.value = true;
   currentContent.value = project;
 
@@ -46,41 +45,41 @@ function handleShowProjectEvent(project: ContentType) {
     page = project.pages_slug.indexOf(props.slugPage) + 1;
   }
 
-  usePageData(page, project.slug).then((page) => {
-    // Emito evento al padre para actualizar el slug de la url
-    emit('slugchange', currentContent.value?.slug, page.value?.slug)
+  const contentPage = await usePageData(page, project.slug);
 
-    // Preparo datos para actualizar metatags
-    const title = project?.title + ' - ' + page.value?.title;
-    const description = project?.excerpt;
+  // Emito evento al padre para actualizar el slug de la url
+  emit('slugchange', currentContent.value?.slug, contentPage.value?.slug)
 
-    const categories = project?.categories ?? [];
-    const tags = project?.tags ?? [];
-    const technologies = project?.technologies?.map(technology => technology.name) ?? [];
+  // Preparo datos para actualizar metatags
+  const title = project?.title + ' - ' + contentPage.value?.title;
+  const description = project?.excerpt;
 
-    const keywords = [...categories, ...tags, ...technologies].join(',');
+  const categories = project?.categories ?? [];
+  const tags = project?.tags ?? [];
+  const technologies = project?.technologies?.map(technology => technology.name) ?? [];
 
-    let url = undefined;
+  const keywords = [...categories, ...tags, ...technologies].join(',');
 
-    if (project?.slug && page.value?.slug) {
-      url = `${urlBase}/projects/${project?.slug}/${page.value?.slug}`;
-    } else if (project?.slug) {
-      url = `${urlBase}/projects/${project?.slug}`;
-    }
+  let url = undefined;
 
-    const image = page.value?.images?.large;
+  if (project?.slug && contentPage.value?.slug) {
+    url = `${urlBase}/projects/${project?.slug}/${contentPage.value?.slug}`;
+  } else if (project?.slug) {
+    url = `${urlBase}/projects/${project?.slug}`;
+  }
 
-    // Cambio los metatags de la página
-    emit('metatagchange', title, description, keywords, url, image);
-  })
+  const image = contentPage.value?.images?.large;
+
+  // Cambio los metatags de la página
+  emit('metatagchange', title, description, keywords, url, image);
 }
 
 // Abrir el modal al entrar si se recibe slug.
 if (props.openProjetOnLoad && props.slugContent) {
-  useGetProjectBySlug(props.slugContent).then((content: ContentType | null) => {
+  useGetProjectBySlug(props.slugContent).then(async (content: ContentType | null) => {
     if (content) {
       currentContent.value = content;
-      handleShowProjectEvent(content);
+      await handleShowProjectEvent(content);
     }
   });
 }
@@ -89,11 +88,13 @@ if (props.openProjetOnLoad && props.slugContent) {
 
 <template>
   <div class="box-grid-projects">
-    <ModalsProjectShow :project="currentContent" :visible="showContent" @closemodalprojectshow="showContent = false"
+    <ModalsProjectShow
+:project="currentContent" :visible="showContent" @closemodalprojectshow="showContent = false"
       @metatagchange="(title, description, keywords, url, image) => emit('metatagchange', title, description, keywords, url, image)"
       @slugchange="(slugProject, slugPage) => emit('slugchange', slugProject, slugPage)" />
 
-    <div v-for="project, key in projects" :key="project.slug"
+    <div
+v-for="project, key in projects" :key="project.slug"
       :class="isHorizontal(key) ? 'box-horizontal' : 'box-vertical'">
 
       <CardProjectHorizontal v-if="isHorizontal(key)" :data="project" @projecteventshow="handleShowProjectEvent" />

@@ -8,10 +8,10 @@
     </h1>
 
     <p>
-      En nombre de Rúl Caro Pastorino creador de este sitio web, accesible desde
+      En nombre de Raúl Caro Pastorino, creador de este sitio web, accesible desde
       <NuxtLink to="/">
-        del formulario de contacto,
-      </NuxtLink>
+        raupulus.dev
+      </NuxtLink>,
       una de mis principales prioridades es la privacidad de nuestros visitantes.
 
       Esta Política de Privacidad contiene tipos de información que es recopilada y registrada principalmente
@@ -97,4 +97,61 @@ useHead({
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+/* Contenedor de la política de privacidad (la clase no existía en ningún CSS global) */
+.box-privacy {
+  margin: 0 auto;
+  padding: 3rem 2rem 6rem;
+  max-width: 56rem;
+  box-sizing: border-box;
+}
+
+.box-privacy h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+  .box-privacy h1 {
+    font-size: 3.5rem;
+  }
+}
+
+.box-privacy h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: var(--color-primary);
+  margin: 2.5rem 0 1rem;
+}
+
+.box-privacy p,
+.box-privacy li {
+  color: var(--color-on-surface-variant);
+  line-height: 1.7;
+}
+
+.box-privacy ul {
+  padding-left: 1.5rem;
+  margin: 1rem 0;
+  list-style: disc;
+}
+
+.box-privacy li {
+  margin-bottom: 0.75rem;
+}
+
+.box-privacy a {
+  color: var(--color-tertiary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.box-privacy a:hover {
+  color: var(--color-primary);
+}
+</style>

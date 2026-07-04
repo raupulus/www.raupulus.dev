@@ -1,55 +1,67 @@
-import { type CookieRef } from "nuxt/app";
-
-export async function fetchCsrfToken() {
-  const runtimeConfig = useRuntimeConfig();
-  const API_BASE = runtimeConfig.public.api.base;
-
-  try {
-    const response = await fetch(API_BASE + '/auth/csrf-cookie', {
-      'credentials': 'include',
-    });
-
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-
-    // Optionally, check if the CSRF token is correctly set
-    const csrfToken = useCookie('XSRF-TOKEN').value;
-    console.log('CSRF-TOKEN fetched:', csrfToken);
-
-    return csrfToken;
-  } catch (error) {
-    console.error('Failed to fetch CSRF token:', error);
-    throw error;
+/**
+ * Lee la cookie XSRF-TOKEN directamente del navegador.
+ *
+ * Laravel la envía URL-encoded, por lo que hay que decodificarla antes de
+ * usarla en la cabecera X-XSRF-TOKEN (si no, el servidor responde 419).
+ */
+function getXsrfTokenFromCookie(): string {
+  if (typeof document === 'undefined') {
+    return '';
   }
+
+  const match = document.cookie.match(/(?:^|;\s*)XSRF-TOKEN=([^;]*)/);
+
+  return match?.[1] ? decodeURIComponent(match[1]) : '';
 }
 
-export default async function fetchPost(url: string, body: {}) {
-  const csrfToken: CookieRef<string> = useCookie('XSRF-TOKEN');
+/**
+ * Solicita al backend la cookie CSRF (Laravel Sanctum) y devuelve su valor.
+ */
+export async function fetchCsrfToken(): Promise<string> {
+  const apiBase = useApiBase();
 
-  if (!csrfToken.value) {
-    await fetchCsrfToken();
+  const response = await fetch(apiBase + '/auth/csrf-cookie', {
+    credentials: 'include',
+  });
+
+  if (!response.ok) {
+    throw new Error('No se pudo obtener el token CSRF');
   }
 
-  return fetch(url, {
-    'method': 'POST',
-    'mode': 'cors',
-    'credentials': 'include',
-    'headers': {
+  return getXsrfTokenFromCookie();
+}
+
+/**
+ * Envía una petición POST JSON a la API con credenciales y token CSRF.
+ *
+ * Devuelve el JSON de la respuesta también en errores de validación (4xx),
+ * ya que la API responde con `messages.errors` que la interfaz debe mostrar.
+ * Solo lanza excepción ante fallos de red o respuestas sin JSON.
+ */
+export default async function fetchPost(url: string, body: Record<string, unknown>) {
+  let csrfToken = getXsrfTokenFromCookie();
+
+  if (!csrfToken) {
+    csrfToken = await fetchCsrfToken();
+  }
+
+  const response = await fetch(url, {
+    method: 'POST',
+    mode: 'cors',
+    credentials: 'include',
+    headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
-      'X-XSRF-TOKEN': csrfToken.value ?? '',
+      'X-XSRF-TOKEN': csrfToken,
     },
-    body: JSON.stringify(body)
-  })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.json();
-    })
-    .catch(error => {
-      console.error('Failed to post data:', error);
-      throw error;
-    });
+    body: JSON.stringify(body),
+  });
+
+  const json = await response.json().catch(() => null);
+
+  if (json === null) {
+    throw new Error(`Respuesta no válida del servidor (HTTP ${response.status})`);
+  }
+
+  return json;
 }

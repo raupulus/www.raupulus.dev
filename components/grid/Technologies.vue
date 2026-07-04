@@ -3,7 +3,7 @@ import type { TechnologyType } from '@/types/TechnologyType';
 
 const emit = defineEmits(['clickTechnologySelect']);
 
-const props = defineProps({
+defineProps({
   technologies: {
     type: Array as PropType<Array<TechnologyType>>,
     require: false,
@@ -20,11 +20,12 @@ const props = defineProps({
 
 <template>
   <div class="box-grid-technologies">
-    <div class="box-container-technologies" v-if="technologies && technologies.length">
+    <div v-if="technologies && technologies.length" class="box-container-technologies">
 
-      <img v-for="technology in technologies" :src="technology.urlImageSmall" :alt="technology.name"
-        @click="technologySelect !== technology.slug ? emit('clickTechnologySelect', { technologySelect: technology.slug }) : null"
-        :title="technology.name" :class="technologySelect === technology.slug ? 'technology-selected' : ''" />
+      <NuxtImg
+v-for="technology in technologies" :key="technology.slug" :src="technology.urlImageSmall" :alt="technology.name" loading="lazy"
+        :title="technology.name"
+        :class="technologySelect === technology.slug ? 'technology-selected' : ''" @click="technologySelect !== technology.slug ? emit('clickTechnologySelect', { technologySelect: technology.slug }) : null" />
 
     </div>
   </div>

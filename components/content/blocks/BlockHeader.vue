@@ -1,32 +1,31 @@
 <template>
-  <h1 class="r-header" v-if="header.data.level === 1">
+  <h1 v-if="header.data.level === 1" class="r-header">
     {{ header.data.text }}
   </h1>
 
-  <h2 class="r-header" v-else-if="header.data.level === 2">
+  <h2 v-else-if="header.data.level === 2" class="r-header">
     {{ header.data.text }}
   </h2>
 
-  <h3 class="r-header" v-else-if="header.data.level === 3">
+  <h3 v-else-if="header.data.level === 3" class="r-header">
     {{ header.data.text }}
   </h3>
 
-  <h4 class="r-header" v-else-if="header.data.level === 4">
+  <h4 v-else-if="header.data.level === 4" class="r-header">
     {{ header.data.text }}
   </h4>
 
-  <h5 class="r-header" v-else-if="header.data.level === 5">
+  <h5 v-else-if="header.data.level === 5" class="r-header">
     {{ header.data.text }}
   </h5>
 
-  <h6 class="r-header" v-else-if="header.data.level === 6">
+  <h6 v-else-if="header.data.level === 6" class="r-header">
     {{ header.data.text }}
   </h6>
 </template>
 
 <script lang="ts" setup>
-import type { BlockHeaderType } from '@/types/BlocksType';
-import type { BlockType } from '@/types/BlocksType';
+import type { BlockHeaderType, BlockType  } from '@/types/BlocksType';
 
 const props = defineProps({
   block: {

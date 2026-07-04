@@ -1,8 +1,8 @@
-import { ref, onMounted } from 'vue';
-import { type ContentType } from '@/types/ContentType';
-import { type MetadataType } from '@/types/MetadataType';
-import { type PaginationType } from '@/types/PaginationType';
-import { type SearchParamsType } from '@/types/SearchParamsType';
+import { onMounted } from 'vue';
+import type { ContentType } from '@/types/ContentType';
+import type { MetadataType } from '@/types/MetadataType';
+import type { PaginationType } from '@/types/PaginationType';
+import type { SearchParamsType } from '@/types/SearchParamsType';
 
 type ResponseContentType = {
     pagination?: PaginationType,
@@ -15,13 +15,11 @@ type ResponseProjectType = {
     content?: ContentType,
 }
 
-const datas = ref<ResponseContentType>({});
+// datas se define dentro de cada composable usando useState para evitar state leak en SSR
 
 function prepareData(res: ResponseContentType) {
     if (res.contents) {
-        res.contents.forEach(ele => {
-            ele = prepareDataContent(ele);
-        });
+        res.contents = res.contents.map(ele => prepareDataContent(ele));
     }
     return res;
 }
@@ -48,7 +46,7 @@ function prepareDataMetadata(metadata: MetadataType) {
         'telegram_channel',
     ];
 
-    let results: MetadataType = {};
+    const results: MetadataType = {};
     let counter = 0;
 
     if (metadata) {
@@ -71,20 +69,32 @@ function prepareDataMetadata(metadata: MetadataType) {
 }
 
 export function useProjectsData() {
-    const runtimeConfig = useRuntimeConfig();
-    const API_BASE = runtimeConfig.public.api.base;
-    const API_URL = `${API_BASE}/platform/portfolio/content/type/project`;
+    const datas = useState<ResponseContentType>('projectsData', () => ({}));
+    const currentPage = useState<number>('projectsCurrentPage', () => 1);
+    const hasMorePages = useState<boolean>('projectsHasMore', () => true);
+    const isLoading = useState<boolean>('projectsLoading', () => false);
 
-    const fetchData = async (page = 1, quantity = 10) => {
-        //console.log(`Fetching data for page: ${page}`);  // Log for debugging
-        const params = new URLSearchParams({ page: page.toString(), quantity: quantity.toString() });
-        const response = await fetch(`${API_URL}?${params}`);
+    /**
+     * Carga la siguiente página de proyectos (carga bajo demanda).
+     */
+    const fetchNextPage = async (quantity = 20) => {
+        if (!hasMorePages.value || isLoading.value) return;
 
-        if (response.ok) {
-            const res = await response.json();
+        // Se calcula en cada llamada para usar proxy en cliente y URL directa en servidor
+        const API_BASE = useApiBase();
+        const API_URL = `${API_BASE}/platform/portfolio/content/type/project`;
+
+        isLoading.value = true;
+
+        try {
+            const params = new URLSearchParams({
+                page: currentPage.value.toString(),
+                quantity: quantity.toString(),
+            });
+            const res = await $fetch<ResponseContentType>(`${API_URL}?${params}`);
             const newData = prepareData(res);
 
-            if (page === 1) {
+            if (currentPage.value === 1) {
                 datas.value = newData;
             } else {
                 if (newData.contents) {
@@ -94,38 +104,40 @@ export function useProjectsData() {
                     datas.value.pagination = newData.pagination;
                 }
             }
-            return newData.pagination?.hasNextPage ?? false;
-        } else {
-            console.error('FETCH projectsData ERROR', response);
-            return false;
+
+            hasMorePages.value = newData.pagination?.hasNextPage ?? false;
+
+            if (hasMorePages.value) {
+                currentPage.value++;
+            }
+        } catch (error) {
+            console.error('Error fetching projects:', error);
+            hasMorePages.value = false;
+        } finally {
+            isLoading.value = false;
         }
     };
 
+    // Carga inicial en el cliente (usa proxy para evitar CORS)
     onMounted(async () => {
-        await fetchData();
-
-        setTimeout(async () => {
-            let hasMore = datas.value.pagination?.hasNextPage;
-            let currentPage = 1;
-
-            while (hasMore) {
-                currentPage += 1;  // Increment page number
-                //console.log(`Requesting page: ${currentPage}`);  // Log for debugging
-                hasMore = await fetchData(currentPage);
-            }
-        }, 50);
-
+        if (!datas.value.contents?.length) {
+            await fetchNextPage();
+        }
     });
 
     return {
         datas,
-        fetchData,
+        hasMorePages,
+        isLoading,
+        fetchNextPage,
     };
 }
 
-export async function projectsDataSearch(params: {} | null = null) {
-    const runtimeConfig = useRuntimeConfig();
-    const API_BASE = runtimeConfig.public.api.base;
+export async function projectsDataSearch(params: Record<string, string> | null = null) {
+    const datas = useState<ResponseContentType>('projectsData', () => ({}));
+
+    // Se calcula en cada llamada para usar proxy en cliente
+    const API_BASE = useApiBase();
     const API_URL = `${API_BASE}/platform/portfolio/content/type/project`;
 
     datas.value.contents = [];  // Limpiar los datos existentes
@@ -136,23 +148,17 @@ export async function projectsDataSearch(params: {} | null = null) {
     const quantity = 15;  // Cantidad de proyectos por página
 
     while (hasMore) {
-        const searchParams = new URLSearchParams(params as Record<string, string> || []);
+        const searchParams = new URLSearchParams(params ?? {});
         searchParams.append('page', page.toString());
         searchParams.append('quantity', quantity.toString());
         const requestURL = `${API_URL}?${searchParams.toString()}`;
 
-        //console.log(`Fetching search data for page: ${page}`);  // Log para depuración
-        const response = await fetch(requestURL, {
-            mode: 'cors',
-            cache: 'no-cache',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-            },
-        });
-
-        if (response.ok) {
-            const res: ResponseContentType = await response.json();
+        try {
+            const res = await $fetch<ResponseContentType>(requestURL, {
+                headers: {
+                    Accept: 'application/json',
+                },
+            });
             const newData = prepareData(res);
 
             if (page === 1) {
@@ -168,8 +174,8 @@ export async function projectsDataSearch(params: {} | null = null) {
 
             hasMore = newData.pagination?.hasNextPage ?? false;
             page++;
-        } else {
-            console.error('FETCH projectsDataSearch ERROR', response);
+        } catch (error) {
+            console.error('FETCH projectsDataSearch ERROR', error);
             hasMore = false;
         }
     }
@@ -182,52 +188,56 @@ export async function projectsDataSearch(params: {} | null = null) {
  * @returns
  */
 export async function useGetProjectBySlug(slug: string): Promise<ContentType | null> {
-    const runtimeConfig = useRuntimeConfig();
-    const API_BASE = runtimeConfig.public.api.base;
+    const API_BASE = useApiBase();
     const API_URL = `${API_BASE}/content/portfolio/${slug}/get`;
 
-    let project: ContentType | null = null;
-
-    const response = await fetch(API_URL);
-    if (response.ok) {
-        const res = await response.json();
-        project = prepareDataProjectResponse(res).content ?? null;
-    } else {
-        console.error('FETCH projectBySlug ERROR', response);
+    try {
+        const res = await $fetch<ResponseProjectType>(API_URL);
+        return prepareDataProjectResponse(res).content ?? null;
+    } catch (error) {
+        console.error('FETCH projectBySlug ERROR', error);
+        return null;
     }
-
-    return project;
 }
 
 /**
- *
  * Devuelve todos los proyectos paginando hasta obtenerlos todos.
- * Usado principalmente para el sitemap
+ * Usado principalmente para el sitemap (se ejecuta en Node.js, no necesita proxy).
  *
- * @param apiBaseUrl
- * @returns
+ * @returns Lista completa de proyectos
  */
 export async function usefetchProjectsPaginated(): Promise<ContentType[]> {
-    const apiBaseUrl = process.env.API_BASE_URL; // Asegúrate de sustituir esta línea por la URL correcta
-
-    let page = 1;
-    const quantity = 15; // Cantidad de proyectos por página
-    let totalProjects: ContentType[] = [];
+    const API_BASE = process.env.API_BASE_URL || 'https://api.raupulus.dev/api/v1';
+    let allProjects: ContentType[] = [];
+    let currentPage = 1;
     let hasMorePages = true;
 
-    interface ProjectResponseType {
-        pagination: PaginationType;
-        contents: ContentType[];
+    try {
+        while (hasMorePages) {
+            const response = await fetch(
+                `${API_BASE}/platform/portfolio/content/type/project?page=${currentPage}&quantity=50`
+            );
+
+            if (!response.ok) {
+                console.error(`Error fetching projects page ${currentPage}: HTTP ${response.status}`);
+                break;
+            }
+
+            const data = await response.json();
+
+            if (data?.contents && Array.isArray(data.contents)) {
+                allProjects = [...allProjects, ...data.contents];
+            }
+
+            if (data?.pagination?.hasNextPage) {
+                currentPage++;
+            } else {
+                hasMorePages = false;
+            }
+        }
+    } catch (error) {
+        console.error('Error fetching projects for sitemap/prerender:', error);
     }
 
-    while (hasMorePages) {
-        const response = await fetch(`${apiBaseUrl}/platform/portfolio/content/type/project?page=${page}&quantity=${quantity}`);
-        const data: ProjectResponseType = await response.json();
-        totalProjects = [...totalProjects, ...data.contents];
-
-        hasMorePages = data.pagination.hasNextPage;
-        page++;
-    }
-
-    return totalProjects;
+    return allProjects;
 }

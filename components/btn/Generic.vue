@@ -71,7 +71,7 @@ export default defineComponent({
         </NuxtLink>
     </span>
 
-    <span v-else-if="typeof callback === 'function'" @click="callback" :class="allClass" class="box-button">
+    <span v-else-if="typeof callback === 'function'" :class="allClass" class="box-button" @click="callback">
         <slot name="before" />
 
         <span>

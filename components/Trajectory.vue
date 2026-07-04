@@ -27,12 +27,14 @@
 
       <div class="box-trajectory-badge">
         <SpecializationBadge text="Web">
-          <NuxtImg src="/specializations/earth.svg" width="60" alt="Icon Earth"
+          <NuxtImg
+src="/specializations/earth.svg" width="60" alt="Icon Earth"
             loading="lazy" title="Web Developer" />
         </SpecializationBadge>
 
         <SpecializationBadge text="Api Rest">
-          <NuxtImg src="/specializations/cloud.svg" width="60" alt="Icon Cloud"
+          <NuxtImg
+src="/specializations/cloud.svg" width="60" alt="Icon Cloud"
             loading="lazy" title="Api Rest" />
         </SpecializationBadge>
       </div>
@@ -42,12 +44,14 @@
     <div class="box-trajectory-second">
       <div class="box-trajectory-badge">
         <SpecializationBadge text="Back-End">
-          <NuxtImg src="/specializations/chip.svg" width="60" alt="Icon Chip" loading="lazy"
+          <NuxtImg
+src="/specializations/chip.svg" width="60" alt="Icon Chip" loading="lazy"
             title="Web Backend Developer" />
         </SpecializationBadge>
 
         <SpecializationBadge text="Linux">
-          <NuxtImg src="/specializations/linux.svg" width="60" alt="Icon Linux"
+          <NuxtImg
+src="/specializations/linux.svg" width="60" alt="Icon Linux"
             loading="lazy" title="GNU/Linux" />
         </SpecializationBadge>
       </div>

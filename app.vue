@@ -16,6 +16,12 @@ useSeoMeta({
     twitterCard: 'summary'
 })
 
+// Canonical y og:url dinámicos según la ruta actual (importante para SEO en SSG)
+const route = useRoute()
+const config = useRuntimeConfig()
+const siteUrl = (config.public.app.url || 'https://raupulus.dev').replace(/\/$/, '')
+const canonicalUrl = computed(() => siteUrl + (route.path === '/' ? '' : route.path))
+
 useHead({
     htmlAttrs: {
         lang: 'es'
@@ -25,7 +31,53 @@ useHead({
             rel: 'icon',
             type: 'image/ico',
             href: '/favicon.ico'
+        },
+        {
+            rel: 'canonical',
+            href: canonicalUrl
         }
+    ],
+    meta: [
+        { property: 'og:url', content: canonicalUrl }
+    ],
+    script: [
+        // Datos estructurados: identidad del autor y del sitio (rich results)
+        {
+            type: 'application/ld+json',
+            innerHTML: JSON.stringify({
+                '@context': 'https://schema.org',
+                '@graph': [
+                    {
+                        '@type': 'Person',
+                        '@id': siteUrl + '/#person',
+                        name: 'Raúl Caro Pastorino',
+                        alternateName: 'raupulus',
+                        url: siteUrl,
+                        image: siteUrl + '/logo_512x512.png',
+                        jobTitle: 'Desarrollador Web Backend',
+                        description: 'Desarrollador Web Backend especializado en PHP/Laravel, Python, IoT y sistemas distribuidos.',
+                        knowsAbout: ['PHP', 'Laravel', 'Python', 'Vue.js', 'Nuxt', 'IoT', 'PostgreSQL', 'GNU/Linux'],
+                        sameAs: [
+                            'https://github.com/raupulus',
+                            'https://gitlab.com/raupulus',
+                            'https://www.linkedin.com/in/raulcaropastorino/',
+                            'https://twitter.com/raupulus',
+                            'https://mastodon.online/@raupulus',
+                            'https://www.youtube.com/@raupulus',
+                            'https://www.twitch.tv/raupulus',
+                        ],
+                    },
+                    {
+                        '@type': 'WebSite',
+                        '@id': siteUrl + '/#website',
+                        url: siteUrl,
+                        name: 'Portfolio de Raúl Caro Pastorino',
+                        inLanguage: 'es',
+                        publisher: { '@id': siteUrl + '/#person' },
+                    },
+                ],
+            }),
+        },
     ]
 })
 
@@ -51,33 +103,24 @@ watch(scrollDisabled, (current) => {
 });
 
 
-
-onNuxtReady(() => {
-
+onNuxtReady(async () => {
     /*
     if (!useCookie('XSRF-TOKEN').value) {
         fetchCsrfToken()
     }
     */
 
-    usePlatformData()
-    //useProjectsData()
+    // Carga datos de la plataforma en el cliente (usa proxy para evitar CORS)
+    await usePlatformData()
 })
 
 
 /* Cookies */
-const {
-    cookiesEnabled,
-    cookiesEnabledIds,
-    isConsentGiven,
-    isModalActive,
-    moduleOptions,
-} = useCookieControl()
+const { cookiesEnabledIds } = useCookieControl()
 
 watch(
     () => cookiesEnabledIds.value,
     (current, previous) => {
-        console.log('cambia cookes');
         if (
             !previous?.includes('google-analytics') &&
             current?.includes('google-analytics')
@@ -85,7 +128,7 @@ watch(
             //console.log('se habilita google analytics');
             // cookie con id `google-analytics` se ha añadido
             //window.location.reload() // placeholder para tu manejador de cambios personalizado
-            const { gtag, initialize } = useGtag()
+            const { gtag } = useGtag()
             gtag('consent', 'update', {
                 ad_user_data: 'granted',
                 ad_personalization: 'granted',
@@ -101,17 +144,9 @@ watch(
 </script>
 
 <template>
-    <div id="app">
-        <AppHeader />
-
-        <div id="app-box-content">
-            <NuxtPage />
-        </div>
-
-        <AppFooter />
-
-        <CookieControl locale="es" />
-    </div>
+    <NuxtLayout>
+        <NuxtPage />
+    </NuxtLayout>
 </template>
 
 <style>
@@ -119,9 +154,5 @@ body.disable-scroll {
     height: 100vh;
     overflow: hidden;
     box-sizing: border-box;
-}
-
-#app-box-content {
-    height: 100%;
 }
 </style>
