@@ -37,6 +37,7 @@ const onImageLoaded = () => {
                 @load="onImageLoaded"
             />
             <!-- Tecnologías sobre la imagen -->
+            <div class="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#050f1c]/90 to-transparent pointer-events-none"></div>
             <div class="absolute bottom-0 left-0 right-0 p-3 flex flex-wrap gap-1">
                 <NuxtImg
                     v-for="technology in data.technologies"
@@ -55,7 +56,7 @@ const onImageLoaded = () => {
         <!-- Contenido (derecha en desktop) -->
         <div class="flex flex-col flex-1 p-8">
             <!-- Fecha -->
-            <div v-if="data.created_at_human" class="font-label text-[10px] text-outline uppercase tracking-widest mb-2">
+            <div v-if="data.created_at_human" class="font-label text-xs text-outline uppercase tracking-widest mb-2">
                 {{ data.created_at_human }}
             </div>
 

@@ -33,7 +33,7 @@
                         </NuxtLink>
                         <NuxtLink
                             to="/about"
-                            class="px-8 py-4 border border-outline-variant hover:border-primary transition-all rounded font-headline font-bold text-on-surface tracking-widest uppercase text-sm"
+                            class="px-8 py-4 border border-outline-variant hover:border-primary hover:bg-primary/10 transition-all rounded font-headline font-bold text-on-surface tracking-widest uppercase text-sm"
                         >
                             Sobre Mí
                         </NuxtLink>
@@ -45,7 +45,7 @@
                     <div class="relative w-full aspect-square max-w-md">
                         <div class="absolute inset-0 glass-panel rounded-xl border border-outline-variant/30 flex items-center justify-center p-8">
                             <div class="w-full h-full relative border border-dashed border-tertiary/20 rounded-full flex items-center justify-center p-12">
-                                <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-tertiary animate-pulse shadow-[0_0_15px_rgba(76,214,255,0.8)]"/>
+                                <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-tertiary animate-[pulse-glow_2s_ease-in-out_infinite] shadow-[0_0_15px_rgba(76,214,255,0.8)]"/>
                                 <div class="w-full h-full border border-primary/40 rounded-full flex items-center justify-center">
                                     <UiMaterialIcon class="text-7xl text-primary" name="memory" />
                                 </div>
@@ -157,8 +157,8 @@ src="/images/technologies/postgresql_60x60.webp" format="webp" width="60" height
                     <h2 class="font-headline text-5xl font-black tracking-tighter mb-4">ESPECIALIZACIONES</h2>
                     <div class="w-24 h-1 bg-secondary mx-auto"/>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 border border-outline-variant/20 rounded-xl overflow-hidden">
-                    <div class="p-10 bg-surface flex flex-col items-start group hover:bg-surface-container-low transition-colors border-b md:border-b-0 md:border-r border-outline-variant/10">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border border-outline-variant/20 rounded-xl overflow-hidden">
+                    <div class="p-10 bg-surface flex flex-col items-start group hover:bg-surface-container-low transition-colors border-b lg:border-b-0 md:border-r border-outline-variant/10">
                         <div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                             <UiMaterialIcon class="text-primary" name="hub" />
                         </div>
@@ -166,11 +166,11 @@ src="/images/technologies/postgresql_60x60.webp" format="webp" width="60" height
                         <p class="text-on-surface-variant text-sm leading-relaxed mb-8">
                             Diseño de redes mesh y brokers de alta disponibilidad para millones de dispositivos conectados usando protocolos MQTT y AMQP.
                         </p>
-                        <div class="mt-auto px-4 py-1.5 border border-primary/30 rounded-full font-label text-[10px] tracking-widest text-primary uppercase">
+                        <div class="mt-auto px-4 py-1.5 border border-primary/30 rounded-full font-label text-xs tracking-widest text-primary uppercase">
                             Sinergia Hardware
                         </div>
                     </div>
-                    <div class="p-10 bg-surface flex flex-col items-start group hover:bg-surface-container-low transition-colors border-b md:border-b-0 md:border-r border-outline-variant/10">
+                    <div class="p-10 bg-surface flex flex-col items-start group hover:bg-surface-container-low transition-colors border-b md:border-b-0 lg:border-r border-outline-variant/10">
                         <div class="w-12 h-12 rounded-lg bg-tertiary/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                             <UiMaterialIcon class="text-tertiary" name="dns" />
                         </div>
@@ -178,7 +178,7 @@ src="/images/technologies/postgresql_60x60.webp" format="webp" width="60" height
                         <p class="text-on-surface-variant text-sm leading-relaxed mb-8">
                             Construcción de microservicios escalables y APIs RESTful que priorizan seguridad, velocidad y documentación mantenible.
                         </p>
-                        <div class="mt-auto px-4 py-1.5 border border-tertiary/30 rounded-full font-label text-[10px] tracking-widest text-tertiary uppercase">
+                        <div class="mt-auto px-4 py-1.5 border border-tertiary/30 rounded-full font-label text-xs tracking-widest text-tertiary uppercase">
                             Infraestructura Cloud
                         </div>
                     </div>
@@ -190,7 +190,7 @@ src="/images/technologies/postgresql_60x60.webp" format="webp" width="60" height
                         <p class="text-on-surface-variant text-sm leading-relaxed mb-8">
                             Desarrollo de herramientas personalizadas y pipelines CI/CD para garantizar despliegues rápidos y ciclos de testing robustos para firmware y software.
                         </p>
-                        <div class="mt-auto px-4 py-1.5 border border-secondary/30 rounded-full font-label text-[10px] tracking-widest text-secondary uppercase">
+                        <div class="mt-auto px-4 py-1.5 border border-secondary/30 rounded-full font-label text-xs tracking-widest text-secondary uppercase">
                             Ingeniería de Procesos
                         </div>
                     </div>
@@ -211,7 +211,7 @@ src="/images/technologies/postgresql_60x60.webp" format="webp" width="60" height
                         <p class="text-outline-variant text-xs font-label tracking-tighter uppercase">v.2.4.0_Estable</p>
                     </div>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     <!-- PHP/Laravel principal -->
                     <div class="md:col-span-2 md:row-span-2 p-10 bg-surface-container-high rounded-xl border border-outline-variant/20 flex flex-col justify-between group hover:border-primary/50 transition-all duration-500 shadow-xl">
                         <div>
@@ -292,34 +292,14 @@ src="/images/technologies/postgresql_60x60.webp" format="webp" width="60" height
                         <div class="w-24 h-1 bg-tertiary mx-auto"/>
                     </div>
 
-                    <div class="box-social-icons inline-block">
-                        <div class="inline-block mx-4 my-[15px]">
-                            <IconsYoutube size="80px" :decored="true" />
-                        </div>
-                        <div class="inline-block mx-4 my-[15px]">
-                            <IconsLinkedin size="80px" :decored="true" />
-                        </div>
-                        <div class="inline-block mx-4 my-[15px]">
-                            <IconsTwitch size="80px" :decored="true" />
-                        </div>
-                    </div>
-
-                    <div class="box-social-icons inline-block">
-                        <div class="inline-block mx-4 my-[15px]">
-                            <IconsGitlab size="80px" :decored="true" />
-                        </div>
-                    </div>
-
-                    <div class="box-social-icons inline-block">
-                        <div class="inline-block mx-4 my-[15px]">
-                            <IconsGithub size="80px" :decored="true" />
-                        </div>
-                        <div class="inline-block mx-4 my-[15px]">
-                            <IconsMastodon size="80px" :decored="true" />
-                        </div>
-                        <div class="inline-block mx-4 my-[15px]">
-                            <IconsTwitter size="80px" :decored="true" />
-                        </div>
+                    <div class="flex flex-wrap justify-center gap-6 md:gap-8">
+                        <IconsYoutube size="80px" :decored="true" />
+                        <IconsLinkedin size="80px" :decored="true" />
+                        <IconsTwitch size="80px" :decored="true" />
+                        <IconsGitlab size="80px" :decored="true" />
+                        <IconsGithub size="80px" :decored="true" />
+                        <IconsMastodon size="80px" :decored="true" />
+                        <IconsTwitter size="80px" :decored="true" />
                     </div>
                 </div>
             </div>

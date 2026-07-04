@@ -22,7 +22,7 @@
                     class="font-headline tracking-tight text-sm font-bold uppercase transition-colors"
                     :class="isActiveRoute(link.to)
                         ? 'text-primary border-b-2 border-primary pb-1'
-                        : 'text-primary/60 hover:text-primary'"
+                        : 'text-on-surface-variant hover:text-primary'"
                 >
                     {{ link.label }}
                 </NuxtLink>
@@ -31,7 +31,7 @@
             <!-- Botón CTA escritorio -->
             <NuxtLink
                 to="/contact"
-                class="hidden md:block bg-gradient-to-br from-primary to-primary-container text-on-primary px-4 py-2 rounded-md font-headline text-xs font-bold tracking-widest uppercase hover:scale-95 transition-all duration-300"
+                class="hidden md:block bg-gradient-to-br from-primary to-primary-container text-on-primary px-4 py-2 rounded-md font-headline text-xs font-bold tracking-widest uppercase hover:scale-105 hover:shadow-[0_0_15px_rgba(163,201,255,0.4)] transition-all duration-300"
             >
                 Contacto
             </NuxtLink>
@@ -61,7 +61,7 @@
                         :key="link.to"
                         :to="link.to"
                         class="font-headline tracking-tight text-sm font-bold uppercase transition-colors py-2"
-                        :class="isActiveRoute(link.to) ? 'text-primary' : 'text-primary/60 hover:text-primary'"
+                        :class="isActiveRoute(link.to) ? 'text-primary' : 'text-on-surface-variant hover:text-primary'"
                         @click="isMobileMenuOpen = false"
                     >
                         {{ link.label }}
