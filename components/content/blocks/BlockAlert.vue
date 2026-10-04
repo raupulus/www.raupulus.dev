@@ -3,7 +3,9 @@
 :id="alert.id"
     :class="'r-alert-container r-alert-align-' + alert.data.align + ' r-alert-type-' + alert.data.type">
     <div class="r-alert">
+      <!-- eslint-disable-next-line vue/no-v-html -->
       <div v-if="alert.data.title" class="r-alert-title" v-html="sanitizeHtml(replaceBreakLine(alert.data.title))"/>
+      <!-- eslint-disable-next-line vue/no-v-html -->
       <div class="r-alert-content" v-html="sanitizeHtml(replaceBreakLine(alert.data.message))"/>
     </div>
   </div>

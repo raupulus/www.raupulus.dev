@@ -2,6 +2,7 @@
   <details v-if="paragraph.tunes?.textVariant === 'details'" :id="paragraph.id" class="r-paragraph r-paragraph-details">
     <summary>Detalles</summary>
 
+    <!-- eslint-disable-next-line vue/no-v-html -->
     <span v-html="sanitizeHtml(paragraph.data.text)" />
   </details>
 
@@ -11,13 +12,16 @@
     :class="'r-paragraph' + (paragraph.tunes?.textVariant
       ? ' r-paragraph-' + paragraph.tunes?.textVariant : '')"
   >
+    <!-- eslint-disable-next-line vue/no-v-html -->
     <cite v-if="paragraph.tunes?.textVariant === 'citation'" v-html="sanitizeHtml(paragraph.data.text)" />
 
     <span v-else-if="paragraph.tunes?.textVariant === 'call-out'" class="r-call-out">
       <span class="r-call-out-left" />
+      <!-- eslint-disable-next-line vue/no-v-html -->
       <span class="r-call-out-right" v-html="sanitizeHtml(paragraph.data.text)" />
     </span>
 
+    <!-- eslint-disable-next-line vue/no-v-html -->
     <span v-else v-html="sanitizeHtml(paragraph.data.text)" />
   </p>
 </template>

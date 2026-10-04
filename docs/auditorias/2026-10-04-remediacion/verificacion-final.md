@@ -11,7 +11,7 @@
 
 | Puerta de calidad | Comando | Estado | Resultado |
 |---|---|:---:|---|
-| **Linting** | `pnpm lint` | ✅ PASA | 0 errores (15 warnings tolerados de v-html sanitizado en bloques EditorJS; 0 errores de props o any) |
+| **Linting** | `pnpm lint` | ✅ PASA | 0 errores, 0 warnings (100 % limpio; v-html sanitizado anotado explícitamente) |
 | **Chequeo de tipos** | `pnpm exec vue-tsc --noEmit` | ✅ PASA | 0 errores de tipos en TypeScript estricto |
 | **Tests unitarios** | `pnpm test:run` | ✅ PASA | 12 suites pasadas (12/12), 56 tests pasados (56/56, 100 %) |
 | **Cobertura de tests** | `pnpm test:coverage` | ✅ PASA | Cobertura ejecutada con `@vitest/coverage-v8`, exit code 0 |
@@ -26,12 +26,11 @@
 ```text
 $ eslint .
 
-✖ 15 problems (0 errors, 15 warnings)
+# Exit code: 0 (salida completamente limpia: 0 errors, 0 warnings)
 ```
 - **Errores:** 0
-- **Warnings tolerados:**
-  - `vue/no-v-html`: 15 bloques de EditorJS donde el contenido está explícitamente sanitizado mediante `sanitizeHtml()` o `sanitizeRawHtml()` con `isomorphic-dompurify`.
-  - 0 advertencias de props o tipos `any`.
+- **Warnings:** 0 (todas las directivas `v-html` con contenido sanitizado con `sanitizeHtml()` / `sanitizeRawHtml()` cuentan con anotación explícita `<!-- eslint-disable-next-line vue/no-v-html -->`).
+- 0 advertencias de props o tipos `any`.
 
 ---
 

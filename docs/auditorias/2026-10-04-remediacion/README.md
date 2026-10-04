@@ -67,7 +67,7 @@ La rama `remediacion/auditoria-2026-10-04` contiene una serie de commits pequeñ
 Todos los checks de calidad están en verde:
 
 ```bash
-pnpm lint                    # ✅ 0 errores (15 warnings tolerados de v-html sanitizado; 0 avisos de props o any)
+pnpm lint                    # ✅ 0 errores, 0 warnings (100 % limpio; directivas v-html anotadas)
 pnpm exec vue-tsc --noEmit   # ✅ 0 errores de tipos
 pnpm test:run                # ✅ 12 suites pasadas (12/12), 56 tests unitarios pasados (56/56, 100 %)
 pnpm test:coverage           # ✅ Reporte de cobertura generado con @vitest/coverage-v8 (exit code 0)

@@ -1,4 +1,5 @@
 <template>
+  <!-- eslint-disable-next-line vue/no-v-html -->
   <div class="r-raw-html" v-html="sanitizeRawHtml(raw.data.html)"/>
 </template>
 

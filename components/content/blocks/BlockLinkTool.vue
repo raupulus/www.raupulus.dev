@@ -13,10 +13,10 @@
           :style="{ backgroundImage: `url(${linkTool.data.meta.image.url})` }"
         />
 
+        <!-- eslint-disable-next-line vue/no-v-html -->
         <div v-if="linkTool.data.meta.title" class="r-web-preview-title" v-html="sanitizeHtml(linkTool.data.meta.title)"/>
-        <div
-          v-if="linkTool.data.meta.description" class="r-web-preview-description"
-          v-html="sanitizeHtml(replaceBreakLine(linkTool.data.meta.description))"/>
+        <!-- eslint-disable-next-line vue/no-v-html -->
+        <div v-if="linkTool.data.meta.description" class="r-web-preview-description" v-html="sanitizeHtml(replaceBreakLine(linkTool.data.meta.description))" />
 
         <span class="r-web-preview-anchor">{{ linkTool.data.link.replace(/https*:\/\//, '') }}</span>
       </a>

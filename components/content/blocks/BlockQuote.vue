@@ -7,8 +7,10 @@
       </svg>
     </p>
 
+    <!-- eslint-disable-next-line vue/no-v-html -->
     <p class="r-blockquote-title" v-html="computedQuoteText"/>
 
+    <!-- eslint-disable-next-line vue/no-v-html -->
     <p class="r-blockquote-caption" v-html="computedQuoteCaption"/>
 
     <hr>

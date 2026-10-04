@@ -3,6 +3,7 @@
     <li v-for="(item, idx) in items" :key="idx" class="r-list-item flex items-start gap-2 leading-relaxed">
       <span class="font-bold text-secondary shrink-0 font-label text-sm min-w-[1.5rem]">{{ listCounterLabel(start + idx, counterType) }}.</span>
       <div class="flex-1">
+        <!-- eslint-disable-next-line vue/no-v-html -->
         <div class="r-list-item-content inline" v-html="sanitizeHtml(replaceBreakLine(item.content))"/>
         <ContentBlocksBlockListItems
           v-if="item.items?.length"
@@ -29,6 +30,7 @@
         />
       </span>
       <div class="flex-1">
+        <!-- eslint-disable-next-line vue/no-v-html -->
         <div class="r-list-item-content" v-html="sanitizeHtml(replaceBreakLine(item.content))"/>
         <ContentBlocksBlockListItems
           v-if="item.items?.length"
@@ -42,6 +44,7 @@
 
   <ul v-else class="r-list-items list-disc pl-6 my-4 space-y-2 text-on-surface" role="list">
     <li v-for="(item, idx) in items" :key="idx" class="r-list-item leading-relaxed">
+      <!-- eslint-disable-next-line vue/no-v-html -->
       <div class="r-list-item-content inline" v-html="sanitizeHtml(replaceBreakLine(item.content))"/>
       <ContentBlocksBlockListItems
         v-if="item.items?.length"
