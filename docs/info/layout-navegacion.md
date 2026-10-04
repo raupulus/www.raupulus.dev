@@ -1,38 +1,38 @@
 # Layout y Navegación
 
-Layout principal que envuelve todas las páginas con header fijo, contenido y footer. Incluye control de cookies y gestión de scroll.
+Layout principal que envuelve todas las páginas con header fijo, contenido y footer. Incluye control de cookies, accesibilidad de navegación y gestión de saltos de contenido.
 
 ## Archivos principales
 
 | Archivo | Rol |
 |---------|-----|
-| `app.vue` | Root component: SEO global, scroll disable, carga de datos de plataforma, cookies/analytics |
-| `layouts/default.vue` | Layout por defecto: estructura Header → Content → Footer → CookieControl |
-| `components/app/Header.vue` | Barra de navegación fija con menú responsive |
-| `components/app/Footer.vue` | Pie de página con copyright dinámico y enlaces legales |
+| `app.vue` | Root component: SEO global, canonicals dinámicos con barra final, datos de plataforma, cookies y analítica con Consent Mode v2 |
+| `layouts/default.vue` | Layout por defecto: enlace "Saltar al contenido" → Header → Main (`#app-box-content`) → Footer → CookieControl |
+| `components/app/Header.vue` | Barra de navegación fija con menú responsive accesible (Esc, focus return) |
+| `components/app/Footer.vue` | Pie de página con copyright hidratación-segura y enlaces legales completos |
 
 ## `app.vue` — Root Component
 
 ### Responsabilidades
 
-1. **SEO global**: `useSeoMeta()` y `useHead()` con metatags por defecto (og, twitter, favicon, lang)
-2. **Scroll disable**: observa el estado `useScrollDisabled()` y añade/quita la clase `disable-scroll` en el body (usado por modales)
-3. **Carga de plataforma**: en `onNuxtReady`, ejecuta `usePlatformData()` para cargar datos globales (tecnologías, redes sociales)
-4. **Cookies/Analytics**: usa `useCookieControl()` para detectar consentimiento de Google Analytics y, si se acepta, actualiza el consent mode con `useGtag()`
+1. **SEO global**: `useSeoMeta()` y `useHead()` con metatags absolutos (og, twitter, favicon, lang, color-scheme dark).
+2. **Canonical y og:url dinámicos**: calculados reactivamente respetando la convención de barra final (`/`).
+3. **Carga de plataforma**: en `onNuxtReady`, ejecuta `usePlatformData()` para cargar datos globales (tecnologías, redes sociales).
+4. **Cookies/Analytics**: usa `useCookieControl()` con Consent Mode v2 manual: solo concede `analytics_storage` tras consentimiento explícito y purga cookies `_ga*` al revocar.
 
 ### Composables utilizados
 
-- `useScrollDisabled()` — estado global booleano para bloquear scroll
 - `usePlatformData()` — carga datos de la plataforma desde la API
 - `useCookieControl()` — gestión de consentimiento de cookies
-- `useGtag()` — Google Analytics
+- `useGtag()` — Google Analytics con Consent Mode v2
 
 ## `layouts/default.vue` — Layout Default
 
 ### Estructura del template
 
-```
+```html
 <div id="app">
+  <a href="#app-box-content" class="sr-only focus:not-sr-only ...">Saltar al contenido principal</a>
   <AppHeader />          ← Header fijo
   <main id="app-box-content" class="flex-1 pt-20">
     <slot />             ← Contenido de la página
@@ -42,8 +42,8 @@ Layout principal que envuelve todas las páginas con header fijo, contenido y fo
 </div>
 ```
 
-- El contenido tiene `padding-top: 80px` para compensar el header fijo
-- `min-height: calc(100vh - 80px)` para que el footer quede abajo
+- Enlace accesible de salto al contenido principal como primer elemento enfocable (WCAG 2.4.1).
+- `min-height: calc(100dvh - 80px)` utilizando viewport dinámico para evitar saltos en móviles.
 
 ## `AppHeader` — Barra de Navegación
 
@@ -51,37 +51,31 @@ Layout principal que envuelve todas las páginas con header fijo, contenido y fo
 
 - **Fija** en la parte superior (`fixed top-0 w-full z-50`)
 - **Efecto glass**: `backdrop-blur-xl` con opacidad variable según scroll
-- **Responsive**: menú hamburguesa en móvil con transición `slide-down`
-- **Indicador de ruta activa**: `border-b-2 border-primary` en el enlace activo
+- **Accesibilidad**: botón móvil con `aria-expanded` y `aria-controls`; cierre con tecla `Escape` y retorno de foco automático al botón.
+- **Rutas con barra final**: coinciden con la configuración canónica del sitio.
+- **Blog excluido de la barra principal**: reservado hasta publicación de artículos reales.
 
 ### Rutas de navegación
 
 ```typescript
 const navLinks: NavLink[] = [
   { to: '/', label: 'Inicio' },
-  { to: '/projects', label: 'Proyectos' },
-  { to: '/blog', label: 'Blog' },
-  { to: '/about', label: 'Sobre Mí' },
-  { to: '/webs', label: 'Webs' },
-  { to: '/social', label: 'Social' },
-  { to: '/contact', label: 'Contacto' },
+  { to: '/projects/', label: 'Proyectos' },
+  { to: '/about/', label: 'Sobre Mí' },
+  { to: '/webs/', label: 'Webs' },
+  { to: '/social/', label: 'Social' },
 ]
 ```
 
-### Lógica destacada
-
-- `isActiveRoute(path)`: detecta ruta activa; para `/` usa igualdad exacta, para el resto `startsWith`
-- `isScrolled`: ref booleana que cambia al pasar 20px de scroll
-
 ## `AppFooter` — Pie de Página
 
-- Copyright con año dinámico (`new Date().getFullYear()`)
-- Enlaces a: Política de Privacidad (`/privacy`), Contacto (`/contact`)
-- Indicador visual "Sistema Activo" con dot pulsante
+- Copyright con año fijado en compilación e hidratación cliente reactiva segura (`onMounted`) para evitar discrepancias SSR/SSG.
+- Enlaces legales: `/privacy/`, `/cookies/`, `/legal/`, `/contact/`.
+- Enlace al repositorio público de código fuente en GitLab.
 
 ## Relaciones con otros módulos
 
-- → [composables.md](./composables.md): `useScrollDisabled()`, `usePlatformData()`
-- → [seo-sitemap.md](./seo-sitemap.md): `useSeoMeta()`, `useHead()` en app.vue
-- → [plugins-middleware.md](./plugins-middleware.md): `CookieControl` component, scroll-to-top middleware
-- → [design-system.md](./design-system.md): clases de design system (font-headline, bg-background, text-primary, etc.)
+- → [composables.md](./composables.md): `usePlatformData()`, `useProjectsData()`
+- → [seo-sitemap.md](./seo-sitemap.md): metatags y trailing slashes
+- → [plugins-middleware.md](./plugins-middleware.md): `CookieControl`, scroll-to-top middleware
+- → [design-system.md](./design-system.md): diseño Silicon Architect

@@ -31,11 +31,13 @@ Página con listado paginado de proyectos consumidos desde la API, con búsqueda
 1. **Modo Catálogo (`/projects/`)**:
    - `useProjectsData()` carga la primera página de proyectos.
    - "Cargar más" invoca `fetchNextPage()` que incrementa `currentPage` y concatena resultados.
-   - **Búsqueda**: `projectsDataSearch({ search, technology })` limpia datos y carga todas las páginas de resultados.
-   - **Filtrado por tecnología**: `handleClickTechnology()` conmuta el filtro con botones `<button :aria-pressed="...">`.
+   - **Búsqueda reactiva con debounce**: escucha cambios en el input de búsqueda con un debounce de 300 ms y sincroniza los parámetros en la URL (`?q=...&tech=...`) para que las búsquedas sean compartibles.
+   - **Cancelación con AbortController (U-BUG-011)**: `projectsDataSearch` cancela peticiones en curso previas para evitar respuestas fuera de orden en búsquedas consecutivas.
+   - **Filtrado por tecnología**: `handleClickTechnology()` conmuta el filtro con botones `<button :aria-pressed="...">` y actualiza la URL.
+   - **Diseño del buscador (U-RESP-008)**: padding `pl-4 pr-10` para garantizar que el texto escrito no quede tapado bajo el icono de búsqueda.
 2. **Modo Detalle (`/projects/:slug/` y `/projects/:slug/:page/`)**:
    - Prerenderizado estático (SSG) mediante `useAsyncData('project-detail-' + slug, ...)`.
-   - Si no existe el proyecto o subpágina en servidor, lanza error 404 (`createError`).
+   - Si no existe el proyecto o subpágina (tanto en SSR/SSG como en navegación cliente), lanza error 404 real (`createError({ statusCode: 404, fatal: true })`, U-BUG-006).
    - Carga la página activa y sus bloques de contenido EditorJS normalizados con `normalizePage()`.
    - Renderiza un único `<h1>` por página (el título del proyecto o subpágina), migas de pan semánticas y enlaces entre páginas.
 3. **SEO y Metadatos**:

@@ -92,7 +92,8 @@ Esquema oscuro con tokens Material Design 3:
 | `DEFAULT` | `0.125rem` | Bordes mínimos |
 | `lg` | `0.25rem` | Bordes ligeros |
 | `xl` | `0.5rem` | Tarjetas, contenedores |
-| `full` | `0.75rem` | Botones, badges |
+| `pill` | `0.75rem` | Bordes redondeados intermedios |
+| `full` | `9999px` (Tailwind default) | Círculos, avatares, pills estándar |
 
 ## Clases CSS custom
 
@@ -105,13 +106,14 @@ Esquema oscuro con tokens Material Design 3:
 
 ## ⚠️ Regla: no crear utilidades CSS con nombres de Tailwind
 
-`assets/css/styles.css` se carga **después** del CSS de Tailwind, por lo que cualquier clase global con el mismo nombre que una utilidad de Tailwind (`.p-1`, `.m-1`, `.text-primary`, `.bg-primary`, `.font-bold`, `.w-1`, `.text-white`, ...) la sobreescribe con valores distintos y rompe el design system en toda la web. La plantilla antigua incluía un mini-framework de utilidades con esta colisión y fue eliminado; no reintroducirlo. `styles.css` solo contiene ahora el bloque `prefers-reduced-motion` (accesibilidad).
+`assets/css/styles.css` se carga **después** del CSS de Tailwind, por lo que cualquier clase global con el mismo nombre que una utilidad de Tailwind (`.p-1`, `.m-1`, `.text-primary`, `.bg-primary`, `.font-bold`, `.w-1`, `.text-white`, ...) la sobreescribe con valores distintos y rompe el design system en toda la web. La plantilla antigua incluía un mini-framework de utilidades con esta colisión y fue eliminado; no reintroducirlo. `styles.css` define `color-scheme: dark`, `scroll-padding-top: 5rem` para evitar que los anclajes queden tapados por el header fijo, y el bloque `prefers-reduced-motion` (accesibilidad).
 
 Las variables legacy de `vars.css` (`--primary: #3272B8`, `--gray`, `--yellow`, ...) siguen existiendo solo porque los componentes antiguos (`card/Project.vue`, `form/Select.vue`, bloques EditorJS...) las usan en estilos scoped. No usarlas en diseño nuevo: usar siempre los tokens Tailwind.
 
 ## Accesibilidad y responsive
 
 - `prefers-reduced-motion: reduce` desactiva animaciones y transiciones globalmente (`styles.css`)
+- `scroll-padding-top: 5rem` en `html` para navegación semántica y enlaces con ancla sin solapamiento
 - Breakpoints estándar de Tailwind (`sm` 640px, `md` 768px, `lg` 1024px); los `h1` de página escalan `text-4xl/5xl → sm:text-6xl → md:text-8xl`
 - Contraste: `on-surface` (#d9e3f6) sobre `background` (#091421) ≈ 14:1; `on-primary` (#00315c) solo debe usarse sobre `primary`/gradientes primarios, nunca sobre `primary-container` solo
 - La navegación móvil (hamburguesa) usa `aria-expanded`/`aria-controls` en `AppHeader`
@@ -126,9 +128,9 @@ lg:grid-cols-12, lg:col-span-8, lg:col-span-4, md:flex-row,
 md:text-8xl, md:text-xl, md:grid-cols-2, lg:grid-cols-3, lg:grid-cols-4
 ```
 
-## Uso de Material Symbols
+## Uso de Iconos Material Symbols
 
-Iconos via `<span class="material-symbols-outlined">icon_name</span>`. Pesos configurados 100-700, fill 0-1.
+Todos los iconos se invocan exclusivamente mediante `<UiMaterialIcon name="..." />` utilizando los ficheros SVG locales (`assets/icons/material/`). No se utiliza la fuente web externa.
 
 Ejemplos frecuentes: `memory`, `hub`, `dns`, `terminal`, `code`, `search`, `close`, `arrow_forward`, `north_east`, `check_circle`, `favorite`, `bolt`, `star`, `construction`, etc.
 

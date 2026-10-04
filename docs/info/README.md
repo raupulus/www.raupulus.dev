@@ -27,6 +27,8 @@
 | [pagina-social.md](./pagina-social.md) | Redes Sociales | `/social` |
 | [pagina-webs.md](./pagina-webs.md) | Sitios Web | `/webs` |
 | [pagina-privacy.md](./pagina-privacy.md) | Privacidad | `/privacy` |
+| [pagina-cookies.md](./pagina-cookies.md) | Cookies | `/cookies` |
+| [pagina-legal.md](./pagina-legal.md) | Aviso Legal | `/legal` |
 
 ### Lógica y Datos
 

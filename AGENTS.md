@@ -172,6 +172,8 @@ La documentación técnica de cada módulo se encuentra en `docs/info/`. **Es ob
 | [pagina-social.md](docs/info/pagina-social.md) | Página de redes sociales |
 | [pagina-webs.md](docs/info/pagina-webs.md) | Página de sitios web creados |
 | [pagina-privacy.md](docs/info/pagina-privacy.md) | Política de privacidad |
+| [pagina-cookies.md](docs/info/pagina-cookies.md) | Política de cookies y panel de preferencias |
+| [pagina-legal.md](docs/info/pagina-legal.md) | Aviso legal y condiciones de uso |
 | [composables.md](docs/info/composables.md) | Composables (lógica reutilizable) |
 | [types.md](docs/info/types.md) | Sistema de tipos TypeScript |
 | [componentes-ui.md](docs/info/componentes-ui.md) | Componentes UI reutilizables |

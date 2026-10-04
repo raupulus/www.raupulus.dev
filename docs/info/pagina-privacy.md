@@ -1,41 +1,38 @@
-# Política de Privacidad
+# Política de Privacidad (`pages/privacy.vue`)
 
-Página legal estática con la política de privacidad del sitio.
+> Política de privacidad conforme al Reglamento General de Protección de Datos (RGPD, Reglamento UE 2016/679) y Ley Orgánica 3/2018 (LOPDGDD).
+
+## Resumen
+
+Página informativa obligatoria según el artículo 13 del RGPD que detalla los tratamientos de datos personales que tienen lugar en el sitio web (formulario de contacto y analítica web consentida), sus bases jurídicas, plazos de conservación, transferencias internacionales y el ejercicio de derechos ARCO-POL ante la Agencia Española de Protección de Datos (AEPD).
 
 ## Archivos principales
 
 | Archivo | Rol |
 |---------|-----|
-| `pages/privacy.vue` | Página de política de privacidad |
+| `pages/privacy.vue` | Página principal de política de privacidad |
+| `components/app/Footer.vue` | Enlace canónico en el footer (`/privacy/`) |
 
-## Ruta
+## Ruta y SEO
 
-- **URL**: `/privacy`
-- **Datos**: 100% estáticos
+- **URL**: `/privacy/` (con barra final)
+- **Metatags**: `useHead()` completo con `canonical`, Open Graph y Twitter Cards (`/social/privacy.webp`)
+- **Datos**: estáticos, con marcadores `[[COMPLETAR: descripción]]` para datos pendientes de validación por el titular.
 
-## Contenido
+## Secciones detalladas (Art. 13 RGPD)
 
-Texto legal con 8 secciones:
-
-1. Información que recopilamos (datos de contacto y datos de uso)
-2. Cómo usamos tu información
-3. Cookies y tecnologías similares
-4. Cómo protegemos tu información
-5. Compartir información con terceros
-6. Enlaces a otros sitios web
-7. Cambios a esta Política de Privacidad
-8. Contacto (enlaza a `/contact`)
-
-## Enlaces internos
-
-- Enlace a `/` (home) en el párrafo introductorio
-- Enlace a `/contact` en sección de contacto
-
-## SEO
-
-- Open Graph y Twitter Cards con imagen `/social/privacy.webp`
+1. **Responsable del tratamiento**: identificación de Raúl Caro Pastorino y canal de contacto (`public@raupulus.dev`).
+2. **Finalidad y legitimación**:
+   - Gestión de consultas mediante formulario de contacto: base de consentimiento explícito e interés legítimo precontractual (Art. 6.1.a y 6.1.b RGPD).
+   - Analítica web agregada mediante Google Analytics: base de consentimiento previo (Art. 6.1.a RGPD).
+3. **Plazos de conservación de los datos**: criterios de retención conforme a prescripción de responsabilidades legales.
+4. **Destinatarios y transferencias internacionales**: proveedores de infraestructura, Cloudflare y Google LLC bajo el EU-US Data Privacy Framework.
+5. **Derechos de las personas interesadas (ARCO-POL)**: acceso, rectificación, supresión, oposición, limitación y portabilidad mediante correo a `public@raupulus.dev`, con derecho a reclamar ante la AEPD (`www.aepd.es`).
+6. **Medidas de seguridad**: cifrado TLS, headers HTTP de seguridad, control estricto de accesos.
 
 ## Relaciones con otros módulos
 
-- → [pagina-contact.md](./pagina-contact.md): enlace al formulario de contacto
-- → [layout-navegacion.md](./layout-navegacion.md): enlace desde el Footer
+- → [pagina-cookies.md](./pagina-cookies.md): detalle complementario de cookies y panel de preferencias
+- → [pagina-legal.md](./pagina-legal.md): aviso legal y términos de uso
+- → [pagina-contact.md](./pagina-contact.md): formulario de contacto
+- → [layout-navegacion.md](./layout-navegacion.md): enlace desde el pie de página
