@@ -13,33 +13,31 @@ pipelines:
         auto_update: true
 
     environment_variables:
-      NODE_ENV: production
+      NUXT_TELEMETRY_DISABLED: "1"
+      APP_URL: "https://raupulus.dev"
+      APP_DOMAIN: "raupulus.dev"
+      API_DOMAIN_URL: "https://api.raupulus.dev"
+      API_BASE_URL: "https://api.raupulus.dev/api/v2"
+      API_PATH_CONTACT: "contact-messages"
 
     stages:
-      - lint:
+      - quality:
           clean_workspace: true
           jobs:
-            lint:
+            quality:
               tasks:
                 - exec:
                     command: bash
                     arguments:
                       - -c
                       - |
-                        npm ci
-                        npm run lint
-
-      - test:
-          jobs:
-            test:
-              tasks:
-                - exec:
-                    command: bash
-                    arguments:
-                      - -c
-                      - |
-                        npm ci
-                        npm run test:run
+                        set -euo pipefail
+                        corepack enable pnpm || true
+                        pnpm install --frozen-lockfile
+                        pnpm lint
+                        pnpm exec vue-tsc --noEmit
+                        pnpm test:run
+                        pnpm audit --prod --audit-level=high
 
       - build:
           jobs:
@@ -54,8 +52,18 @@ pipelines:
                     arguments:
                       - -c
                       - |
-                        npm ci
-                        npm run generate
+                        set -euo pipefail
+                        corepack enable pnpm || true
+                        pnpm install --frozen-lockfile
+                        NODE_ENV=production pnpm generate
+
+                        # Verificar que el build no está vacío de proyectos
+                        ROUTES_COUNT=$(find .output/public/projects -name "index.html" 2>/dev/null | wc -l || echo 0)
+                        if [ "$ROUTES_COUNT" -le 1 ]; then
+                          echo "Error fatal: El build estático no contiene rutas de proyectos (encontradas: $ROUTES_COUNT)" >&2
+                          exit 1
+                        fi
+                        echo "Build generado con éxito ($ROUTES_COUNT páginas de proyectos)"
 
       - deploy:
           approval:
@@ -65,14 +73,52 @@ pipelines:
           jobs:
             deploy:
               tasks:
+                - fetch:
+                    stage: build
+                    job: generate
+                    source: dist/public
+                    destination: .output/public
                 - exec:
                     command: bash
                     arguments:
                       - -c
                       - |
-                        # Copiar archivos generados al directorio de producción
-                        rsync -avz --delete .output/public/ /var/www/public/www.raupulus.dev/.output/public/
+                        set -euo pipefail
+                        TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+                        RELEASES_DIR="/var/www/releases"
+                        RELEASE_PATH="$RELEASES_DIR/www.raupulus.dev_$TIMESTAMP"
+                        SYMLINK_PATH="/var/www/public/www.raupulus.dev"
 
-                        # Verificar que el despliegue fue exitoso
-                        curl -s -o /dev/null -w "%{http_code}" https://raupulus.dev | grep -q "200"
-                        echo "Despliegue completado exitosamente"
+                        mkdir -p "$RELEASE_PATH"
+                        # Si fetch trajo a .output/public o dist/public, sincronizar
+                        SOURCE_DIR=".output/public"
+                        if [ ! -d "$SOURCE_DIR" ] && [ -d "dist/public" ]; then
+                          SOURCE_DIR="dist/public"
+                        fi
+
+                        rsync -avz --delete "$SOURCE_DIR/" "$RELEASE_PATH/"
+
+                        # Conmutar enlace simbólico de forma atómica
+                        ln -sfn "$RELEASE_PATH" "${SYMLINK_PATH}_tmp"
+                        mv -Tf "${SYMLINK_PATH}_tmp" "$SYMLINK_PATH"
+
+                        # Purgar caché de Cloudflare si las credenciales están configuradas
+                        if [ -n "${CLOUDFLARE_ZONE_ID:-}" ] && [ -n "${CLOUDFLARE_API_TOKEN:-}" ]; then
+                          echo "Purgando caché perimetral en Cloudflare..."
+                          curl -fsS -X POST "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_ZONE_ID/purge_cache" \
+                            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+                            -H "Content-Type: application/json" \
+                            --data '{"purge_everything":true}' || echo "Aviso: no se pudo purgar Cloudflare"
+                        fi
+
+                        # Smoke test verificado con fallo real si no responde HTTP 200
+                        echo "Verificando respuesta del sitio..."
+                        HTTP_CODE=$(curl -fsS -o /dev/null -w "%{http_code}" https://raupulus.dev/)
+                        if [ "$HTTP_CODE" != "200" ]; then
+                          echo "Error fatal en verificación: HTTP $HTTP_CODE" >&2
+                          exit 1
+                        fi
+
+                        # Limpiar releases antiguas (mantener las 5 más recientes)
+                        ls -dt "$RELEASES_DIR"/www.raupulus.dev_* 2>/dev/null | tail -n +6 | xargs rm -rf 2>/dev/null || true
+                        echo "Despliegue atómico completado exitosamente"

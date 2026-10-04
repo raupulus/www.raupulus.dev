@@ -1,45 +1,92 @@
 #!/bin/bash
-set -e
+set -euo pipefail
 
 # Variables
-DEPLOY_DIR="/var/www/public/www.raupulus.dev"
-BACKUP_DIR="/var/www/backups/www.raupulus.dev"
+DEPLOY_BASE="/var/www"
+RELEASES_DIR="$DEPLOY_BASE/releases"
+SYMLINK_PATH="$DEPLOY_BASE/public/www.raupulus.dev"
 TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+RELEASE_PATH="$RELEASES_DIR/www.raupulus.dev_$TIMESTAMP"
+BACKUP_DIR="$DEPLOY_BASE/backups/www.raupulus.dev"
 
-echo "=== Iniciando despliegue de www.raupulus.dev ==="
+echo "=== Iniciando despliegue atómico de www.raupulus.dev ==="
 
-# Crear backup del directorio actual
-echo "Creando backup..."
+# Generar el sitio estático
+echo "Instalando dependencias y generando sitio estático..."
+corepack enable pnpm || true
+pnpm install --frozen-lockfile
+NODE_ENV=production pnpm generate
+
+# Verificar que el build contiene proyectos
+ROUTES_COUNT=$(find .output/public/projects -name "index.html" 2>/dev/null | wc -l || echo 0)
+if [ "$ROUTES_COUNT" -le 1 ] && [ -z "${ALLOW_EMPTY_PROJECTS:-}" ]; then
+    echo "❌ Error fatal: El build estático no contiene rutas de proyectos ($ROUTES_COUNT encontradas)." >&2
+    exit 1
+fi
+echo "✅ Build verificado ($ROUTES_COUNT páginas de proyectos encontradas)"
+
+# Crear directorio de release
+echo "Creando release en $RELEASE_PATH..."
+mkdir -p "$RELEASES_DIR"
 mkdir -p "$BACKUP_DIR"
-if [ -d "$DEPLOY_DIR/.output/public" ]; then
-    cp -r "$DEPLOY_DIR/.output/public" "$BACKUP_DIR/public_$TIMESTAMP"
+
+# Guardar referencia del target anterior si existe
+PREV_RELEASE=""
+if [ -L "$SYMLINK_PATH" ]; then
+    PREV_RELEASE=$(readlink "$SYMLINK_PATH" || true)
 fi
 
-# Generar el sitio
-echo "Generando sitio estático..."
-pnpm install --frozen-lockfile
-pnpm generate
+# Copiar archivos a la nueva release
+rsync -avz --delete .output/public/ "$RELEASE_PATH/"
 
-# Copiar archivos generados
-echo "Desplegando archivos..."
-rsync -avz --delete .output/public/ "$DEPLOY_DIR/.output/public/"
+# Conmutar enlace simbólico de forma atómica
+echo "Conmutando enlace simbólico a la nueva release..."
+ln -sfn "$RELEASE_PATH" "${SYMLINK_PATH}_tmp"
+mv -Tf "${SYMLINK_PATH}_tmp" "$SYMLINK_PATH"
 
-# Verificar despliegue
-echo "Verificando despliegue..."
-HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" https://raupulus.dev)
+# Purgar caché de Cloudflare si se dispone de credenciales
+if [ -n "${CLOUDFLARE_ZONE_ID:-}" ] && [ -n "${CLOUDFLARE_API_TOKEN:-}" ]; then
+    echo "Purgando caché de Cloudflare..."
+    curl -fsS -X POST "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_ZONE_ID/purge_cache" \
+        -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+        -H "Content-Type: application/json" \
+        --data '{"purge_everything":true}' || echo "⚠️ Aviso: No se pudo purgar la caché de Cloudflare"
+fi
 
-if [ "$HTTP_CODE" = "200" ]; then
-    echo "✅ Despliegue exitoso (HTTP $HTTP_CODE)"
+# Smoke tests de múltiples rutas
+echo "Ejecutando smoke tests de producción..."
+FAILED_TESTS=0
 
-    # Limpiar backups antiguos (mantener últimos 5)
-    ls -dt "$BACKUP_DIR"/public_* 2>/dev/null | tail -n +6 | xargs rm -rf 2>/dev/null || true
+check_status() {
+    local url="$1"
+    local expected="$2"
+    local code
+    code=$(curl -fsS -o /dev/null -w "%{http_code}" "$url" || echo "000")
+    if [ "$code" = "$expected" ]; then
+        echo "  [OK] $url -> HTTP $code"
+    else
+        echo "  [FALLO] $url -> esperado $expected, obtenido $code" >&2
+        FAILED_TESTS=$((FAILED_TESTS + 1))
+    fi
+}
+
+check_status "https://raupulus.dev/" "200"
+check_status "https://raupulus.dev/about/" "200"
+check_status "https://raupulus.dev/projects/" "200"
+check_status "https://raupulus.dev/non-existent-probe-route-404" "404"
+
+if [ "$FAILED_TESTS" -eq 0 ]; then
+    echo "✅ Todos los smoke tests han pasado con éxito"
+
+    # Limpiar releases antiguas (mantener las 5 más recientes)
+    ls -dt "$RELEASES_DIR"/www.raupulus.dev_* 2>/dev/null | tail -n +6 | xargs rm -rf 2>/dev/null || true
+    echo "=== Despliegue completado con éxito ==="
 else
-    echo "❌ Error en despliegue (HTTP $HTTP_CODE)"
-    echo "Restaurando backup..."
-    if [ -d "$BACKUP_DIR/public_$TIMESTAMP" ]; then
-        rsync -avz --delete "$BACKUP_DIR/public_$TIMESTAMP/" "$DEPLOY_DIR/.output/public/"
+    echo "❌ Error en smoke tests ($FAILED_TESTS fallos). Ejecutando rollback..." >&2
+    if [ -n "$PREV_RELEASE" ] && [ -d "$PREV_RELEASE" ]; then
+        ln -sfn "$PREV_RELEASE" "${SYMLINK_PATH}_tmp"
+        mv -Tf "${SYMLINK_PATH}_tmp" "$SYMLINK_PATH"
+        echo "✅ Rollback ejecutado a $PREV_RELEASE"
     fi
     exit 1
 fi
-
-echo "=== Despliegue completado ==="
