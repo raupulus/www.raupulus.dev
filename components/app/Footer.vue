@@ -13,12 +13,24 @@
             </div>
 
             <!-- Columna derecha: enlaces legales y estado del sistema -->
-            <div class="flex flex-wrap justify-center gap-8">
+            <div class="flex flex-wrap justify-center gap-6 md:gap-8">
                 <NuxtLink
                     to="/privacy/"
                     class="font-body text-xs tracking-widest uppercase text-on-surface-variant hover:text-tertiary transition-colors"
                 >
                     Política de Privacidad
+                </NuxtLink>
+                <NuxtLink
+                    to="/cookies/"
+                    class="font-body text-xs tracking-widest uppercase text-on-surface-variant hover:text-tertiary transition-colors"
+                >
+                    Cookies
+                </NuxtLink>
+                <NuxtLink
+                    to="/legal/"
+                    class="font-body text-xs tracking-widest uppercase text-on-surface-variant hover:text-tertiary transition-colors"
+                >
+                    Aviso Legal
                 </NuxtLink>
                 <NuxtLink
                     to="/contact/"
@@ -41,6 +53,9 @@
 </template>
 
 <script setup lang="ts">
-// Año actual para el copyright
-const currentYear = new Date().getFullYear()
+// Año actual para el copyright: fijado con base de compilación e hidratación cliente segura
+const currentYear = ref(2026)
+onMounted(() => {
+    currentYear.value = new Date().getFullYear()
+})
 </script>

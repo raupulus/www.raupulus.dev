@@ -1,85 +1,158 @@
 <template>
-  <div class="box-privacy">
-    <h1 style="text-align: center;">
-      Política de
-      <span class="text-primary font-bold">
-        Privacidad
-      </span>
-    </h1>
+  <div class="min-h-screen bg-background text-on-surface py-16 px-6 sm:px-8">
+    <article class="max-w-4xl mx-auto space-y-10">
+      <!-- Encabezado -->
+      <header class="border-b border-outline-variant/20 pb-8">
+        <span class="font-label text-xs uppercase tracking-[0.3em] text-secondary font-bold block mb-2">
+          Aviso de Privacidad y Protección de Datos
+        </span>
+        <h1 class="font-headline text-4xl sm:text-5xl font-bold tracking-tight text-primary">
+          Política de <span class="text-on-surface font-light">Privacidad</span>
+        </h1>
+        <p class="mt-4 text-sm font-label uppercase tracking-widest text-outline">
+          Última actualización: 5 de octubre de 2026 · Conforme al Reglamento General de Protección de Datos (RGPD) y LOPDGDD
+        </p>
+      </header>
 
-    <p>
-      En nombre de Raúl Caro Pastorino, creador de este sitio web, accesible desde
-      <NuxtLink to="/">
-        raupulus.dev
-      </NuxtLink>,
-      una de mis principales prioridades es la privacidad de nuestros visitantes.
+      <!-- Introducción -->
+      <section class="space-y-4 text-on-surface-variant leading-relaxed">
+        <p>
+          En cumplimiento del Reglamento (UE) 2016/679 del Parlamento Europeo y del Consejo (RGPD) y de la Ley Orgánica 3/2018 (LOPDGDD), se informa a los usuarios del sitio web
+          <NuxtLink to="/" class="text-primary hover:underline">raupulus.dev</NuxtLink>
+          sobre el tratamiento de los datos personales recabados y los derechos que les asisten.
+        </p>
+      </section>
 
-      Esta Política de Privacidad contiene tipos de información que es recopilada y registrada principalmente
-      para seguridad/estadística de intereses en las secciones y cómo la usamos.
-    </p>
+      <!-- 1. Responsable del tratamiento -->
+      <section class="space-y-3 bg-surface-container-low p-6 rounded-xl border border-outline-variant/20">
+        <h2 class="font-headline text-xl font-bold text-on-surface">1. Responsable del tratamiento</h2>
+        <ul class="space-y-1.5 text-sm text-on-surface-variant">
+          <li><strong>Titular:</strong> Raúl Caro Pastorino</li>
+          <li><strong>Identificación fiscal:</strong> [[COMPLETAR: NIF/CIF del responsable]]</li>
+          <li><strong>Domicilio postal:</strong> [[COMPLETAR: Domicilio o localidad del responsable]]</li>
+          <li><strong>Correo electrónico de contacto y privacidad:</strong> <a href="mailto:public@raupulus.dev" class="text-primary hover:underline">public@raupulus.dev</a></li>
+          <li><strong>Sitio web:</strong> <a href="https://raupulus.dev" class="text-primary hover:underline">https://raupulus.dev</a></li>
+        </ul>
+      </section>
 
-    <h2>1. Información que recopilamos</h2>
+      <!-- 2. Datos recopilados y finalidad -->
+      <section class="space-y-4 text-on-surface-variant leading-relaxed">
+        <h2 class="font-headline text-xl font-bold text-on-surface">2. Datos recopilados y finalidades del tratamiento</h2>
+        <p>Los datos personales recabados a través de este sitio web se limitan a:</p>
+        <div class="space-y-4">
+          <div class="border-l-2 border-primary pl-4">
+            <h3 class="font-headline font-bold text-base text-on-surface">Formulario de Contacto</h3>
+            <p class="text-sm mt-1">
+              <strong>Datos tratados:</strong> Nombre, dirección de correo electrónico, asunto y mensaje remitido por el usuario.<br>
+              <strong>Finalidad:</strong> Atender, tramitar y responder a las consultas, propuestas profesionales o solicitudes remitidas voluntariamente por el usuario.
+            </p>
+          </div>
+          <div class="border-l-2 border-secondary pl-4">
+            <h3 class="font-headline font-bold text-base text-on-surface">Seguridad y Prevención contra Spam (reCAPTCHA v3)</h3>
+            <p class="text-sm mt-1">
+              <strong>Datos tratados:</strong> Parámetros de interacción con el formulario (hardware, cabeceras del navegador, token de verificación generado por Google).<br>
+              <strong>Finalidad:</strong> Verificar que el remitente es un usuario legítimo y no un robot o script automatizado.
+            </p>
+          </div>
+          <div class="border-l-2 border-tertiary pl-4">
+            <h3 class="font-headline font-bold text-base text-on-surface">Cookies Analíticas (Opcionales)</h3>
+            <p class="text-sm mt-1">
+              <strong>Datos tratados:</strong> Métricas agregadas de visitas y navegación (Google Analytics con Consent Mode v2).<br>
+              <strong>Finalidad:</strong> Medición cuantitativa del rendimiento y uso del portfolio únicamente cuando el usuario otorga su consentimiento previo y expreso.
+            </p>
+          </div>
+        </div>
+      </section>
 
-    <p>Podemos recopilar y almacenar la siguiente información personal:</p>
+      <!-- 3. Base jurídica del tratamiento -->
+      <section class="space-y-4 text-on-surface-variant leading-relaxed">
+        <h2 class="font-headline text-xl font-bold text-on-surface">3. Base jurídica del tratamiento</h2>
+        <ul class="list-disc pl-6 space-y-2 text-sm">
+          <li><strong>Consentimiento del interesado (art. 6.1.a RGPD):</strong> Base que legitima el envío voluntario de mensajes mediante el formulario de contacto y la instalación de cookies analíticas opcionales mediante el banner de cookies.</li>
+          <li><strong>Interés legítimo (art. 6.1.f RGPD):</strong> Base que fundamenta el mantenimiento de la seguridad técnica de la plataforma web, la prevención de abusos informáticos y la protección frente a ataques de denegación de servicio o spam masivo.</li>
+        </ul>
+      </section>
 
-    <ul>
-      <li><strong>Datos de contacto:</strong> tales como nombre, dirección de correo electrónico. Solo al contactar
-        mediante el formulario de contacto por razones evidentes para poder identificar y responder manteniendo la
-        comunicación que abres conmigo.</li>
-      <li><strong>Datos de uso:</strong> información sobre cómo interactúas con nuestro sitio web a un nivel muy básico,
-        como las páginas que visitas y los enlaces en los que haces clic con el único fin de detectar problemas de
-        visibilidad o secciones poco interesantes en el sitio para mejorarlo.</li>
-    </ul>
+      <!-- 4. Destinatarios y encargados del tratamiento -->
+      <section class="space-y-4 text-on-surface-variant leading-relaxed">
+        <h2 class="font-headline text-xl font-bold text-on-surface">4. Destinatarios y transferencias internacionales</h2>
+        <p>No se ceden datos personales a terceros con fines comerciales ni publicitarios. Para la prestación de los servicios técnicos se recurre a los siguientes proveedores:</p>
+        <ul class="list-disc pl-6 space-y-2 text-sm">
+          <li><strong>Alojamiento e infraestructura:</strong> [[COMPLETAR: Nombre del proveedor del servidor/hosting]].</li>
+          <li><strong>Google Ireland Limited</strong> (Gordon House, Barrow Street, Dublin 4, Irlanda): Proveedor de los servicios Google reCAPTCHA v3 y Google Analytics. Las eventuales transferencias internacionales fuera del EEE se fundamentan en las Cláusulas Contractuales Tipo (SCC) aprobadas por la Comisión Europea.</li>
+        </ul>
+      </section>
 
-    <h2>2. Cómo usamos tu información</h2>
-    <p>La información que recopilamos se utiliza de las siguientes maneras:</p>
-    <ul>
-      <li>Para mejorar la experiencia en nuestro sitio web.</li>
-      <li>Para evitar mal uso del sitio web como envíos de correos ilegítimos por bots.</li>
-      <li>Para responder a tus consultas y solicitudes.</li>
-    </ul>
+      <!-- 5. Plazos de conservación -->
+      <section class="space-y-4 text-on-surface-variant leading-relaxed">
+        <h2 class="font-headline text-xl font-bold text-on-surface">5. Plazos de conservación de los datos</h2>
+        <p class="text-sm">
+          Los datos recabados mediante el formulario de contacto se conservarán durante el tiempo estrictamente necesario para resolver la consulta planteada o mantener la relación profesional, y como máximo durante un plazo de <strong>[[COMPLETAR: Plazo máximo de conservación, ej. 2 años]]</strong> desde el último contacto, tras lo cual se procederá a su supresión segura, salvo que existan responsabilidades legales o contractuales exigibles.
+        </p>
+      </section>
 
-    <h2>3. Cookies y tecnologías similares</h2>
-    <p>Nuestro sitio web utiliza cookies para mejorar la funcionalidad y el rendimiento del sitio. Las cookies son
-      pequeños archivos de texto que se almacenan en tu dispositivo cuando visitas ciertos sitios web.</p>
+      <!-- 6. Derechos de los usuarios -->
+      <section class="space-y-4 text-on-surface-variant leading-relaxed">
+        <h2 class="font-headline text-xl font-bold text-on-surface">6. Derechos de los interesados</h2>
+        <p class="text-sm">
+          Cualquier usuario puede ejercitar en cualquier momento y de forma gratuita sus derechos sobre sus datos personales:
+        </p>
+        <ul class="list-disc pl-6 space-y-1.5 text-sm">
+          <li><strong>Acceso:</strong> conocer qué datos personales están siendo tratados.</li>
+          <li><strong>Rectificación:</strong> solicitar la corrección de datos inexactos o incompletos.</li>
+          <li><strong>Supresión («derecho al olvido»):</strong> solicitar la eliminación de sus datos cuando ya no sean necesarios para los fines que fueron recabados.</li>
+          <li><strong>Limitación del tratamiento:</strong> solicitar que se suspenda el tratamiento de sus datos en los casos legalmente establecidos.</li>
+          <li><strong>Portabilidad:</strong> recibir sus datos en un formato estructurado y de lectura mecánica.</li>
+          <li><strong>Oposición:</strong> oponerse al tratamiento basado en interés legítimo.</li>
+          <li><strong>Revocación del consentimiento:</strong> retirar en cualquier momento los consentimientos otorgados sin que ello afecte a la licitud del tratamiento previo.</li>
+        </ul>
+        <p class="text-sm mt-3">
+          Para ejercitar cualquiera de estos derechos, dirija una comunicación escrita acreditando su identidad a: <a href="mailto:public@raupulus.dev" class="text-primary hover:underline">public@raupulus.dev</a>.
+        </p>
+      </section>
 
-    <h2>4. Cómo protegemos tu información</h2>
-    <p>Implementamos medidas de seguridad técnicas y organizativas adecuadas para proteger tus datos personales contra
-      el acceso no autorizado, la alteración, la divulgación o la destrucción.</p>
+      <!-- 7. Reclamación ante la autoridad de control -->
+      <section class="space-y-3 bg-surface-container-low p-6 rounded-xl border border-outline-variant/20">
+        <h2 class="font-headline text-xl font-bold text-on-surface">7. Autoridad de control</h2>
+        <p class="text-sm text-on-surface-variant">
+          Si considera que el tratamiento de sus datos personales vulnera la normativa vigente, tiene derecho a presentar una reclamación ante la
+          <strong>Agencia Española de Protección de Datos (AEPD)</strong> a través de su sede electrónica (<a href="https://www.aepd.es" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">www.aepd.es</a>) o por correo postal a C/ Jorge Juan, 6, 28001 - Madrid.
+        </p>
+      </section>
 
-    <h2>5. Compartir información con terceros</h2>
-    <p>No vendo, intercambio ni transfiero tu información personal a terceros. Esto no incluye a terceros de
-      confianza que nos asisten en la operación del sitio web, siempre que estas partes acuerden mantener esta
-      información confidencial.</p>
+      <!-- 8. Política de cookies -->
+      <section class="space-y-4 text-on-surface-variant leading-relaxed">
+        <h2 class="font-headline text-xl font-bold text-on-surface">8. Cookies</h2>
+        <p class="text-sm">
+          Para más información sobre las cookies empleadas en este sitio web, sus finalidades y cómo configurarlas o revocarlas, consulte nuestra
+          <NuxtLink to="/cookies/" class="text-primary hover:underline">Política de Cookies</NuxtLink>.
+        </p>
+      </section>
 
-    <h2>6. Enlaces a otros sitios web</h2>
-    <p>Este sitio web puede contener enlaces a otros sitios web que no están operados por nosotros. No tenemos
-      control sobre el contenido y las prácticas de privacidad de esos sitios.</p>
-
-    <h2>7. Cambios a esta Política de Privacidad</h2>
-    <p>Nos reservamos el derecho de actualizar esta Política de Privacidad en cualquier momento. Te notificaremos
-      cualquier cambio publicando la nueva Política de Privacidad en esta página.</p>
-
-    <h2>8. Contacto</h2>
-    <p>
-      Si tienes alguna pregunta sobre esta Política de Privacidad, puedes contactarnos a través
-      <NuxtLink to="/contact">
-        del formulario de contacto
-      </NuxtLink>
-    </p>
+      <!-- Footer navegación -->
+      <footer class="pt-8 border-t border-outline-variant/20 flex flex-wrap gap-4 justify-between items-center text-xs font-label uppercase tracking-widest text-outline">
+        <NuxtLink to="/" class="hover:text-primary transition-colors flex items-center gap-2">
+          <UiMaterialIcon name="arrow_forward" class="rotate-180 text-sm" />
+          Volver al Inicio
+        </NuxtLink>
+        <NuxtLink to="/contact/" class="hover:text-primary transition-colors">
+          Ir al formulario de contacto
+        </NuxtLink>
+      </footer>
+    </article>
   </div>
 </template>
 
 <script lang="ts" setup>
 const runtimeConfig = useRuntimeConfig()
+const url = runtimeConfig.public.app.url
 
-const url = runtimeConfig.public.app.url;
-const title = 'Política de Privacidad - Raúl Caro Pastorino | Desarrollador Web Full Stack Backend';
-const description = 'Lee la política de privacidad de Raúl Caro Pastorino para entender cómo se recopila, usa y protege tu información personal en este sitio web de portfolio profesional.';
-const keywords = 'política de privacidad, Raúl Caro Pastorino, desarrollador web, privacidad, protección de datos, información personal';
+const title = 'Política de Privacidad · Raúl Caro Pastorino'
+const description = 'Información detallada sobre el tratamiento de datos personales conforme al RGPD y LOPDGDD en el sitio web de Raúl Caro Pastorino.'
+const keywords = 'política de privacidad, RGPD, LOPDGDD, protección de datos, derechos ARCO, Raúl Caro Pastorino'
 
 useHead({
-  title: title,
+  title,
   meta: [
     { name: 'description', content: description },
     { name: 'keywords', content: keywords },
@@ -87,71 +160,15 @@ useHead({
     { property: 'og:type', content: 'website' },
     { property: 'og:title', content: title },
     { property: 'og:description', content: description },
-    { property: 'og:url', content: url + '/privacy' },
-    { property: 'og:image', content: url + '/social/privacy.webp' },
+    { property: 'og:url', content: `${url}/privacy/` },
+    { property: 'og:image', content: `${url}/social/privacy.webp` },
     { name: 'twitter:card', content: 'summary_large_image' },
     { name: 'twitter:title', content: title },
     { name: 'twitter:description', content: description },
-    { name: 'twitter:image', content: url + '/social/privacy.webp' }
-  ]
-});
+    { name: 'twitter:image', content: `${url}/social/privacy.webp` },
+  ],
+  link: [
+    { rel: 'canonical', href: `${url}/privacy/` },
+  ],
+})
 </script>
-
-<style scoped>
-/* Contenedor de la política de privacidad (la clase no existía en ningún CSS global) */
-.box-privacy {
-  margin: 0 auto;
-  padding: 3rem 2rem 6rem;
-  max-width: 56rem;
-  box-sizing: border-box;
-}
-
-.box-privacy h1 {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 2.5rem;
-  font-weight: 700;
-  letter-spacing: -0.025em;
-  margin-bottom: 2rem;
-}
-
-@media (min-width: 768px) {
-  .box-privacy h1 {
-    font-size: 3.5rem;
-  }
-}
-
-.box-privacy h2 {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 1.5rem;
-  font-weight: 700;
-  letter-spacing: -0.025em;
-  color: var(--color-primary);
-  margin: 2.5rem 0 1rem;
-}
-
-.box-privacy p,
-.box-privacy li {
-  color: var(--color-on-surface-variant);
-  line-height: 1.7;
-}
-
-.box-privacy ul {
-  padding-left: 1.5rem;
-  margin: 1rem 0;
-  list-style: disc;
-}
-
-.box-privacy li {
-  margin-bottom: 0.75rem;
-}
-
-.box-privacy a {
-  color: var(--color-tertiary);
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
-
-.box-privacy a:hover {
-  color: var(--color-primary);
-}
-</style>

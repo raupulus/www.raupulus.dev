@@ -1,0 +1,6 @@
+# Security Policy for raupulus.dev
+Contact: mailto:public@raupulus.dev
+Expires: 2027-10-04T00:00:00.000Z
+Preferred-Languages: es, en
+Canonical: https://raupulus.dev/.well-known/security.txt
+Policy: https://raupulus.dev/privacy/

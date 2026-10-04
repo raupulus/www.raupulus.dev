@@ -15,10 +15,6 @@ export default defineNuxtConfig({
     ssr: true,
     devtools: { enabled: process.env.NODE_ENV !== 'production' },
 
-    plugins: [
-
-    ],
-
     routeRules: {
         '/_proxy/api/**': {
             proxy: `${process.env.API_DOMAIN_URL || 'http://localhost:8000'}/api/**`,
@@ -30,9 +26,6 @@ export default defineNuxtConfig({
     },
 
     runtimeConfig: {
-        captcha: {
-            secretKey: process.env.CAPTCHA_SITE_PRIVATE_KEY,
-        },
         public: {
             app: {
                 name: process.env.APP_NAME,
@@ -64,20 +57,20 @@ export default defineNuxtConfig({
                 { name: 'application-name', content: 'raupulus.dev' },
                 { name: 'keywords', content: 'Raúl Caro Pastorino, raupulus, desarrollador, desarrollador web, web developer, iot, maker, php, laravel, vue, vue3, vuejs, nuxt, js, javascript, python, bash, linux, Raul Caro Pastorino' },
                 { name: 'author', content: 'Raúl Caro Pastorino' },
+                { name: 'color-scheme', content: 'dark' },
                 { name: 'twitter:card', content: 'summary_large_image' },
                 { name: 'twitter:site', content: '@raupulus' },
                 { name: 'twitter:creator', content: '@raupulus' },
                 { name: 'twitter:title', content: 'Raúl Caro Pastorino' },
                 { name: 'twitter:description', content: 'Desarrollador Web Backend, Laravel & Vuejs (@raupulus)' },
-                { name: 'twitter:image', content: 'https://raw.githubusercontent.com/raupulus/raupulus/master/images/banner.webp' },
+                { name: 'twitter:image', content: 'https://raupulus.dev/logo_512x512.png' },
                 { property: 'og:title', content: 'Raúl Caro Pastorino' },
                 { property: 'og:type', content: 'website' },
-                { property: 'og:url', content: 'https://raupulus.dev' },
-                { property: 'og:image', content: 'https://raw.githubusercontent.com/raupulus/raupulus/master/images/banner.webp' },
+                { property: 'og:url', content: 'https://raupulus.dev/' },
+                { property: 'og:image', content: 'https://raupulus.dev/logo_512x512.png' },
                 { property: 'og:description', content: 'Desarrollador Web Backend, Laravel & Vuejs (@raupulus)' },
                 { property: 'og:site_name', content: 'Portfolio de Raúl Caro Pastorino' },
                 { property: 'og:locale', content: 'es_ES' },
-                { property: 'og:locale:alternate', content: 'en_US' },
             ],
             htmlAttrs: { dir: 'ltr', lang: 'es' },
 
@@ -131,8 +124,8 @@ export default defineNuxtConfig({
     // Fuentes self-hosted (descargadas en build, servidas desde el propio dominio)
     fonts: {
         families: [
-            { name: 'Space Grotesk', provider: 'google', weights: [300, 400, 500, 600, 700] },
-            { name: 'Plus Jakarta Sans', provider: 'google', weights: [300, 400, 500, 600, 700] },
+            { name: 'Space Grotesk', provider: 'google', weights: [400, 700] },
+            { name: 'Plus Jakarta Sans', provider: 'google', weights: [400, 500, 700] },
         ],
     },
 
@@ -301,7 +294,8 @@ export default defineNuxtConfig({
                     },
                     // Lista de enlaces
                     links: {
-                        '/privacy': 'Política de Privacidad',
+                        '/privacy/': 'Política de Privacidad',
+                        '/cookies/': 'Política de Cookies',
                     },
                 },
             ],
@@ -317,8 +311,7 @@ export default defineNuxtConfig({
                         es: 'Estas cookies proporcionan datos analíticos sobre el tráfico del sitio.',
                     },
                     isPreselected: false,
-                    //src: 'https://example.com/analytics/js?id=<API-KEY>',
-                    //targetCookieIds: ['_ga', '_gid', 'google-analytics'], // IDs de cookies objetivo
+                    targetCookieIds: ['_ga', '_gid'],
                 },
             ],
         },
