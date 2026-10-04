@@ -26,3 +26,53 @@ describe('projectsData', () => {
         expect(typeof module.usefetchProjectsPaginated).toBe('function')
     })
 })
+
+describe('usefetchProjectsPaginated (API V2)', () => {
+    beforeEach(() => {
+        vi.resetModules()
+        vi.restoreAllMocks()
+    })
+
+    it('pagina el listado con meta y añade el índice de páginas de cada proyecto', async () => {
+        const project = (slug: string, pages_count: number) => ({ id: 1, slug, title: slug, excerpt: null, image: null, pages_count })
+        const responses: Record<string, unknown> = {
+            'contents?type=project&page=1&per_page=100': {
+                success: true, message: 'ok',
+                data: [project('uno', 2)],
+                meta: { total: 2, per_page: 1, current_page: 1, last_page: 2, from: 1, to: 1 },
+            },
+            'contents?type=project&page=2&per_page=100': {
+                success: true, message: 'ok',
+                data: [project('dos', 0)],
+                meta: { total: 2, per_page: 1, current_page: 2, last_page: 2, from: 2, to: 2 },
+            },
+            'contents/uno/pages?limit=100': {
+                success: true, message: 'ok',
+                data: [
+                    { id: 10, order: 1, title: 'About', slug: 'about', format: 'editorjs', body: { blocks: [] } },
+                    { id: 11, order: 2, title: 'Hardware', slug: 'hardware', format: 'editorjs', body: { blocks: [] } },
+                ],
+            },
+        }
+
+        const fetchMock = vi.fn().mockImplementation(async (url: string) => {
+            const key = Object.keys(responses).find(k => url.endsWith(`/platforms/portfolio/${k}`))
+            return { ok: !!key, status: key ? 200 : 404, json: async () => (key ? responses[key] : {}) }
+        })
+        vi.stubGlobal('fetch', fetchMock)
+
+        const { usefetchProjectsPaginated } = await import('~/composables/projectsData')
+        const projects = await usefetchProjectsPaginated()
+
+        expect(projects.map(p => p.slug)).toEqual(['uno', 'dos'])
+        expect(projects[0]!.pages).toEqual([
+            { id: 10, order: 1, title: 'About', slug: 'about', format: 'editorjs' },
+            { id: 11, order: 2, title: 'Hardware', slug: 'hardware', format: 'editorjs' },
+        ])
+        // Sin páginas no se piden (y nunca se llama al detalle, que suma visitas)
+        expect(projects[1]!.pages).toBeUndefined()
+        expect(fetchMock).toHaveBeenCalledTimes(3)
+
+        vi.unstubAllGlobals()
+    })
+})

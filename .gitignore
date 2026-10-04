@@ -1,6 +1,10 @@
 # Dependencias
 node_modules
 
+# Entornos virtuales de Python locales
+.venv*
+venv
+
 # Build y caché de Nuxt/Nitro
 .nuxt
 .nitro

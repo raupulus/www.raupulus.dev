@@ -57,11 +57,33 @@ export type BlockQuoteType = BlockType & {
     }
 }
 
+/**
+ * Lista de Editor.js. Llega en dos formatos según cuándo se guardó la página:
+ * - Antiguo: `items` es un array de textos.
+ * - `@editorjs/list` 2.x: `items` son objetos anidables, con estilo
+ *   `checklist` y numeración configurable (`meta.counterType`, `meta.start`).
+ */
 export type BlockListType = BlockType & {
     data: {
-        style: string, // ordered, unordered
-        items: string[],
+        style: BlockListStyleType,
+        meta?: {
+            counterType?: BlockListCounterType,
+            start?: number,
+        },
+        items: (string | BlockListItemType)[],
     }
+}
+
+export type BlockListStyleType = 'ordered' | 'unordered' | 'checklist'
+
+export type BlockListCounterType = 'numeric' | 'lower-roman' | 'upper-roman' | 'lower-alpha' | 'upper-alpha'
+
+export type BlockListItemType = {
+    content: string,
+    meta?: {
+        checked?: boolean,
+    },
+    items?: BlockListItemType[],
 }
 
 export type BlockCheckListType = BlockType & {

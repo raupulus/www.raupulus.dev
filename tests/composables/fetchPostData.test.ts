@@ -33,16 +33,16 @@ describe('fetchPostData', () => {
         const fetchMock = vi.fn().mockResolvedValue({
             ok: true,
             status: 200,
-            json: async () => ({ ok: true }),
+            json: async () => ({ success: true, message: 'Mensaje recibido correctamente', data: null }),
         })
         vi.stubGlobal('fetch', fetchMock)
 
         const { default: fetchPost } = await import('~/composables/fetchPostData')
-        await fetchPost('https://api.test/contact/send', { foo: 'bar' })
+        await fetchPost('https://api.test/api/v2/contact-messages', { foo: 'bar' })
 
         expect(fetchMock).toHaveBeenCalledTimes(1)
         const [url, options] = fetchMock.mock.calls[0]!
-        expect(url).toBe('https://api.test/contact/send')
+        expect(url).toBe('https://api.test/api/v2/contact-messages')
         expect(options.headers['X-XSRF-TOKEN']).toBe('token=con+caracteres')
         expect(options.credentials).toBe('include')
         expect(JSON.parse(options.body)).toEqual({ foo: 'bar' })
@@ -50,7 +50,7 @@ describe('fetchPostData', () => {
 
     it('fetchPost solicita el token CSRF si no hay cookie previa', async () => {
         const fetchMock = vi.fn().mockImplementation(async (url: string) => {
-            if (url.includes('/auth/csrf-cookie')) {
+            if (url.includes('/sanctum/csrf-cookie')) {
                 document.cookie = 'XSRF-TOKEN=nuevo-token; path=/'
                 return { ok: true, status: 204, json: async () => ({}) }
             }
@@ -59,17 +59,17 @@ describe('fetchPostData', () => {
         vi.stubGlobal('fetch', fetchMock)
 
         const { default: fetchPost } = await import('~/composables/fetchPostData')
-        await fetchPost('https://api.test/contact/send', {})
+        await fetchPost('https://api.test/api/v2/contact-messages', {})
 
         expect(fetchMock).toHaveBeenCalledTimes(2)
-        expect(fetchMock.mock.calls[0]![0]).toContain('/auth/csrf-cookie')
+        expect(fetchMock.mock.calls[0]![0]).toContain('/sanctum/csrf-cookie')
         expect(fetchMock.mock.calls[1]![1].headers['X-XSRF-TOKEN']).toBe('nuevo-token')
     })
 
     it('fetchPost devuelve el JSON aunque la respuesta sea un error de validación (4xx)', async () => {
         document.cookie = 'XSRF-TOKEN=token; path=/'
 
-        const apiError = { messages: { errors: { email: ['El email no es válido'] } } }
+        const apiError = { success: false, message: 'Datos no válidos', errors: { email: ['El email no es válido'] } }
         vi.stubGlobal('fetch', vi.fn().mockResolvedValue({
             ok: false,
             status: 422,
@@ -77,23 +77,23 @@ describe('fetchPostData', () => {
         }))
 
         const { default: fetchPost } = await import('~/composables/fetchPostData')
-        const result = await fetchPost('https://api.test/contact/send', {})
+        const result = await fetchPost('https://api.test/api/v2/contact-messages', {})
 
         expect(result).toEqual(apiError)
     })
 
-    it('fetchPost devuelve el formato de error de seguridad de la API (status ko)', async () => {
+    it('fetchPost devuelve el error de límite de envíos de la API (429)', async () => {
         document.cookie = 'XSRF-TOKEN=token; path=/'
 
-        const apiError = { status: 'ko', error: { httpCode: 403, message: 'Origen erróneo' } }
+        const apiError = { success: false, message: 'Demasiadas peticiones' }
         vi.stubGlobal('fetch', vi.fn().mockResolvedValue({
             ok: false,
-            status: 403,
+            status: 429,
             json: async () => apiError,
         }))
 
         const { default: fetchPost } = await import('~/composables/fetchPostData')
-        const result = await fetchPost('https://api.test/contact/send', {})
+        const result = await fetchPost('https://api.test/api/v2/contact-messages', {})
 
         expect(result).toEqual(apiError)
     })
@@ -109,6 +109,6 @@ describe('fetchPostData', () => {
 
         const { default: fetchPost } = await import('~/composables/fetchPostData')
 
-        await expect(fetchPost('https://api.test/contact/send', {})).rejects.toThrow('HTTP 500')
+        await expect(fetchPost('https://api.test/api/v2/contact-messages', {})).rejects.toThrow('HTTP 500')
     })
 })

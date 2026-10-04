@@ -5,7 +5,7 @@
  *   const data = await apiGet<MyType>('/endpoint');
  *
  * Uso en nuxt.config.ts (sin contexto Nuxt):
- *   const data = await apiFetchRaw<MyType>('https://api.raupulus.dev/api/v1/endpoint');
+ *   const data = await apiFetchRaw<MyType>('https://api.raupulus.dev/api/v2/endpoint');
  */
 
 /**
@@ -49,7 +49,7 @@ export async function apiPost<T>(path: string, body: Record<string, unknown>): P
   const csrfToken = useCookie('XSRF-TOKEN');
 
   if (!csrfToken.value) {
-    await fetchCsrfTokenInternal(API_BASE);
+    await fetchCsrfTokenInternal(runtimeConfig.public.api.domain);
   }
 
   try {
@@ -77,11 +77,11 @@ export async function apiPost<T>(path: string, body: Record<string, unknown>): P
 }
 
 /**
- * Fetch CSRF token desde la API.
+ * Fetch CSRF token desde la API (Sanctum, en el dominio de la API, fuera de /api/v2).
  */
-async function fetchCsrfTokenInternal(apiBase: string): Promise<void> {
+async function fetchCsrfTokenInternal(apiDomain: string): Promise<void> {
   try {
-    const response = await fetch(`${apiBase}/auth/csrf-cookie`, {
+    const response = await fetch(`${apiDomain}/sanctum/csrf-cookie`, {
       credentials: 'include',
     });
 
