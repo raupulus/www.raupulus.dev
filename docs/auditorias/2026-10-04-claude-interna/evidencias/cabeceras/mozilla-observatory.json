@@ -1,0 +1,13 @@
+{
+    "id": 125544724,
+    "details_url": "https://developer.mozilla.org/en-US/observatory/analyze?host=raupulus.dev",
+    "algorithm_version": 6,
+    "scanned_at": "2026-10-04T16:55:22.651Z",
+    "error": null,
+    "grade": "C",
+    "score": 50,
+    "status_code": 200,
+    "tests_failed": 3,
+    "tests_passed": 9,
+    "tests_quantity": 12
+}

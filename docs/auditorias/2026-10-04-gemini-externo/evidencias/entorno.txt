@@ -1,0 +1,69 @@
+Fecha y hora: 2026-10-04T16:46:15Z
+SO: Darwin MacBook-Pro-14-M1-Pro-de-Raul.local 27.0.0 Darwin Kernel Version 27.0.0: Tue Aug 11 21:22:49 PDT 2026; root:xnu-13432.1.9~1/RELEASE_ARM64_T6000 arm64
+Node: v26.10.0
+NPM: 11.19.1
+Git HEAD: 05acdf145484a640a2df12ed39a94a236e6ab0ae
+Git Branch: dev
+Git Remotes:
+origin	https://gitlab.com/raupulus/www.raupulus.dev.git (fetch)
+origin	https://gitlab.com/raupulus/www.raupulus.dev.git (push)
+origin	https://github.com/raupulus/www.raupulus.dev.git (push)
+Git Status Inicial:
+ M .gitignore
+ M components/app/Footer.vue
+ M components/app/Header.vue
+ M components/card/Project.vue
+ M components/card/ProjectHorizontal.vue
+ M components/card/ProjectVertical.vue
+ M components/content/blocks/BlockList.vue
+ M components/content/contentPaginator.vue
+ M components/grid/Projects.vue
+ M components/grid/Technologies.vue
+ M components/icons/Youtube.vue
+ M components/modals/ImageSlide.vue
+ M components/modals/projectShow.vue
+ M composables/fetchPageData.ts
+ M composables/fetchPostData.ts
+ M composables/platformData.ts
+ M composables/projectsData.ts
+ M composables/useApiBase.ts
+ M env.example
+ M env.example.production
+ M eslint.config.mjs
+ M nuxt.config.ts
+ M pages/about.vue
+ M pages/blog.vue
+ M pages/contact.vue
+ M pages/index.vue
+ M pages/projects/[...slugs].vue
+ M pages/social.vue
+ M tests/composables/fetchPageData.test.ts
+ M tests/composables/fetchPostData.test.ts
+ M tests/composables/projectsData.test.ts
+ M types/ApiResponse.ts
+ M types/BlocksType.ts
+ M types/ContentPageType.ts
+ M types/ContentType.ts
+ M types/MetadataType.ts
+ D types/PaginationType.ts
+ M types/Platform/AuthorType.ts
+ M types/Platform/ContentPageResumeType.ts
+ M types/Platform/ContentResumeType.ts
+ M types/Platform/PlatformDataType.ts
+ M types/Platform/PlatformSocialNetworkType.ts
+ D types/SearchParamsType.ts
+ M types/TechnologyType.ts
+ M utils/apiClient.ts
+?? components/content/blocks/BlockListItems.vue
+?? docs/auditorias/
+?? tests/components/content/blocks/BlockList.test.ts
+?? tests/utils/ContentUtils.test.ts
+?? types/ImageType.ts
+?? utils/ContentUtils.ts
+Producción Headers (curl -sSI https://raupulus.dev):
+HTTP/1.1 200 OK
+
+HTTP/2 403 
+content-type: text/plain; charset=utf-8
+date: Sun, 04 Oct 2026 16:46:16 GMT
+

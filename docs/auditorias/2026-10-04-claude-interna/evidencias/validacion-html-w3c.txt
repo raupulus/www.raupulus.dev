@@ -1,0 +1,60 @@
+## index.html errores: 0 avisos: 1
+## projects/index.html errores: 4 avisos: 2
+   2 × CSS: “line-clamp”: Property “line-clamp” doesn't exist.
+   1 × CSS: “align-items”: “top” is not a “align-items” value.
+   1 × The heading “h3” (with computed level 3) follows the heading “h1” (with computed level 1), skipping 1 heading level.
+## contact/index.html errores: 3 avisos: 1
+   2 × A “link” element with an “as” attribute must have a “rel” attribute that contains the value “preload” or the value “modulepreload”.
+   1 × The heading “h3” (with computed level 3) follows the heading “h1” (with computed level 1), skipping 1 heading level.
+## about/index.html errores: 51 avisos: 5
+   1 × Bad value “/_ipx/s_250x141/images/pages/about/gallery/1_250px.webp 0w” for attribute “srcset” on element “img”: Expected number greater than
+   1 × Bad value “/_ipx/s_250x141/images/pages/about/gallery/2_250px.webp 0w” for attribute “srcset” on element “img”: Expected number greater than
+   1 × Bad value “/_ipx/s_250x141/images/pages/about/gallery/3_250px.webp 0w” for attribute “srcset” on element “img”: Expected number greater than
+   1 × Bad value “/_ipx/s_250x141/images/pages/about/gallery/4_250px.webp 0w” for attribute “srcset” on element “img”: Expected number greater than
+   1 × Bad value “/_ipx/s_250x141/images/pages/about/gallery/5_250px.webp 0w” for attribute “srcset” on element “img”: Expected number greater than
+   1 × Bad value “/_ipx/s_250x141/images/pages/about/gallery/6_250px.webp 0w” for attribute “srcset” on element “img”: Expected number greater than
+   1 × Bad value “/_ipx/s_250x141/images/pages/about/gallery/7_250px.webp 0w” for attribute “srcset” on element “img”: Expected number greater than
+   1 × Bad value “/_ipx/s_250x141/images/pages/about/gallery/8_250px.webp 0w” for attribute “srcset” on element “img”: Expected number greater than
+   1 × Bad value “/_ipx/s_250x141/images/pages/about/gallery/9_250px.webp 0w” for attribute “srcset” on element “img”: Expected number greater than
+   1 × Bad value “/_ipx/s_250x141/images/pages/about/gallery/10_250px.webp 0w” for attribute “srcset” on element “img”: Expected number greater tha
+   1 × Bad value “/_ipx/s_250x141/images/pages/about/gallery/11_250px.webp 0w” for attribute “srcset” on element “img”: Expected number greater tha
+   1 × Bad value “/_ipx/s_250x141/images/pages/about/gallery/12_250px.webp 0w” for attribute “srcset” on element “img”: Expected number greater tha
+   1 × Bad value “/_ipx/s_250x141/images/pages/about/gallery/13_250px.webp 0w” for attribute “srcset” on element “img”: Expected number greater tha
+   1 × Bad value “/_ipx/s_250x141/images/pages/about/gallery/14_250px.webp 0w” for attribute “srcset” on element “img”: Expected number greater tha
+   1 × Bad value “/_ipx/s_250x141/images/pages/about/gallery/15_250px.webp 0w” for attribute “srcset” on element “img”: Expected number greater tha
+   1 × Bad value “/_ipx/s_250x141/images/pages/about/gallery/16_250px.webp 0w” for attribute “srcset” on element “img”: Expected number greater tha
+   1 × Bad value “/_ipx/s_250x141/images/pages/about/gallery/17_250px.webp 0w” for attribute “srcset” on element “img”: Expected number greater tha
+   1 × Bad value “/_ipx/s_250x141/images/pages/about/gallery/18_250px.webp 0w” for attribute “srcset” on element “img”: Expected number greater tha
+   1 × Bad value “/_ipx/s_250x141/images/pages/about/gallery/19_250px.webp 0w” for attribute “srcset” on element “img”: Expected number greater tha
+   1 × Bad value “/_ipx/s_250x141/images/pages/about/gallery/20_250px.webp 0w” for attribute “srcset” on element “img”: Expected number greater tha
+   1 × Bad value “/_ipx/s_250x141/images/pages/about/gallery/21_250px.webp 0w” for attribute “srcset” on element “img”: Expected number greater tha
+   1 × Bad value “/_ipx/s_250x141/images/pages/about/gallery/22_250px.webp 0w” for attribute “srcset” on element “img”: Expected number greater tha
+   1 × Bad value “/_ipx/s_250x141/images/pages/about/gallery/23_250px.webp 0w” for attribute “srcset” on element “img”: Expected number greater tha
+   1 × Bad value “/_ipx/s_250x141/images/pages/about/gallery/24_250px.webp 0w” for attribute “srcset” on element “img”: Expected number greater tha
+   1 × Bad value “/_ipx/s_250x141/images/pages/about/gallery/25_250px.webp 0w” for attribute “srcset” on element “img”: Expected number greater tha
+   1 × Bad value “/_ipx/s_250x141/images/pages/about/gallery/26_250px.webp 0w” for attribute “srcset” on element “img”: Expected number greater tha
+   1 × Bad value “/_ipx/s_250x141/images/pages/about/gallery/27_250px.webp 0w” for attribute “srcset” on element “img”: Expected number greater tha
+   1 × Bad value “/_ipx/s_250x141/images/pages/about/gallery/28_250px.webp 0w” for attribute “srcset” on element “img”: Expected number greater tha
+   1 × Bad value “/_ipx/s_250x141/images/pages/about/gallery/29_250px.webp 0w” for attribute “srcset” on element “img”: Expected number greater tha
+   1 × Bad value “/_ipx/s_250x141/images/pages/about/gallery/30_250px.webp 0w” for attribute “srcset” on element “img”: Expected number greater tha
+   1 × Bad value “/_ipx/s_250x141/images/pages/about/gallery/31_250px.webp 0w” for attribute “srcset” on element “img”: Expected number greater tha
+   1 × Bad value “/_ipx/s_250x141/images/pages/about/gallery/32_250px.webp 0w” for attribute “srcset” on element “img”: Expected number greater tha
+   1 × Bad value “/_ipx/s_250x141/images/pages/about/gallery/33_250px.webp 0w” for attribute “srcset” on element “img”: Expected number greater tha
+   1 × Bad value “/_ipx/s_250x141/images/pages/about/gallery/34_250px.webp 0w” for attribute “srcset” on element “img”: Expected number greater tha
+   1 × Bad value “/_ipx/s_250x141/images/pages/about/gallery/35_250px.webp 0w” for attribute “srcset” on element “img”: Expected number greater tha
+   1 × Bad value “/_ipx/s_250x141/images/pages/about/gallery/36_250px.webp 0w” for attribute “srcset” on element “img”: Expected number greater tha
+   1 × Bad value “/_ipx/s_250x141/images/pages/about/gallery/37_250px.webp 0w” for attribute “srcset” on element “img”: Expected number greater tha
+   1 × Bad value “/_ipx/s_250x141/images/pages/about/gallery/38_250px.webp 0w” for attribute “srcset” on element “img”: Expected number greater tha
+   1 × Bad value “/_ipx/s_250x141/images/pages/about/gallery/39_250px.webp 0w” for attribute “srcset” on element “img”: Expected number greater tha
+   1 × Bad value “/_ipx/s_250x141/images/pages/about/gallery/40_250px.webp 0w” for attribute “srcset” on element “img”: Expected number greater tha
+   1 × Bad value “/_ipx/s_250x141/images/pages/about/gallery/41_250px.webp 0w” for attribute “srcset” on element “img”: Expected number greater tha
+   1 × Bad value “/_ipx/s_250x141/images/pages/about/gallery/42_250px.webp 0w” for attribute “srcset” on element “img”: Expected number greater tha
+   1 × Bad value “/_ipx/s_250x141/images/pages/about/gallery/43_250px.webp 0w” for attribute “srcset” on element “img”: Expected number greater tha
+   1 × Bad value “/_ipx/s_250x141/images/pages/about/gallery/44_250px.webp 0w” for attribute “srcset” on element “img”: Expected number greater tha
+   1 × Bad value “/_ipx/s_250x141/images/pages/about/gallery/45_250px.webp 0w” for attribute “srcset” on element “img”: Expected number greater tha
+   1 × Bad value “/_ipx/s_250x141/images/pages/about/gallery/46_250px.webp 0w” for attribute “srcset” on element “img”: Expected number greater tha
+   1 × Bad value “/_ipx/s_250x141/images/pages/about/gallery/47_250px.webp 0w” for attribute “srcset” on element “img”: Expected number greater tha
+   1 × Bad value “/_ipx/s_250x141/images/pages/about/gallery/48_250px.webp 0w” for attribute “srcset” on element “img”: Expected number greater tha
+   1 × Bad value “/_ipx/s_250x141/images/pages/about/gallery/49_250px.webp 0w” for attribute “srcset” on element “img”: Expected number greater tha
+   1 × Bad value “/_ipx/s_250x141/images/pages/about/gallery/50_250px.webp 0w” for attribute “srcset” on element “img”: Expected number greater tha
+   1 × The heading “h3” (with computed level 3) follows the heading “h1” (with computed level 1), skipping 1 heading level.

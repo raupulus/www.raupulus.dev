@@ -1,0 +1,38 @@
+npm warn Unknown project config "shamefully-hoist". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+[@nuxtjs/sitemap] ℹ No dynamic sources detected. Consider enabling zeroRuntime to reduce server bundle size. See https://nuxtseo.com/sitemap/guides/zero-runtime
+[@nuxtjs/sitemap] ℹ No dynamic sources detected. Consider enabling zeroRuntime to reduce server bundle size. See https://nuxtseo.com/sitemap/guides/zero-runtime
+[@nuxtjs/sitemap] ℹ No dynamic sources detected. Consider enabling zeroRuntime to reduce server bundle size. See https://nuxtseo.com/sitemap/guides/zero-runtime
+[@nuxtjs/sitemap] ℹ No dynamic sources detected. Consider enabling zeroRuntime to reduce server bundle size. See https://nuxtseo.com/sitemap/guides/zero-runtime
+[@nuxtjs/sitemap] ℹ No dynamic sources detected. Consider enabling zeroRuntime to reduce server bundle size. See https://nuxtseo.com/sitemap/guides/zero-runtime
+[@nuxtjs/sitemap] ℹ No dynamic sources detected. Consider enabling zeroRuntime to reduce server bundle size. See https://nuxtseo.com/sitemap/guides/zero-runtime
+Unused files (13)
+assets/css/tailwind.css                     
+components/Alert.vue                        
+components/card/Project.vue                 
+components/card/Skill.vue                   
+components/card/Vertical.vue                
+components/content/blocks/BlockListItems.vue
+components/form/Select.vue                  
+components/HeaderImage.vue                  
+components/icons/Info.vue                   
+components/SpecializationBadge.vue          
+components/StackBadge.vue                   
+components/Trajectory.vue                   
+utils/apiClient.ts                          
+Unused devDependencies (4)
+@nuxt/devtools  package.json:21:6
+ts-node         package.json:36:6
+tsconfig-paths  package.json:37:6
+vue-tsc         package.json:40:6
+Unlisted dependencies (4)
+vue                      components/content/blocks/BlockQuote.vue:2:27
+vue                      composables/projectsData.ts:1:28             
+vue                      pages/projects/[...slugs].vue:2:29           
+vitest-environment-nuxt  vitest.config.ts                             
+Unused exports (1)
+useApiDomain  function  composables/useApiBase.ts:31:17
+Unused exported types (4)
+ProjectsSearchParamsType  type  composables/projectsData.ts:15:13
+ContentTaxonomyType       type  types/ContentType.ts:47:13       
+ContentMetatagsType       type  utils/ContentUtils.ts:90:13      
+NormalizedListItemType    type  utils/ContentUtils.ts:137:13     

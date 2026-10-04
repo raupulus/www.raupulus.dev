@@ -1,0 +1,45 @@
+# Verificaciones de la consolidación — 2026-10-04 22:42 CEST
+
+## pnpm (gestor oficial del proyecto)
+pnpm --version: 12.9.1
+pnpm install --frozen-lockfile (copia limpia del árbol de trabajo): OK
+Done in 10.8s using pnpm v12.9.1
+pnpm lint: 0 errores, 36 avisos
+pnpm exec vue-tsc --noEmit: exit 0
+pnpm test:run: Test Files 10 passed · Tests 45 passed
+pnpm test:coverage: MISSING DEPENDENCY @vitest/coverage-v8 (exit 1)
+pnpm audit: {"info":0,"low":6,"moderate":24,"high":47,"critical":1}
+pnpm audit --prod: {"info":0,"low":4,"moderate":11,"high":6,"critical":0}
+NODE_ENV=production pnpm install --frozen-lockfile: instala devDependencies (eslint, nuxi, nuxt y vitest presentes en node_modules/.bin)
+NODE_ENV=production npm ci (sesión anterior): 71 paquetes, sin eslint/nuxi/vitest
+gocd.yaml sigue usando npm ci en las líneas 29, 41 y 57
+
+## Desbordamiento horizontal de la home (build nuevo con pnpm, http://localhost:4174)
+chromium 320px → scrollWidth=437 clientWidth=320 h2.scrollWidth=405 h2.clientWidth=256
+chromium 360px → scrollWidth=437 clientWidth=360 h2.scrollWidth=405 h2.clientWidth=296
+chromium 390px → scrollWidth=437 clientWidth=390 h2.scrollWidth=405 h2.clientWidth=326
+chromium 430px → scrollWidth=437 clientWidth=430 h2.scrollWidth=405 h2.clientWidth=366
+chromium 768px → scrollWidth=768 clientWidth=768 h2.scrollWidth=704 h2.clientWidth=704
+webkit 320px → scrollWidth=437 clientWidth=314 h2.scrollWidth=405 h2.clientWidth=250
+webkit 360px → scrollWidth=437 clientWidth=354 h2.scrollWidth=405 h2.clientWidth=290
+webkit 390px → scrollWidth=437 clientWidth=384 h2.scrollWidth=405 h2.clientWidth=320
+webkit 430px → scrollWidth=437 clientWidth=424 h2.scrollWidth=405 h2.clientWidth=360
+webkit 768px → scrollWidth=762 clientWidth=762 h2.scrollWidth=698 h2.clientWidth=698
+
+## API pública (GET pasivos)
+contents?type=project → "total":0
+hosts en /platforms/portfolio →    7 https:\/\/api.raupulus.dev    1 https:\/\/raupulus.dev    1 https:\/\/www.youtube.com 
+(a las 18:45 los campos image.* y author.url_image_* apuntaban a evil.example; ver auditoría claude-interna)
+
+## Código actual
+BlockLinkTool.vue:4 →  <a class="r-web-preview-link" target="_blank" rel="nofollow noindex noreferrer" :href="linkTool.data.link">
+BlockListItems.vue → etiquetas:    5 <div 
+BlockTable.vue → elementos <caption>: 0 · atributos scope=: 0
+BlockImage.vue:35 → asigna image.data.caption = image?.data?.caption?.replace(…).trim() (muta la prop)
+public/patterns/a.png: 482141 bytes; referencias: 0
+ProjectVertical.vue:25-28 → raíz <div> con @click (sin enlace)
+projectShow.vue:124 z-index: 11 · Header.vue:4 z-50
+Sitemap del build actual: 7 URLs, /blog: 0; robots de /blog: content="noindex, follow"
+HTML de producción: <main> = 0; isPreselected: isPreselected:true; gtag id: initMode:"auto",id:""
+npm ci --dry-run con package-lock.json (afirmación G:DEP-002): sin errores de desincronización
+Stack Overflow /users/82651 con user agent de navegador: 403

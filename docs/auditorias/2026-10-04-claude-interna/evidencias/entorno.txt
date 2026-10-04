@@ -1,0 +1,81 @@
+Auditoría interna — claude-interna
+Fecha: 2026-10-04 18:47:00 CEST
+SO: macOS 27.0.1 (arm64)
+Node: v26.10.0  npm: 11.19.1
+Java: The operation couldn’t be completed. Unable to locate a Java Runtime.
+Chrome: Google Chrome 154.0.8037.98 
+curl: curl 8.7.1 (x86_64-apple-darwin26.0) libcurl/8.7.1 (SecureTransport) LibreSSL/3.3.6 zlib/1.2.12 nghttp2/1.69.0
+
+Commit (HEAD): 05acdf145484a640a2df12ed39a94a236e6ab0ae
+Rama: dev
+Remotos:
+origin	https://gitlab.com/raupulus/www.raupulus.dev.git (fetch)
+origin	https://gitlab.com/raupulus/www.raupulus.dev.git (push)
+origin	https://github.com/raupulus/www.raupulus.dev.git (push)
+
+Cambios sin commitear al iniciar (      51 entradas):
+ M .gitignore
+ M components/app/Footer.vue
+ M components/app/Header.vue
+ M components/card/Project.vue
+ M components/card/ProjectHorizontal.vue
+ M components/card/ProjectVertical.vue
+ M components/content/blocks/BlockList.vue
+ M components/content/contentPaginator.vue
+ M components/grid/Projects.vue
+ M components/grid/Technologies.vue
+ M components/icons/Youtube.vue
+ M components/modals/ImageSlide.vue
+ M components/modals/projectShow.vue
+ M composables/fetchPageData.ts
+ M composables/fetchPostData.ts
+ M composables/platformData.ts
+ M composables/projectsData.ts
+ M composables/useApiBase.ts
+ M env.example
+ M env.example.production
+ M eslint.config.mjs
+ M nuxt.config.ts
+ M pages/about.vue
+ M pages/blog.vue
+ M pages/contact.vue
+ M pages/index.vue
+ M pages/projects/[...slugs].vue
+ M pages/social.vue
+ M tests/composables/fetchPageData.test.ts
+ M tests/composables/fetchPostData.test.ts
+ M tests/composables/projectsData.test.ts
+ M types/ApiResponse.ts
+ M types/BlocksType.ts
+ M types/ContentPageType.ts
+ M types/ContentType.ts
+ M types/MetadataType.ts
+ D types/PaginationType.ts
+ M types/Platform/AuthorType.ts
+ M types/Platform/ContentPageResumeType.ts
+ M types/Platform/ContentResumeType.ts
+ M types/Platform/PlatformDataType.ts
+ M types/Platform/PlatformSocialNetworkType.ts
+ D types/SearchParamsType.ts
+ M types/TechnologyType.ts
+ M utils/apiClient.ts
+?? components/content/blocks/BlockListItems.vue
+?? docs/auditorias/
+?? tests/components/content/blocks/BlockList.test.ts
+?? tests/utils/ContentUtils.test.ts
+?? types/ImageType.ts
+?? utils/ContentUtils.ts
+
+Build auditado: npm run generate con APP_URL=https://raupulus.dev API_BASE_URL=https://api.raupulus.dev/api/v2 (el .env local apunta a localhost:8000)
+
+Producción (cabeceras de / en el momento de la auditoría):
+HTTP/2 200 
+date: Sun, 04 Oct 2026 16:47:01 GMT
+content-type: text/html
+server: cloudflare
+cf-cache-status: DYNAMIC
+last-modified: Fri, 11 Sep 2026 12:56:28 GMT
+vary: Accept-Encoding
+strict-transport-security: max-age=0; includeSubDomains; preload
+alt-svc: h3=":443"; ma=86400
+

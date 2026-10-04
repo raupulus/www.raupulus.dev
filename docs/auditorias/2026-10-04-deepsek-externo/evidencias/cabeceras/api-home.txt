@@ -1,0 +1,19 @@
+HTTP/2 200 
+date: Sun, 04 Oct 2026 18:19:35 GMT
+content-type: text/html; charset=utf-8
+server: cloudflare
+cache-control: no-cache, private
+x-content-type-options: nosniff
+x-frame-options: SAMEORIGIN
+referrer-policy: strict-origin-when-cross-origin
+permissions-policy: accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()
+strict-transport-security: max-age=0; includeSubDomains; preload
+set-cookie: XSRF-TOKEN=eyJpdiI6InVPcnBnaDRFREF5K1RxcjcrNS9Ja1E9PSIsInZhbHVlIjoiZkZUemZUdHErR1ozVFJuRHVvU1dlUW5GMURjbFMvMTQyVTczSmd0VW9WMTNmOGFHQ1FPSlJtOVZOR0pYcXN0ckQvcERuS1V6WlREQ3FIYWdqWEhwZyt2Wk16aWthSjNROXROUzY2cGdiLy9wbzN5Tk1HSDZLOXJaM2lGZndlMkoiLCJtYWMiOiJiZTIzZWIzMmY2MWU0MTRlOTIwZjY3Y2Q3YzIxNDZiN2QyNDU2MzUyZjQ2NjA5MjMwM2QyNDU1MDYwNTZhMDhhIiwidGFnIjoiIn0%3D; expires=Mon, 05 Oct 2026 04:19:35 GMT; Max-Age=36000; path=/; domain=api.raupulus.dev; secure; samesite=lax
+set-cookie: api_raupulus_session=eyJpdiI6ImtQRlJQMWZLSm1PbFBjQ0djWU81c2c9PSIsInZhbHVlIjoiWU05cXNxOEtiTEVLWVpkUDQzMmdKN3pZN1ZtcWkrSHhVRmVyQTRuQVFkajBVS054ZTJjNXBNR2MwMXJRS3ZuMHdFb1dBTkNUVmVHNGN0SkFTWldHcjBiakc2R1VvMk5uY25STmUzajBHd2xhRmdJaVZhYTF1ZjJ1dno2ZDNUVlIiLCJtYWMiOiI3ZTA0OWUyYmFhODYzMzc1NzAxNTQxZjBhZDc1ZThhZjliOGU4Y2Y3MjYwMjMwMjI5NmJmMzg1MzJhZDJjNDczIiwidGFnIjoiIn0%3D; expires=Mon, 05 Oct 2026 04:19:35 GMT; Max-Age=36000; path=/; domain=api.raupulus.dev; secure; httponly; samesite=lax
+x-xss-protection: 1; mode=block
+cf-cache-status: DYNAMIC
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=0gOtW9lmn%2FIp6m12%2FF3F%2F%2FXSsjkek4dX9zIbcL9sH7LnewdpfJCd2va5Bi7Sv2eFZvkfzUJ76UJz1c6z%2FBJmD2%2FGeI1Ja64NMt%2FDbDOe3bH9Aw%2FNYXgLmScXkgyIMPMMrGcE"}]}
+cf-ray: a456321c9ca85570-MAD
+alt-svc: h3=":443"; ma=86400
+

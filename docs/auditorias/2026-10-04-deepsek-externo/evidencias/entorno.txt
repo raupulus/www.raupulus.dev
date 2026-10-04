@@ -1,0 +1,74 @@
+# Ficha del entorno — Auditoría externa deepsek-externo
+
+- Fecha y hora: 2026-10-04 16:47 UTC (hora local Madrid)
+- Sistema operativo: macOS (darwin), shell zsh
+- Node.js: v26.10.0
+- npm: 11.19.1
+- Commit auditado: 05acdf145484a640a2df12ed39a94a236e6ab0ae ("Add professional profile report and public bio note", 2026-07-04)
+- Rama: dev
+- Cambios sin commitear: 51 entradas en `git status --porcelain` (ver `git-status-inicial.txt` en carpeta temporal)
+- Remotos:
+  - fetch: https://gitlab.com/raupulus/www.raupulus.dev.git
+  - push:  https://gitlab.com/raupulus/www.raupulus.dev.git (origin)
+  - push:  https://github.com/raupulus/www.raupulus.dev.git
+- URL producción: https://raupulus.dev
+- API pública: https://api.raupulus.dev
+
+## Cabeceras de producción (captura inicial)
+
+### GET / (raupulus.dev)
+
+```
+HTTP/2 200
+date: Sun, 04 Oct 2026 16:47:01 GMT
+content-type: text/html
+server: cloudflare
+cf-cache-status: DYNAMIC
+last-modified: Fri, 11 Sep 2026 12:56:28 GMT
+vary: Accept-Encoding
+strict-transport-security: max-age=0; includeSubDomains; preload
+alt-svc: h3=":443"; ma=86400
+```
+
+Observaciones: sin CSP, sin X-Content-Type-Options, HSTS con max-age=0 (inefectivo).
+`last-modified` indica que producción data del 11/09/2026 (3+ semanas antes de la auditoría).
+
+### GET / (api.raupulus.dev)
+
+```
+HTTP/2 200
+content-type: text/html; charset=utf-8
+server: cloudflare
+cache-control: no-cache, private
+x-content-type-options: nosniff
+x-frame-options: SAMEORIGIN
+referrer-policy: strict-origin-when-cross-origin
+permissions-policy: accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()
+strict-transport-security: max-age=0; includeSubDomains; preload
+set-cookie: XSRF-TOKEN=... (expires 36000s, path=/, domain=api.raupulus.dev, secure, samesite=lax)
+set-cookie: api_raupulus_session=... (expires 36000s, path=/, domain=api.raupulus.dev, secure, httponly, samesite=lax)
+x-xss-protection: 1; mode=block
+```
+
+Observaciones: XSRF-TOKEN no httponly (necesario para lectura JS), sesión httponly.
+Cabecera obsoleta X-XSS-Protection presente. HSTS max-age=0.
+
+### /robots.txt
+
+```
+HTTP/2 200
+content-type: text/plain
+cf-cache-status: HIT
+etag: "43-65b349d4006ef"
+
+User-agent: *
+Disallow:
+
+Sitemap: https://raupulus.dev/sitemap.xml
+```
+
+## Herramientas disponibles (se irán registrando según se usen)
+
+- curl, dig, openssl, git
+- Playwright: por verificar (npx)
+- Lighthouse: por verificar (npx)

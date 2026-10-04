@@ -1,0 +1,4 @@
+notBefore=Aug 10 10:43:50 2026 GMT
+notAfter=Nov  8 11:43:45 2026 GMT
+issuer=C=US, O=Google Trust Services, CN=WE1
+subject=CN=raupulus.dev

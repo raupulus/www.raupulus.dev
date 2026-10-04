@@ -1,0 +1,921 @@
+[
+    {
+        "label": "/ inicial",
+        "viewport": "1280x800",
+        "violations": [
+            {
+                "id": "color-contrast",
+                "impact": "serious",
+                "tags": ["wcag2aa", "wcag143"],
+                "help": "Elements must meet minimum color contrast ratio thresholds",
+                "nodes": 4,
+                "sample": [
+                    {
+                        "target": ".md\\:text-left > .font-body.text-outline-variant.text-xs",
+                        "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.98 (foreground color: #414751, background color: #091421, font size: 9.0pt (12px), font weight: normal). Expected contrast rati"
+                    },
+                    {
+                        "target": "a[href$=\"privacy\"]",
+                        "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.98 (foreground color: #414751, background color: #091421, font size: 9.0pt (12px), font weight: normal). Expected contrast rati"
+                    },
+                    {
+                        "target": ".hover\\:text-tertiary.font-body[href$=\"contact\"]",
+                        "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.98 (foreground color: #414751, background color: #091421, font size: 9.0pt (12px), font weight: normal). Expected contrast rati"
+                    }
+                ]
+            }
+        ],
+        "incomplete": [
+            {
+                "id": "color-contrast",
+                "nodes": 27
+            }
+        ]
+    },
+    {
+        "label": "/ inicial",
+        "viewport": "390x844",
+        "violations": [
+            {
+                "id": "color-contrast",
+                "impact": "serious",
+                "tags": ["wcag2aa", "wcag143"],
+                "help": "Elements must meet minimum color contrast ratio thresholds",
+                "nodes": 4,
+                "sample": [
+                    {
+                        "target": ".md\\:text-left > .font-body.text-outline-variant.text-xs",
+                        "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.98 (foreground color: #414751, background color: #091421, font size: 9.0pt (12px), font weight: normal). Expected contrast rati"
+                    },
+                    {
+                        "target": "a[href$=\"privacy\"]",
+                        "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.98 (foreground color: #414751, background color: #091421, font size: 9.0pt (12px), font weight: normal). Expected contrast rati"
+                    },
+                    {
+                        "target": ".hover\\:text-tertiary.font-body[href$=\"contact\"]",
+                        "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.98 (foreground color: #414751, background color: #091421, font size: 9.0pt (12px), font weight: normal). Expected contrast rati"
+                    }
+                ]
+            }
+        ],
+        "incomplete": [
+            {
+                "id": "color-contrast",
+                "nodes": 26
+            }
+        ]
+    },
+    {
+        "label": "/projects inicial",
+        "viewport": "1280x800",
+        "violations": [
+            {
+                "id": "color-contrast",
+                "impact": "serious",
+                "tags": ["wcag2aa", "wcag143"],
+                "help": "Elements must meet minimum color contrast ratio thresholds",
+                "nodes": 4,
+                "sample": [
+                    {
+                        "target": ".text-center > .text-outline-variant.font-body.text-xs",
+                        "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.98 (foreground color: #414751, background color: #091421, font size: 9.0pt (12px), font weight: normal). Expected contrast rati"
+                    },
+                    {
+                        "target": "a[href$=\"privacy\"]",
+                        "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.98 (foreground color: #414751, background color: #091421, font size: 9.0pt (12px), font weight: normal). Expected contrast rati"
+                    },
+                    {
+                        "target": ".hover\\:text-tertiary.text-outline-variant[href$=\"contact\"]",
+                        "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.98 (foreground color: #414751, background color: #091421, font size: 9.0pt (12px), font weight: normal). Expected contrast rati"
+                    }
+                ]
+            },
+            {
+                "id": "heading-order",
+                "impact": "moderate",
+                "tags": [],
+                "help": "Heading levels should only increase by one",
+                "nodes": 1,
+                "sample": [
+                    {
+                        "target": ".tracking-\\[0\\.2em\\]",
+                        "summary": "Fix any of the following:\n  Heading order invalid"
+                    }
+                ]
+            }
+        ],
+        "incomplete": [
+            {
+                "id": "color-contrast",
+                "nodes": 2
+            }
+        ]
+    },
+    {
+        "label": "/projects inicial",
+        "viewport": "390x844",
+        "violations": [
+            {
+                "id": "color-contrast",
+                "impact": "serious",
+                "tags": ["wcag2aa", "wcag143"],
+                "help": "Elements must meet minimum color contrast ratio thresholds",
+                "nodes": 4,
+                "sample": [
+                    {
+                        "target": ".text-center > .text-outline-variant.font-body.text-xs",
+                        "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.98 (foreground color: #414751, background color: #091421, font size: 9.0pt (12px), font weight: normal). Expected contrast rati"
+                    },
+                    {
+                        "target": "a[href$=\"privacy\"]",
+                        "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.98 (foreground color: #414751, background color: #091421, font size: 9.0pt (12px), font weight: normal). Expected contrast rati"
+                    },
+                    {
+                        "target": ".hover\\:text-tertiary.text-outline-variant[href$=\"contact\"]",
+                        "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.98 (foreground color: #414751, background color: #091421, font size: 9.0pt (12px), font weight: normal). Expected contrast rati"
+                    }
+                ]
+            },
+            {
+                "id": "heading-order",
+                "impact": "moderate",
+                "tags": [],
+                "help": "Heading levels should only increase by one",
+                "nodes": 1,
+                "sample": [
+                    {
+                        "target": ".tracking-\\[0\\.2em\\]",
+                        "summary": "Fix any of the following:\n  Heading order invalid"
+                    }
+                ]
+            }
+        ],
+        "incomplete": [
+            {
+                "id": "color-contrast",
+                "nodes": 1
+            }
+        ]
+    },
+    {
+        "label": "/about inicial",
+        "viewport": "1280x800",
+        "violations": [
+            {
+                "id": "color-contrast",
+                "impact": "serious",
+                "tags": ["wcag2aa", "wcag143"],
+                "help": "Elements must meet minimum color contrast ratio thresholds",
+                "nodes": 4,
+                "sample": [
+                    {
+                        "target": ".text-center > .text-outline-variant.font-body.text-xs",
+                        "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.98 (foreground color: #414751, background color: #091421, font size: 9.0pt (12px), font weight: normal). Expected contrast rati"
+                    },
+                    {
+                        "target": "a[href$=\"privacy\"]",
+                        "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.98 (foreground color: #414751, background color: #091421, font size: 9.0pt (12px), font weight: normal). Expected contrast rati"
+                    },
+                    {
+                        "target": ".hover\\:text-tertiary.text-outline-variant[href$=\"contact\"]",
+                        "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.98 (foreground color: #414751, background color: #091421, font size: 9.0pt (12px), font weight: normal). Expected contrast rati"
+                    }
+                ]
+            },
+            {
+                "id": "heading-order",
+                "impact": "moderate",
+                "tags": [],
+                "help": "Heading levels should only increase by one",
+                "nodes": 1,
+                "sample": [
+                    {
+                        "target": ".bg-surface-container-high.rounded-xl.border:nth-child(1) > .bg-primary.py-4.px-8 > h3",
+                        "summary": "Fix any of the following:\n  Heading order invalid"
+                    }
+                ]
+            }
+        ],
+        "incomplete": [
+            {
+                "id": "color-contrast",
+                "nodes": 4
+            }
+        ]
+    },
+    {
+        "label": "/about inicial",
+        "viewport": "390x844",
+        "violations": [
+            {
+                "id": "color-contrast",
+                "impact": "serious",
+                "tags": ["wcag2aa", "wcag143"],
+                "help": "Elements must meet minimum color contrast ratio thresholds",
+                "nodes": 4,
+                "sample": [
+                    {
+                        "target": ".text-center > .text-outline-variant.font-body.text-xs",
+                        "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.98 (foreground color: #414751, background color: #091421, font size: 9.0pt (12px), font weight: normal). Expected contrast rati"
+                    },
+                    {
+                        "target": "a[href$=\"privacy\"]",
+                        "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.98 (foreground color: #414751, background color: #091421, font size: 9.0pt (12px), font weight: normal). Expected contrast rati"
+                    },
+                    {
+                        "target": ".hover\\:text-tertiary.text-outline-variant[href$=\"contact\"]",
+                        "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.98 (foreground color: #414751, background color: #091421, font size: 9.0pt (12px), font weight: normal). Expected contrast rati"
+                    }
+                ]
+            },
+            {
+                "id": "heading-order",
+                "impact": "moderate",
+                "tags": [],
+                "help": "Heading levels should only increase by one",
+                "nodes": 1,
+                "sample": [
+                    {
+                        "target": ".bg-surface-container-high.rounded-xl.border:nth-child(1) > .bg-primary.py-4.px-8 > h3",
+                        "summary": "Fix any of the following:\n  Heading order invalid"
+                    }
+                ]
+            }
+        ],
+        "incomplete": [
+            {
+                "id": "color-contrast",
+                "nodes": 3
+            }
+        ]
+    },
+    {
+        "label": "/webs inicial",
+        "viewport": "1280x800",
+        "violations": [
+            {
+                "id": "color-contrast",
+                "impact": "serious",
+                "tags": ["wcag2aa", "wcag143"],
+                "help": "Elements must meet minimum color contrast ratio thresholds",
+                "nodes": 4,
+                "sample": [
+                    {
+                        "target": ".text-center > .text-outline-variant.font-body.tracking-widest",
+                        "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.98 (foreground color: #414751, background color: #091421, font size: 9.0pt (12px), font weight: normal). Expected contrast rati"
+                    },
+                    {
+                        "target": "a[href$=\"privacy\"]",
+                        "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.98 (foreground color: #414751, background color: #091421, font size: 9.0pt (12px), font weight: normal). Expected contrast rati"
+                    },
+                    {
+                        "target": ".hover\\:text-tertiary.text-outline-variant[href$=\"contact\"]",
+                        "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.98 (foreground color: #414751, background color: #091421, font size: 9.0pt (12px), font weight: normal). Expected contrast rati"
+                    }
+                ]
+            }
+        ],
+        "incomplete": [
+            {
+                "id": "color-contrast",
+                "nodes": 6
+            }
+        ]
+    },
+    {
+        "label": "/webs inicial",
+        "viewport": "390x844",
+        "violations": [
+            {
+                "id": "color-contrast",
+                "impact": "serious",
+                "tags": ["wcag2aa", "wcag143"],
+                "help": "Elements must meet minimum color contrast ratio thresholds",
+                "nodes": 4,
+                "sample": [
+                    {
+                        "target": ".text-center > .text-outline-variant.font-body.tracking-widest",
+                        "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.98 (foreground color: #414751, background color: #091421, font size: 9.0pt (12px), font weight: normal). Expected contrast rati"
+                    },
+                    {
+                        "target": "a[href$=\"privacy\"]",
+                        "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.98 (foreground color: #414751, background color: #091421, font size: 9.0pt (12px), font weight: normal). Expected contrast rati"
+                    },
+                    {
+                        "target": ".hover\\:text-tertiary.text-outline-variant[href$=\"contact\"]",
+                        "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.98 (foreground color: #414751, background color: #091421, font size: 9.0pt (12px), font weight: normal). Expected contrast rati"
+                    }
+                ]
+            }
+        ],
+        "incomplete": [
+            {
+                "id": "color-contrast",
+                "nodes": 5
+            }
+        ]
+    },
+    {
+        "label": "/social inicial",
+        "viewport": "1280x800",
+        "violations": [
+            {
+                "id": "color-contrast",
+                "impact": "serious",
+                "tags": ["wcag2aa", "wcag143"],
+                "help": "Elements must meet minimum color contrast ratio thresholds",
+                "nodes": 4,
+                "sample": [
+                    {
+                        "target": ".text-center > .text-outline-variant.font-body.tracking-widest",
+                        "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.98 (foreground color: #414751, background color: #091421, font size: 9.0pt (12px), font weight: normal). Expected contrast rati"
+                    },
+                    {
+                        "target": "a[href$=\"privacy\"]",
+                        "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.98 (foreground color: #414751, background color: #091421, font size: 9.0pt (12px), font weight: normal). Expected contrast rati"
+                    },
+                    {
+                        "target": ".hover\\:text-tertiary.text-outline-variant[href$=\"contact\"]",
+                        "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.98 (foreground color: #414751, background color: #091421, font size: 9.0pt (12px), font weight: normal). Expected contrast rati"
+                    }
+                ]
+            },
+            {
+                "id": "heading-order",
+                "impact": "moderate",
+                "tags": [],
+                "help": "Heading levels should only increase by one",
+                "nodes": 1,
+                "sample": [
+                    {
+                        "target": ".grid.grid-cols-1.md\\:grid-cols-12:nth-child(1) > .md\\:col-span-8.relative.overflow-hidden > div:nth-child(2) > .gap-3.mb-6.items-center > div:nth-child(2) > .text-2xl",
+                        "summary": "Fix any of the following:\n  Heading order invalid"
+                    }
+                ]
+            }
+        ],
+        "incomplete": [
+            {
+                "id": "color-contrast",
+                "nodes": 4
+            }
+        ]
+    },
+    {
+        "label": "/social inicial",
+        "viewport": "390x844",
+        "violations": [
+            {
+                "id": "color-contrast",
+                "impact": "serious",
+                "tags": ["wcag2aa", "wcag143"],
+                "help": "Elements must meet minimum color contrast ratio thresholds",
+                "nodes": 4,
+                "sample": [
+                    {
+                        "target": ".text-center > .text-outline-variant.font-body.tracking-widest",
+                        "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.98 (foreground color: #414751, background color: #091421, font size: 9.0pt (12px), font weight: normal). Expected contrast rati"
+                    },
+                    {
+                        "target": "a[href$=\"privacy\"]",
+                        "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.98 (foreground color: #414751, background color: #091421, font size: 9.0pt (12px), font weight: normal). Expected contrast rati"
+                    },
+                    {
+                        "target": ".hover\\:text-tertiary.text-outline-variant[href$=\"contact\"]",
+                        "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.98 (foreground color: #414751, background color: #091421, font size: 9.0pt (12px), font weight: normal). Expected contrast rati"
+                    }
+                ]
+            },
+            {
+                "id": "heading-order",
+                "impact": "moderate",
+                "tags": [],
+                "help": "Heading levels should only increase by one",
+                "nodes": 1,
+                "sample": [
+                    {
+                        "target": ".grid.grid-cols-1.md\\:grid-cols-12:nth-child(1) > .md\\:col-span-8.relative.overflow-hidden > div:nth-child(2) > .gap-3.mb-6.items-center > div:nth-child(2) > .text-2xl",
+                        "summary": "Fix any of the following:\n  Heading order invalid"
+                    }
+                ]
+            }
+        ],
+        "incomplete": [
+            {
+                "id": "color-contrast",
+                "nodes": 4
+            }
+        ]
+    },
+    {
+        "label": "/contact inicial",
+        "viewport": "1280x800",
+        "violations": [
+            {
+                "id": "aria-input-field-name",
+                "impact": "serious",
+                "tags": ["wcag2a", "wcag412"],
+                "help": "ARIA input fields must have an accessible name",
+                "nodes": 1,
+                "sample": [
+                    {
+                        "target": ".min-h-\\[160px\\]",
+                        "summary": "Fix any of the following:\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  El"
+                    }
+                ]
+            },
+            {
+                "id": "color-contrast",
+                "impact": "serious",
+                "tags": ["wcag2aa", "wcag143"],
+                "help": "Elements must meet minimum color contrast ratio thresholds",
+                "nodes": 4,
+                "sample": [
+                    {
+                        "target": ".text-center > .text-outline-variant.font-body.text-xs",
+                        "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.98 (foreground color: #414751, background color: #091421, font size: 9.0pt (12px), font weight: normal). Expected contrast rati"
+                    },
+                    {
+                        "target": ".hover\\:text-tertiary.text-outline-variant[href$=\"privacy\"]",
+                        "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.98 (foreground color: #414751, background color: #091421, font size: 9.0pt (12px), font weight: normal). Expected contrast rati"
+                    },
+                    {
+                        "target": ".flex-wrap.gap-8.justify-center > .router-link-active.router-link-exact-active[aria-current=\"page\"]",
+                        "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.98 (foreground color: #414751, background color: #091421, font size: 9.0pt (12px), font weight: normal). Expected contrast rati"
+                    }
+                ]
+            },
+            {
+                "id": "heading-order",
+                "impact": "moderate",
+                "tags": [],
+                "help": "Heading levels should only increase by one",
+                "nodes": 1,
+                "sample": [
+                    {
+                        "target": "h3",
+                        "summary": "Fix any of the following:\n  Heading order invalid"
+                    }
+                ]
+            },
+            {
+                "id": "region",
+                "impact": "moderate",
+                "tags": [],
+                "help": "All page content should be contained by landmarks",
+                "nodes": 1,
+                "sample": [
+                    {
+                        "target": "iframe[title=\"reCAPTCHA\"] .rc-anchor-invisible-text",
+                        "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+                    }
+                ]
+            }
+        ],
+        "incomplete": [
+            {
+                "id": "color-contrast",
+                "nodes": 10
+            },
+            {
+                "id": "link-in-text-block",
+                "nodes": 1
+            }
+        ]
+    },
+    {
+        "label": "/contact inicial",
+        "viewport": "390x844",
+        "violations": [
+            {
+                "id": "aria-input-field-name",
+                "impact": "serious",
+                "tags": ["wcag2a", "wcag412"],
+                "help": "ARIA input fields must have an accessible name",
+                "nodes": 1,
+                "sample": [
+                    {
+                        "target": ".min-h-\\[160px\\]",
+                        "summary": "Fix any of the following:\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  El"
+                    }
+                ]
+            },
+            {
+                "id": "color-contrast",
+                "impact": "serious",
+                "tags": ["wcag2aa", "wcag143"],
+                "help": "Elements must meet minimum color contrast ratio thresholds",
+                "nodes": 4,
+                "sample": [
+                    {
+                        "target": ".text-center > .text-outline-variant.font-body.text-xs",
+                        "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.98 (foreground color: #414751, background color: #091421, font size: 9.0pt (12px), font weight: normal). Expected contrast rati"
+                    },
+                    {
+                        "target": ".hover\\:text-tertiary.text-outline-variant[href$=\"privacy\"]",
+                        "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.98 (foreground color: #414751, background color: #091421, font size: 9.0pt (12px), font weight: normal). Expected contrast rati"
+                    },
+                    {
+                        "target": ".flex-wrap.gap-8.justify-center > .router-link-active.router-link-exact-active[aria-current=\"page\"]",
+                        "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.98 (foreground color: #414751, background color: #091421, font size: 9.0pt (12px), font weight: normal). Expected contrast rati"
+                    }
+                ]
+            },
+            {
+                "id": "heading-order",
+                "impact": "moderate",
+                "tags": [],
+                "help": "Heading levels should only increase by one",
+                "nodes": 1,
+                "sample": [
+                    {
+                        "target": "h3",
+                        "summary": "Fix any of the following:\n  Heading order invalid"
+                    }
+                ]
+            },
+            {
+                "id": "region",
+                "impact": "moderate",
+                "tags": [],
+                "help": "All page content should be contained by landmarks",
+                "nodes": 1,
+                "sample": [
+                    {
+                        "target": "iframe[title=\"reCAPTCHA\"] .rc-anchor-invisible-text",
+                        "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+                    }
+                ]
+            }
+        ],
+        "incomplete": [
+            {
+                "id": "color-contrast",
+                "nodes": 9
+            },
+            {
+                "id": "link-in-text-block",
+                "nodes": 1
+            }
+        ]
+    },
+    {
+        "label": "/privacy inicial",
+        "viewport": "1280x800",
+        "violations": [
+            {
+                "id": "color-contrast",
+                "impact": "serious",
+                "tags": ["wcag2aa", "wcag143"],
+                "help": "Elements must meet minimum color contrast ratio thresholds",
+                "nodes": 4,
+                "sample": [
+                    {
+                        "target": ".text-center > .text-outline-variant.font-body.text-xs",
+                        "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.98 (foreground color: #414751, background color: #091421, font size: 9.0pt (12px), font weight: normal). Expected contrast rati"
+                    },
+                    {
+                        "target": ".router-link-active",
+                        "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.98 (foreground color: #414751, background color: #091421, font size: 9.0pt (12px), font weight: normal). Expected contrast rati"
+                    },
+                    {
+                        "target": ".hover\\:text-tertiary.text-outline-variant[href$=\"contact\"]",
+                        "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.98 (foreground color: #414751, background color: #091421, font size: 9.0pt (12px), font weight: normal). Expected contrast rati"
+                    }
+                ]
+            }
+        ],
+        "incomplete": [
+            {
+                "id": "color-contrast",
+                "nodes": 2
+            }
+        ]
+    },
+    {
+        "label": "/privacy inicial",
+        "viewport": "390x844",
+        "violations": [
+            {
+                "id": "color-contrast",
+                "impact": "serious",
+                "tags": ["wcag2aa", "wcag143"],
+                "help": "Elements must meet minimum color contrast ratio thresholds",
+                "nodes": 4,
+                "sample": [
+                    {
+                        "target": ".text-center > .text-outline-variant.font-body.text-xs",
+                        "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.98 (foreground color: #414751, background color: #091421, font size: 9.0pt (12px), font weight: normal). Expected contrast rati"
+                    },
+                    {
+                        "target": ".router-link-active",
+                        "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.98 (foreground color: #414751, background color: #091421, font size: 9.0pt (12px), font weight: normal). Expected contrast rati"
+                    },
+                    {
+                        "target": ".hover\\:text-tertiary.text-outline-variant[href$=\"contact\"]",
+                        "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.98 (foreground color: #414751, background color: #091421, font size: 9.0pt (12px), font weight: normal). Expected contrast rati"
+                    }
+                ]
+            }
+        ],
+        "incomplete": [
+            {
+                "id": "color-contrast",
+                "nodes": 1
+            }
+        ]
+    },
+    {
+        "label": "/blog inicial",
+        "viewport": "1280x800",
+        "violations": [
+            {
+                "id": "color-contrast",
+                "impact": "serious",
+                "tags": ["wcag2aa", "wcag143"],
+                "help": "Elements must meet minimum color contrast ratio thresholds",
+                "nodes": 22,
+                "sample": [
+                    {
+                        "target": "article:nth-child(1) > .p-8:nth-child(1) > .mb-6.gap-2.items-center > .tracking-\\[0\\.2em\\].text-\\[10px\\].text-secondary",
+                        "summary": "Fix any of the following:\n  Element has insufficient color contrast of 4.35 (foreground color: #9d7564, background color: #0e1926, font size: 7.5pt (10px), font weight: bold). Expected contrast ratio "
+                    },
+                    {
+                        "target": "article:nth-child(1) > .p-8:nth-child(1) > .mb-6.gap-2.items-center > .tracking-\\[0\\.1em\\].text-\\[10px\\].text-outline",
+                        "summary": "Fix any of the following:\n  Element has insufficient color contrast of 2.74 (foreground color: #575f6b, background color: #0e1926, font size: 7.5pt (10px), font weight: normal). Expected contrast rati"
+                    },
+                    {
+                        "target": "article:nth-child(1) > .p-8:nth-child(1) > .leading-relaxed.mb-8",
+                        "summary": "Fix any of the following:\n  Element has insufficient color contrast of 4.37 (foreground color: #777f8b, background color: #0e1926, font size: 10.5pt (14px), font weight: normal). Expected contrast rat"
+                    }
+                ]
+            }
+        ],
+        "incomplete": [
+            {
+                "id": "color-contrast",
+                "nodes": 1
+            }
+        ]
+    },
+    {
+        "label": "/blog inicial",
+        "viewport": "390x844",
+        "violations": [
+            {
+                "id": "color-contrast",
+                "impact": "serious",
+                "tags": ["wcag2aa", "wcag143"],
+                "help": "Elements must meet minimum color contrast ratio thresholds",
+                "nodes": 22,
+                "sample": [
+                    {
+                        "target": "article:nth-child(1) > .p-8:nth-child(1) > .mb-6.gap-2.items-center > .tracking-\\[0\\.2em\\].text-\\[10px\\].text-secondary",
+                        "summary": "Fix any of the following:\n  Element has insufficient color contrast of 4.35 (foreground color: #9d7564, background color: #0e1926, font size: 7.5pt (10px), font weight: bold). Expected contrast ratio "
+                    },
+                    {
+                        "target": "article:nth-child(1) > .p-8:nth-child(1) > .mb-6.gap-2.items-center > .tracking-\\[0\\.1em\\].text-\\[10px\\].text-outline",
+                        "summary": "Fix any of the following:\n  Element has insufficient color contrast of 2.74 (foreground color: #575f6b, background color: #0e1926, font size: 7.5pt (10px), font weight: normal). Expected contrast rati"
+                    },
+                    {
+                        "target": "article:nth-child(1) > .p-8:nth-child(1) > .leading-relaxed.mb-8",
+                        "summary": "Fix any of the following:\n  Element has insufficient color contrast of 4.37 (foreground color: #777f8b, background color: #0e1926, font size: 10.5pt (14px), font weight: normal). Expected contrast rat"
+                    }
+                ]
+            }
+        ],
+        "incomplete": [
+            {
+                "id": "color-contrast",
+                "nodes": 1
+            }
+        ]
+    },
+    {
+        "label": "/ menú móvil abierto",
+        "viewport": "390x844",
+        "violations": [
+            {
+                "id": "color-contrast",
+                "impact": "serious",
+                "tags": ["wcag2aa", "wcag143"],
+                "help": "Elements must meet minimum color contrast ratio thresholds",
+                "nodes": 4,
+                "sample": [
+                    {
+                        "target": ".md\\:text-left > .font-body.text-outline-variant.text-xs",
+                        "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.98 (foreground color: #414751, background color: #091421, font size: 9.0pt (12px), font weight: normal). Expected contrast rati"
+                    },
+                    {
+                        "target": "a[href$=\"privacy\"]",
+                        "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.98 (foreground color: #414751, background color: #091421, font size: 9.0pt (12px), font weight: normal). Expected contrast rati"
+                    },
+                    {
+                        "target": ".hover\\:text-tertiary.font-body[href$=\"contact\"]",
+                        "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.98 (foreground color: #414751, background color: #091421, font size: 9.0pt (12px), font weight: normal). Expected contrast rati"
+                    }
+                ]
+            }
+        ],
+        "incomplete": [
+            {
+                "id": "color-contrast",
+                "nodes": 27
+            }
+        ]
+    },
+    {
+        "label": "/projects modal abierto",
+        "viewport": "1280x800",
+        "violations": [
+            {
+                "id": "heading-order",
+                "impact": "moderate",
+                "tags": [],
+                "help": "Heading levels should only increase by one",
+                "nodes": 1,
+                "sample": [
+                    {
+                        "target": ".tracking-\\[0\\.2em\\]",
+                        "summary": "Fix any of the following:\n  Heading order invalid"
+                    }
+                ]
+            },
+            {
+                "id": "scrollable-region-focusable",
+                "impact": "serious",
+                "tags": ["wcag2a", "wcag211", "wcag213"],
+                "help": "Scrollable region must have keyboard access",
+                "nodes": 1,
+                "sample": [
+                    {
+                        "target": ".modal-project-show-body",
+                        "summary": "Fix any of the following:\n  Element should have focusable content\n  Element should be focusable"
+                    }
+                ]
+            }
+        ],
+        "incomplete": [
+            {
+                "id": "color-contrast",
+                "nodes": 11
+            }
+        ]
+    },
+    {
+        "label": "/about galería abierta",
+        "error": "Error: locator.click: Error: strict mode violation: locator('button[aria-label^=\"Ampliar imagen 1\"]') resolved to 11 elements:\n    1) <button type=\"button\" aria-label=\"Ampliar imagen 1 de la galería\" class=\"relative w-full overflow-hidden cursor-zoom-in group\">…</button> aka getByRole('button', { na"
+    },
+    {
+        "label": "/contact formulario con errores",
+        "viewport": "1280x800",
+        "violations": [
+            {
+                "id": "aria-input-field-name",
+                "impact": "serious",
+                "tags": ["wcag2a", "wcag412"],
+                "help": "ARIA input fields must have an accessible name",
+                "nodes": 1,
+                "sample": [
+                    {
+                        "target": ".min-h-\\[160px\\]",
+                        "summary": "Fix any of the following:\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  El"
+                    }
+                ]
+            },
+            {
+                "id": "color-contrast",
+                "impact": "serious",
+                "tags": ["wcag2aa", "wcag143"],
+                "help": "Elements must meet minimum color contrast ratio thresholds",
+                "nodes": 4,
+                "sample": [
+                    {
+                        "target": ".text-center > .text-outline-variant.font-body.tracking-widest",
+                        "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.98 (foreground color: #414751, background color: #091421, font size: 9.0pt (12px), font weight: normal). Expected contrast rati"
+                    },
+                    {
+                        "target": ".hover\\:text-tertiary.text-outline-variant[href$=\"privacy\"]",
+                        "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.98 (foreground color: #414751, background color: #091421, font size: 9.0pt (12px), font weight: normal). Expected contrast rati"
+                    },
+                    {
+                        "target": ".flex-wrap.gap-8.justify-center > .router-link-active.router-link-exact-active[aria-current=\"page\"]",
+                        "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.98 (foreground color: #414751, background color: #091421, font size: 9.0pt (12px), font weight: normal). Expected contrast rati"
+                    }
+                ]
+            },
+            {
+                "id": "heading-order",
+                "impact": "moderate",
+                "tags": [],
+                "help": "Heading levels should only increase by one",
+                "nodes": 1,
+                "sample": [
+                    {
+                        "target": "h3",
+                        "summary": "Fix any of the following:\n  Heading order invalid"
+                    }
+                ]
+            },
+            {
+                "id": "region",
+                "impact": "moderate",
+                "tags": [],
+                "help": "All page content should be contained by landmarks",
+                "nodes": 1,
+                "sample": [
+                    {
+                        "target": "iframe[title=\"reCAPTCHA\"] .rc-anchor-invisible-text",
+                        "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+                    }
+                ]
+            }
+        ],
+        "incomplete": [
+            {
+                "id": "color-contrast",
+                "nodes": 16
+            },
+            {
+                "id": "link-in-text-block",
+                "nodes": 1
+            }
+        ]
+    },
+    {
+        "label": "/contact modal de confirmación",
+        "viewport": "1280x800",
+        "violations": [
+            {
+                "id": "aria-input-field-name",
+                "impact": "serious",
+                "tags": ["wcag2a", "wcag412"],
+                "help": "ARIA input fields must have an accessible name",
+                "nodes": 1,
+                "sample": [
+                    {
+                        "target": ".min-h-\\[160px\\]",
+                        "summary": "Fix any of the following:\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  El"
+                    }
+                ]
+            },
+            {
+                "id": "color-contrast",
+                "impact": "serious",
+                "tags": ["wcag2aa", "wcag143"],
+                "help": "Elements must meet minimum color contrast ratio thresholds",
+                "nodes": 11,
+                "sample": [
+                    {
+                        "target": ".resume-title",
+                        "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.04 (foreground color: #d9e3f6, background color: #dedede, font size: 18.0pt (24px), font weight: normal). Expected contrast rat"
+                    },
+                    {
+                        "target": ".resume-content[data-v-aea0bd49=\"\"]:nth-child(1)",
+                        "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.29 (foreground color: #d9e3f6, background color: #ffffff, font size: 13.2pt (17.6px), font weight: normal). Expected contrast r"
+                    },
+                    {
+                        "target": ".resume-content[data-v-aea0bd49=\"\"]:nth-child(1) > .resume-data[data-v-aea0bd49=\"\"]:nth-child(1)",
+                        "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.29 (foreground color: #d9e3f6, background color: #ffffff, font size: 13.2pt (17.6px), font weight: normal). Expected contrast r"
+                    }
+                ]
+            },
+            {
+                "id": "heading-order",
+                "impact": "moderate",
+                "tags": [],
+                "help": "Heading levels should only increase by one",
+                "nodes": 1,
+                "sample": [
+                    {
+                        "target": "h3",
+                        "summary": "Fix any of the following:\n  Heading order invalid"
+                    }
+                ]
+            },
+            {
+                "id": "region",
+                "impact": "moderate",
+                "tags": [],
+                "help": "All page content should be contained by landmarks",
+                "nodes": 1,
+                "sample": [
+                    {
+                        "target": "iframe[title=\"reCAPTCHA\"] .rc-anchor-invisible-text",
+                        "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+                    }
+                ]
+            }
+        ],
+        "incomplete": [
+            {
+                "id": "color-contrast",
+                "nodes": 16
+            },
+            {
+                "id": "link-in-text-block",
+                "nodes": 1
+            }
+        ]
+    }
+]

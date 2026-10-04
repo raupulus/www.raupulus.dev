@@ -1,0 +1,149 @@
+[
+    {
+        "path": "/",
+        "status": 200,
+        "title": "Portfolio de Raúl Caro Pastorino Web Developer (@raupulus)",
+        "h1": ["Raúl Caro Pastorino\nDesarrollador web"],
+        "console": [
+            "error: requestStorageAccess: Permission denied.",
+            "error: Access to fetch at 'https://api.fryntiz.dev/api/v1/platform/portfolio/info' from origin 'https://raupulus.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource",
+            "error: Failed to load resource: net::ERR_FAILED"
+        ],
+        "failed": ["net::ERR_FAILED GET https://api.fryntiz.dev/api/v1/platform/portfolio/info"],
+        "hosts": [
+            "raupulus.dev",
+            "static.cloudflareinsights.com",
+            "recaptcha.net",
+            "api.fryntiz.dev",
+            "www.gstatic.com",
+            "fonts.gstatic.com"
+        ],
+        "cvLink": ["https://curriculum.raupulus.dev/"]
+    },
+    {
+        "path": "/projects/",
+        "status": 200,
+        "title": "Proyectos de Raúl Caro Pastorino",
+        "h1": ["Raúl Caro Pastorino\nDesarrollador web"],
+        "console": [
+            "error: Access to fetch at 'https://api.fryntiz.dev/api/v1/platform/portfolio/content/type/project?page=1&quantity=10' from origin 'https://raupulus.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header i",
+            "error: Failed to load resource: net::ERR_FAILED",
+            "error: TypeError: Failed to fetch\n    at i (https://raupulus.dev/_nuxt/BI2kBj6i.js:1:36980)\n    at https://raupulus.dev/_nuxt/BI2kBj6i.js:1:37299\n    at https://raupulus.dev/_nuxt/CSEIK80P.js:5:7431\n    at Zs (https://raupulus.",
+            "error: Access to fetch at 'https://api.fryntiz.dev/api/v1/platform/portfolio/info' from origin 'https://raupulus.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource",
+            "error: Failed to load resource: net::ERR_FAILED",
+            "error: requestStorageAccess: Permission denied."
+        ],
+        "failed": [
+            "net::ERR_FAILED GET https://api.fryntiz.dev/api/v1/platform/portfolio/content/type/project?page=1&quantity=10",
+            "net::ERR_FAILED GET https://api.fryntiz.dev/api/v1/platform/portfolio/info"
+        ],
+        "hosts": [
+            "raupulus.dev",
+            "static.cloudflareinsights.com",
+            "recaptcha.net",
+            "www.gstatic.com",
+            "api.fryntiz.dev",
+            "fonts.gstatic.com"
+        ],
+        "cvLink": ["https://curriculum.raupulus.dev/"]
+    },
+    {
+        "path": "/projects/weather-station-raspberry-pi/",
+        "status": 200,
+        "title": "Proyectos de Raúl Caro Pastorino",
+        "h1": ["Raúl Caro Pastorino\nDesarrollador web"],
+        "console": [
+            "error: Access to fetch at 'https://api.fryntiz.dev/api/v1/platform/portfolio/content/type/project?page=1&quantity=10' from origin 'https://raupulus.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header i",
+            "error: Failed to load resource: net::ERR_FAILED",
+            "error: TypeError: Failed to fetch\n    at i (https://raupulus.dev/_nuxt/BI2kBj6i.js:1:36980)\n    at https://raupulus.dev/_nuxt/BI2kBj6i.js:1:37299\n    at https://raupulus.dev/_nuxt/CSEIK80P.js:5:7431\n    at Zs (https://raupulus.",
+            "error: Access to fetch at 'https://api.fryntiz.dev/api/v1/platform/portfolio/content/type/project?page=1&quantity=10' from origin 'https://raupulus.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header i",
+            "error: Failed to load resource: net::ERR_FAILED",
+            "error: TypeError: Failed to fetch\n    at i (https://raupulus.dev/_nuxt/BI2kBj6i.js:1:36980)\n    at https://raupulus.dev/_nuxt/BI2kBj6i.js:1:37299\n    at https://raupulus.dev/_nuxt/CSEIK80P.js:5:7431\n    at Zs (https://raupulus.",
+            "error: Access to fetch at 'https://api.fryntiz.dev/api/v1/platform/portfolio/info' from origin 'https://raupulus.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource",
+            "error: Failed to load resource: net::ERR_FAILED",
+            "error: requestStorageAccess: Permission denied."
+        ],
+        "failed": [
+            "net::ERR_FAILED GET https://api.fryntiz.dev/api/v1/platform/portfolio/content/type/project?page=1&quantity=10",
+            "net::ERR_FAILED GET https://api.fryntiz.dev/api/v1/platform/portfolio/content/type/project?page=1&quantity=10",
+            "net::ERR_FAILED GET https://api.fryntiz.dev/api/v1/platform/portfolio/info"
+        ],
+        "hosts": [
+            "raupulus.dev",
+            "static.cloudflareinsights.com",
+            "recaptcha.net",
+            "www.gstatic.com",
+            "api.fryntiz.dev",
+            "fonts.gstatic.com"
+        ],
+        "cvLink": ["https://curriculum.raupulus.dev/"]
+    },
+    {
+        "path": "/about/",
+        "status": 200,
+        "title": "Sobre mí - Raúl Caro Pastorino | Desarrollador Web Full Stack Backend",
+        "h1": ["Raúl Caro Pastorino\nDesarrollador web", "Sobre Mi"],
+        "console": [
+            "error: Access to fetch at 'https://api.fryntiz.dev/api/v1/platform/portfolio/info' from origin 'https://raupulus.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource",
+            "error: Failed to load resource: net::ERR_FAILED",
+            "error: requestStorageAccess: Permission denied."
+        ],
+        "failed": ["net::ERR_FAILED GET https://api.fryntiz.dev/api/v1/platform/portfolio/info"],
+        "hosts": [
+            "raupulus.dev",
+            "static.cloudflareinsights.com",
+            "recaptcha.net",
+            "www.gstatic.com",
+            "api.fryntiz.dev",
+            "fonts.gstatic.com"
+        ],
+        "cvLink": [
+            "https://api.fryntiz.dev/cv/get/pdf/raupulus/default",
+            "https://curriculum.raupulus.dev/",
+            "https://curriculum.raupulus.dev/",
+            "https://curriculum.raupulus.dev/"
+        ]
+    },
+    {
+        "path": "/contact/",
+        "status": 200,
+        "title": "Contactar con Raúl Caro Pastorino",
+        "h1": ["Raúl Caro Pastorino\nDesarrollador web", "Formulario de Contacto"],
+        "console": [
+            "error: Access to fetch at 'https://api.fryntiz.dev/api/v1/platform/portfolio/info' from origin 'https://raupulus.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource",
+            "error: Failed to load resource: net::ERR_FAILED",
+            "error: requestStorageAccess: Permission denied."
+        ],
+        "failed": ["net::ERR_FAILED GET https://api.fryntiz.dev/api/v1/platform/portfolio/info"],
+        "hosts": [
+            "raupulus.dev",
+            "static.cloudflareinsights.com",
+            "recaptcha.net",
+            "www.gstatic.com",
+            "api.fryntiz.dev",
+            "fonts.gstatic.com"
+        ],
+        "cvLink": ["https://curriculum.raupulus.dev/"]
+    },
+    {
+        "path": "/no-existe-auditoria/",
+        "status": 200,
+        "title": "Portfolio de Raúl Caro Pastorino Web Developer (@raupulus)",
+        "h1": ["Raúl Caro Pastorino\nDesarrollador web"],
+        "console": [
+            "error: Access to fetch at 'https://api.fryntiz.dev/api/v1/platform/portfolio/info' from origin 'https://raupulus.dev' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource",
+            "error: Failed to load resource: net::ERR_FAILED",
+            "error: requestStorageAccess: Permission denied."
+        ],
+        "failed": ["net::ERR_FAILED GET https://api.fryntiz.dev/api/v1/platform/portfolio/info"],
+        "hosts": [
+            "raupulus.dev",
+            "static.cloudflareinsights.com",
+            "recaptcha.net",
+            "www.gstatic.com",
+            "api.fryntiz.dev",
+            "fonts.gstatic.com"
+        ],
+        "cvLink": ["https://curriculum.raupulus.dev/"]
+    }
+]

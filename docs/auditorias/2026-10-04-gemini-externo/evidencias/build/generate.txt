@@ -1,0 +1,361 @@
+npm warn Unknown project config "shamefully-hoist". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> nuxt-app@1.1.0 generate
+> nuxt generate
+
+┌  Building Nuxt for production...
+│
+●  Nuxt 4.4.8 (with Nitro 2.13.4, Vite 7.3.6 and Vue 3.5.39)
+[@nuxtjs/sitemap] ℹ No dynamic sources detected. Consider enabling zeroRuntime to reduce server bundle size. See https://nuxtseo.com/sitemap/guides/zero-runtime
+[nuxt:tailwindcss] ℹ Using Tailwind CSS from ~/assets/css/tailwind.css
+
+[nuxt-site-config]  WARN  [Nuxt Site Config] Invalid config provided, please correct:
+
+[nuxt-site-config]   - url "http://localhost:3020" from nuxt-site-config:config should not be localhost
+[nuxt-site-config] 
+│
+●  Nitro preset: static
+ℹ Building client...
+ℹ vite v7.3.6 building client environment for production...
+
+ WARN  [plugin nuxt:module-preload-polyfill] Sourcemap is likely to be incorrect: a plugin (nuxt:module-preload-polyfill) was used to transform files, but didn't generate a sourcemap for the transformation. Consult the plugin documentation for help
+
+ℹ transforming...
+(node:99344) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/fryntiz/git/3-Raupulus/www.raupulus.dev/tailwind.config.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/fryntiz/git/3-Raupulus/www.raupulus.dev/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+ℹ ✓ 407 modules transformed.
+ℹ rendering chunks...
+ℹ computing gzip size...
+ℹ node_modules/.cache/nuxt/.nuxt/dist/client/manifest.json                      6.39 kB │ gzip:   0.93 kB
+ℹ node_modules/.cache/nuxt/.nuxt/dist/client/_nuxt/email-send.HH0Y9Fjp.gif    138.10 kB
+ℹ node_modules/.cache/nuxt/.nuxt/dist/client/_nuxt/pc-load.BPTyxvsI.gif       157.80 kB
+ℹ node_modules/.cache/nuxt/.nuxt/dist/client/_nuxt/MaterialIcon.BFvIsUJC.css    0.19 kB │ gzip:   0.15 kB
+ℹ node_modules/.cache/nuxt/.nuxt/dist/client/_nuxt/default.Cby8ngLV.css         0.27 kB │ gzip:   0.17 kB
+ℹ node_modules/.cache/nuxt/.nuxt/dist/client/_nuxt/Twitch.DD4yA5oF.css          0.80 kB │ gzip:   0.33 kB
+ℹ node_modules/.cache/nuxt/.nuxt/dist/client/_nuxt/index.Dsdtjs1E.css           1.57 kB │ gzip:   0.62 kB
+ℹ node_modules/.cache/nuxt/.nuxt/dist/client/_nuxt/contact.D854gAEr.css         2.45 kB │ gzip:   0.74 kB
+ℹ node_modules/.cache/nuxt/.nuxt/dist/client/_nuxt/privacy.DnTqGSdf.css         8.54 kB │ gzip:   1.33 kB
+ℹ node_modules/.cache/nuxt/.nuxt/dist/client/_nuxt/_...BEm6x2gu.css            15.82 kB │ gzip:   3.68 kB
+ℹ node_modules/.cache/nuxt/.nuxt/dist/client/_nuxt/entry.6Btb4v9x.css          82.66 kB │ gzip:  11.92 kB
+ℹ node_modules/.cache/nuxt/.nuxt/dist/client/_nuxt/DlAUqK2U.js                  0.09 kB │ gzip:   0.10 kB
+ℹ node_modules/.cache/nuxt/.nuxt/dist/client/_nuxt/BfbKL7Fs.js                  4.75 kB │ gzip:   1.98 kB
+ℹ node_modules/.cache/nuxt/.nuxt/dist/client/_nuxt/r8sh5JRq.js                  5.15 kB │ gzip:   2.16 kB
+ℹ node_modules/.cache/nuxt/.nuxt/dist/client/_nuxt/DxvzQuhO.js                  5.54 kB │ gzip:   2.47 kB
+ℹ node_modules/.cache/nuxt/.nuxt/dist/client/_nuxt/Da1oUAR4.js                  8.66 kB │ gzip:   3.58 kB
+ℹ node_modules/.cache/nuxt/.nuxt/dist/client/_nuxt/Swzs8_FR.js                 11.89 kB │ gzip:   3.90 kB
+ℹ node_modules/.cache/nuxt/.nuxt/dist/client/_nuxt/DtvAUbQX.js                 12.58 kB │ gzip:   4.83 kB
+ℹ node_modules/.cache/nuxt/.nuxt/dist/client/_nuxt/CSxbRzbw.js                 16.97 kB │ gzip:   6.18 kB
+ℹ node_modules/.cache/nuxt/.nuxt/dist/client/_nuxt/C19bxH63.js                 18.41 kB │ gzip:   5.30 kB
+ℹ node_modules/.cache/nuxt/.nuxt/dist/client/_nuxt/Dser6PMu.js                 20.62 kB │ gzip:   6.84 kB
+ℹ node_modules/.cache/nuxt/.nuxt/dist/client/_nuxt/CqC1UYj7.js                 20.69 kB │ gzip:   5.71 kB
+ℹ node_modules/.cache/nuxt/.nuxt/dist/client/_nuxt/s4liJs2i.js                 22.85 kB │ gzip:   6.88 kB
+ℹ node_modules/.cache/nuxt/.nuxt/dist/client/_nuxt/ClyktcPu.js                 78.85 kB │ gzip:  25.55 kB
+ℹ node_modules/.cache/nuxt/.nuxt/dist/client/_nuxt/f1lRrlGL.js                347.26 kB │ gzip: 128.12 kB
+ℹ ✓ built in 3.41s
+✔ Client built in 3419ms
+ℹ Building server...
+ℹ vite v7.3.6 building ssr environment for production...
+ℹ transforming...
+ℹ ✓ 347 modules transformed.
+ℹ rendering chunks...
+ℹ ✓ built in 3.76s
+✔ Server built in 3771ms
+Generando rutas dinámicas
+Rutas generadas:
+/projects/proyecto-gadget-monitor-calidad-del-aire-para-oficina
+/projects/proyecto-gadget-monitor-calidad-del-aire-para-oficina/about
+/projects/proyecto-gadget-monitor-calidad-del-aire-para-oficina/hardware
+/projects/proyecto-cryptowatchdog-raspberry-pi-pico-w-watchdog-para-precios-de-criptomonedas
+/projects/proyecto-cryptowatchdog-raspberry-pi-pico-w-watchdog-para-precios-de-criptomonedas/about
+/projects/proyecto-detector-de-rayos-con-cjmcuas3935-y-raspberry-pi-pico
+/projects/proyecto-detector-de-rayos-con-cjmcuas3935-y-raspberry-pi-pico/about
+/projects/proyecto-keycounter-display-raspberry-pi-pico-con-servidor-websockets-y-pantalla
+/projects/proyecto-keycounter-display-raspberry-pi-pico-con-servidor-websockets-y-pantalla/information
+/projects/keycounter-en-barra-superior-de-macos-con-aplicacion-swift
+/projects/keycounter-en-barra-superior-de-macos-con-aplicacion-swift/information
+/projects/proyecto-para-capturar-datos-de-estacion-meteorologica-bresser-con-esp32-d1-868mhz-cc1101
+/projects/proyecto-para-capturar-datos-de-estacion-meteorologica-bresser-con-esp32-d1-868mhz-cc1101/informacion
+/projects/bash-guia-de-estilos-y-estructura-de-scripts
+/projects/bash-guia-de-estilos-y-estructura-de-scripts/informacion
+/projects/tool-configurar-entorno-para-desarrollar-debian-y-macos
+/projects/tool-configurar-entorno-para-desarrollar-debian-y-macos/informacion
+/projects/medidor-de-consumo-energetico-por-dispositivo-con-raspberry-pi-pico
+/projects/medidor-de-consumo-energetico-por-dispositivo-con-raspberry-pi-pico/informacion
+/projects/proyecto-de-inteligencia-artificial-automatizado-por-roles-para-generar-contenido-y-publicarlo-imagenes-texto-video
+/projects/proyecto-de-inteligencia-artificial-automatizado-por-roles-para-generar-contenido-y-publicarlo-imagenes-texto-video/informacion
+/projects/gadget-lottery-minner-esp32-btc
+/projects/gadget-lottery-minner-esp32-btc/informacion
+/projects/smart-plant-3d-con-sensor-de-humedad-en-tierra-y-farola-led-indicando-estado
+/projects/smart-plant-3d-con-sensor-de-humedad-en-tierra-y-farola-led-indicando-estado/informacion
+/projects/smart-plant-3d-con-sensor-de-humedad-en-tierra-y-farola-led-indicando-estado/hardware
+/projects/raspberry-pi-pico-pantalla-e-paper-con-mis-estadisticas
+/projects/raspberry-pi-pico-pantalla-e-paper-con-mis-estadisticas/informacion
+/projects/laravel-panel-backend-para-contenido-y-api-iot
+/projects/laravel-panel-backend-para-contenido-y-api-iot/informacion
+/projects/weather-station-raspberry-pi
+/projects/weather-station-raspberry-pi/informacion
+/projects/weather-station-raspberry-pi/hardware
+/projects/weather-station-raspberry-pi/software
+[nitro] ℹ Initializing prerenderer
+[nitro] ℹ Prerendering 38 initial routes with crawler
+[nitro]   ├─ /__sitemap__/style.xsl (879ms)
+[nitro]   ├─ /200.html (879ms)
+[nitro]   ├─ /404.html (879ms)
+[nitro]   ├─ / (895ms)
+[nitro]   ├─ /_payload.json?be6b1cb6-1d15-4e64-a02b-3e10aaa2cea2 (54ms) (skipped)
+[nitro]   ├─ /projects/proyecto-detector-de-rayos-con-cjmcuas3935-y-raspberry-pi-pico/about (986ms)
+[nitro]   ├─ /projects/proyecto-gadget-monitor-calidad-del-aire-para-oficina/hardware (979ms)
+[nitro]   ├─ /projects/bash-guia-de-estilos-y-estructura-de-scripts/informacion (987ms)
+[nitro]   ├─ /projects/tool-configurar-entorno-para-desarrollar-debian-y-macos/informacion (990ms)
+[nitro]   ├─ /projects/proyecto-para-capturar-datos-de-estacion-meteorologica-bresser-con-esp32-d1-868mhz-cc1101/informacion (986ms)
+[nitro]   ├─ /projects/proyecto-cryptowatchdog-raspberry-pi-pico-w-watchdog-para-precios-de-criptomonedas/about (980ms)
+[nitro]   ├─ /projects/raspberry-pi-pico-pantalla-e-paper-con-mis-estadisticas/informacion (993ms)
+[nitro]   ├─ /projects/weather-station-raspberry-pi/informacion (1000ms)
+[nitro]   ├─ /projects/gadget-lottery-minner-esp32-btc/informacion (991ms)
+[nitro]   ├─ /projects/laravel-panel-backend-para-contenido-y-api-iot/informacion (994ms)
+[nitro]   ├─ /projects/proyecto-keycounter-display-raspberry-pi-pico-con-servidor-websockets-y-pantalla/information (982ms)
+[nitro]   ├─ /projects/medidor-de-consumo-energetico-por-dispositivo-con-raspberry-pi-pico/informacion (990ms)
+[nitro]   ├─ /projects/proyecto-cryptowatchdog-raspberry-pi-pico-w-watchdog-para-precios-de-criptomonedas (978ms)
+[nitro]   ├─ /projects/keycounter-en-barra-superior-de-macos-con-aplicacion-swift/information (984ms)
+[nitro]   ├─ /projects/smart-plant-3d-con-sensor-de-humedad-en-tierra-y-farola-led-indicando-estado/hardware (990ms)
+[nitro]   ├─ /projects/proyecto-gadget-monitor-calidad-del-aire-para-oficina/about (985ms)
+[nitro]   ├─ /projects/proyecto-de-inteligencia-artificial-automatizado-por-roles-para-generar-contenido-y-publicarlo-imagenes-texto-video/informacion (988ms)
+[nitro]   ├─ /projects/weather-station-raspberry-pi/software (1001ms)
+[nitro]   ├─ /projects/smart-plant-3d-con-sensor-de-humedad-en-tierra-y-farola-led-indicando-estado/informacion (1002ms)
+[nitro]   ├─ /projects/weather-station-raspberry-pi/hardware (1002ms)
+[nitro]   ├─ /webs (73ms)
+[nitro]   ├─ /about (74ms)
+[nitro]   ├─ /blog (72ms)
+[nitro]   ├─ /projects/proyecto-detector-de-rayos-con-cjmcuas3935-y-raspberry-pi-pico (981ms)
+[nitro]   ├─ /projects/bash-guia-de-estilos-y-estructura-de-scripts (984ms)
+[nitro]   ├─ /projects/proyecto-keycounter-display-raspberry-pi-pico-con-servidor-websockets-y-pantalla (983ms)
+[nitro]   ├─ /contact (77ms)
+[nitro]   ├─ /projects/keycounter-en-barra-superior-de-macos-con-aplicacion-swift (983ms)
+[nitro]   ├─ /projects/proyecto-de-inteligencia-artificial-automatizado-por-roles-para-generar-contenido-y-publicarlo-imagenes-texto-video (987ms)
+[nitro]   ├─ /projects/medidor-de-consumo-energetico-por-dispositivo-con-raspberry-pi-pico (989ms)
+[nitro]   ├─ /projects/tool-configurar-entorno-para-desarrollar-debian-y-macos (987ms)
+[nitro]   ├─ /projects/proyecto-para-capturar-datos-de-estacion-meteorologica-bresser-con-esp32-d1-868mhz-cc1101 (985ms)
+[nitro]   ├─ /projects/smart-plant-3d-con-sensor-de-humedad-en-tierra-y-farola-led-indicando-estado (994ms)
+[nitro]   ├─ /projects/raspberry-pi-pico-pantalla-e-paper-con-mis-estadisticas (998ms)
+[nitro]   ├─ /projects/gadget-lottery-minner-esp32-btc (997ms)
+[nitro]   ├─ /projects/weather-station-raspberry-pi (999ms)
+[nitro]   ├─ /projects/laravel-panel-backend-para-contenido-y-api-iot (993ms)
+[nitro]   ├─ /projects/proyecto-gadget-monitor-calidad-del-aire-para-oficina (979ms)
+[nitro]   ├─ /projects (74ms)
+[nitro]   ├─ /projects/proyecto-detector-de-rayos-con-cjmcuas3935-y-raspberry-pi-pico/about/_payload.json?be6b1cb6-1d15-4e64-a02b-3e10aaa2cea2 (47ms) (skipped)
+[nitro]   ├─ /projects/proyecto-gadget-monitor-calidad-del-aire-para-oficina/hardware/_payload.json?be6b1cb6-1d15-4e64-a02b-3e10aaa2cea2 (45ms) (skipped)
+[nitro]   ├─ /projects/bash-guia-de-estilos-y-estructura-de-scripts/informacion/_payload.json?be6b1cb6-1d15-4e64-a02b-3e10aaa2cea2 (44ms) (skipped)
+[nitro]   ├─ /projects/tool-configurar-entorno-para-desarrollar-debian-y-macos/informacion/_payload.json?be6b1cb6-1d15-4e64-a02b-3e10aaa2cea2 (42ms) (skipped)
+[nitro]   ├─ /projects/proyecto-para-capturar-datos-de-estacion-meteorologica-bresser-con-esp32-d1-868mhz-cc1101/informacion/_payload.json?be6b1cb6-1d15-4e64-a02b-3e10aaa2cea2 (40ms) (skipped)
+[nitro]   ├─ /projects/proyecto-cryptowatchdog-raspberry-pi-pico-w-watchdog-para-precios-de-criptomonedas/about/_payload.json?be6b1cb6-1d15-4e64-a02b-3e10aaa2cea2 (38ms) (skipped)
+[nitro]   ├─ /projects/raspberry-pi-pico-pantalla-e-paper-con-mis-estadisticas/informacion/_payload.json?be6b1cb6-1d15-4e64-a02b-3e10aaa2cea2 (37ms) (skipped)
+[nitro]   ├─ /social (76ms)
+[nitro]   ├─ /projects/weather-station-raspberry-pi/informacion/_payload.json?be6b1cb6-1d15-4e64-a02b-3e10aaa2cea2 (701ms) (skipped)
+[nitro]   ├─ /projects/gadget-lottery-minner-esp32-btc/informacion/_payload.json?be6b1cb6-1d15-4e64-a02b-3e10aaa2cea2 (701ms) (skipped)
+[nitro]   ├─ /projects/laravel-panel-backend-para-contenido-y-api-iot/informacion/_payload.json?be6b1cb6-1d15-4e64-a02b-3e10aaa2cea2 (699ms) (skipped)
+[nitro]   ├─ /projects/proyecto-keycounter-display-raspberry-pi-pico-con-servidor-websockets-y-pantalla/information/_payload.json?be6b1cb6-1d15-4e64-a02b-3e10aaa2cea2 (697ms) (skipped)
+[nitro]   ├─ /privacy (103ms)
+[nitro]   ├─ /projects/medidor-de-consumo-energetico-por-dispositivo-con-raspberry-pi-pico/informacion/_payload.json?be6b1cb6-1d15-4e64-a02b-3e10aaa2cea2 (22ms) (skipped)
+[nitro]   ├─ /projects/proyecto-cryptowatchdog-raspberry-pi-pico-w-watchdog-para-precios-de-criptomonedas/_payload.json?be6b1cb6-1d15-4e64-a02b-3e10aaa2cea2 (20ms) (skipped)
+[nitro]   ├─ /_payload.json (49ms)
+[nitro]   ├─ /projects/proyecto-detector-de-rayos-con-cjmcuas3935-y-raspberry-pi-pico/about/_payload.json (47ms)
+[nitro]   ├─ /projects/proyecto-gadget-monitor-calidad-del-aire-para-oficina/hardware/_payload.json (45ms)
+[nitro]   ├─ /projects/tool-configurar-entorno-para-desarrollar-debian-y-macos/informacion/_payload.json (41ms)
+[nitro]   ├─ /projects/proyecto-para-capturar-datos-de-estacion-meteorologica-bresser-con-esp32-d1-868mhz-cc1101/informacion/_payload.json (40ms)
+[nitro]   ├─ /projects/proyecto-cryptowatchdog-raspberry-pi-pico-w-watchdog-para-precios-de-criptomonedas/about/_payload.json (37ms)
+[nitro]   ├─ /projects/keycounter-en-barra-superior-de-macos-con-aplicacion-swift/information/_payload.json?be6b1cb6-1d15-4e64-a02b-3e10aaa2cea2 (21ms) (skipped)
+[nitro]   ├─ /projects/smart-plant-3d-con-sensor-de-humedad-en-tierra-y-farola-led-indicando-estado/hardware/_payload.json?be6b1cb6-1d15-4e64-a02b-3e10aaa2cea2 (20ms) (skipped)
+[nitro]   ├─ /projects/proyecto-gadget-monitor-calidad-del-aire-para-oficina/about/_payload.json?be6b1cb6-1d15-4e64-a02b-3e10aaa2cea2 (12ms) (skipped)
+[nitro]   ├─ /projects/proyecto-de-inteligencia-artificial-automatizado-por-roles-para-generar-contenido-y-publicarlo-imagenes-texto-video/informacion/_payload.json?be6b1cb6-1d15-4e64-a02b-3e10aaa2cea2 (5ms) (skipped)
+[nitro]   ├─ /projects/bash-guia-de-estilos-y-estructura-de-scripts/informacion/_payload.json (43ms)
+[nitro]   ├─ /projects/weather-station-raspberry-pi/informacion/_payload.json (702ms)
+[nitro]   ├─ /projects/laravel-panel-backend-para-contenido-y-api-iot/informacion/_payload.json (699ms)
+[nitro]   ├─ /projects/gadget-lottery-minner-esp32-btc/informacion/_payload.json (702ms)
+[nitro]   ├─ /projects/raspberry-pi-pico-pantalla-e-paper-con-mis-estadisticas/informacion/_payload.json (702ms)
+[nitro]   ├─ /projects/weather-station-raspberry-pi/software/_payload.json?be6b1cb6-1d15-4e64-a02b-3e10aaa2cea2 (12ms) (skipped)
+[nitro]   ├─ /projects/smart-plant-3d-con-sensor-de-humedad-en-tierra-y-farola-led-indicando-estado/informacion/_payload.json?be6b1cb6-1d15-4e64-a02b-3e10aaa2cea2 (12ms) (skipped)
+[nitro]   ├─ /projects/weather-station-raspberry-pi/hardware/_payload.json?be6b1cb6-1d15-4e64-a02b-3e10aaa2cea2 (13ms) (skipped)
+[nitro]   ├─ /webs/_payload.json?be6b1cb6-1d15-4e64-a02b-3e10aaa2cea2 (12ms) (skipped)
+[nitro]   ├─ /projects/proyecto-keycounter-display-raspberry-pi-pico-con-servidor-websockets-y-pantalla/information/_payload.json (24ms)
+[nitro]   ├─ /projects/medidor-de-consumo-energetico-por-dispositivo-con-raspberry-pi-pico/informacion/_payload.json (21ms)
+[nitro]   ├─ /projects/proyecto-cryptowatchdog-raspberry-pi-pico-w-watchdog-para-precios-de-criptomonedas/_payload.json (19ms)
+[nitro]   ├─ /projects/keycounter-en-barra-superior-de-macos-con-aplicacion-swift/information/_payload.json (22ms)
+[nitro]   ├─ /projects/smart-plant-3d-con-sensor-de-humedad-en-tierra-y-farola-led-indicando-estado/hardware/_payload.json (18ms)
+[nitro]   ├─ /projects/proyecto-gadget-monitor-calidad-del-aire-para-oficina/about/_payload.json (9ms)
+[nitro]   ├─ /projects/proyecto-de-inteligencia-artificial-automatizado-por-roles-para-generar-contenido-y-publicarlo-imagenes-texto-video/informacion/_payload.json (6ms)
+[nitro]   ├─ /projects/smart-plant-3d-con-sensor-de-humedad-en-tierra-y-farola-led-indicando-estado/informacion/_payload.json (14ms)
+[nitro]   ├─ /projects/weather-station-raspberry-pi/software/_payload.json (12ms)
+[nitro]   ├─ /projects/weather-station-raspberry-pi/hardware/_payload.json (14ms)
+[nitro]   ├─ /about/_payload.json?be6b1cb6-1d15-4e64-a02b-3e10aaa2cea2 (11ms) (skipped)
+[nitro]   ├─ /_ipx/w_64/images/icons/github.svg (792ms)
+[nitro]   ├─ /_ipx/w_32/images/icons/twitter.svg (801ms)
+[nitro]   ├─ /webs/_payload.json (25ms)
+[nitro]   ├─ /_ipx/f_webp&q_90&s_120x120/images/technologies/laravel_60x60.webp (867ms)
+[nitro]   ├─ /_ipx/f_webp&q_90&s_60x60/images/technologies/laravel_60x60.webp (873ms)
+[nitro]   ├─ /_ipx/w_64/images/icons/twitter.svg (799ms)
+[nitro]   ├─ /_ipx/s_120x120/images/icons/webs/aidyslexic.webp (71ms)
+[nitro]   ├─ /_ipx/w_32/images/icons/youtube.svg (823ms)
+[nitro]   ├─ /_ipx/s_240x240/images/icons/webs/laguialinux.webp (87ms)
+[nitro]   ├─ /_ipx/s_120x120/images/icons/webs/laguialinux.webp (86ms)
+[nitro]   ├─ /_ipx/s_120x120/images/icons/webs/jajaproject.webp (79ms)
+[nitro]   ├─ /_ipx/w_64/images/icons/twitch.svg (814ms)
+[nitro]   ├─ /_ipx/w_64/images/icons/linkedin.svg (824ms)
+[nitro]   ├─ /_ipx/s_120x120/logo_128x128.webp (89ms)
+[nitro]   ├─ /_ipx/w_64/images/icons/gitlab.svg (798ms)
+[nitro]   ├─ /_ipx/f_webp&q_90&s_60x60/images/technologies/php_60x60.webp (877ms)
+[nitro]   ├─ /_ipx/f_webp&q_90&s_120x120/images/technologies/vuejs_60x60.webp (862ms)
+[nitro]   ├─ /_ipx/w_32/images/icons/twitch.svg (818ms)
+[nitro]   ├─ /_ipx/w_64/images/icons/youtube.svg (829ms)
+[nitro]   ├─ /_ipx/f_webp&q_90&s_120x120/images/technologies/javascript_60x60.webp (857ms)
+[nitro]   ├─ /_ipx/f_webp&q_90&s_60x60/images/technologies/javascript_60x60.webp (862ms)
+[nitro]   ├─ /_ipx/f_webp&q_90&s_60x60/images/technologies/postgresql_60x60.webp (852ms)
+[nitro]   ├─ /_ipx/w_64/images/icons/mastodon.svg (783ms)
+[nitro]   ├─ /_ipx/f_webp&q_90&s_120x120/images/technologies/postgresql_60x60.webp (846ms)
+[nitro]   ├─ /_ipx/f_webp&q_90&s_60x60/images/technologies/vuejs_60x60.webp (864ms)
+[nitro]   ├─ /_ipx/w_32/images/icons/github.svg (794ms)
+[nitro]   ├─ /_ipx/w_32/images/icons/mastodon.svg (784ms)
+[nitro]   ├─ /_ipx/w_32/images/icons/linkedin.svg (826ms)
+[nitro]   ├─ /_ipx/w_32/images/icons/gitlab.svg (805ms)
+[nitro]   ├─ /_ipx/f_webp&q_90&s_120x120/images/technologies/php_60x60.webp (874ms)
+[nitro]   ├─ /_ipx/s_240x240/images/icons/webs/blog_personal.svg (64ms)
+[nitro]   ├─ /_ipx/s_80x80/logo_128x128.webp (82ms)
+[nitro]   ├─ /_ipx/s_240x240/logo_128x128.webp (95ms)
+[nitro]   ├─ /_ipx/s_160x160/logo_128x128.webp (82ms)
+[nitro]   ├─ /_ipx/s_240x240/images/icons/world.svg (66ms)
+[nitro]   ├─ /_ipx/s_120x120/images/icons/world.svg (70ms)
+[nitro]   ├─ /_ipx/s_120x120/images/icons/webs/blog_personal.svg (66ms)
+[nitro]   ├─ /_ipx/s_240x240/images/icons/webs/aidyslexic.webp (73ms)
+[nitro]   ├─ /_ipx/s_240x240/images/icons/webs/jajaproject.webp (78ms)
+[nitro]   ├─ /_ipx/s_250x141/images/pages/about/gallery/30_250px.webp (104ms)
+[nitro]   ├─ /_ipx/s_250x141/images/pages/about/gallery/32_250px.webp (106ms)
+[nitro]   ├─ /_ipx/s_250x141/images/pages/about/gallery/33_250px.webp (110ms)
+[nitro]   ├─ /_ipx/s_250x141/images/pages/about/gallery/37_250px.webp (114ms)
+[nitro]   ├─ /_ipx/s_250x141/images/pages/about/gallery/34_250px.webp (110ms)
+[nitro]   ├─ /_ipx/s_250x141/images/pages/about/gallery/35_250px.webp (110ms)
+[nitro]   ├─ /_ipx/s_250x141/images/pages/about/gallery/36_250px.webp (109ms)
+[nitro]   ├─ /_ipx/s_250x141/images/pages/about/gallery/10_250px.webp (37ms)
+[nitro]   ├─ /_ipx/s_250x141/images/pages/about/gallery/38_250px.webp (114ms)
+[nitro]   ├─ /_ipx/s_250x141/images/pages/about/gallery/12_250px.webp (41ms)
+[nitro]   ├─ /_ipx/s_250x141/images/pages/about/gallery/11_250px.webp (36ms)
+[nitro]   ├─ /_ipx/s_250x141/images/pages/about/gallery/14_250px.webp (45ms)
+[nitro]   ├─ /_ipx/s_250x141/images/pages/about/gallery/15_250px.webp (46ms)
+[nitro]   ├─ /_ipx/s_250x141/images/pages/about/gallery/13_250px.webp (41ms)
+[nitro]   ├─ /_ipx/s_250x141/images/pages/about/gallery/17_250px.webp (52ms)
+[nitro]   ├─ /_ipx/s_250x141/images/pages/about/gallery/16_250px.webp (55ms)
+[nitro]   ├─ /_ipx/s_250x141/images/pages/about/gallery/20_250px.webp (62ms)
+[nitro]   ├─ /_ipx/s_250x141/images/pages/about/gallery/19_250px.webp (53ms)
+[nitro]   ├─ /_ipx/s_250x141/images/pages/about/gallery/23_250px.webp (61ms)
+[nitro]   ├─ /_ipx/s_250x141/images/pages/about/gallery/18_250px.webp (55ms)
+[nitro]   ├─ /_ipx/s_250x141/images/pages/about/gallery/22_250px.webp (69ms)
+[nitro]   ├─ /_ipx/s_250x141/images/pages/about/gallery/25_250px.webp (93ms)
+[nitro]   ├─ /_ipx/s_250x141/images/pages/about/gallery/26_250px.webp (95ms)
+[nitro]   ├─ /_ipx/s_250x141/images/pages/about/gallery/24_250px.webp (88ms)
+[nitro]   ├─ /_ipx/s_250x141/images/pages/about/gallery/21_250px.webp (73ms)
+[nitro]   ├─ /_ipx/s_250x141/images/pages/about/gallery/28_250px.webp (94ms)
+[nitro]   ├─ /_ipx/s_250x141/images/pages/about/gallery/29_250px.webp (95ms)
+[nitro]   ├─ /_ipx/s_250x141/images/pages/about/gallery/6_250px.webp (58ms)
+[nitro]   ├─ /blog/_payload.json?be6b1cb6-1d15-4e64-a02b-3e10aaa2cea2 (17ms) (skipped)
+[nitro]   ├─ /projects/proyecto-detector-de-rayos-con-cjmcuas3935-y-raspberry-pi-pico/_payload.json?be6b1cb6-1d15-4e64-a02b-3e10aaa2cea2 (16ms) (skipped)
+[nitro]   ├─ /projects/bash-guia-de-estilos-y-estructura-de-scripts/_payload.json?be6b1cb6-1d15-4e64-a02b-3e10aaa2cea2 (15ms) (skipped)
+[nitro]   ├─ /projects/proyecto-keycounter-display-raspberry-pi-pico-con-servidor-websockets-y-pantalla/_payload.json?be6b1cb6-1d15-4e64-a02b-3e10aaa2cea2 (14ms) (skipped)
+[nitro]   ├─ /contact/_payload.json?be6b1cb6-1d15-4e64-a02b-3e10aaa2cea2 (12ms) (skipped)
+[nitro]   ├─ /projects/keycounter-en-barra-superior-de-macos-con-aplicacion-swift/_payload.json?be6b1cb6-1d15-4e64-a02b-3e10aaa2cea2 (10ms) (skipped)
+[nitro]   ├─ /projects/proyecto-de-inteligencia-artificial-automatizado-por-roles-para-generar-contenido-y-publicarlo-imagenes-texto-video/_payload.json?be6b1cb6-1d15-4e64-a02b-3e10aaa2cea2 (9ms) (skipped)
+[nitro]   ├─ /projects/medidor-de-consumo-energetico-por-dispositivo-con-raspberry-pi-pico/_payload.json?be6b1cb6-1d15-4e64-a02b-3e10aaa2cea2 (9ms) (skipped)
+[nitro]   ├─ /projects/tool-configurar-entorno-para-desarrollar-debian-y-macos/_payload.json?be6b1cb6-1d15-4e64-a02b-3e10aaa2cea2 (9ms) (skipped)
+[nitro]   ├─ /_ipx/s_250x141/images/pages/about/gallery/40_250px.webp (105ms)
+[nitro]   ├─ /_ipx/s_250x141/images/pages/about/gallery/31_250px.webp (103ms)
+[nitro]   ├─ /_ipx/s_250x141/images/pages/about/gallery/27_250px.webp (103ms)
+[nitro]   ├─ /projects/proyecto-para-capturar-datos-de-estacion-meteorologica-bresser-con-esp32-d1-868mhz-cc1101/_payload.json?be6b1cb6-1d15-4e64-a02b-3e10aaa2cea2 (12ms) (skipped)
+[nitro]   ├─ /projects/smart-plant-3d-con-sensor-de-humedad-en-tierra-y-farola-led-indicando-estado/_payload.json?be6b1cb6-1d15-4e64-a02b-3e10aaa2cea2 (11ms) (skipped)
+[nitro]   ├─ /projects/raspberry-pi-pico-pantalla-e-paper-con-mis-estadisticas/_payload.json?be6b1cb6-1d15-4e64-a02b-3e10aaa2cea2 (11ms) (skipped)
+[nitro]   ├─ /projects/gadget-lottery-minner-esp32-btc/_payload.json?be6b1cb6-1d15-4e64-a02b-3e10aaa2cea2 (10ms) (skipped)
+[nitro]   ├─ /projects/weather-station-raspberry-pi/_payload.json?be6b1cb6-1d15-4e64-a02b-3e10aaa2cea2 (10ms) (skipped)
+[nitro]   ├─ /projects/laravel-panel-backend-para-contenido-y-api-iot/_payload.json?be6b1cb6-1d15-4e64-a02b-3e10aaa2cea2 (9ms) (skipped)
+[nitro]   ├─ /_ipx/s_250x141/images/pages/about/gallery/7_250px.webp (58ms)
+[nitro]   ├─ /_ipx/s_250x141/images/pages/about/gallery/8_250px.webp (56ms)
+[nitro]   ├─ /_ipx/s_250x141/images/pages/about/gallery/9_250px.webp (57ms)
+[nitro]   ├─ /_ipx/s_250x141/images/pages/about/gallery/1_250px.webp (91ms)
+[nitro]   ├─ /projects/proyecto-gadget-monitor-calidad-del-aire-para-oficina/_payload.json?be6b1cb6-1d15-4e64-a02b-3e10aaa2cea2 (37ms) (skipped)
+[nitro]   ├─ /projects/_payload.json?be6b1cb6-1d15-4e64-a02b-3e10aaa2cea2 (35ms) (skipped)
+[nitro]   ├─ /social/_payload.json?be6b1cb6-1d15-4e64-a02b-3e10aaa2cea2 (34ms) (skipped)
+[nitro]   ├─ /_ipx/s_250x141/images/pages/about/gallery/39_250px.webp (150ms)
+[nitro]   ├─ /_ipx/s_250x141/images/pages/about/gallery/5_250px.webp (55ms)
+[nitro]   ├─ /_ipx/s_250x141/images/pages/about/gallery/4_250px.webp (64ms)
+[nitro]   ├─ /_ipx/s_250x141/images/pages/about/gallery/2_250px.webp (87ms)
+[nitro]   ├─ /about/_payload.json (18ms)
+[nitro]   ├─ /blog/_payload.json (17ms)
+[nitro]   ├─ /projects/proyecto-detector-de-rayos-con-cjmcuas3935-y-raspberry-pi-pico/_payload.json (16ms)
+[nitro]   ├─ /projects/bash-guia-de-estilos-y-estructura-de-scripts/_payload.json (15ms)
+[nitro]   ├─ /projects/proyecto-keycounter-display-raspberry-pi-pico-con-servidor-websockets-y-pantalla/_payload.json (13ms)
+[nitro]   ├─ /contact/_payload.json (11ms)
+[nitro]   ├─ /projects/keycounter-en-barra-superior-de-macos-con-aplicacion-swift/_payload.json (10ms)
+[nitro]   ├─ /projects/proyecto-de-inteligencia-artificial-automatizado-por-roles-para-generar-contenido-y-publicarlo-imagenes-texto-video/_payload.json (9ms)
+[nitro]   ├─ /_ipx/s_250x141/images/pages/about/gallery/3_250px.webp (84ms)
+[nitro]   ├─ /projects/medidor-de-consumo-energetico-por-dispositivo-con-raspberry-pi-pico/_payload.json (9ms)
+[nitro]   ├─ /projects/tool-configurar-entorno-para-desarrollar-debian-y-macos/_payload.json (12ms)
+[nitro]   ├─ /projects/smart-plant-3d-con-sensor-de-humedad-en-tierra-y-farola-led-indicando-estado/_payload.json (12ms)
+[nitro]   ├─ /projects/raspberry-pi-pico-pantalla-e-paper-con-mis-estadisticas/_payload.json (12ms)
+[nitro]   ├─ /projects/proyecto-para-capturar-datos-de-estacion-meteorologica-bresser-con-esp32-d1-868mhz-cc1101/_payload.json (12ms)
+[nitro]   ├─ /projects/weather-station-raspberry-pi/_payload.json (10ms)
+[nitro]   ├─ /projects/gadget-lottery-minner-esp32-btc/_payload.json (11ms)
+[nitro]   ├─ /_ipx/s_250x141/images/pages/about/gallery/41_250px.webp (78ms)
+[nitro]   ├─ /projects/laravel-panel-backend-para-contenido-y-api-iot/_payload.json (39ms)
+[nitro]   ├─ /projects/proyecto-gadget-monitor-calidad-del-aire-para-oficina/_payload.json (37ms)
+[nitro]   ├─ /projects/_payload.json (35ms)
+[nitro]   ├─ /_ipx/s_250x141/images/pages/about/gallery/44_250px.webp (112ms)
+[nitro]   ├─ /_ipx/s_250x141/images/pages/about/gallery/43_250px.webp (113ms)
+[nitro]   ├─ /_ipx/s_250x141/images/pages/about/gallery/46_250px.webp (109ms)
+[nitro]   ├─ /_ipx/s_250x141/images/pages/about/gallery/42_250px.webp (114ms)
+[nitro]   ├─ /_ipx/s_250x141/images/pages/about/gallery/48_250px.webp (101ms)
+[nitro]   ├─ /_ipx/s_250x141/images/pages/about/gallery/47_250px.webp (121ms)
+[nitro]   ├─ /_ipx/s_250x141/images/pages/about/gallery/45_250px.webp (124ms)
+[nitro]   ├─ /privacy/_payload.json?be6b1cb6-1d15-4e64-a02b-3e10aaa2cea2 (1ms) (skipped)
+[nitro]   ├─ /_ipx/s_250x141/images/pages/about/gallery/49_250px.webp (100ms)
+[nitro]   ├─ /_ipx/s_250x141/images/pages/about/gallery/50_250px.webp (144ms)
+[nitro]   ├─ /social/_payload.json (2ms)
+[nitro]   ├─ /privacy/_payload.json (3ms)
+[nitro]   ├─ /_ipx/s_44x44/images/icons/social/facebook.svg (49ms)
+[nitro]   ├─ /_ipx/s_56x56/images/icons/social/gitlab.svg (73ms)
+[nitro]   ├─ /_ipx/s_22x22/images/icons/social/thingiverse.webp (59ms)
+[nitro]   ├─ /_ipx/s_44x44/images/icons/social/tiktok.svg (44ms)
+[nitro]   ├─ /_ipx/s_28x28/images/icons/social/gitlab.svg (74ms)
+[nitro]   ├─ /_ipx/s_44x44/images/icons/social/npmjs.svg (41ms)
+[nitro]   ├─ /_ipx/s_44x44/images/icons/social/packagist.svg (20ms)
+[nitro]   ├─ /_ipx/s_44x44/images/icons/social/codepen.svg (57ms)
+[nitro]   ├─ /_ipx/s_44x44/images/icons/social/thingiverse.webp (58ms)
+[nitro]   ├─ /_ipx/s_24x24/images/icons/social/linkedin.svg (43ms)
+[nitro]   ├─ /_ipx/s_48x48/images/icons/social/linkedin.svg (42ms)
+[nitro]   ├─ /_ipx/s_22x22/images/icons/social/codepen.svg (58ms)
+[nitro]   ├─ /_ipx/s_22x22/images/icons/social/printables.svg (54ms)
+[nitro]   ├─ /_ipx/s_28x28/images/icons/social/telegram.svg (70ms)
+[nitro]   ├─ /_ipx/s_44x44/images/icons/social/printables.svg (52ms)
+[nitro]   ├─ /_ipx/s_56x56/images/icons/social/telegram.svg (68ms)
+[nitro]   ├─ /_ipx/s_22x22/images/icons/social/stackoverflow.svg (58ms)
+[nitro]   ├─ /_ipx/s_22x22/images/icons/social/tiktok.svg (47ms)
+[nitro]   ├─ /_ipx/s_22x22/images/icons/social/facebook.svg (51ms)
+[nitro]   ├─ /_ipx/s_22x22/images/icons/social/npmjs.svg (42ms)
+[nitro]   ├─ /_ipx/s_22x22/images/icons/social/packagist.svg (30ms)
+[nitro]   ├─ /_ipx/s_28x28/images/icons/social/github.svg (60ms)
+[nitro]   ├─ /_ipx/s_56x56/images/icons/social/github.svg (43ms)
+[nitro]   ├─ /_ipx/s_44x44/images/icons/social/stackoverflow.svg (57ms)
+[nitro]   ├─ /_ipx/s_24x24/images/icons/social/twitter.svg (72ms)
+[nitro]   ├─ /_ipx/s_22x22/images/icons/social/twitch.svg (59ms)
+[nitro]   ├─ /_ipx/s_24x24/images/icons/social/youtube.svg (67ms)
+[nitro]   ├─ /_ipx/s_44x44/images/icons/social/mastodon.svg (61ms)
+[nitro]   ├─ /_ipx/s_48x48/images/icons/social/youtube.svg (65ms)
+[nitro]   ├─ /_ipx/s_48x48/images/icons/social/twitter.svg (71ms)
+[nitro]   ├─ /_ipx/s_44x44/images/icons/social/instagram.svg (55ms)
+[nitro]   ├─ /_ipx/s_44x44/images/icons/social/bluesky.svg (60ms)
+[nitro]   ├─ /_ipx/s_22x22/images/icons/social/mastodon.svg (63ms)
+[nitro]   ├─ /_ipx/s_22x22/images/icons/social/instagram.svg (56ms)
+[nitro]   ├─ /_ipx/s_44x44/images/icons/social/twitch.svg (58ms)
+[nitro]   ├─ /_ipx/s_22x22/images/icons/social/bluesky.svg (60ms)
+[nitro]   ├─ /sitemap.xml (21ms)
+[nitro] ℹ Prerendered 212 routes in 5.309 seconds
+[nitro] ✔ Generated public .output/public
+[nitro] ✔ You can preview this build using npx serve .output/public
+│
+└  ✨ You can now deploy .output/public to any static hosting!

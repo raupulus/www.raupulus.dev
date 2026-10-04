@@ -1,0 +1,22 @@
+npm warn Unknown project config "shamefully-hoist". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+├─ MIT: 880
+├─ ISC: 57
+├─ Apache-2.0: 46
+├─ BSD-2-Clause: 24
+├─ BSD-3-Clause: 15
+├─ BlueOak-1.0.0: 14
+├─ MIT-0: 5
+├─ CC0-1.0: 4
+├─ MPL-2.0: 2
+├─ MIT OR Apache-2.0: 1
+├─ LGPL-3.0-or-later: 1
+├─ Python-2.0: 1
+├─ CC-BY-4.0: 1
+├─ (MPL-2.0 OR Apache-2.0): 1
+├─ (BSD-3-Clause OR GPL-2.0): 1
+├─ UNLICENSED: 1
+├─ MIT*: 1
+├─ CC-BY-3.0: 1
+└─ (MIT OR CC0-1.0): 1
+
+(Use `node --trace-deprecation ...` to show where the warning was created)

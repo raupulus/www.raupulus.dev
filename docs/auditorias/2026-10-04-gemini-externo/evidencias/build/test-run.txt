@@ -1,0 +1,82 @@
+npm warn Unknown project config "shamefully-hoist". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> nuxt-app@1.1.0 test:run
+> vitest run
+
+[info] [@nuxtjs/sitemap] No dynamic sources detected. Consider enabling `zeroRuntime` to reduce server bundle size. See https://nuxtseo.com/sitemap/guides/zero-runtime
+
+ RUN  v4.1.9 /Users/fryntiz/git/3-Raupulus/www.raupulus.dev
+
+(node:98420) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/fryntiz/git/3-Raupulus/www.raupulus.dev/tailwind.config.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/fryntiz/git/3-Raupulus/www.raupulus.dev/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:98462) ExperimentalWarning: localStorage is not available because --localstorage-file was not provided.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:98465) ExperimentalWarning: localStorage is not available because --localstorage-file was not provided.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:98464) ExperimentalWarning: localStorage is not available because --localstorage-file was not provided.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:98466) ExperimentalWarning: localStorage is not available because --localstorage-file was not provided.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:98463) ExperimentalWarning: localStorage is not available because --localstorage-file was not provided.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:98469) ExperimentalWarning: localStorage is not available because --localstorage-file was not provided.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:98467) ExperimentalWarning: localStorage is not available because --localstorage-file was not provided.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:98470) ExperimentalWarning: localStorage is not available because --localstorage-file was not provided.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:98468) ExperimentalWarning: localStorage is not available because --localstorage-file was not provided.
+(Use `node --trace-warnings ...` to show where the warning was created)
+stdout | tests/components/content/blocks/BlockAlert.test.ts
+<Suspense> is an experimental feature and its API will likely change.
+
+stdout | tests/components/content/blocks/BlockRaw.test.ts
+<Suspense> is an experimental feature and its API will likely change.
+
+stdout | tests/composables/fetchPostData.test.ts
+<Suspense> is an experimental feature and its API will likely change.
+
+stdout | tests/composables/fetchPageData.test.ts
+<Suspense> is an experimental feature and its API will likely change.
+
+stdout | tests/components/content/blocks/BlockParagraph.test.ts
+<Suspense> is an experimental feature and its API will likely change.
+
+stdout | tests/components/content/blocks/BlockList.test.ts
+<Suspense> is an experimental feature and its API will likely change.
+
+stdout | tests/composables/projectsData.test.ts
+<Suspense> is an experimental feature and its API will likely change.
+
+stdout | tests/composables/platformData.test.ts
+<Suspense> is an experimental feature and its API will likely change.
+
+stdout | tests/utils/ContentUtils.test.ts
+<Suspense> is an experimental feature and its API will likely change.
+
+ ✓ tests/utils/ContentUtils.test.ts (8 tests) 2434ms
+ ✓ tests/composables/fetchPageData.test.ts (3 tests) 2552ms
+ ✓ tests/composables/platformData.test.ts (2 tests) 2561ms
+ ✓ tests/composables/fetchPostData.test.ts (7 tests) 2562ms
+ ✓ tests/composables/projectsData.test.ts (5 tests) 2565ms
+ ✓ tests/components/content/blocks/BlockParagraph.test.ts (3 tests) 1231ms
+     ✓ debe renderizar texto simple  300ms
+ ✓ tests/components/content/blocks/BlockAlert.test.ts (2 tests) 1221ms
+     ✓ debe renderizar mensaje de alerta  305ms
+ ✓ tests/components/content/blocks/BlockList.test.ts (3 tests) 1231ms
+ ✓ tests/components/content/blocks/BlockRaw.test.ts (3 tests) 1237ms
+     ✓ debe renderizar HTML básico  322ms
+(node:98514) ExperimentalWarning: localStorage is not available because --localstorage-file was not provided.
+(Use `node --trace-warnings ...` to show where the warning was created)
+stdout | tests/utils/sanitize.test.ts
+<Suspense> is an experimental feature and its API will likely change.
+
+ ✓ tests/utils/sanitize.test.ts (9 tests) 302ms
+
+ Test Files  10 passed (10)
+      Tests  45 passed (45)
+   Start at  18:49:18
+   Duration  4.85s (transform 11.85s, setup 918ms, import 6.82s, tests 17.89s, environment 5.66s)
+

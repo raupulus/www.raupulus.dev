@@ -1,0 +1,6 @@
+188.114.97.5
+188.114.96.5
+2a06:98c1:3120::5
+2a06:98c1:3121::5
+"v=spf1 a mx include:mxroute.com ~all"
+"v=DMARC1;  p=none; rua=mailto:<redactado>@dmarc-reports.cloudflare.net"

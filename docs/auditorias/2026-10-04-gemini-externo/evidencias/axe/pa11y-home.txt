@@ -1,0 +1,45 @@
+npm warn Unknown project config "shamefully-hoist". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+Welcome to Pa11y
+
+ > Running Pa11y on URL http://localhost:4173/
+
+Results for URL: http://localhost:4173/
+
+ • Error: This element has insufficient contrast at this conformance level. Expected a contrast ratio of at least 4.5:1, but text in this element has a contrast ratio of 1.98:1. Recommendation:  change text colour to #feffff.
+   ├── WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Fail
+   ├── #app > footer > div > div:nth-child(1) > div:nth-child(2)
+   └── <div class="font-body text-xs tracking-widest uppercase text-outline-variant"> © 2026 Raúl Caro Pastorino · H...</div>
+
+ • Error: This element has insufficient contrast at this conformance level. Expected a contrast ratio of at least 4.5:1, but text in this element has a contrast ratio of 1.98:1. Recommendation:  change text colour to #feffff.
+   ├── WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Fail
+   ├── #app > footer > div > div:nth-child(2) > a:nth-child(1)
+   └── <a href="/privacy" class="font-body text-xs tracking-widest uppercase text-outline-variant hover:text-tertiary transition-colors"> Política de Privacidad </a>
+
+ • Error: This element has insufficient contrast at this conformance level. Expected a contrast ratio of at least 4.5:1, but text in this element has a contrast ratio of 1.98:1. Recommendation:  change text colour to #feffff.
+   ├── WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Fail
+   ├── #app > footer > div > div:nth-child(2) > a:nth-child(2)
+   └── <a href="/contact" class="font-body text-xs tracking-widest uppercase text-outline-variant hover:text-tertiary transition-colors"> Contacto </a>
+
+ • Error: This element has insufficient contrast at this conformance level. Expected a contrast ratio of at least 4.5:1, but text in this element has a contrast ratio of 1.98:1. Recommendation:  change text colour to #feffff.
+   ├── WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Fail
+   ├── #app > footer > div > div:nth-child(2) > a:nth-child(3)
+   └── <a href="https://gitlab.com/raupulus/www.raupulus.dev" target="_blank" rel="noopener noreferrer" class="font-body text-xs tracking-widest uppercase text-outline-variant hover:text-tertiary transition-colors"> Código de esta web </a>
+
+ • Error: This textarea element does not have a name available to an accessibility API. Valid names are: label element, title , aria-label , aria-labelledby .
+   ├── WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.Textarea.Name
+   ├── #g-recaptcha-response
+   └── <textarea id="g-recaptcha-response" name="g-recaptcha-response" class="g-recaptcha-response" style="width: 250px; height: 40px; border: 1px solid rgb(193, 193, 193); margin: 10px 25px; padding: 0px; resize: none; display: none;"></textarea>
+
+ • Error: This form field should be labelled in some way. Use the label element (either with a "for" attribute or wrapped around the form field), or "title", "aria-label" or "aria-labelledby" attributes as appropriate.
+   ├── WCAG2AA.Principle1.Guideline1_3.1_3_1.F68
+   ├── #g-recaptcha-response
+   └── <textarea id="g-recaptcha-response" name="g-recaptcha-response" class="g-recaptcha-response" style="width: 250px; height: 40px; border: 1px solid rgb(193, 193, 193); margin: 10px 25px; padding: 0px; resize: none; display: none;"></textarea>
+
+ • Error: Iframe element requires a non-empty title attribute that identifies the frame.
+   ├── WCAG2AA.Principle2.Guideline2_4.2_4_1.H64.1
+   ├── html > body > div:nth-child(5) > iframe
+   └── <iframe style="display: none;"></iframe>
+
+7 Errors
+
