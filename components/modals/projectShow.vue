@@ -6,7 +6,7 @@
 
         <!-- Izquierda, imagen del proyecto -->
         <div class="modal-project-show-header-main-img">
-          <NuxtImg :src="project.urlImageSmall" :alt="project.title" :title="project.title" loading="lazy" format="webp" />
+          <NuxtImg v-if="project.image" :src="imageUrl(project.image, 'small')" :alt="project.image.alt || project.title" :title="project.title" loading="lazy" format="webp" />
         </div>
 
         <!-- Centro, título y la imagen de la página actual -->
@@ -14,9 +14,9 @@
           <h3 class="modal-project-title-page">{{ page?.title ?? project.title }}</h3>
 
           <div class="modal-project-show-header-technologies">
-            <NuxtImg
-v-for="technology in project.technologies" :key="technology.slug" :src="technology.urlImageSmall" :title="technology.name"
-              :alt="technology.name" loading="lazy" />
+            <template v-for="technology in project.technologies" :key="technology.slug">
+              <NuxtImg v-if="technology.image" :src="technology.image" :title="technology.name" :alt="technology.name" loading="lazy" />
+            </template>
           </div>
         </div>
 
@@ -33,8 +33,8 @@ class="modal-project-show-header-close"
 
       <div class="modal-project-show-body">
 
-        <div v-if="page?.content" class="modal-project-show-body-content">
-          <ContentBlocksBlock v-for="(block, idx) in page.content.blocks" :key="block.id ?? idx" :block="block" />
+        <div v-if="page?.body?.blocks?.length" class="modal-project-show-body-content">
+          <ContentBlocksBlock v-for="(block, idx) in page.body.blocks" :key="block.id ?? idx" :block="block" />
         </div>
 
       </div>
@@ -43,9 +43,9 @@ class="modal-project-show-header-close"
 
         <!-- Paginador -->
         <ContentPaginator
-v-if="project && project?.total_pages && project?.total_pages > 1"
+v-if="totalPages > 1"
           :contentslug="project?.slug" :project="project"
-          :currentpage="page?.order" :totalpages="project?.total_pages"
+          :currentpage="page?.order" :totalpages="totalPages"
           @slugchange="(slugProject, slugPage) => emit('slugchange', slugProject, slugPage)"
           @metatagchange="(title, description, keywords, url, image) => emit('metatagchange', title, description, keywords, url, image)" />
       </div>
@@ -56,7 +56,6 @@ v-if="project && project?.total_pages && project?.total_pages > 1"
 <script lang="ts" setup>
 
 import type { ContentType } from '@/types/ContentType';
-import type { ContentPageType } from '@/types/ContentPageType';
 
 const props = defineProps({
   visible: {
@@ -74,7 +73,8 @@ const props = defineProps({
 const emit = defineEmits(['disablescroll', 'closemodalprojectshow', 'slugchange', 'metatagchange']);
 const scrollDisabled = useScrollDisabled();
 
-const page = ref<ContentPageType | undefined>(undefined);
+// Página actual (la cargan GridProjects y ContentPaginator)
+const page = getPageData();
 const modalRef = ref<HTMLElement | null>(null);
 
 watch(props, (allProps) => {
@@ -100,8 +100,11 @@ onBeforeUnmount(() => {
   document.removeEventListener('keydown', handleKeydown);
 });
 
-// Computed property for background image URL
-const backgroundImageUrl = computed(() => page.value?.images?.large ?? props.project?.urlImage);
+// Imagen de fondo de la cabecera: la del proyecto en tamaño grande
+const backgroundImageUrl = computed(() => imageUrl(props.project?.image, 'large') ?? '');
+
+// Total de páginas: el índice del detalle o, mientras llega, el recuento del listado
+const totalPages = computed(() => props.project?.pages?.length ?? props.project?.pages_count ?? 0);
 
 </script>
 
@@ -145,7 +148,6 @@ const backgroundImageUrl = computed(() => page.value?.images?.large ?? props.pro
   height: 100%;
   grid-template-columns: auto 1fr auto;
   background-color: #f1f1f1;
-  /*background-image: v-bind("`url('${page?.images?.large ?? project?.urlImage}')`");*/
   /* Imagen principal del proyecto */
   background-position: center;
   background-repeat: no-repeat;

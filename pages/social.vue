@@ -279,7 +279,8 @@ const bentoRows = computed(() => {
                         </div>
                         <div>
                             <div class="flex items-center gap-3 mb-6">
-                                <div class="w-12 h-12 flex items-center justify-center bg-surface-container-lowest rounded-lg border border-outline-variant/30">
+                                <!-- Fondo claro para que los logos oscuros (GitHub, Codepen...) contrasten -->
+                                <div class="w-12 h-12 flex items-center justify-center bg-on-surface rounded-lg border border-outline-variant/30">
                                     <NuxtImg
                                         v-if="network.image"
                                         :src="network.image"
@@ -288,7 +289,7 @@ const bentoRows = computed(() => {
                                         height="28"
                                         class="w-7 h-7 object-contain"
                                     />
-                                    <UiMaterialIcon v-else class="text-primary" :name="network.icon" />
+                                    <UiMaterialIcon v-else class="text-primary-container" :name="network.icon" />
                                 </div>
                                 <div>
                                     <h3 class="font-headline text-2xl font-bold">{{ network.title }}</h3>
@@ -326,7 +327,7 @@ const bentoRows = computed(() => {
                         class="md:col-span-4 bg-surface-container-low rounded-xl p-8 flex flex-col justify-between border border-outline-variant/10 group hover:border-primary/30 transition-all duration-300"
                     >
                         <div>
-                            <div class="w-12 h-12 flex items-center justify-center bg-primary/10 rounded-full mb-6 border border-primary/20">
+                            <div class="w-12 h-12 flex items-center justify-center bg-on-surface rounded-full mb-6 border border-primary/20">
                                 <NuxtImg
                                     v-if="network.image"
                                     :src="network.image"
@@ -335,7 +336,7 @@ const bentoRows = computed(() => {
                                     height="24"
                                     class="w-6 h-6 object-contain"
                                 />
-                                <UiMaterialIcon v-else class="text-primary" :name="network.icon" />
+                                <UiMaterialIcon v-else class="text-primary-container" :name="network.icon" />
                             </div>
                             <h3 class="font-headline text-xl font-bold mb-2">{{ network.title }}</h3>
                             <p v-if="network.badge" class="font-label text-xs text-secondary mb-4 uppercase tracking-widest">{{ network.badge }}</p>
@@ -359,7 +360,7 @@ const bentoRows = computed(() => {
                         class="md:col-span-3 bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-6 group hover:border-primary/40 hover:bg-surface-container-low transition-all duration-300 flex flex-col"
                     >
                         <div class="flex justify-between items-start mb-4">
-                            <div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center">
+                            <div class="w-10 h-10 rounded-lg bg-on-surface flex items-center justify-center">
                                 <NuxtImg
                                     v-if="network.image"
                                     :src="network.image"
@@ -368,7 +369,7 @@ const bentoRows = computed(() => {
                                     height="22"
                                     class="w-5 h-5 object-contain"
                                 />
-                                <UiMaterialIcon v-else class="text-sm text-primary" :name="network.icon" />
+                                <UiMaterialIcon v-else class="text-sm text-primary-container" :name="network.icon" />
                             </div>
                             <UiMaterialIcon class="text-outline group-hover:text-primary transition-colors text-sm" name="north_east" />
                         </div>

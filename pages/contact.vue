@@ -39,7 +39,7 @@ const { executeRecaptcha } = useGoogleRecaptcha();
 //const captchaSiteKey = runtimeConfig.public.captcha.siteKey;
 // useApiBase() resuelve la URL correcta (proxy en dev para evitar CORS)
 const apiBase = useApiBase()
-const API_PATH_CONTACT: string = runtimeConfig.public.api.contact
+const API_PATH_CONTACT: string = runtimeConfig.public.api.contact || 'contact-messages'
 
 const recaptchaIns = useReCaptcha()?.instance
 const router = useRouter();
@@ -350,53 +350,37 @@ const handleSubmit = async (): Promise<void> => {
         return;
     }
 
+    // Contrato: POST /contact-messages (API V2). La plataforma la deduce la API
+    // del Referer y el idioma de Accept-Language, que envía el navegador.
     const data = {
-        app_name: runtimeConfig.public.app.name,
-        app_domain: runtimeConfig.public.app.domain,
-        language: runtimeConfig.public.app.currentLocale,
         name: isFormField(dataForm.value.name) ? dataForm.value.name.value : '',
         email: isFormField(dataForm.value.email) ? dataForm.value.email.value : '',
         subject: isFormField(dataForm.value.subject) ? dataForm.value.subject.value : '',
         message: isFormField(dataForm.value.message) ? dataForm.value.message.value : '',
         privacity: isFormField(dataForm.value.privacity) ? dataForm.value.privacity.value : false,
         contactme: isFormField(dataForm.value.privacity) ? dataForm.value.privacity.value : false,
-        captcha_token: token,
+        'g-recaptcha-response': token,
     };
 
     const apiUrl = apiBase + '/' + API_PATH_CONTACT;
 
     fetchPost(apiUrl, data)
-        .then((data) => {
-
-            //console.log(data)
-
-            if (Array.isArray(data.messages?.errors)) {
-                info.messages.errors = data.messages.errors;
-            } else if (data.messages?.errors && typeof data.messages.errors === 'object') {
-                info.messages.errors = Object.values(data.messages.errors).flat() as string[];;
-            } else {
+        .then((response) => {
+            if (response.success) {
                 info.messages.errors = [];
-            }
-
-            if (Array.isArray(data.messages?.success)) {
-                info.messages.success = data.messages.success;
-            } else if (data.messages?.success && typeof data.messages.success === 'object') {
-                info.messages.success = Object.values(data.messages.success).flat() as string[];
+                info.messages.success = [response.message || 'Mensaje recibido correctamente'];
             } else {
+                // 422 (validación o captcha) y 429 (límite de envíos) traen el detalle aquí
                 info.messages.success = [];
+                info.messages.errors = apiErrorMessages(response);
+
+                if (!info.messages.errors.length) {
+                    info.messages.errors = ['No se ha podido enviar el mensaje. Inténtalo de nuevo más tarde.'];
+                }
             }
 
-            // Formato alternativo de error de la API: { status: 'ko', error: { message } }
-            if (!info.messages.errors.length && data?.status === 'ko') {
-                info.messages.errors = [
-                    data?.error?.message ?? 'No se ha podido enviar el mensaje. Inténtalo de nuevo más tarde.',
-                ];
-            }
-
-
-            info.validated = info.messages.errors.length ? false : true;
-            info.submitted = data?.data?.send ?? false;
-
+            info.validated = response.success;
+            info.submitted = response.success;
         })
         .catch((error) => {
             console.error('Error:', error);
@@ -472,7 +456,7 @@ const showConfirmModal = async (e: Event): Promise<void> => {
                 <span class="w-8 h-[1px] bg-tertiary"/>
                 Canal de Contacto
             </span>
-            <h1 class="font-headline text-6xl md:text-8xl font-bold tracking-tighter text-primary mb-6">
+            <h1 class="font-headline text-5xl sm:text-6xl md:text-8xl font-bold tracking-tighter text-primary mb-6">
                 Formulario de <span class="text-on-surface-variant font-light">Contacto</span>
             </h1>
             <p class="text-on-surface-variant text-lg max-w-2xl border-l-2 border-secondary pl-6 py-2">
@@ -705,8 +689,8 @@ const showConfirmModal = async (e: Event): Promise<void> => {
 
                     <div class="bg-surface-container-low rounded-xl border border-outline-variant/10 p-6">
                         <div class="flex items-center gap-3 mb-4">
-                            <span class="w-2 h-2 rounded-full bg-tertiary animate-pulse"/>
-                            <span class="font-label text-xs text-tertiary uppercase tracking-widest">Sistema Activo</span>
+                            <UiMaterialIcon class="text-tertiary text-sm" name="check_circle" />
+                            <span class="font-label text-xs text-tertiary uppercase tracking-widest">Protección Antispam</span>
                         </div>
                         <p class="text-xs text-on-surface-variant leading-relaxed">
                             Formulario protegido con Google reCAPTCHA v3 para evitar spam.

@@ -8,7 +8,7 @@
                     RAÚL CARO PASTORINO
                 </div>
                 <div class="font-body text-xs tracking-widest uppercase text-outline-variant">
-                    © {{ currentYear }} RAÚL CARO PASTORINO. DISEÑADO CON PRECISIÓN. HECHO CON AMOR.
+                    © {{ currentYear }} Raúl Caro Pastorino · Hecho con software libre
                 </div>
             </div>
 
@@ -26,11 +26,15 @@
                 >
                     Contacto
                 </NuxtLink>
-                <!-- Indicador de estado del sistema -->
-                <div class="flex items-center gap-2">
-                    <span class="w-1.5 h-1.5 rounded-full bg-tertiary animate-pulse"/>
-                    <span class="font-body text-xs tracking-widest uppercase text-primary">Sistema Activo</span>
-                </div>
+                <!-- Enlace al código fuente del portfolio -->
+                <a
+                    href="https://gitlab.com/raupulus/www.raupulus.dev"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="font-body text-xs tracking-widest uppercase text-outline-variant hover:text-tertiary transition-colors"
+                >
+                    Código de esta web
+                </a>
             </div>
         </div>
     </footer>

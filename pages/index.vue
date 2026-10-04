@@ -21,8 +21,10 @@
                         </span>
                     </h1>
                     <p class="text-lg md:text-xl text-on-surface-variant max-w-2xl leading-relaxed mb-12">
-                        Desarrollador Web Backend especializado en PHP/Laravel, Python, IoT y sistemas distribuidos.
-                        Apasionado del Open Source desde 2001, construyendo herramientas y proyectos que marcan la diferencia.
+                        Soy desarrollador web especializado en backend con PHP/Laravel y PostgreSQL.
+                        También me muevo por Python, Vue y la administración de sistemas GNU/Linux.
+                        Este es mi portal personal: aquí comparto mis proyectos, experimentos IoT
+                        y todo lo que voy publicando como software libre desde 2001.
                     </p>
                     <div class="flex flex-wrap gap-6">
                         <NuxtLink
@@ -52,11 +54,11 @@
                             </div>
                         </div>
                         <div class="absolute -top-4 -right-4 glass-panel px-4 py-2 border border-secondary/40 rounded-lg">
-                            <span class="font-label text-xs text-secondary tracking-widest">SISTEMA_ESTABLE</span>
+                            <span class="font-label text-xs text-secondary tracking-widest uppercase">Open Source desde 2001</span>
                         </div>
                         <div class="absolute -bottom-6 -left-4 glass-panel px-4 py-2 border border-tertiary/40 rounded-lg flex items-center gap-2">
                             <span class="w-2 h-2 rounded-full bg-tertiary"/>
-                            <span class="font-label text-xs text-on-surface tracking-widest uppercase">Latencia: 12ms</span>
+                            <span class="font-label text-xs text-on-surface tracking-widest uppercase">Debian GNU/Linux</span>
                         </div>
                     </div>
                 </div>
@@ -68,13 +70,13 @@
             <div class="max-w-7xl mx-auto">
                 <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
                     <div>
-                        <h2 class="font-headline text-4xl font-bold tracking-tight text-primary mb-4">Ecosistema Principal</h2>
+                        <h2 class="font-headline text-4xl font-bold tracking-tight text-primary mb-4">Mi Stack Principal</h2>
                         <p class="text-on-surface-variant max-w-md">
-                            Un stack de precisión para computación de alto rendimiento y flujo de datos en tiempo real.
+                            Las tecnologías con las que trabajo a diario y en las que tengo más rodaje.
                         </p>
                     </div>
                     <div class="font-label text-outline text-sm tracking-widest uppercase">
-                        Protocolo: MQTT | REST | Protobuf
+                        Backend · APIs · Bases de datos
                     </div>
                 </div>
 
@@ -124,20 +126,20 @@ src="/images/technologies/postgresql_60x60.webp" format="webp" width="60" height
                         Pasión por el <span class="text-tertiary">Código Abierto</span> &amp; IoT
                     </h2>
                     <p class="text-on-surface-variant text-lg leading-relaxed mb-6">
-                        No solo escribo código; construyo ecosistemas. Mi compromiso con el Open Source me lleva a
-                        desarrollar herramientas que democratizan el acceso al control de hardware mediante
-                        protocolos como MQTT y Protobuf.
+                        Publico mis proyectos como software libre desde 2001. Me encanta el mundo maker:
+                        estaciones meteorológicas, monitores de energía, sensores... casi siempre con
+                        Raspberry Pi o ESP32, conectados a mis propias APIs para recoger y consultar los datos.
                     </p>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-10">
                         <div class="p-6 bg-surface-container-high rounded-lg border-l-2 border-secondary hover:bg-surface-container-highest transition-colors group">
                             <UiMaterialIcon class="text-secondary mb-2 block group-hover:scale-110 transition-transform" name="memory" />
-                            <div class="font-headline font-bold text-lg mb-1">Hardware Agnóstico</div>
-                            <p class="text-sm text-outline">Integración sin fisuras entre diversos controladores industriales.</p>
+                            <div class="font-headline font-bold text-lg mb-1">Electrónica y Maker</div>
+                            <p class="text-sm text-outline">Microcontroladores, sensores y diseño 3D para darles una carcasa a mis inventos.</p>
                         </div>
                         <div class="p-6 bg-surface-container-high rounded-lg border-l-2 border-tertiary hover:bg-surface-container-highest transition-colors group">
                             <UiMaterialIcon class="text-tertiary mb-2 block group-hover:scale-110 transition-transform" name="hub" />
-                            <div class="font-headline font-bold text-lg mb-1">Estándares Abiertos</div>
-                            <p class="text-sm text-outline">Defendiendo la interoperabilidad y soberanía tecnológica.</p>
+                            <div class="font-headline font-bold text-lg mb-1">Todo Publicado</div>
+                            <p class="text-sm text-outline">Código y documentación en mis repositorios de GitLab y GitHub, por si a alguien le sirve.</p>
                         </div>
                     </div>
                 </div>
@@ -162,36 +164,36 @@ src="/images/technologies/postgresql_60x60.webp" format="webp" width="60" height
                         <div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                             <UiMaterialIcon class="text-primary" name="hub" />
                         </div>
-                        <h3 class="font-headline text-xl font-bold mb-4 tracking-tight">Sistemas Distribuidos IoT</h3>
+                        <h3 class="font-headline text-xl font-bold mb-4 tracking-tight">Backend con Laravel</h3>
                         <p class="text-on-surface-variant text-sm leading-relaxed mb-8">
-                            Diseño de redes mesh y brokers de alta disponibilidad para millones de dispositivos conectados usando protocolos MQTT y AMQP.
+                            Mi especialidad: APIs REST, paneles de administración, integración de servicios y bases de datos. Desde pequeños sitios web hasta aplicaciones empresariales.
                         </p>
                         <div class="mt-auto px-4 py-1.5 border border-primary/30 rounded-full font-label text-xs tracking-widest text-primary uppercase">
-                            Sinergia Hardware
+                            PHP · Laravel · PostgreSQL
                         </div>
                     </div>
                     <div class="p-10 bg-surface flex flex-col items-start group hover:bg-surface-container-low transition-colors border-b md:border-b-0 lg:border-r border-outline-variant/10">
                         <div class="w-12 h-12 rounded-lg bg-tertiary/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                             <UiMaterialIcon class="text-tertiary" name="dns" />
                         </div>
-                        <h3 class="font-headline text-xl font-bold mb-4 tracking-tight">Arquitectura Backend</h3>
+                        <h3 class="font-headline text-xl font-bold mb-4 tracking-tight">IoT y Electrónica</h3>
                         <p class="text-on-surface-variant text-sm leading-relaxed mb-8">
-                            Construcción de microservicios escalables y APIs RESTful que priorizan seguridad, velocidad y documentación mantenible.
+                            Dispositivos con Raspberry Pi, Pico y ESP32 que miden, registran y envían datos a mis APIs: meteorología, energía, sensores ambientales y otros experimentos.
                         </p>
                         <div class="mt-auto px-4 py-1.5 border border-tertiary/30 rounded-full font-label text-xs tracking-widest text-tertiary uppercase">
-                            Infraestructura Cloud
+                            Python · Micropython
                         </div>
                     </div>
                     <div class="p-10 bg-surface flex flex-col items-start group hover:bg-surface-container-low transition-colors">
                         <div class="w-12 h-12 rounded-lg bg-secondary/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                             <UiMaterialIcon class="text-secondary" name="terminal" />
                         </div>
-                        <h3 class="font-headline text-xl font-bold mb-4 tracking-tight">Automatización de Sistemas</h3>
+                        <h3 class="font-headline text-xl font-bold mb-4 tracking-tight">Sistemas y Automatización</h3>
                         <p class="text-on-surface-variant text-sm leading-relaxed mb-8">
-                            Desarrollo de herramientas personalizadas y pipelines CI/CD para garantizar despliegues rápidos y ciclos de testing robustos para firmware y software.
+                            GNU/Linux desde la terminal: servidores VPS, despliegues, copias de seguridad y scripts para automatizar tareas repetitivas, en servidores y en mi día a día.
                         </p>
                         <div class="mt-auto px-4 py-1.5 border border-secondary/30 rounded-full font-label text-xs tracking-widest text-secondary uppercase">
-                            Ingeniería de Procesos
+                            Linux · Bash · CI/CD
                         </div>
                     </div>
                 </div>
@@ -203,12 +205,12 @@ src="/images/technologies/postgresql_60x60.webp" format="webp" width="60" height
             <div class="max-w-7xl mx-auto">
                 <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
                     <div>
-                        <span class="font-label text-secondary tracking-widest text-xs uppercase mb-4 block">Stack Tecnológico</span>
-                        <h2 class="text-4xl md:text-6xl font-headline font-black tracking-tighter">NÚCLEO TECNOLÓGICO</h2>
+                        <span class="font-label text-secondary tracking-widest text-xs uppercase mb-4 block">Con qué trabajo</span>
+                        <h2 class="text-4xl md:text-6xl font-headline font-black tracking-tighter">STACK TECNOLÓGICO</h2>
                     </div>
                     <div class="text-right">
-                        <p class="text-outline text-sm font-label uppercase tracking-widest">Eficiencia y Escala</p>
-                        <p class="text-outline-variant text-xs font-label tracking-tighter uppercase">v.2.4.0_Estable</p>
+                        <p class="text-outline text-sm font-label uppercase tracking-widest">Aprendiendo siempre</p>
+                        <p class="text-outline-variant text-xs font-label tracking-tighter uppercase">Curioso por naturaleza</p>
                     </div>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -222,40 +224,40 @@ src="/images/technologies/postgresql_60x60.webp" format="webp" width="60" height
                                 <h3 class="text-3xl font-headline font-bold">PHP &amp; Laravel</h3>
                             </div>
                             <p class="text-on-surface-variant text-lg leading-relaxed">
-                                Arquitecturas backend de alto rendimiento, optimización de consultas SQL complejas
-                                y sistemas empresariales escalables. Especialista en Laravel Octane para procesos
-                                de alta concurrencia.
+                                El corazón de mi trabajo: APIs REST, paneles de gestión, tiendas y webs
+                                empresariales, integración de servicios (pagos, streaming, IA...) y
+                                optimización de consultas y caché. Con años de rodaje en producción.
                             </p>
                         </div>
                         <div class="mt-8 flex flex-wrap gap-3">
-                            <span class="px-3 py-1 bg-surface-container-lowest text-primary text-[10px] font-label uppercase rounded border border-outline-variant/20">Clean Code</span>
-                            <span class="px-3 py-1 bg-surface-container-lowest text-primary text-[10px] font-label uppercase rounded border border-outline-variant/20">SOLID</span>
-                            <span class="px-3 py-1 bg-surface-container-lowest text-primary text-[10px] font-label uppercase rounded border border-outline-variant/20">TDD</span>
+                            <span class="px-3 py-1 bg-surface-container-lowest text-primary text-[10px] font-label uppercase rounded border border-outline-variant/20">APIs REST</span>
+                            <span class="px-3 py-1 bg-surface-container-lowest text-primary text-[10px] font-label uppercase rounded border border-outline-variant/20">Paneles de gestión</span>
+                            <span class="px-3 py-1 bg-surface-container-lowest text-primary text-[10px] font-label uppercase rounded border border-outline-variant/20">Optimización SQL</span>
                         </div>
                     </div>
                     <!-- Python -->
                     <div class="p-8 bg-surface-container rounded-xl border border-outline-variant/10 hover:bg-surface-container-high transition-all group">
                         <UiMaterialIcon class="text-tertiary mb-4 block group-hover:scale-110 transition-transform" name="integration_instructions" />
                         <h4 class="font-headline font-bold text-xl mb-2">Python</h4>
-                        <p class="text-sm text-on-surface-variant leading-relaxed">Automatización, procesamiento intensivo de datos e interfaz con hardware.</p>
+                        <p class="text-sm text-on-surface-variant leading-relaxed">Automatización, scripts, bots y el lenguaje de mis proyectos con Raspberry Pi.</p>
                     </div>
                     <!-- Vue.js -->
                     <div class="p-8 bg-surface-container rounded-xl border border-outline-variant/10 hover:bg-surface-container-high transition-all group">
                         <UiMaterialIcon class="text-secondary mb-4 block group-hover:scale-110 transition-transform" name="layers" />
                         <h4 class="font-headline font-bold text-xl mb-2">Vue.js</h4>
-                        <p class="text-sm text-on-surface-variant leading-relaxed">Interfaces interactivas para dashboards IoT complejos en tiempo real.</p>
+                        <p class="text-sm text-on-surface-variant leading-relaxed">El frontend de mis proyectos, como este mismo portfolio hecho con Nuxt.</p>
                     </div>
                     <!-- PostgreSQL -->
                     <div class="p-8 bg-surface-container rounded-xl border border-outline-variant/10 hover:bg-surface-container-high transition-all group">
                         <UiMaterialIcon class="text-primary mb-4 block group-hover:scale-110 transition-transform" name="database" />
                         <h4 class="font-headline font-bold text-xl mb-2">PostgreSQL</h4>
-                        <p class="text-sm text-on-surface-variant leading-relaxed">Diseño relacional y optimización de datos de series temporales.</p>
+                        <p class="text-sm text-on-surface-variant leading-relaxed">Mi base de datos preferida: diseño relacional, consultas y rendimiento.</p>
                     </div>
                     <!-- Bash & Ops -->
                     <div class="p-8 bg-surface-container rounded-xl border border-outline-variant/10 hover:bg-surface-container-high transition-all group">
                         <UiMaterialIcon class="text-outline mb-4 block group-hover:scale-110 transition-transform" name="settings_ethernet" />
                         <h4 class="font-headline font-bold text-xl mb-2">Bash &amp; Ops</h4>
-                        <p class="text-sm text-on-surface-variant leading-relaxed">Hardening de servidores, pipelines CI/CD y orquestación.</p>
+                        <p class="text-sm text-on-surface-variant leading-relaxed">Administración de servidores, despliegues automatizados y scripting.</p>
                     </div>
                 </div>
             </div>
@@ -266,14 +268,18 @@ src="/images/technologies/postgresql_60x60.webp" format="webp" width="60" height
             <div class="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary/5 via-transparent to-transparent"/>
             <div class="max-w-4xl mx-auto text-center relative z-10">
                 <h2 class="font-headline text-4xl md:text-6xl font-bold tracking-tighter mb-8 leading-tight">
-                    ¿Listo para construir la <span class="italic text-primary">infraestructura central</span> de tu próximo proyecto?
+                    ¿Te interesa algo de lo que hago? <span class="italic text-primary">Hablemos</span>
                 </h2>
+                <p class="text-on-surface-variant text-lg mb-10 max-w-2xl mx-auto">
+                    Si tienes alguna duda sobre mis proyectos, quieres comentarme una idea
+                    o simplemente saludar, puedes escribirme cuando quieras.
+                </p>
                 <div class="flex flex-col md:flex-row gap-6 justify-center items-center">
                     <NuxtLink
                         to="/contact"
                         class="px-10 py-5 bg-gradient-to-r from-primary to-primary-container text-on-primary font-headline font-black tracking-widest uppercase text-sm rounded transition-transform hover:scale-105"
                     >
-                        Iniciar Contacto
+                        Contactar
                     </NuxtLink>
                     <div class="flex items-center gap-4 px-6 py-4 border border-outline-variant/30 rounded glass-panel">
                         <UiMaterialIcon class="text-tertiary" name="alternate_email" />

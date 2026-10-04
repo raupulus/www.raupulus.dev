@@ -34,10 +34,10 @@
                 </div>
             </div>
 
-            <!-- Preview de artículos futuros -->
+            <!-- Temas previstos para el blog -->
             <div class="mt-16">
                 <h3 class="font-label text-xs uppercase tracking-[0.2em] text-secondary font-bold mb-8">
-                    Próximos Artículos
+                    Temas sobre los que quiero escribir
                 </h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <article
@@ -103,36 +103,36 @@ useHead({
     ]
 })
 
-// Artículos próximos de ejemplo
+// Áreas temáticas previstas para el blog (contenido real pendiente de publicar)
 const upcomingArticles = [
     {
-        type: 'Guía en Profundidad',
-        readTime: '12 min de lectura',
-        title: 'El Futuro del Edge Computing',
-        description: 'Analizando el cambio de aplicaciones cloud-centric a edge-native. Por qué WebAssembly se está convirtiendo en el runtime de elección para sistemas distribuidos.',
+        type: 'Desarrollo Web',
+        readTime: 'Laravel · PostgreSQL',
+        title: 'Backend con Laravel y PostgreSQL',
+        description: 'Lo que voy aprendiendo construyendo APIs, paneles de administración y optimizando consultas en mis proyectos: decisiones, errores y soluciones que me han funcionado.',
         tags: [
-            { icon: 'animation', label: 'WEBASSEMBLY' },
-            { icon: 'cloud_sync', label: 'EDGE COMPUTING' },
+            { icon: 'dns', label: 'APIS REST' },
+            { icon: 'database', label: 'POSTGRESQL' },
         ],
     },
     {
-        type: 'Caso de Estudio',
-        readTime: '20 min de lectura',
-        title: 'Lecciones de un Refactoring de 2 Años',
-        description: 'Desglose técnico de la descomposición de un monolito PHP legacy en un sistema distribuido usando Go y gRPC. Por qué elegimos el patrón strangler fig.',
+        type: 'IoT y Maker',
+        readTime: 'Raspberry Pi · ESP32',
+        title: 'Proyectos con microcontroladores',
+        description: 'Los detalles detrás de mis cacharros: estaciones meteorológicas, monitores de energía, sensores y cómo conecto todo con mis propias APIs.',
         tags: [
-            { icon: 'link', label: 'GRPC PROTOCOLS' },
-            { icon: 'architecture', label: 'SYSTEM DESIGN' },
+            { icon: 'memory', label: 'MICROPYTHON' },
+            { icon: 'hub', label: 'SENSORES' },
         ],
     },
     {
-        type: 'Tutorial',
-        readTime: '8 min de lectura',
-        title: 'MQTT con Laravel y Vue.js',
-        description: 'Implementación práctica de un sistema de mensajería IoT en tiempo real usando MQTT, Laravel como backend y Vue.js para el dashboard de monitorización.',
+        type: 'GNU/Linux',
+        readTime: 'Debian · Bash',
+        title: 'Automatización y servidores',
+        description: 'Scripts, trucos de terminal y administración de servidores para el día a día, en la línea de lo que ya comparto en La Guía Linux y mis repositorios.',
         tags: [
-            { icon: 'settings_ethernet', label: 'MQTT' },
-            { icon: 'hub', label: 'IOT SYSTEMS' },
+            { icon: 'terminal', label: 'BASH' },
+            { icon: 'settings_ethernet', label: 'SERVIDORES' },
         ],
     },
 ]

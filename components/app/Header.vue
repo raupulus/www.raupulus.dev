@@ -87,6 +87,7 @@ interface NavLink {
 }
 
 // Rutas de navegación principal
+// El enlace a /contact no va aquí: ya existe como botón CTA propio en el header
 const navLinks: NavLink[] = [
     { to: '/', label: 'Inicio' },
     { to: '/projects', label: 'Proyectos' },
@@ -94,7 +95,6 @@ const navLinks: NavLink[] = [
     { to: '/about', label: 'Sobre Mí' },
     { to: '/webs', label: 'Webs' },
     { to: '/social', label: 'Social' },
-    { to: '/contact', label: 'Contacto' },
 ]
 
 const route = useRoute()

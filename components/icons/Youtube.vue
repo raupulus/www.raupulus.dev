@@ -1,5 +1,3 @@
-import { type } from '../../.nuxt/types/imports';
-import { default } from '../../composables/useGoogleRecaptcha';
 <script setup>
 defineProps({
     url: {

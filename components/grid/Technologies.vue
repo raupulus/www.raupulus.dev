@@ -22,10 +22,13 @@ defineProps({
   <div class="box-grid-technologies">
     <div v-if="technologies && technologies.length" class="box-container-technologies">
 
-      <NuxtImg
-v-for="technology in technologies" :key="technology.slug" :src="technology.urlImageSmall" :alt="technology.name" loading="lazy"
-        :title="technology.name"
-        :class="technologySelect === technology.slug ? 'technology-selected' : ''" @click="technologySelect !== technology.slug ? emit('clickTechnologySelect', { technologySelect: technology.slug }) : null" />
+      <template v-for="technology in technologies" :key="technology.slug">
+        <NuxtImg
+          v-if="technology.image"
+          :src="technology.image" :alt="technology.name" loading="lazy"
+          :title="technology.name"
+          :class="technologySelect === technology.slug ? 'technology-selected' : ''" @click="technologySelect !== technology.slug ? emit('clickTechnologySelect', { technologySelect: technology.slug }) : null" />
+      </template>
 
     </div>
   </div>

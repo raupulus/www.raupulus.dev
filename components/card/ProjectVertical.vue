@@ -10,11 +10,16 @@ const props = defineProps({
 
 const emit = defineEmits(['projecteventshow'])
 
-// Carga progresiva de imagen: primero pequeña, luego grande
-const currentImgSrc = ref(props.data.urlImageSmall)
+// Carga progresiva de imagen: primero la miniatura pequeña, luego la grande
+// (no el original: puede pesar varios MB). Se usa <img> y no <NuxtImg>: las
+// miniaturas ya vienen optimizadas en webp desde la API y, en el build
+// estático, IPX reescribe la URL remota contra el dominio de la web (404).
+const currentImgSrc = ref(imageUrl(props.data.image, 'small'))
 const onImageLoaded = () => {
-    currentImgSrc.value = props.data.urlImage
+    currentImgSrc.value = imageUrl(props.data.image, 'large')
 }
+
+const publishedAt = computed(() => formatDate(props.data.published_at ?? props.data.created_at))
 </script>
 
 <template>
@@ -24,39 +29,40 @@ const onImageLoaded = () => {
     >
         <!-- Imagen del proyecto -->
         <div class="relative h-48 overflow-hidden bg-surface-container-lowest">
-            <NuxtImg
+            <img
+                v-if="currentImgSrc"
                 :src="currentImgSrc"
                 width="440"
                 height="300"
-                sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-                format="webp"
                 loading="lazy"
+                decoding="async"
                 :alt="data.title"
                 :title="data.title"
                 class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 @load="onImageLoaded"
-            />
+            >
             <!-- Overlay con tecnologías -->
             <div class="absolute bottom-0 left-0 right-0 p-3 flex flex-wrap gap-1 justify-end">
-                <NuxtImg
-                    v-for="technology in data.technologies"
-                    :key="technology.name"
-                    :src="technology.urlImageSmall"
-                    :title="technology.name"
-                    :alt="technology.name"
-                    loading="lazy"
-                    width="22"
-                    height="22"
-                    class="w-5 h-5 object-contain rounded bg-surface-container-lowest/80 p-0.5"
-                />
+                <template v-for="technology in data.technologies" :key="technology.slug">
+                    <NuxtImg
+                        v-if="technology.image"
+                        :src="technology.image"
+                        :title="technology.name"
+                        :alt="technology.name"
+                        loading="lazy"
+                        width="22"
+                        height="22"
+                        class="w-5 h-5 object-contain rounded bg-surface-container-lowest/80 p-0.5"
+                    />
+                </template>
             </div>
         </div>
 
         <!-- Contenido -->
         <div class="flex flex-col flex-1 p-6">
             <!-- Fecha -->
-            <div v-if="data.created_at_human" class="font-label text-[10px] text-outline uppercase tracking-widest mb-2">
-                {{ data.created_at_human }}
+            <div v-if="publishedAt" class="font-label text-[10px] text-outline uppercase tracking-widest mb-2">
+                {{ publishedAt }}
             </div>
 
             <!-- Título -->

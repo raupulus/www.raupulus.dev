@@ -17,7 +17,7 @@ if (slugContent.value) {
 const url = config.public.app.url;
 const urlProjects = url + '/projects';
 const title = 'Proyectos de Raúl Caro Pastorino';
-const description = 'Explora una colección de proyectos destacados realizados por Raúl Caro Pastorino. Descubre innovaciones y desarrollos tecnológicos en diferentes áreas.';
+const description = 'Aquí encontrarás mis proyectos personales: desarrollo web, IoT con Raspberry Pi y ESP32, herramientas y experimentos. La mayoría publicados como software libre con su código y documentación.';
 const keywords = 'proyectos, Raúl Caro Pastorino, desarrollo, tecnología, innovaciones';
 const imageProjects = url + '/social/projects.webp'
 
@@ -134,10 +134,10 @@ const handleChangeMetatags = (
         <div class="pt-12 pb-8 px-8 max-w-7xl mx-auto">
             <span class="font-label text-secondary tracking-[0.3em] uppercase mb-4 flex items-center gap-3 text-xs">
                 <span class="w-8 h-[1px] bg-secondary"/>
-                Engineering Repository
+                Portfolio de Proyectos
             </span>
-            <h1 class="font-headline text-4xl sm:text-6xl md:text-8xl font-bold tracking-tighter text-primary mb-6 max-w-4xl break-words">
-                ENGINEERING <span class="text-on-surface-variant font-light">SYSTEMS &amp;</span> ARCHITECTURES
+            <h1 class="font-headline text-5xl sm:text-6xl md:text-8xl font-bold tracking-tighter text-primary mb-6 max-w-4xl">
+                Mis <span class="text-on-surface-variant font-light">Proyectos</span>
             </h1>
             <p class="text-on-surface-variant text-lg max-w-2xl border-l-2 border-secondary pl-6 py-2">
                 {{ description }}
@@ -151,8 +151,8 @@ const handleChangeMetatags = (
                 <span class="font-label text-xs text-outline uppercase tracking-widest">Filtrando por:</span>
                 <div class="flex items-center gap-2 px-4 py-2 bg-surface-container-high rounded border border-primary/30">
                     <NuxtImg
-                        v-if="currentTechnology?.urlImageSmall"
-                        :src="currentTechnology.urlImageSmall"
+                        v-if="currentTechnology?.image"
+                        :src="currentTechnology.image"
                         :alt="currentTechnology.name"
                         :title="currentTechnology.name"
                         width="20"
@@ -199,7 +199,7 @@ const handleChangeMetatags = (
             <!-- Filtro de tecnologías -->
             <div class="mb-4">
                 <h3 class="font-label text-xs uppercase tracking-[0.2em] text-secondary font-bold mb-4">
-                    Filter by Ecosystem
+                    Filtrar por tecnología
                 </h3>
                 <GridTechnologies
                     :technologies="platformData?.technologies"
@@ -212,10 +212,10 @@ const handleChangeMetatags = (
         <!-- Grid de proyectos -->
         <section class="px-8 pb-24 max-w-7xl mx-auto">
             <!-- Contador de resultados -->
-            <div v-if="datas.pagination?.totalElements" class="mb-8 flex items-center gap-3">
+            <div v-if="datas.meta?.total" class="mb-8 flex items-center gap-3">
                 <span class="w-2 h-2 rounded-full bg-tertiary animate-pulse"/>
                 <span class="font-label text-xs text-outline uppercase tracking-widest">
-                    {{ datas.pagination.totalElements }} proyectos encontrados
+                    {{ datas.meta.total }} proyectos encontrados
                 </span>
             </div>
 

@@ -33,56 +33,56 @@ function isHorizontal(pos: number) {
   return ((pos + 1) % 3) === 0
 }
 
-async function handleShowProjectEvent(project: ContentType) {
+/**
+ * Abre un proyecto en el modal: descarga su detalle (índice de páginas,
+ * primera página, tecnologías, metadatos y taxonomías) y la página pedida en
+ * la URL (`slugPage`) o la primera.
+ *
+ * @param slug Slug del proyecto
+ * @param preview Datos del listado para pintar el modal mientras llega el detalle
+ */
+async function openProject(slug: string, preview?: ContentType) {
+  setCurrentPage(undefined);
   showContent.value = true;
+  currentContent.value = preview;
+
+  const project = await useGetProjectBySlug(slug);
+
+  if (!project) {
+    if (!preview) {
+      showContent.value = false;
+    }
+    return;
+  }
+
   currentContent.value = project;
 
-  // Página a buscar.
-  let page = 1;
+  // Página a mostrar: la de la URL si pertenece a este proyecto, si no la primera
+  const order = project.pages?.find(page => page.slug === props.slugPage)?.order ?? 1;
 
-  if (project.pages_slug && project.pages_slug.length && props.slugPage) {
-    //console.log('SE CUMPLE');
-    page = project.pages_slug.indexOf(props.slugPage) + 1;
-  }
-
-  const contentPage = await usePageData(page, project.slug);
+  const contentPage = (order === 1 && project.first_page)
+    ? setCurrentPage(project.first_page)
+    : await usePageData(order, project.slug);
 
   // Emito evento al padre para actualizar el slug de la url
-  emit('slugchange', currentContent.value?.slug, contentPage.value?.slug)
-
-  // Preparo datos para actualizar metatags
-  const title = project?.title + ' - ' + contentPage.value?.title;
-  const description = project?.excerpt;
-
-  const categories = project?.categories ?? [];
-  const tags = project?.tags ?? [];
-  const technologies = project?.technologies?.map(technology => technology.name) ?? [];
-
-  const keywords = [...categories, ...tags, ...technologies].join(',');
-
-  let url = undefined;
-
-  if (project?.slug && contentPage.value?.slug) {
-    url = `${urlBase}/projects/${project?.slug}/${contentPage.value?.slug}`;
-  } else if (project?.slug) {
-    url = `${urlBase}/projects/${project?.slug}`;
-  }
-
-  const image = contentPage.value?.images?.large;
+  emit('slugchange', project.slug, contentPage.value?.slug)
 
   // Cambio los metatags de la página
-  emit('metatagchange', title, description, keywords, url, image);
+  const meta = buildProjectMetatags(project, contentPage.value, urlBase);
+  emit('metatagchange', meta.title, meta.description, meta.keywords, meta.url, meta.image);
 }
 
-// Abrir el modal al entrar si se recibe slug.
-if (props.openProjetOnLoad && props.slugContent) {
-  useGetProjectBySlug(props.slugContent).then(async (content: ContentType | null) => {
-    if (content) {
-      currentContent.value = content;
-      await handleShowProjectEvent(content);
-    }
-  });
+function handleShowProjectEvent(project: ContentType) {
+  openProject(project.slug, project);
 }
+
+// Abrir el modal al entrar si se recibe slug. Sólo en el cliente: el detalle
+// suma una visita en la API y no debe contarse al prerenderizar.
+onMounted(() => {
+  if (props.openProjetOnLoad && props.slugContent) {
+    openProject(props.slugContent);
+  }
+});
 
 </script>
 

@@ -19,6 +19,10 @@ export default defineNuxtConfig({
         '/_proxy/api/**': {
             proxy: `${process.env.API_DOMAIN_URL || 'http://localhost:8000'}/api/**`,
         },
+        // Cookie CSRF de Sanctum (fuera de /api) para el formulario de contacto
+        '/_proxy/sanctum/**': {
+            proxy: `${process.env.API_DOMAIN_URL || 'http://localhost:8000'}/sanctum/**`,
+        },
     },
 
     runtimeConfig: {
@@ -38,7 +42,7 @@ export default defineNuxtConfig({
             api: {
                 domain: process.env.API_DOMAIN_URL,
                 base: process.env.API_BASE_URL,
-                contact: process.env.API_PATH_CONTACT,
+                contact: process.env.API_PATH_CONTACT || 'contact-messages',
             },
             captcha: {
                 siteKey: process.env.CAPTCHA_SITE_KEY,
@@ -147,8 +151,8 @@ export default defineNuxtConfig({
                 const projects = await usefetchProjectsPaginated();
                 const urls = projects.flatMap((project) => {
                     const mainProjectUrl = `/projects/${project.slug}`;
-                    const pageUrls = project.pages_slug?.map((pageSlug) =>
-                        `/projects/${project.slug}/${pageSlug}`
+                    const pageUrls = project.pages?.map((page) =>
+                        `/projects/${project.slug}/${page.slug}`
                     ) ?? [];
                     return [mainProjectUrl, ...pageUrls];
                 });
@@ -192,16 +196,12 @@ export default defineNuxtConfig({
                 };
 
                 // URLs para las páginas del proyecto
-                let pageUrls = project.pages_slug?.map((pageSlug: string) => ({
-                    loc: `/projects/${project.slug}/${pageSlug}`,
+                const pageUrls = project.pages?.map((page) => ({
+                    loc: `/projects/${project.slug}/${page.slug}`,
                     changefreq: 'weekly',
                     priority: 0.7,
                     lastmod: project.updated_at
-                }));
-
-                if (!pageUrls) {
-                    pageUrls = [];
-                }
+                })) ?? [];
 
                 return [mainProjectUrl, ...pageUrls];
             });

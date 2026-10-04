@@ -14,7 +14,7 @@ defineProps({
     <div class="box-project">
         <div class="box-card">
             <div class="box-img">
-                <NuxtImg :src="data.urlImageMedium" :alt="data.title" loading="lazy" format="webp" />
+                <NuxtImg :src="imageUrl(data.image, 'medium')" :alt="data.title" loading="lazy" format="webp" />
             </div>
 
             <div class="box-title">

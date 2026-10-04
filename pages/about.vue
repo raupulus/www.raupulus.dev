@@ -4,7 +4,8 @@ import type { GalleryPathType } from '@/types/GalleryPathType'
 const config = useRuntimeConfig()
 const url = config.public.app.url
 const domainApi = config.public.api.domain
-const urlToPdfCv = domainApi + '/cv/get/pdf/raupulus/default'
+// PDF del currículum por defecto (ruta web de la API, fuera de /api/v2)
+const urlToPdfCv = domainApi + '/cv/pdf'
 
 const title = 'Sobre mí - Raúl Caro Pastorino | Desarrollador Web Full Stack Backend'
 const description = 'Conoce a Raúl Caro Pastorino, un experimentado desarrollador web full stack especializado en backend. Descubre mi trayectoria profesional, habilidades destacadas y proyectos realizados.'
