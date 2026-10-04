@@ -5,3 +5,4 @@ dist
 cachedRoutes.json
 package-lock.json
 pnpm-lock.yaml
+docs/auditorias

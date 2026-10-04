@@ -1,20 +1,20 @@
-<script setup>
+<script setup lang="ts">
+import type { PropType } from 'vue'
+
 defineProps({
   name: {
     type: String,
     required: true,
-    default: null
   },
   datas: {
-    type: Array,
+    type: Array as PropType<Array<{ slug: string; name: string }>>,
     required: true,
-    default: () => []
   },
   callback: {
-    type: Function,
+    type: Function as PropType<(val: string) => void>,
     required: false,
-    default: undefined
-  }
+    default: undefined,
+  },
 })
 </script>
 

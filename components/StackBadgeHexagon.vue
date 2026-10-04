@@ -17,6 +17,7 @@
 defineProps({
   text: {
     type: String,
+    default: '',
     required: false,
   },
   color: {

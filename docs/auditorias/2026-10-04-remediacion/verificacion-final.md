@@ -11,12 +11,12 @@
 
 | Puerta de calidad | Comando | Estado | Resultado |
 |---|---|:---:|---|
-| **Linting** | `pnpm lint` | ✅ PASA | 0 errores (23 warnings tolerados de v-html sanitizado, props y any justificado) |
+| **Linting** | `pnpm lint` | ✅ PASA | 0 errores (15 warnings tolerados de v-html sanitizado en bloques EditorJS; 0 errores de props o any) |
 | **Chequeo de tipos** | `pnpm exec vue-tsc --noEmit` | ✅ PASA | 0 errores de tipos en TypeScript estricto |
-| **Tests unitarios** | `pnpm test:run` | ✅ PASA | 10 suites pasadas (10/10), 53 tests pasados (53/53, 100 %) |
+| **Tests unitarios** | `pnpm test:run` | ✅ PASA | 12 suites pasadas (12/12), 56 tests pasados (56/56, 100 %) |
 | **Cobertura de tests** | `pnpm test:coverage` | ✅ PASA | Cobertura ejecutada con `@vitest/coverage-v8`, exit code 0 |
 | **Auditoría de paquetes** | `pnpm audit --prod` | ⚠️ CONTROLADO | 0 vulnerabilidades críticas (RCE de `@nuxt/devtools` resuelto), 21 transitivas en jsdom/undici |
-| **Compilación estática (SSG)** | `pnpm generate` | ✅ PASA | 223 rutas prerenderizadas en 4,5 segundos |
+| **Compilación estática (SSG)** | `pnpm generate` | ✅ PASA | 223 rutas prerenderizadas en 4,2 segundos |
 
 ---
 
@@ -26,13 +26,12 @@
 ```text
 $ eslint .
 
-✖ 23 problems (0 errors, 23 warnings)
+✖ 15 problems (0 errors, 15 warnings)
 ```
 - **Errores:** 0
 - **Warnings tolerados:**
-  - `vue/no-v-html`: bloques de EditorJS donde el contenido está explícitamente sanitizado mediante `sanitizeHtml()` o `sanitizeRawHtml()` con `isomorphic-dompurify`.
-  - `vue/require-default-prop` / `vue/no-required-prop-with-default`: props opcionales en componentes legacy.
-  - `@typescript-eslint/no-explicit-any`: 1 uso justificado en payload genérico de `projectsData.ts`.
+  - `vue/no-v-html`: 15 bloques de EditorJS donde el contenido está explícitamente sanitizado mediante `sanitizeHtml()` o `sanitizeRawHtml()` con `isomorphic-dompurify`.
+  - 0 advertencias de props o tipos `any`.
 
 ---
 
@@ -47,18 +46,20 @@ $ vue-tsc --noEmit
 
 ### 2.3 `pnpm test:run`
 ```text
- Test Files  10 passed (10)
-      Tests  53 passed (53)
-   Start at  00:31:39
-   Duration  3.47s (transform 6.73s, setup 823ms, import 4.65s, tests 9.47s, environment 5.61s)
+ Test Files  12 passed (12)
+      Tests  56 passed (56)
+   Start at  01:24:54
+   Duration  2.64s (transform 5.21s, setup 723ms, import 2.91s, tests 7.68s, environment 4.43s)
 ```
 Suites ejecutadas:
 - `tests/utils/ContentUtils.test.ts` (8 tests)
 - `tests/utils/sanitize.test.ts` (15 tests)
+- `tests/utils/TechnologyUtils.test.ts` (1 test)
 - `tests/composables/fetchPageData.test.ts` (3 tests)
 - `tests/composables/platformData.test.ts` (2 tests)
 - `tests/composables/projectsData.test.ts` (7 tests — incluye test de fallback vacío y error fatal sin ALLOW_EMPTY_PROJECTS)
 - `tests/composables/fetchPostData.test.ts` (7 tests)
+- `tests/composables/useApiBase.test.ts` (2 tests)
 - `tests/components/content/blocks/BlockAlert.test.ts` (2 tests)
 - `tests/components/content/blocks/BlockParagraph.test.ts` (3 tests)
 - `tests/components/content/blocks/BlockList.test.ts` (3 tests)

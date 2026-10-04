@@ -195,8 +195,9 @@ export async function projectsDataSearch(params: ProjectsSearchParamsType | null
 
             hasMore = hasNextPage(res.meta);
             page++;
-        } catch (error: any) {
-            if (error?.name === 'AbortError' || abortController.signal.aborted) {
+        } catch (error: unknown) {
+            const err = error as { name?: string };
+            if (err?.name === 'AbortError' || abortController.signal.aborted) {
                 return;
             }
             console.error('FETCH projectsDataSearch ERROR', error);

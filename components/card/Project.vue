@@ -1,13 +1,13 @@
-<script setup>
+<script setup lang="ts">
+import type { PropType } from 'vue'
+import type { ContentType } from '@/types/ContentType'
+
 defineProps({
-
-    /** TODO: Una vez terminada la api, crear tipo **/
-
     data: {
-        //type: Object,
-        required: true
+        type: Object as PropType<ContentType>,
+        required: true,
     },
-});
+})
 </script>
 
 <template>
@@ -36,23 +36,20 @@ defineProps({
                 :key="key"
                 :class="(idx > 0 && (idx) < Object.keys(data.metadata).length) ? 'link-margin' : ''">
 
-                <IconsYoutube v-if="key === 'youtube'" :margin="0" :url="data.metadata.youtube" display="block" />
-                <IconsEarth v-if="key === 'web'" :margin="0" :url="data.metadata.web" display="block" />
-                <IconsTwitter v-if="key === 'twitter'" :margin="0" :url="data.metadata.twitter" display="block" />
-
-                <IconsGitlab v-if="key === 'gitlab'" :margin="0" :url="data.metadata.gitlab" display="block" />
-
+                <IconsYoutube v-if="key === 'youtube'" :margin="0" :url="data.metadata.youtube || undefined" display="block" />
+                <IconsEarth v-if="key === 'web'" :margin="0" :url="data.metadata.web || undefined" display="block" />
+                <IconsTwitter v-if="key === 'twitter'" :margin="0" :url="data.metadata.twitter || undefined" display="block" />
+                <IconsGitlab v-if="key === 'gitlab'" :margin="0" :url="data.metadata.gitlab || undefined" display="block" />
                 <IconsTelegram
-v-if="key === 'telegram_channel'" :margin="0" :url="data.metadata.telegram_channel"
-                    display="block" />
-
-                <IconsGithub v-if="key === 'github'" :margin="0" :url="data.metadata.github" display="block" />
-
-                <IconsLinkedin v-if="key === 'linkedin'" :margin="0" :url="data.metadata.linkedin" display="block" />
-
-                <IconsMastodon v-if="key === 'mastodon'" :margin="0" :url="data.metadata.mastodon" display="block" />
-
-                <IconsTwitch v-if="key === 'twitch'" :margin="0" :url="data.metadata.twitch" display="block" />
+                    v-if="key === 'telegram_channel'"
+                    :margin="0"
+                    :url="data.metadata.telegram_channel || undefined"
+                    display="block"
+                />
+                <IconsGithub v-if="key === 'github'" :margin="0" :url="data.metadata.github || undefined" display="block" />
+                <IconsLinkedin v-if="key === 'linkedin'" :margin="0" :url="data.metadata.linkedin || undefined" display="block" />
+                <IconsMastodon v-if="key === 'mastodon'" :margin="0" :url="data.metadata.mastodon || undefined" display="block" />
+                <IconsTwitch v-if="key === 'twitch'" :margin="0" :url="data.metadata.twitch || undefined" display="block" />
             </div>
 
         </div>
