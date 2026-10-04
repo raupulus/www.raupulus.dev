@@ -1,3 +1,5 @@
+import type { ApiResponseType } from '~/types/ApiResponse';
+
 /**
  * Lee la cookie XSRF-TOKEN directamente del navegador.
  *
@@ -16,11 +18,13 @@ function getXsrfTokenFromCookie(): string {
 
 /**
  * Solicita al backend la cookie CSRF (Laravel Sanctum) y devuelve su valor.
+ *
+ * La ruta es `/sanctum/csrf-cookie`, en el dominio de la API (fuera de `/api/v2`).
  */
 export async function fetchCsrfToken(): Promise<string> {
-  const apiBase = useApiBase();
+  const apiDomain = useApiDomain();
 
-  const response = await fetch(apiBase + '/auth/csrf-cookie', {
+  const response = await fetch(apiDomain + '/sanctum/csrf-cookie', {
     credentials: 'include',
   });
 
@@ -34,11 +38,12 @@ export async function fetchCsrfToken(): Promise<string> {
 /**
  * Envía una petición POST JSON a la API con credenciales y token CSRF.
  *
- * Devuelve el JSON de la respuesta también en errores de validación (4xx),
- * ya que la API responde con `messages.errors` que la interfaz debe mostrar.
+ * Devuelve el JSON de la respuesta (envelope de la API V2) también en errores
+ * de validación (4xx), ya que la API responde con `{ success: false, message,
+ * errors }` y la interfaz debe mostrarlos.
  * Solo lanza excepción ante fallos de red o respuestas sin JSON.
  */
-export default async function fetchPost(url: string, body: Record<string, unknown>) {
+export default async function fetchPost(url: string, body: Record<string, unknown>): Promise<ApiResponseType<unknown>> {
   let csrfToken = getXsrfTokenFromCookie();
 
   if (!csrfToken) {

@@ -1,3 +1,4 @@
+import type { ApiResponseType } from "@/types/ApiResponse";
 import type { PlatformDataType } from "@/types/Platform/PlatformDataType";
 
 export const usePlatformData = async () => {
@@ -11,8 +12,9 @@ export const usePlatformData = async () => {
   const API_BASE = useApiBase();
 
   try {
-    const response = await $fetch<{ data: PlatformDataType }>(
-      `${API_BASE}/platform/portfolio/info`
+    // Ficha de la plataforma: tecnologías, redes, autor, recuentos y páginas
+    const response = await $fetch<ApiResponseType<PlatformDataType>>(
+      `${API_BASE}/platforms/${PLATFORM_SLUG}`
     );
     platformData.value = response.data;
   } catch (error) {
