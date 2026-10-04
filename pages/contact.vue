@@ -3,7 +3,6 @@ import useGoogleRecaptcha, {
     RecaptchaAction,
 } from "~/composables/useGoogleRecaptcha";
 import fetchPost from '@/composables/fetchPostData'
-import { useReCaptcha } from 'vue-recaptcha-v3'
 
 const runtimeConfig = useRuntimeConfig()
 
@@ -21,7 +20,7 @@ useHead({
         { property: 'og:type', content: 'website' },
         { property: 'og:title', content: title },
         { property: 'og:description', content: description },
-        { property: 'og:url', content: url + '/contact' },
+        { property: 'og:url', content: url + '/contact/' },
         { property: 'og:image', content: url + '/social/contact.webp' },
         { name: 'twitter:card', content: 'summary_large_image' },
         { name: 'twitter:title', content: title },
@@ -30,41 +29,24 @@ useHead({
     ]
 });
 
-
-//const recaptchaInstance = useReCaptcha();
-const { executeRecaptcha } = useGoogleRecaptcha();
-
-//const appConfig = useAppConfig()
-//console.log(runtimeConfig.public.captcha.siteKey)
-//const captchaSiteKey = runtimeConfig.public.captcha.siteKey;
 // useApiBase() resuelve la URL correcta (proxy en dev para evitar CORS)
 const apiBase = useApiBase()
 const API_PATH_CONTACT: string = runtimeConfig.public.api.contact || 'contact-messages'
 
-const recaptchaIns = useReCaptcha()?.instance
-const router = useRouter();
+const { executeRecaptcha, initRecaptcha, showBadge, hideBadge } = useGoogleRecaptcha();
 
-router.afterEach((to) => {
-    if (to.path === '/contact') {
-        setTimeout(() => {
-            recaptchaIns?.value?.showBadge();
-        }, 1000);
-    } else {
-        recaptchaIns?.value?.hideBadge();
-    }
-});
+const onFormInteract = () => {
+    initRecaptcha();
+    showBadge();
+};
 
 onMounted(() => {
-    setTimeout(() => {
-        recaptchaIns?.value?.showBadge();
-    }, 1000);
-
     // Pre-carga la cookie CSRF para que el primer envío no falle ni tarde
     fetchCsrfToken().catch(() => { /* se reintentará al enviar */ });
 });
 
 onBeforeUnmount(() => {
-    recaptchaIns?.value?.hideBadge();
+    hideBadge();
 });
 
 interface Validation {
@@ -126,12 +108,12 @@ const dataForm: Ref<FormData> = ref({
         valid: false,
         validations: {
             minLength: {
-                value: 5,
-                message: 'El nombre debe tener al menos 5 caracteres',
+                value: 2,
+                message: 'El nombre debe tener al menos 2 caracteres',
             },
             maxLength: {
-                value: 50,
-                message: 'El nombre no puede tener más de 50 caracteres',
+                value: 100,
+                message: 'El nombre no puede tener más de 100 caracteres',
             },
         },
     },
@@ -140,18 +122,17 @@ const dataForm: Ref<FormData> = ref({
         valid: false,
         validations: {
             minLength: {
-                value: 8,
-                message: 'El email debe tener al menos 8 caracteres',
+                value: 5,
+                message: 'El email debe tener al menos 5 caracteres',
             },
             maxLength: {
-                value: 50,
-                message: 'El email no puede tener más de 50 caracteres',
+                value: 254,
+                message: 'El email no puede tener más de 254 caracteres',
             },
             regexp: {
                 value: "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
-                message: 'El email no es válido',
+                message: 'El formato del email no es válido',
             },
-
         },
     },
     subject: {
@@ -159,12 +140,12 @@ const dataForm: Ref<FormData> = ref({
         valid: false,
         validations: {
             minLength: {
-                value: 10,
-                message: 'El asunto debe tener al menos 10 caracteres',
+                value: 3,
+                message: 'El asunto debe tener al menos 3 caracteres',
             },
             maxLength: {
-                value: 100,
-                message: 'El asunto no puede tener más de 100 caracteres',
+                value: 150,
+                message: 'El asunto no puede tener más de 150 caracteres',
             },
         },
     },
@@ -173,16 +154,15 @@ const dataForm: Ref<FormData> = ref({
         valid: false,
         validations: {
             minLength: {
-                value: 30,
-                message: 'El mensaje debe tener al menos 30 caracteres',
+                value: 10,
+                message: 'El mensaje debe tener al menos 10 caracteres',
             },
             maxLength: {
-                value: 1000,
-                message: 'El mensaje no puede tener más de 1000 caracteres',
+                value: 2000,
+                message: 'El mensaje no puede tener más de 2000 caracteres',
             },
         },
     },
-
     privacity: {
         value: false,
         valid: false,
@@ -190,6 +170,16 @@ const dataForm: Ref<FormData> = ref({
             required: {
                 value: true,
                 message: 'Debes aceptar la política de privacidad',
+            },
+        },
+    },
+    consent: {
+        value: false,
+        valid: false,
+        validations: {
+            required: {
+                value: true,
+                message: 'Debes autorizar el tratamiento para responder a tu consulta',
             },
         },
     },
@@ -236,15 +226,14 @@ const checkValidationsFromEvent = (e: Event): void => {
  *
  * @param field
  */
-const isFormField = (field: any): field is FormField => {
-    return field && typeof field === 'object' && 'value' in field;
+const isFormField = (field: unknown): field is FormField => {
+    return field !== null && typeof field === 'object' && 'value' in field;
 }
 
 /**
- *
  * Comprueba todas las validaciones para un campo.
  *
- * @param {*} currentObject
+ * @param {FormField} currentObject
  */
 const checkValidations = (currentObject: FormField): void => {
     const value = currentObject.value as string;
@@ -276,23 +265,6 @@ const checkValidations = (currentObject: FormField): void => {
         currentObject.errors = [];
     }
 }
-
-
-/**
- *
- * Evento para revisar texto introducido en los campos del formulario.
- *
- * @param event
- * @param field
- */
-const handleKeyup = (event: KeyboardEvent, field: string): void => {
-    const target = event.target as HTMLElement;
-
-    if (target && isFormField(dataForm.value[field])) {
-        dataForm.value[field].value = target.innerText.trim();
-        checkValidations(dataForm.value[field]);
-    }
-};
 
 // Enviar el formulario con Enter pasa por la misma validación y confirmación que el botón
 const onSubmit = async (e: Event) => {
@@ -358,7 +330,7 @@ const handleSubmit = async (): Promise<void> => {
         subject: isFormField(dataForm.value.subject) ? dataForm.value.subject.value : '',
         message: isFormField(dataForm.value.message) ? dataForm.value.message.value : '',
         privacity: isFormField(dataForm.value.privacity) ? dataForm.value.privacity.value : false,
-        contactme: isFormField(dataForm.value.privacity) ? dataForm.value.privacity.value : false,
+        contactme: isFormField(dataForm.value.consent) ? dataForm.value.consent.value : false,
         'g-recaptcha-response': token,
     };
 
@@ -512,20 +484,23 @@ const showConfirmModal = async (e: Event): Promise<void> => {
                                     v-model.trim="(dataForm.name as FormField).value as string"
                                     type="text"
                                     name="name"
-                                    maxlength="50"
+                                    maxlength="100"
                                     autocomplete="name"
+                                    :aria-invalid="Boolean(isFormField(dataForm.name) && dataForm.name.errors?.length)"
                                     :class="[
                                         'w-full bg-surface-container-lowest border-b-2 outline-none px-4 py-3 text-on-surface font-body placeholder:text-outline transition-colors',
                                         isFormField(dataForm.name) && dataForm.name.valid ? 'border-tertiary' : (isFormField(dataForm.name) && dataForm.name.errors?.length ? 'border-error' : 'border-outline-variant focus:border-secondary')
                                     ]"
                                     placeholder="Tu nombre completo"
-                                    @keyup="checkValidationsFromEvent"
+                                    @input="checkValidationsFromEvent"
+                                    @focus.once="onFormInteract"
                                 >
                                 <template v-if="isFormField(dataForm.name) && dataForm.name.errors?.length">
                                     <span
                                         v-for="error in dataForm.name.errors"
                                         :key="error"
                                         class="text-error text-xs font-label"
+                                        role="alert"
                                     >{{ error }}</span>
                                 </template>
                             </div>
@@ -537,20 +512,23 @@ const showConfirmModal = async (e: Event): Promise<void> => {
                                     v-model.trim="(dataForm.email as FormField).value as string"
                                     type="email"
                                     name="email"
-                                    maxlength="50"
+                                    maxlength="254"
                                     autocomplete="email"
+                                    :aria-invalid="Boolean(isFormField(dataForm.email) && dataForm.email.errors?.length)"
                                     :class="[
                                         'w-full bg-surface-container-lowest border-b-2 outline-none px-4 py-3 text-on-surface font-body placeholder:text-outline transition-colors',
                                         isFormField(dataForm.email) && dataForm.email.valid ? 'border-tertiary' : (isFormField(dataForm.email) && dataForm.email.errors?.length ? 'border-error' : 'border-outline-variant focus:border-secondary')
                                     ]"
                                     placeholder="tu@email.com"
-                                    @keyup="checkValidationsFromEvent"
+                                    @input="checkValidationsFromEvent"
+                                    @focus.once="onFormInteract"
                                 >
                                 <template v-if="isFormField(dataForm.email) && dataForm.email.errors?.length">
                                     <span
                                         v-for="error in dataForm.email.errors"
                                         :key="error"
                                         class="text-error text-xs font-label"
+                                        role="alert"
                                     >{{ error }}</span>
                                 </template>
                             </div>
@@ -564,87 +542,144 @@ const showConfirmModal = async (e: Event): Promise<void> => {
                                 v-model.trim="(dataForm.subject as FormField).value as string"
                                 type="text"
                                 name="subject"
-                                maxlength="100"
+                                maxlength="150"
                                 autocomplete="off"
+                                :aria-invalid="Boolean(isFormField(dataForm.subject) && dataForm.subject.errors?.length)"
                                 :class="[
                                     'w-full bg-surface-container-lowest border-b-2 outline-none px-4 py-3 text-on-surface font-body placeholder:text-outline transition-colors',
                                     isFormField(dataForm.subject) && dataForm.subject.valid ? 'border-tertiary' : (isFormField(dataForm.subject) && dataForm.subject.errors?.length ? 'border-error' : 'border-outline-variant focus:border-secondary')
                                 ]"
                                 placeholder="Asunto del mensaje"
-                                @keyup="checkValidationsFromEvent"
+                                @input="checkValidationsFromEvent"
+                                @focus.once="onFormInteract"
                             >
                             <template v-if="isFormField(dataForm.subject) && dataForm.subject.errors?.length">
                                 <span
                                     v-for="error in dataForm.subject.errors"
                                     :key="error"
                                     class="text-error text-xs font-label"
+                                    role="alert"
                                 >{{ error }}</span>
                             </template>
                         </div>
 
-                        <!-- Textarea oculto real -->
-                        <div class="hidden">
+                        <!-- Mensaje -->
+                        <div class="flex flex-col gap-2">
+                            <div class="flex justify-between items-center">
+                                <label for="contact-message" class="font-label text-xs uppercase tracking-widest text-outline">
+                                    Mensaje
+                                </label>
+                                <span class="font-label text-xs text-outline">
+                                    {{ String((dataForm.message as FormField).value || '').length }} / 2000
+                                </span>
+                            </div>
                             <textarea
-                                id="message"
+                                id="contact-message"
                                 v-model.trim="(dataForm.message as FormField).value as string"
                                 name="message"
-                            />
-                        </div>
-
-                        <!-- Mensaje contenteditable -->
-                        <div class="flex flex-col gap-2">
-                            <label class="font-label text-xs uppercase tracking-widest text-outline">Mensaje</label>
-                            <span
-                                role="textbox"
-                                contenteditable
+                                rows="6"
+                                maxlength="2000"
+                                aria-label="Mensaje"
+                                :aria-invalid="Boolean(isFormField(dataForm.message) && dataForm.message.errors?.length)"
                                 :class="[
-                                    'min-h-[160px] w-full bg-surface-container-lowest border-b-2 outline-none px-4 py-3 text-on-surface font-body transition-colors block',
-                                    isFormField(dataForm.message) && dataForm.message.valid ? 'border-tertiary' : (isFormField(dataForm.message) && dataForm.message.errors?.length ? 'border-error' : 'border-outline-variant focus:border-secondary')
+                                    'w-full bg-surface-container-lowest border-b-2 outline-none px-4 py-3 text-on-surface font-body transition-colors resize-y',
+                                    isFormField(dataForm.message) && dataForm.message.valid
+                                        ? 'border-tertiary'
+                                        : (isFormField(dataForm.message) && dataForm.message.errors?.length
+                                            ? 'border-error'
+                                            : 'border-outline-variant focus:border-secondary')
                                 ]"
-                                @keyup="handleKeyup($event, 'message')"
+                                placeholder="Escribe tu mensaje aquí..."
+                                @input="checkValidationsFromEvent"
+                                @focus.once="onFormInteract"
                             />
                             <template v-if="isFormField(dataForm.message) && dataForm.message.errors?.length">
                                 <span
                                     v-for="error in dataForm.message.errors"
                                     :key="error"
                                     class="text-error text-xs font-label"
+                                    role="alert"
                                 >{{ error }}</span>
                             </template>
                         </div>
 
-                        <!-- Privacidad -->
-                        <div class="flex flex-col gap-2">
-                            <label class="flex items-start gap-3 cursor-pointer">
-                                <input
-                                    id="privacity"
-                                    v-model="(dataForm.privacity as FormField).value"
-                                    type="checkbox"
-                                    name="privacity"
-                                    class="mt-1 w-4 h-4 accent-primary shrink-0"
-                                    @change="checkValidationsFromEvent"
-                                >
-                                <span class="text-sm text-on-surface-variant leading-relaxed">
-                                    Acepto recibir correos electrónicos y la
-                                    <NuxtLink to="/privacy" target="_blank" class="text-tertiary hover:underline">
-                                        política de privacidad
-                                    </NuxtLink>.
-                                </span>
-                            </label>
-                            <template v-if="isFormField(dataForm.privacity) && dataForm.privacity.errors?.length">
-                                <span
-                                    v-for="error in dataForm.privacity.errors"
-                                    :key="error"
-                                    class="text-error text-xs font-label"
-                                >{{ error }}</span>
-                            </template>
+                        <!-- Primera capa informativa RGPD -->
+                        <div class="p-4 bg-surface-container-low rounded-lg border border-outline-variant/30 text-xs text-on-surface-variant space-y-1">
+                            <p class="font-bold text-on-surface">Información básica sobre protección de datos:</p>
+                            <p><strong>Responsable:</strong> Raúl Caro Pastorino</p>
+                            <p><strong>Finalidad:</strong> Atender y responder a tu mensaje de contacto.</p>
+                            <p><strong>Legitimación:</strong> Consentimiento del interesado.</p>
+                            <p><strong>Destinatarios:</strong> No se ceden datos a terceros salvo obligación legal.</p>
+                            <p><strong>Derechos:</strong> Acceso, rectificación y supresión escribiendo a <a href="mailto:public@raupulus.dev" class="text-tertiary hover:underline">public@raupulus.dev</a>.</p>
+                        </div>
+
+                        <!-- Checkboxes legales separados -->
+                        <div class="space-y-4">
+                            <!-- Privacidad -->
+                            <div class="flex flex-col gap-1">
+                                <label class="flex items-start gap-3 cursor-pointer">
+                                    <input
+                                        id="privacity"
+                                        v-model="(dataForm.privacity as FormField).value"
+                                        type="checkbox"
+                                        name="privacity"
+                                        class="mt-1 w-4 h-4 accent-primary shrink-0"
+                                        required
+                                        @change="checkValidationsFromEvent"
+                                        @focus.once="onFormInteract"
+                                    >
+                                    <span class="text-sm text-on-surface-variant leading-relaxed">
+                                        He leído y acepto la
+                                        <NuxtLink to="/privacy/" target="_blank" class="text-tertiary hover:underline">
+                                            Política de Privacidad
+                                        </NuxtLink>
+                                        <span class="text-error">*</span>
+                                    </span>
+                                </label>
+                                <template v-if="isFormField(dataForm.privacity) && dataForm.privacity.errors?.length">
+                                    <span
+                                        v-for="error in dataForm.privacity.errors"
+                                        :key="error"
+                                        class="text-error text-xs font-label"
+                                        role="alert"
+                                    >{{ error }}</span>
+                                </template>
+                            </div>
+
+                            <!-- Consentimiento de tratamiento -->
+                            <div class="flex flex-col gap-1">
+                                <label class="flex items-start gap-3 cursor-pointer">
+                                    <input
+                                        id="consent"
+                                        v-model="(dataForm.consent as FormField).value"
+                                        type="checkbox"
+                                        name="consent"
+                                        class="mt-1 w-4 h-4 accent-primary shrink-0"
+                                        required
+                                        @change="checkValidationsFromEvent"
+                                        @focus.once="onFormInteract"
+                                    >
+                                    <span class="text-sm text-on-surface-variant leading-relaxed">
+                                        Consiento expresamente el tratamiento de mis datos para la gestión y respuesta de mi consulta.
+                                        <span class="text-error">*</span>
+                                    </span>
+                                </label>
+                                <template v-if="isFormField(dataForm.consent) && dataForm.consent.errors?.length">
+                                    <span
+                                        v-for="error in dataForm.consent.errors"
+                                        :key="error"
+                                        class="text-error text-xs font-label"
+                                        role="alert"
+                                    >{{ error }}</span>
+                                </template>
+                            </div>
                         </div>
 
                         <!-- Botón enviar -->
                         <div class="pt-4">
                             <button
-                                type="button"
+                                type="submit"
                                 class="px-8 py-4 bg-gradient-to-br from-primary to-primary-container text-on-primary font-headline font-bold text-sm tracking-widest uppercase rounded-lg hover:scale-95 transition-all duration-300"
-                                @click="showConfirmModal"
                             >
                                 Enviar Mensaje
                             </button>
@@ -663,7 +698,7 @@ const showConfirmModal = async (e: Event): Promise<void> => {
                                 </div>
                                 <div>
                                     <p class="font-label text-[10px] text-outline uppercase tracking-widest">Email</p>
-                                    <p class="text-sm text-on-surface">public@raupulus.dev</p>
+                                    <a href="mailto:public@raupulus.dev" class="text-sm text-on-surface hover:text-primary transition-colors">public@raupulus.dev</a>
                                 </div>
                             </div>
                             <div class="flex items-center gap-4">

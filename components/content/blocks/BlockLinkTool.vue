@@ -1,15 +1,21 @@
 <template>
   <div :id="linkTool.id" class="r-web-preview-container">
     <div class="r-web-preview-box">
-      <a class="r-web-preview-link" target="_blank" rel="nofollow noindex noreferrer" :href="linkTool.data.link">
-
+      <a
+        class="r-web-preview-link"
+        target="_blank"
+        rel="nofollow noindex noreferrer noopener"
+        :href="isSafeHttpUrl(linkTool.data.link) ? linkTool.data.link : '#'"
+      >
         <div
-v-if="linkTool.data.meta.image?.url" class="r-web-preview-image"
-          :style="{ backgroundImage: `url(${linkTool.data.meta.image.url})` }"/>
+          v-if="linkTool.data.meta.image?.url && isSafeHttpUrl(linkTool.data.meta.image.url)"
+          class="r-web-preview-image"
+          :style="{ backgroundImage: `url(${linkTool.data.meta.image.url})` }"
+        />
 
         <div v-if="linkTool.data.meta.title" class="r-web-preview-title" v-html="sanitizeHtml(linkTool.data.meta.title)"/>
         <div
-v-if="linkTool.data.meta.description" class="r-web-preview-description"
+          v-if="linkTool.data.meta.description" class="r-web-preview-description"
           v-html="sanitizeHtml(replaceBreakLine(linkTool.data.meta.description))"/>
 
         <span class="r-web-preview-anchor">{{ linkTool.data.link.replace(/https*:\/\//, '') }}</span>
@@ -20,8 +26,8 @@ v-if="linkTool.data.meta.description" class="r-web-preview-description"
 </template>
 
 <script lang="ts" setup>
-import type { BlockLinkToolType, BlockType  } from '@/types/BlocksType';
-import { sanitizeHtml } from '~/utils/sanitize';
+import type { BlockLinkToolType, BlockType } from '@/types/BlocksType';
+import { sanitizeHtml, isSafeHttpUrl } from '~/utils/sanitize';
 
 const props = defineProps({
   block: {

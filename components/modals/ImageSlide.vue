@@ -93,7 +93,6 @@ const props = defineProps({
     galleryPaths: {
         type: Array as PropType<GalleryPathType[]>,
         default: () => [],
-        required: true,
     },
     selectedIndex: {
         type: Number,

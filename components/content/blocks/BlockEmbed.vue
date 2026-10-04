@@ -5,19 +5,25 @@
         {{ replaceBreakLine(embed.data.caption) }}
       </div>
 
-      <div class="r-embed-box-iframe">
+      <div v-if="isSafeEmbedUrl(embed.data.embed)" class="r-embed-box-iframe">
         <iframe
-class="r-embed-iframe" :data-width="embed.data.width" :data-height="embed.data.height"
+          class="r-embed-iframe"
+          :data-width="embed.data.width"
+          :data-height="embed.data.height"
           :style="'width: 100%; max-width: ' + embed.data.width + 'px; height: ' + embed.data.height + 'px;'"
-          :src="embed.data.embed" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen/>
+          :src="embed.data.embed"
+          frameborder="0"
+          allow="autoplay; encrypted-media"
+          allowfullscreen
+        />
       </div>
     </div>
   </div>
-
 </template>
 
 <script lang="ts" setup>
-import type { BlockType, BlockEmbedType  } from '@/types/BlocksType';
+import type { BlockType, BlockEmbedType } from '@/types/BlocksType';
+import { isSafeEmbedUrl } from '~/utils/sanitize';
 
 const props = defineProps({
   block: {

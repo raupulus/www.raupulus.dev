@@ -7,7 +7,7 @@
                 <div class="text-primary font-bold font-headline tracking-tighter text-lg mb-2">
                     RAÚL CARO PASTORINO
                 </div>
-                <div class="font-body text-xs tracking-widest uppercase text-outline-variant">
+                <div class="font-body text-xs tracking-widest uppercase text-on-surface-variant">
                     © {{ currentYear }} Raúl Caro Pastorino · Hecho con software libre
                 </div>
             </div>
@@ -15,14 +15,14 @@
             <!-- Columna derecha: enlaces legales y estado del sistema -->
             <div class="flex flex-wrap justify-center gap-8">
                 <NuxtLink
-                    to="/privacy"
-                    class="font-body text-xs tracking-widest uppercase text-outline-variant hover:text-tertiary transition-colors"
+                    to="/privacy/"
+                    class="font-body text-xs tracking-widest uppercase text-on-surface-variant hover:text-tertiary transition-colors"
                 >
                     Política de Privacidad
                 </NuxtLink>
                 <NuxtLink
-                    to="/contact"
-                    class="font-body text-xs tracking-widest uppercase text-outline-variant hover:text-tertiary transition-colors"
+                    to="/contact/"
+                    class="font-body text-xs tracking-widest uppercase text-on-surface-variant hover:text-tertiary transition-colors"
                 >
                     Contacto
                 </NuxtLink>
@@ -31,7 +31,7 @@
                     href="https://gitlab.com/raupulus/www.raupulus.dev"
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="font-body text-xs tracking-widest uppercase text-outline-variant hover:text-tertiary transition-colors"
+                    class="font-body text-xs tracking-widest uppercase text-on-surface-variant hover:text-tertiary transition-colors"
                 >
                     Código de esta web
                 </a>

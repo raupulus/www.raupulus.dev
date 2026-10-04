@@ -20,7 +20,7 @@
     "prioridad": "P0",
     "estado": "corregido",
     "commits": [
-      "PENDIENTE_COMMIT"
+      "46f46b8"
     ],
     "archivos": [
       "composables/projectsData.ts",
@@ -81,12 +81,16 @@
     "area": "accesibilidad",
     "severidad": "alta",
     "prioridad": "P1",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "PENDIENTE_COMMIT"
+    ],
+    "archivos": [
+      "components/app/Footer.vue"
+    ],
+    "verificacion": "Sustituido text-outline-variant por text-on-surface-variant en Footer.vue superando el ratio de contraste 4.5:1 WCAG AA.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-A11Y-002",
@@ -120,12 +124,16 @@
     "area": "accesibilidad",
     "severidad": "alta",
     "prioridad": "P1",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "PENDIENTE_COMMIT"
+    ],
+    "archivos": [
+      "pages/contact.vue"
+    ],
+    "verificacion": "Textarea accesible con label, contador, role=alert en errores y boton type=submit nativo.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-BUG-003",
@@ -146,12 +154,16 @@
     "area": "bugs-robustez",
     "severidad": "alta",
     "prioridad": "P1",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "PENDIENTE_COMMIT"
+    ],
+    "archivos": [
+      "public/.htaccess"
+    ],
+    "verificacion": "Eliminada reescritura SPA general hacia index.html y configurado ErrorDocument 404 /404.html real.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-BUG-005",
@@ -239,7 +251,7 @@
     "prioridad": "P1",
     "estado": "corregido",
     "commits": [
-      "PENDIENTE_COMMIT"
+      "46f46b8"
     ],
     "archivos": [
       "nuxt.config.ts",
@@ -255,12 +267,18 @@
     "area": "privacidad-legal",
     "severidad": "alta",
     "prioridad": "P1",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "PENDIENTE_COMMIT"
+    ],
+    "archivos": [
+      "plugins/google-recaptcha.ts",
+      "composables/useGoogleRecaptcha.ts",
+      "pages/contact.vue"
+    ],
+    "verificacion": "Eliminado plugin global plugins/google-recaptcha.ts. reCAPTCHA v3 solo se inicializa bajo demanda al interactuar con el formulario en /contact.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-LEGAL-003",
@@ -270,7 +288,7 @@
     "prioridad": "P1",
     "estado": "corregido",
     "commits": [
-      "PENDIENTE_COMMIT"
+      "46f46b8"
     ],
     "archivos": [
       "nuxt.config.ts",
@@ -288,7 +306,7 @@
     "prioridad": "P1",
     "estado": "corregido",
     "commits": [
-      "PENDIENTE_COMMIT"
+      "46f46b8"
     ],
     "archivos": [
       "app.vue"
@@ -316,12 +334,16 @@
     "area": "rendimiento",
     "severidad": "alta",
     "prioridad": "P1",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "PENDIENTE_COMMIT"
+    ],
+    "archivos": [
+      "public/.htaccess"
+    ],
+    "verificacion": "HTML y JSON con Cache-Control no-cache, no-store; recursos estaticos con hash/inmutables con max-age de 1 ano.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-PERF-002",
@@ -329,12 +351,17 @@
     "area": "rendimiento",
     "severidad": "alta",
     "prioridad": "P1",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "PENDIENTE_COMMIT"
+    ],
+    "archivos": [
+      "plugins/google-recaptcha.ts",
+      "composables/useGoogleRecaptcha.ts"
+    ],
+    "verificacion": "Eliminada la carga de scripts de Google reCAPTCHA v3 en todas las paginas del sitio fuera de /contact.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-PERF-003",
@@ -355,12 +382,16 @@
     "area": "responsive",
     "severidad": "alta",
     "prioridad": "P1",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "PENDIENTE_COMMIT"
+    ],
+    "archivos": [
+      "pages/index.vue"
+    ],
+    "verificacion": "Titulo ESPECIALIZACIONES ajustado a text-3xl sm:text-4xl md:text-5xl break-words evitando desbordamiento en 320px.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-RESP-002",
@@ -435,7 +466,7 @@
     "prioridad": "P1",
     "estado": "corregido",
     "commits": [
-      "PENDIENTE_COMMIT"
+      "46f46b8"
     ],
     "archivos": [
       "nuxt.config.ts",
@@ -466,7 +497,7 @@
     "prioridad": "P1",
     "estado": "corregido",
     "commits": [
-      "PENDIENTE_COMMIT"
+      "46f46b8"
     ],
     "archivos": [
       "nuxt.config.ts",
@@ -495,12 +526,17 @@
     "area": "seguridad",
     "severidad": "media",
     "prioridad": "P1",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
-    "test": null,
-    "pendiente": "Pendiente de remediación"
+    "estado": "corregido",
+    "commits": [
+      "PENDIENTE_COMMIT"
+    ],
+    "archivos": [
+      "utils/sanitize.ts",
+      "tests/utils/sanitize.test.ts"
+    ],
+    "verificacion": "Eliminado atributo style de ALLOWED_ATTR en sanitizeHtml para prevenir inyecciones CSS.",
+    "test": "tests/utils/sanitize.test.ts",
+    "pendiente": null
   },
   {
     "id": "U-SEC-005",
@@ -508,12 +544,19 @@
     "area": "seguridad",
     "severidad": "media",
     "prioridad": "P1",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
-    "test": null,
-    "pendiente": "Pendiente de remediación"
+    "estado": "corregido",
+    "commits": [
+      "PENDIENTE_COMMIT"
+    ],
+    "archivos": [
+      "utils/sanitize.ts",
+      "components/content/blocks/BlockEmbed.vue",
+      "components/content/blocks/BlockLinkTool.vue",
+      "tests/utils/sanitize.test.ts"
+    ],
+    "verificacion": "Implementado isSafeEmbedUrl con lista blanca de proveedores seguros por HTTPS e isSafeHttpUrl en enlaces.",
+    "test": "tests/utils/sanitize.test.ts",
+    "pendiente": null
   },
   {
     "id": "U-SEO-003",
@@ -638,12 +681,16 @@
     "area": "bugs-robustez",
     "severidad": "media",
     "prioridad": "P2",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "PENDIENTE_COMMIT"
+    ],
+    "archivos": [
+      "pages/contact.vue"
+    ],
+    "verificacion": "Validaciones relajadas a rangos realistas (nombre 2-100, email 5-254) y textarea con v-model nativo en lugar de contenteditable.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-BUG-010",
@@ -651,12 +698,16 @@
     "area": "bugs-robustez",
     "severidad": "media",
     "prioridad": "P2",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "PENDIENTE_COMMIT"
+    ],
+    "archivos": [
+      "components/modals/ImageSlide.vue"
+    ],
+    "verificacion": "Eliminado required: true en prop galleryPaths con default para cumplir reglas de linting y Vue.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-BUG-011",
@@ -677,12 +728,16 @@
     "area": "bugs-robustez",
     "severidad": "media",
     "prioridad": "P2",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "PENDIENTE_COMMIT"
+    ],
+    "archivos": [
+      "public/favicons/site.webmanifest"
+    ],
+    "verificacion": "Rutas de iconos corregidas a /favicons/android-chrome-*.png existentes en el directorio public.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-CODE-001",
@@ -820,12 +875,16 @@
     "area": "privacidad-legal",
     "severidad": "media",
     "prioridad": "P2",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "PENDIENTE_COMMIT"
+    ],
+    "archivos": [
+      "pages/contact.vue"
+    ],
+    "verificacion": "Separadas casillas de verificacion para Politica de Privacidad y Tratamiento de datos de contacto con primera capa informativa RGPD.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-PERF-004",
@@ -911,12 +970,17 @@
     "area": "seguridad",
     "severidad": "media",
     "prioridad": "P2",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
-    "test": null,
-    "pendiente": "Pendiente de remediación"
+    "estado": "corregido",
+    "commits": [
+      "PENDIENTE_COMMIT"
+    ],
+    "archivos": [
+      "utils/sanitize.ts",
+      "tests/utils/sanitize.test.ts"
+    ],
+    "verificacion": "Eliminado atributo id de ALLOWED_ATTR en sanitizeHtml para prevenir ataques de DOM clobbering.",
+    "test": "tests/utils/sanitize.test.ts",
+    "pendiente": null
   },
   {
     "id": "U-SEC-007",
@@ -924,12 +988,16 @@
     "area": "seguridad",
     "severidad": "media",
     "prioridad": "P2",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "PENDIENTE_COMMIT"
+    ],
+    "archivos": [
+      "public/.htaccess"
+    ],
+    "verificacion": "Anadido Options -Indexes y cabeceras X-Content-Type-Options, X-Frame-Options, Referrer-Policy y Permissions-Policy.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-SEC-008",
@@ -1041,12 +1109,16 @@
     "area": "bugs-robustez",
     "severidad": "baja",
     "prioridad": "P2",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "PENDIENTE_COMMIT"
+    ],
+    "archivos": [
+      "pages/contact.vue"
+    ],
+    "verificacion": "Eliminado router.afterEach no cancelable en contact.vue.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-SEO-010",
@@ -1184,12 +1256,17 @@
     "area": "contenido",
     "severidad": "baja",
     "prioridad": "P3",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "PENDIENTE_COMMIT"
+    ],
+    "archivos": [
+      "pages/index.vue",
+      "pages/contact.vue"
+    ],
+    "verificacion": "Enlazado public@raupulus.dev con mailto: en portada y pagina de contacto.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-LEGAL-007",
@@ -1379,12 +1456,17 @@
     "area": "seo",
     "severidad": "baja",
     "prioridad": "P3",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "PENDIENTE_COMMIT"
+    ],
+    "archivos": [
+      "public/favicons/site.webmanifest",
+      "app.vue"
+    ],
+    "verificacion": "site.webmanifest configurado con start_url, theme_color #091421 y app.vue con link manifest y apple-touch-icon.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-UX-004",

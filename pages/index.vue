@@ -28,13 +28,13 @@
                     </p>
                     <div class="flex flex-wrap gap-6">
                         <NuxtLink
-                            to="/projects"
+                            to="/projects/"
                             class="px-8 py-4 bg-primary text-on-primary font-headline font-bold rounded hover:bg-primary-container transition-colors tracking-widest uppercase text-sm"
                         >
                             Ver Proyectos
                         </NuxtLink>
                         <NuxtLink
-                            to="/about"
+                            to="/about/"
                             class="px-8 py-4 border border-outline-variant hover:border-primary hover:bg-primary/10 transition-all rounded font-headline font-bold text-on-surface tracking-widest uppercase text-sm"
                         >
                             Sobre Mí
@@ -156,7 +156,7 @@ src="/images/technologies/postgresql_60x60.webp" format="webp" width="60" height
         <section class="py-24 px-8 bg-surface-container-lowest">
             <div class="max-w-7xl mx-auto">
                 <div class="mb-20 text-center">
-                    <h2 class="font-headline text-5xl font-black tracking-tighter mb-4">ESPECIALIZACIONES</h2>
+                    <h2 class="font-headline text-3xl sm:text-4xl md:text-5xl font-black tracking-tight mb-4 break-words">ESPECIALIZACIONES</h2>
                     <div class="w-24 h-1 bg-secondary mx-auto"/>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border border-outline-variant/20 rounded-xl overflow-hidden">
@@ -276,14 +276,14 @@ src="/images/technologies/postgresql_60x60.webp" format="webp" width="60" height
                 </p>
                 <div class="flex flex-col md:flex-row gap-6 justify-center items-center">
                     <NuxtLink
-                        to="/contact"
+                        to="/contact/"
                         class="px-10 py-5 bg-gradient-to-r from-primary to-primary-container text-on-primary font-headline font-black tracking-widest uppercase text-sm rounded transition-transform hover:scale-105"
                     >
                         Contactar
                     </NuxtLink>
                     <div class="flex items-center gap-4 px-6 py-4 border border-outline-variant/30 rounded glass-panel">
                         <UiMaterialIcon class="text-tertiary" name="alternate_email" />
-                        <span class="font-label text-sm text-on-surface-variant select-all">public@raupulus.dev</span>
+                        <a href="mailto:public@raupulus.dev" class="font-label text-sm text-on-surface-variant hover:text-primary transition-colors select-all">public@raupulus.dev</a>
                     </div>
                 </div>
             </div>
