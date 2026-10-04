@@ -7,6 +7,10 @@ import path from 'path';
 // Define la ruta del archivo JSON donde se almacenarán las rutas
 const cachedRoutesPath = path.resolve('cachedRoutes.json');
 
+// Fuente única de verdad para la API durante la compilación/prerender
+const configuredApiBase = process.env.API_BASE_URL ||
+    (process.env.API_DOMAIN_URL ? `${process.env.API_DOMAIN_URL}/api/v2` : 'http://127.0.0.1:8000/api/v2');
+
 export default defineNuxtConfig({
     ssr: true,
     devtools: { enabled: process.env.NODE_ENV !== 'production' },
@@ -140,19 +144,28 @@ export default defineNuxtConfig({
     nitro: {
         preset: 'static',
         prerender: {
+            failOnError: true,
             routes: [],
-            //routes: ['/projects/slug-contenido/slug-page1',],
         },
         hooks: {
             async 'prerender:routes'(routes: Set<string>) {
-                console.log('Generando rutas dinámicas');
+                console.warn(`[prerender] Generando rutas dinámicas desde ${configuredApiBase}...`);
 
                 // Obtener los proyectos paginados
-                const projects = await usefetchProjectsPaginated();
+                const projects = await usefetchProjectsPaginated(configuredApiBase);
+
+                if (projects.length === 0 && !process.env.ALLOW_EMPTY_PROJECTS) {
+                    throw new Error(
+                        `[build] Error fatal: No se encontraron proyectos en la API (${configuredApiBase}). ` +
+                        'El build estático requiere proyectos para no vaciar el catálogo y el sitemap. ' +
+                        'Para desarrollo offline sin backend, define ALLOW_EMPTY_PROJECTS=1.'
+                    );
+                }
+
                 const urls = projects.flatMap((project) => {
-                    const mainProjectUrl = `/projects/${project.slug}`;
+                    const mainProjectUrl = `/projects/${project.slug}/`;
                     const pageUrls = project.pages?.map((page) =>
-                        `/projects/${project.slug}/${page.slug}`
+                        `/projects/${project.slug}/${page.slug}/`
                     ) ?? [];
                     return [mainProjectUrl, ...pageUrls];
                 });
@@ -168,36 +181,47 @@ export default defineNuxtConfig({
                 // Añadir cada URL generada a las rutas de prerender
                 urls.forEach(url => routes.add(url));
 
-                console.log('Rutas generadas:');
-                urls.forEach(url => console.log(url));
+                console.warn(`[prerender] ${urls.length} rutas de proyectos añadidas al prerender.`);
             },
         },
-
+    },
+    router: {
+        options: {
+            strict: false,
+        },
     },
     site: {
-        url: process.env.APP_URL,
-        name: process.env.APP_NAME
+        url: process.env.APP_URL || 'https://raupulus.dev',
+        name: process.env.APP_NAME || 'Raúl Caro Pastorino',
+        trailingSlash: true,
     },
     sitemap: {
         exclude: [
             '/admin/**',
             '/login'
         ],
-        urls: async (): Promise<any> => {
-            const projects: ContentType[] = await usefetchProjectsPaginated();
+        urls: async () => {
+            const projects: ContentType[] = await usefetchProjectsPaginated(configuredApiBase);
 
-            const urls = projects.flatMap((project: ContentType) => {
-                // URL para el proyecto principal
-                const mainProjectUrl = {
-                    loc: `/projects/${project.slug}`,
+            type SitemapItem = {
+                loc: string;
+                changefreq?: 'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'never';
+                priority?: 0 | 1 | 0.1 | 0.2 | 0.3 | 0.4 | 0.5 | 0.6 | 0.7 | 0.8 | 0.9;
+                lastmod?: string;
+            };
+
+            const urls: SitemapItem[] = projects.flatMap((project: ContentType) => {
+                // URL para el proyecto principal con barra final
+                const mainProjectUrl: SitemapItem = {
+                    loc: `/projects/${project.slug}/`,
                     changefreq: 'weekly',
                     priority: 0.9,
                     lastmod: project.updated_at
                 };
 
-                // URLs para las páginas del proyecto
-                const pageUrls = project.pages?.map((page) => ({
-                    loc: `/projects/${project.slug}/${page.slug}`,
+                // URLs para las páginas del proyecto con barra final
+                const pageUrls: SitemapItem[] = project.pages?.map((page) => ({
+                    loc: `/projects/${project.slug}/${page.slug}/`,
                     changefreq: 'weekly',
                     priority: 0.7,
                     lastmod: project.updated_at
@@ -219,7 +243,7 @@ export default defineNuxtConfig({
     gtag: {
         id: process.env.GTAG_ID,
         enabled: process.env.NODE_ENV === 'production',
-        initMode: 'auto',
+        initMode: 'manual',
         initCommands: [
             // Setup up consent mode
             ['consent', 'default', {

@@ -221,8 +221,8 @@ export async function useGetProjectBySlug(slug: string): Promise<ContentType | n
  *
  * @returns Lista completa de proyectos
  */
-export async function usefetchProjectsPaginated(): Promise<ContentType[]> {
-    const API_BASE = process.env.API_BASE_URL || 'https://api.raupulus.dev/api/v2';
+export async function usefetchProjectsPaginated(apiBaseUrl?: string): Promise<ContentType[]> {
+    const API_BASE = apiBaseUrl || process.env.API_BASE_URL || (process.env.API_DOMAIN_URL ? `${process.env.API_DOMAIN_URL}/api/v2` : 'http://127.0.0.1:8000/api/v2');
     const API_URL = contentsUrl(API_BASE);
     let allProjects: ContentType[] = [];
     let currentPage = 1;
@@ -235,7 +235,11 @@ export async function usefetchProjectsPaginated(): Promise<ContentType[]> {
             });
 
             if (!response.ok) {
-                console.error(`Error fetching projects page ${currentPage}: HTTP ${response.status}`);
+                const errorMsg = `Error fetching projects page ${currentPage}: HTTP ${response.status} from ${API_URL}`;
+                console.error(errorMsg);
+                if (!process.env.ALLOW_EMPTY_PROJECTS) {
+                    throw new Error(errorMsg);
+                }
                 break;
             }
 
@@ -254,13 +258,13 @@ export async function usefetchProjectsPaginated(): Promise<ContentType[]> {
                 project.pages = await fetchProjectPagesIndex(API_URL, project.slug);
             }
         }
-    } catch {
-        // Fallo de conexión (API caída o inexistente en local): no es fatal.
-        // El sitio se genera igualmente sin las rutas dinámicas de proyectos.
+    } catch (err) {
+        if (!process.env.ALLOW_EMPTY_PROJECTS) {
+            throw err;
+        }
         console.warn(
             `[proyectos] No se pudo conectar con la API (${API_BASE}). ` +
-            'Se continúa sin las rutas dinámicas de proyectos. ' +
-            'Levanta el backend o ajusta API_BASE_URL en .env si las necesitas.'
+            'ALLOW_EMPTY_PROJECTS activo: se continúa sin las rutas dinámicas de proyectos.'
         );
     }
 

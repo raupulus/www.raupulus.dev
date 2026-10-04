@@ -18,12 +18,18 @@
     "area": "bugs-robustez",
     "severidad": "crítica",
     "prioridad": "P0",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
-    "test": null,
-    "pendiente": "Pendiente de remediación"
+    "estado": "corregido",
+    "commits": [
+      "PENDIENTE_COMMIT"
+    ],
+    "archivos": [
+      "composables/projectsData.ts",
+      "nuxt.config.ts",
+      "tests/composables/projectsData.test.ts"
+    ],
+    "verificacion": "pnpm generate falla con error fatal si la API devuelve 0 proyectos o error HTTP, salvo que se active ALLOW_EMPTY_PROJECTS=1. Tests unitarios agregados y validados.",
+    "test": "tests/composables/projectsData.test.ts",
+    "pendiente": null
   },
   {
     "id": "U-INFRA-001",
@@ -31,12 +37,16 @@
     "area": "infraestructura-cicd",
     "severidad": "alta",
     "prioridad": "P0",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "c0b31ff"
+    ],
+    "archivos": [
+      "gocd.yaml"
+    ],
+    "verificacion": "gocd.yaml actualizado con pnpm, variables de entorno de build, verificacion de recuento de rutas de proyectos, publicacion y fetch de artefacto estatico, despliegue atomico por symlink, purga de Cloudflare y smoke test estricto.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-INFRA-006",
@@ -44,12 +54,26 @@
     "area": "infraestructura-cicd",
     "severidad": "alta",
     "prioridad": "P0",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "d710967",
+      "119cbae",
+      "0347b07",
+      "dfcac65",
+      "5408a28"
+    ],
+    "archivos": [
+      "types/",
+      "utils/",
+      "composables/",
+      "components/",
+      "pages/",
+      "nuxt.config.ts",
+      "docs/info/*"
+    ],
+    "verificacion": "Todos los cambios locales desfasados fueron organizados y commiteados por tematica en la rama remediacion/auditoria-2026-10-04, pasando lint y tests.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-A11Y-001",
@@ -148,12 +172,20 @@
     "area": "dependencias",
     "severidad": "alta",
     "prioridad": "P1",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "c0b31ff"
+    ],
+    "archivos": [
+      "package.json",
+      "package-lock.json",
+      ".nvmrc",
+      "gocd.yaml",
+      "scripts/deploy.sh"
+    ],
+    "verificacion": "Eliminado package-lock.json, anadido packageManager y engines en package.json, y actualizado gocd.yaml y scripts/deploy.sh para usar pnpm frozen-lockfile exclusivamente.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-DEP-002",
@@ -187,12 +219,17 @@
     "area": "infraestructura-cicd",
     "severidad": "alta",
     "prioridad": "P1",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "c0b31ff"
+    ],
+    "archivos": [
+      "scripts/deploy.sh",
+      "gocd.yaml"
+    ],
+    "verificacion": "scripts/deploy.sh y gocd.yaml configurados con releases timestamped, symlinks atomicos (ln -sfn + mv -Tf), rollback automatico en fallo y smoke test multi-ruta (/, /about/, /projects/, 404).",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-LEGAL-001",
@@ -200,12 +237,17 @@
     "area": "privacidad-legal",
     "severidad": "alta",
     "prioridad": "P1",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "PENDIENTE_COMMIT"
+    ],
+    "archivos": [
+      "nuxt.config.ts",
+      "app.vue"
+    ],
+    "verificacion": "gtag configurado con initMode: manual en nuxt.config.ts. Solo se inicializa tras aceptacion expresa de cookies de analitica en app.vue.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-LEGAL-002",
@@ -226,12 +268,17 @@
     "area": "privacidad-legal",
     "severidad": "alta",
     "prioridad": "P1",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "PENDIENTE_COMMIT"
+    ],
+    "archivos": [
+      "nuxt.config.ts",
+      "app.vue"
+    ],
+    "verificacion": "Consent Mode solo actualiza analytics_storage: granted; ad_user_data, ad_personalization y ad_storage se mantienen permanentemente denied.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-LEGAL-004",
@@ -239,12 +286,16 @@
     "area": "privacidad-legal",
     "severidad": "alta",
     "prioridad": "P1",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "PENDIENTE_COMMIT"
+    ],
+    "archivos": [
+      "app.vue"
+    ],
+    "verificacion": "Al revocar el consentimiento de analitica en el banner, se actualiza analytics_storage a denied y se purgan todas las cookies _ga* y _gid.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-LEGAL-005",
@@ -382,12 +433,17 @@
     "area": "seo",
     "severidad": "alta",
     "prioridad": "P1",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "PENDIENTE_COMMIT"
+    ],
+    "archivos": [
+      "nuxt.config.ts",
+      "app.vue"
+    ],
+    "verificacion": "Configurado site.trailingSlash: true en nuxt.config.ts, y canonicalUrl en app.vue con barra final coherente con el servidor web Apache.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-BUG-007",
@@ -408,12 +464,17 @@
     "area": "bugs-robustez",
     "severidad": "media",
     "prioridad": "P1",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
-    "test": null,
-    "pendiente": "Pendiente de remediación"
+    "estado": "corregido",
+    "commits": [
+      "PENDIENTE_COMMIT"
+    ],
+    "archivos": [
+      "nuxt.config.ts",
+      "composables/projectsData.ts"
+    ],
+    "verificacion": "Unificada la fuente de verdad configuredApiBase en nuxt.config.ts y composables/projectsData.ts para nitro prerender, sitemap y generacion estatica.",
+    "test": "tests/composables/projectsData.test.ts",
+    "pendiente": null
   },
   {
     "id": "U-INFRA-005",

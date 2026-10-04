@@ -16,29 +16,56 @@ useSeoMeta({
     twitterCard: 'summary'
 })
 
-// Canonical y og:url dinámicos según la ruta actual (importante para SEO en SSG)
+// Canonical y og:url dinámicos según la ruta actual (con barra final según URLS=con-barra-final)
 const route = useRoute()
 const config = useRuntimeConfig()
 const siteUrl = (config.public.app.url || 'https://raupulus.dev').replace(/\/$/, '')
-const canonicalUrl = computed(() => siteUrl + (route.path === '/' ? '' : route.path))
+const canonicalUrl = computed(() => {
+    const p = route.path;
+    const withSlash = p === '/' ? '/' : (p.endsWith('/') ? p : `${p}/`);
+    return siteUrl + withSlash;
+});
 
 useHead({
     htmlAttrs: {
-        lang: 'es'
+        lang: 'es',
+        class: 'dark'
     },
+    meta: [
+        { name: 'theme-color', content: '#091421' },
+        { property: 'og:url', content: canonicalUrl }
+    ],
     link: [
         {
             rel: 'icon',
-            type: 'image/ico',
+            type: 'image/x-icon',
             href: '/favicon.ico'
+        },
+        {
+            rel: 'icon',
+            type: 'image/png',
+            sizes: '32x32',
+            href: '/favicons/favicon-32x32.png'
+        },
+        {
+            rel: 'icon',
+            type: 'image/png',
+            sizes: '16x16',
+            href: '/favicons/favicon-16x16.png'
+        },
+        {
+            rel: 'apple-touch-icon',
+            sizes: '180x180',
+            href: '/favicons/apple-touch-icon.png'
+        },
+        {
+            rel: 'manifest',
+            href: '/favicons/site.webmanifest'
         },
         {
             rel: 'canonical',
             href: canonicalUrl
         }
-    ],
-    meta: [
-        { property: 'og:url', content: canonicalUrl }
     ],
     script: [
         // Datos estructurados: identidad del autor y del sitio (rich results)
@@ -115,28 +142,42 @@ onNuxtReady(async () => {
 })
 
 
-/* Cookies */
+/* Cookies y analítica con Consent Mode v2 */
 const { cookiesEnabledIds } = useCookieControl()
 
 watch(
     () => cookiesEnabledIds.value,
     (current, previous) => {
+        const { initialize, gtag } = useGtag()
         if (
             !previous?.includes('google-analytics') &&
             current?.includes('google-analytics')
         ) {
-            //console.log('se habilita google analytics');
-            // cookie con id `google-analytics` se ha añadido
-            //window.location.reload() // placeholder para tu manejador de cambios personalizado
-            const { gtag } = useGtag()
+            // Se concede consentimiento a analítica
+            initialize()
             gtag('consent', 'update', {
-                ad_user_data: 'granted',
-                ad_personalization: 'granted',
-                ad_storage: 'granted',
                 analytics_storage: 'granted'
             })
-
-            //initialize();
+        } else if (
+            previous?.includes('google-analytics') &&
+            !current?.includes('google-analytics')
+        ) {
+            // Se revoca consentimiento de analítica
+            gtag('consent', 'update', {
+                analytics_storage: 'denied'
+            })
+            // Eliminar cookies generadas por Google Analytics
+            if (typeof document !== 'undefined') {
+                const domain = window.location.hostname
+                document.cookie.split(';').forEach((cookie) => {
+                    const eqPos = cookie.indexOf('=')
+                    const name = eqPos > -1 ? cookie.substring(0, eqPos).trim() : cookie.trim()
+                    if (name.startsWith('_ga') || name.startsWith('_gid')) {
+                        document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/;`
+                        document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/;domain=.${domain};`
+                    }
+                })
+            }
         }
     },
     { deep: true },

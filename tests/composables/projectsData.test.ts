@@ -75,4 +75,36 @@ describe('usefetchProjectsPaginated (API V2)', () => {
 
         vi.unstubAllGlobals()
     })
+
+    it('lanza error si la API falla y no está ALLOW_EMPTY_PROJECTS', async () => {
+        delete process.env.ALLOW_EMPTY_PROJECTS
+        const fetchMock = vi.fn().mockResolvedValue({
+            ok: false,
+            status: 500,
+            json: async () => ({})
+        })
+        vi.stubGlobal('fetch', fetchMock)
+
+        const { usefetchProjectsPaginated } = await import('~/composables/projectsData')
+        await expect(usefetchProjectsPaginated('http://fake-api/api/v2')).rejects.toThrow()
+
+        vi.unstubAllGlobals()
+    })
+
+    it('devuelve array vacío si la API falla y ALLOW_EMPTY_PROJECTS está activo', async () => {
+        process.env.ALLOW_EMPTY_PROJECTS = '1'
+        const fetchMock = vi.fn().mockResolvedValue({
+            ok: false,
+            status: 500,
+            json: async () => ({})
+        })
+        vi.stubGlobal('fetch', fetchMock)
+
+        const { usefetchProjectsPaginated } = await import('~/composables/projectsData')
+        const projects = await usefetchProjectsPaginated('http://fake-api/api/v2')
+        expect(projects).toEqual([])
+
+        delete process.env.ALLOW_EMPTY_PROJECTS
+        vi.unstubAllGlobals()
+    })
 })
