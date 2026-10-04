@@ -101,8 +101,8 @@ sitemap: {
     const projects = await usefetchProjectsPaginated();
     return projects.flatMap(project => [
       { loc: `/projects/${project.slug}`, changefreq: 'weekly', priority: 0.9, lastmod: project.updated_at },
-      ...project.pages_slug?.map(pageSlug => ({
-        loc: `/projects/${project.slug}/${pageSlug}`, changefreq: 'weekly', priority: 0.7, lastmod: project.updated_at
+      ...project.pages?.map(page => ({
+        loc: `/projects/${project.slug}/${page.slug}`, changefreq: 'weekly', priority: 0.7, lastmod: project.updated_at
       })) ?? []
     ]);
   },

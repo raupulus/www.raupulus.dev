@@ -56,48 +56,51 @@ interface FormData {
 3. **Paso 2**: Confirma → `handleSubmit()`:
    - Comprueba trampas anti-bot (honeypot, tiempo mínimo) y bloqueo de doble envío
    - Ejecuta reCAPTCHA v3 (`RecaptchaAction.contact`) para obtener token
-   - Envía POST (via `fetchPost`, con cookie CSRF de Laravel Sanctum) con los datos + `captcha_token`
-   - **El servidor Laravel valida el token reCAPTCHA con la clave privada y es quien envía el email**
+   - Envía `POST /contact-messages` (API V2, via `fetchPost`, con cookie CSRF de Laravel Sanctum) con los datos + `g-recaptcha-response`
+   - **El servidor Laravel valida el token reCAPTCHA con la clave privada, guarda siempre el mensaje y decide si lo reenvía por correo** (la respuesta es la misma en ambos casos)
 4. **Paso 3**: Muestra resultado (éxito o errores devueltos por la API)
 
 ## Seguridad anti-bots
 
 | Medida | Dónde | Detalle |
 |--------|-------|---------|
-| reCAPTCHA v3 | Cliente + **servidor** | Token generado al confirmar; la API lo valida con la clave privada. Con token inválido la API responde `403` y alerta al administrador (verificado) |
-| CSRF (Sanctum) | Cliente + servidor | `fetchPost` obtiene `XSRF-TOKEN` de `/auth/csrf-cookie`, la decodifica (viene URL-encoded) y la envía en `X-XSRF-TOKEN`; sin ella la API responde `419`. Se pre-carga en `onMounted` |
+| reCAPTCHA v3 | Cliente + **servidor** | Token generado al confirmar (`g-recaptcha-response`); la API lo valida con la clave privada. Con token inválido responde `422` `Verificacion de seguridad fallida` y no guarda el mensaje |
+| CSRF (Sanctum) | Cliente + servidor | `fetchPost` obtiene `XSRF-TOKEN` de `{API_DOMAIN_URL}/sanctum/csrf-cookie`, la decodifica (viene URL-encoded) y la envía en `X-XSRF-TOKEN`; sin ella la API responde `419`. Se pre-carga en `onMounted` |
 | Honeypot | Cliente | Campo oculto `website` (off-screen, `tabindex=-1`, `aria-hidden`). Si llega relleno se simula éxito sin llamar a la API |
 | Tiempo mínimo | Cliente | Envíos antes de 3 s desde la carga se tratan como bot (éxito simulado) |
 | Doble envío | Cliente | Flag `isSubmitting` impide peticiones concurrentes |
 | Límites duros | Cliente + servidor | `maxlength` en inputs (50/50/100) además de las validaciones JS; el servidor revalida todo |
-| Origen | Servidor | La API comprueba Origin/Referer e IPs bloqueadas (respuesta `403 "Origen erróneo..."`) |
+| Límite de envíos | Servidor | 5 mensajes/hora por IP; pasado responde `429` |
+| Prioridad / spam | Servidor | La API puntúa el mensaje (captcha, dominio, enlaces, referer…) y sólo reenvía los de prioridad suficiente; nunca se lo dice al remitente |
 
 ## Formatos de respuesta de la API que maneja el cliente
 
-- Éxito / validación: `{ messages: { success: [...], errors: [...] }, data: { send: boolean } }` (errors puede ser array u objeto por campo)
-- Error de seguridad/origen/captcha: `{ status: 'ko', error: { httpCode, message } }` → se muestra `error.message`
+Envelope de la API V2 (`ApiResponseType`):
+
+- Éxito `201`: `{ success: true, message: 'Mensaje recibido correctamente', data: null }` → se muestra `message`
+- Validación `422`: `{ success: false, message, errors: { campo: [...] } }` → se muestran los errores por campo (`apiErrorMessages()`)
+- Captcha `422` / límite `429`: `{ success: false, message }` → se muestra `message`
 - Respuesta sin JSON o fallo de red → mensaje genérico de error
 
 ## Payload enviado a la API
 
 ```typescript
 {
-  app_name: string,       // De runtimeConfig
-  app_domain: string,     // De runtimeConfig
-  language: string,       // 'es'
-  name: string,
+  name: string,           // máx. 255
   email: string,
   subject: string,
-  message: string,
+  message: string,        // 10 a 5000 caracteres
   privacity: boolean,
   contactme: boolean,
-  captcha_token: string   // Token de reCAPTCHA v3
+  'g-recaptcha-response': string   // Token de reCAPTCHA v3
 }
 ```
 
+La plataforma la deduce la API del `Referer` y el idioma de `Accept-Language` (los envía el navegador).
+
 ## Endpoint API
 
-- **POST** `${API_BASE}/${API_PATH_CONTACT}` — envía correo de contacto
+- **POST** `${API_BASE}/${API_PATH_CONTACT}` → `/api/v2/contact-messages` (por defecto si `API_PATH_CONTACT` está vacía) — registra el mensaje de contacto
 
 ## Sistema de validación
 

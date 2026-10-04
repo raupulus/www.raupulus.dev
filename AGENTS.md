@@ -10,7 +10,7 @@
 - **Lenguaje**: TypeScript (modo estricto)
 - **Estilos**: TailwindCSS 3 + design system "Silicon Architect" (tema oscuro, tokens Material Design 3)
 - **Generación**: Estática (SSG) con preset `static` de Nitro
-- **API Backend**: Laravel REST API en `api.raupulus.dev/api/v1`
+- **API Backend**: Laravel REST API V2 en `api.raupulus.dev/api/v2`
 - **Testing**: Vitest + Vue Test Utils + happy-dom
 - **Linting**: ESLint (flat config generado por el módulo `@nuxt/eslint`) + Prettier
 - **Módulos Nuxt**: `@nuxt/image` (IPX), `@nuxtjs/sitemap`, `nuxt-gtag`, `@dargmuesli/nuxt-cookie-control`, `@nuxtjs/tailwindcss`, `@nuxt/eslint`, `@nuxt/fonts`
@@ -20,7 +20,7 @@
 
 ## Gestor de Paquetes
 
-**Usar npm.** El pipeline de CI (`gocd.yaml`) y `scripts/deploy.sh` ejecutan `npm ci`, que requiere `package-lock.json` actualizado. No introducir `pnpm-lock.yaml` ni `yarn.lock`; si se cambia de gestor, hay que actualizar también `gocd.yaml` y `scripts/deploy.sh`.
+**Usar pnpm, nunca npm ni yarn.** Instalar con `pnpm install`, ejecutar scripts con `pnpm <script>` y binarios con `pnpm exec <bin>` (no `npm`, `npm run` ni `npx`). El lockfile de referencia es `pnpm-lock.yaml`: no generar ni actualizar `package-lock.json` ni `yarn.lock`.
 
 - TailwindCSS se mantiene en **v3** (el módulo `@nuxtjs/tailwindcss` 6.x no soporta Tailwind 4). No actualizar a Tailwind 4 sin migrar antes el módulo y la configuración.
 - `@nuxt/devtools` se mantiene en la última versión estable (no usar versiones alpha).
@@ -29,27 +29,27 @@
 ## Comandos de Desarrollo
 
 ```bash
-npm run dev          # Servidor de desarrollo en http://localhost:3020
-npm run generate     # Generar sitio estático (SSG) con rutas dinámicas
-npm run preview      # Previsualizar build de producción
-npm run lint         # Verificar linting (ESLint)
-npm run lint:fix     # Corregir errores de linting
-npm run format       # Formatear código (Prettier)
-npm run format:check # Verificar formato sin modificar
-npm run test         # Tests en modo watch (Vitest)
-npm run test:run     # Tests una vez
-npm run test:coverage # Tests con cobertura
-npx vue-tsc --noEmit  # Chequeo de tipos (typeCheck está desactivado en nuxt.config.ts)
+pnpm dev          # Servidor de desarrollo en http://localhost:3020
+pnpm generate     # Generar sitio estático (SSG) con rutas dinámicas
+pnpm preview      # Previsualizar build de producción
+pnpm lint         # Verificar linting (ESLint)
+pnpm lint:fix     # Corregir errores de linting
+pnpm format       # Formatear código (Prettier)
+pnpm format:check # Verificar formato sin modificar
+pnpm test         # Tests en modo watch (Vitest)
+pnpm test:run     # Tests una vez
+pnpm test:coverage # Tests con cobertura
+pnpm exec vue-tsc --noEmit  # Chequeo de tipos (typeCheck está desactivado en nuxt.config.ts)
 ```
 
 ### Verificación antes de commit
 
 Ejecutar en este orden y dejar todo en verde:
 
-1. `npm run lint` — 0 errores (los warnings de `v-html`/`any`/`no-console` son tolerados si están justificados)
-2. `npx vue-tsc --noEmit` — 0 errores de tipos
-3. `npm run test:run` — todos los tests pasan
-4. Si el cambio afecta al build/SSG: `npm run generate` (requiere la API accesible; en local se puede apuntar a la API pública con `API_DOMAIN_URL=https://api.raupulus.dev API_BASE_URL=https://api.raupulus.dev/api/v1`)
+1. `pnpm lint` — 0 errores (los warnings de `v-html`/`any`/`no-console` son tolerados si están justificados)
+2. `pnpm exec vue-tsc --noEmit` — 0 errores de tipos
+3. `pnpm test:run` — todos los tests pasan
+4. Si el cambio afecta al build/SSG: `pnpm generate` (requiere la API accesible: usar siempre el backend local, `API_DOMAIN_URL=http://127.0.0.1:8000 API_BASE_URL=http://127.0.0.1:8000/api/v2`; nunca probar contra producción)
 
 ## Variables de Entorno
 
@@ -60,8 +60,8 @@ Copiar `env.example` (desarrollo) o `env.example.production` (producción) a `.e
 | `APP_URL` | URL pública del sitio |
 | `APP_DOMAIN` | Dominio del sitio |
 | `API_DOMAIN_URL` | Dominio de la API Laravel |
-| `API_BASE_URL` | URL base completa de la API (`/api/v1`) |
-| `API_PATH_CONTACT` | Ruta relativa del endpoint de contacto |
+| `API_BASE_URL` | URL base completa de la API (`/api/v2`) |
+| `API_PATH_CONTACT` | Ruta relativa del endpoint de contacto (`contact-messages`) |
 | `CAPTCHA_SITE_KEY` | Clave pública reCAPTCHA v3 |
 | `CAPTCHA_SITE_PRIVATE_KEY` | Clave privada reCAPTCHA v3 |
 | `GTAG_ID` | ID de Google Analytics |
@@ -81,7 +81,7 @@ Copiar `env.example` (desarrollo) o `env.example.production` (producción) a `.e
 - Sanitización HTML: usar `sanitizeHtml()` / `sanitizeRawHtml()` de `utils/sanitize.ts`
 - API base: usar `useApiBase()` para resolver URL correcta según contexto (SSR/cliente/dev). En desarrollo, usa proxy `/_proxy/api/**` para evitar CORS
 - Estado global: usar `useState()` de Nuxt (nunca variables globales mutables). Ver `composables/states.ts` como ejemplo
-- Imágenes: usar `<NuxtImg>` con formatos webp, lazy loading y dimensiones explícitas
+- Imágenes: usar `<NuxtImg>` con formatos webp, lazy loading y dimensiones explícitas. Excepción: imágenes remotas de la API que se cargan en cliente con dimensiones (tarjetas de proyecto) → `<img>` con la miniatura webp de la API (`imageUrl()`), porque en el build estático IPX reescribe la URL remota contra el dominio de la web
 - Diseño: usar siempre los tokens Tailwind del design system (ver [docs/info/design-system.md](docs/info/design-system.md)). **Nunca** definir clases CSS globales con nombres de utilidades Tailwind (`.p-1`, `.text-primary`, ...) — sobreescriben el design system
 - Responsive: todo elemento nuevo debe funcionar desde 320px; los `h1` de página escalan `text-4xl/5xl → sm:text-6xl → md:text-8xl`
 - Accesibilidad: botones solo-icono con `aria-label`, `v-for` de elementos clicables como `<button>`/`<a>` reales, respetar `prefers-reduced-motion` (ya cubierto globalmente en `styles.css`)
@@ -117,7 +117,7 @@ components/
 - Framework: Vitest con `@nuxt/test-utils` y `happy-dom`
 - Estructura: `tests/` refleja la estructura del proyecto (`tests/composables/`, `tests/utils/`, `tests/components/`)
 - Convención de nombre: `<nombre>.test.ts` (ej. `sanitize.test.ts`, `projectsData.test.ts`)
-- Ejecutar antes de commit: `npm run test:run`
+- Ejecutar antes de commit: `pnpm test:run`
 
 ## Estructura de Navegación
 
@@ -138,13 +138,20 @@ components/
 
 | Endpoint | Método | Uso |
 |----------|--------|-----|
-| `/platform/portfolio/info` | GET | Datos globales de la plataforma (tecnologías, redes) |
-| `/platform/portfolio/content/type/project` | GET | Listado paginado de proyectos |
-| `/content/portfolio/:slug/get` | GET | Detalle de un proyecto por slug |
-| `/content/:slug/get/page/:order/json` | GET | Página individual de un proyecto |
-| `/auth/csrf-cookie` | GET | Obtener CSRF token |
-| `/{API_PATH_CONTACT}` | POST | Envío del formulario de contacto |
-| `/cv/get/pdf/raupulus/default` | GET | Descarga del CV en PDF |
+Todas bajo `/api/v2` salvo que se indique. Envelope: `{ success, message, data, meta?, errors? }`.
+
+| Endpoint | Método | Uso |
+|----------|--------|-----|
+| `/platforms/portfolio` | GET | Ficha de la plataforma (tecnologías, redes, autor) |
+| `/platforms/portfolio/contents?type=project` | GET | Listado paginado / búsqueda (`q`, `technology`) de proyectos |
+| `/platforms/portfolio/contents/:slug?include=…&format=editorjs` | GET | Detalle de un proyecto (suma una visita: sólo en cliente) |
+| `/platforms/portfolio/contents/:slug/pages/:order?format=editorjs` | GET | Página individual de un proyecto |
+| `/platforms/portfolio/contents/:slug/pages` | GET | Índice de páginas (prerender/sitemap, no suma visitas) |
+| `/sanctum/csrf-cookie` (fuera de `/api/v2`) | GET | Obtener CSRF token |
+| `/{API_PATH_CONTACT}` → `/contact-messages` | POST | Envío del formulario de contacto |
+| `/cv/pdf` (fuera de `/api/v2`) | GET | Descarga del CV por defecto en PDF |
+
+La web es de **sólo lectura**: el único POST es el formulario de contacto.
 
 ## ⚠️ Documentación técnica de módulos — OBLIGATORIO mantener actualizada
 

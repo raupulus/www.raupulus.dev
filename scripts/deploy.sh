@@ -17,8 +17,8 @@ fi
 
 # Generar el sitio
 echo "Generando sitio estático..."
-npm ci
-npm run generate
+pnpm install --frozen-lockfile
+pnpm generate
 
 # Copiar archivos generados
 echo "Desplegando archivos..."

@@ -16,7 +16,7 @@ Repositorio: [https://gitlab.com/raupulus/www.raupulus.dev](https://gitlab.com/r
 | **Lenguaje** | TypeScript (modo estricto) |
 | **Estilos** | TailwindCSS 3 + design system "Silicon Architect" (tema oscuro, tokens Material Design 3) |
 | **Generación** | Estática (SSG) con preset `static` de Nitro |
-| **API Backend** | Laravel REST API en `api.raupulus.dev/api/v1` |
+| **API Backend** | Laravel REST API V2 en `api.raupulus.dev/api/v2` |
 | **Testing** | Vitest + Vue Test Utils + happy-dom |
 | **Linting** | ESLint + Prettier |
 | **Analytics** | Google Analytics (nuxt-gtag) con control de cookies |

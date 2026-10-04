@@ -11,7 +11,7 @@ Sistema de renderizado de bloques de contenido procedentes del editor EditorJS d
 | `BlockHeader.vue` | `header` | Encabezado h1-h6 según `level` |
 | `BlockCode.vue` | `code` | Bloque de código con lenguaje, numeración de líneas y botón de copiado al portapapeles |
 | `BlockImage.vue` | `image` | Imagen con caption, borde, background y stretched opcionales |
-| `BlockList.vue` | `list` | Lista ordenada (`ol`) o desordenada (`ul`) |
+| `BlockList.vue` | `list` | Lista ordenada, desordenada o checklist. Admite el formato antiguo (textos) y el de `@editorjs/list` 2.x (anidada, `meta.counterType`/`meta.start`); delega en `BlockListItems.vue` (recursivo) |
 | `BlockCheckList.vue` | `checklist` | Lista de verificación con checks |
 | `BlockQuote.vue` | `quote` | Cita con texto, caption y alineación |
 | `BlockWarning.vue` | `warning` | Mensaje de aviso con título |

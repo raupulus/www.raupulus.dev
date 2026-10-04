@@ -1,6 +1,6 @@
 # Sistema de Tipos TypeScript
 
-Todos los tipos TypeScript del proyecto, organizados en `types/`. Modelan los datos de la API y la aplicación.
+Todos los tipos TypeScript del proyecto, organizados en `types/`. Modelan los datos de la **API V2** (`/api/v2`) y la aplicación.
 
 ## Índice de tipos
 
@@ -8,70 +8,120 @@ Todos los tipos TypeScript del proyecto, organizados en `types/`. Modelan los da
 
 | Archivo | Tipo(s) | Descripción |
 |---------|---------|-------------|
-| `ContentType.ts` | `ContentType` | Proyecto/contenido de la plataforma |
-| `ContentPageType.ts` | `ContentPageType`, `ContentPageImageType` | Página individual de un contenido |
-| `BlocksType.ts` | `BlocksType` + 15 subtipos | Bloques de contenido del editor (EditorJS) |
+| `ApiResponse.ts` | `ApiResponseType<T>`, `ApiMetaType` | Envelope común de la API V2 y paginación (`meta`) |
+| `ContentType.ts` | `ContentType`, `ContentTypeRefType`, `ContentTaxonomyType`, `ContentTaxonomiesType` | Contenido (`ContentResource`) con las partes del detalle e `include` |
+| `ContentPageType.ts` | `ContentPageType`, `ContentPageIndexType`, `ContentPageFormatType` | Página completa e índice de páginas de un contenido |
+| `ImageType.ts` | `ImageType`, `ImageThumbnailsType`, `ImageSizeType` | Imagen de la API (`SocialImageResource`) con miniaturas |
+| `BlocksType.ts` | `BlocksType` + subtipos | Bloques de contenido del editor (EditorJS) |
 | `MetadataType.ts` | `MetadataType` | Enlaces externos de un proyecto |
-| `PaginationType.ts` | `PaginationType` | Respuesta de paginación de la API |
-| `TechnologyType.ts` | `TechnologyType` | Tecnología con nombre, slug y colores |
-| `SearchParamsType.ts` | `SearchParamsType` | Parámetros de búsqueda |
+| `TechnologyType.ts` | `TechnologyType` | Tecnología con nombre, slug, color e imagen |
 | `GalleryPathType.ts` | `GalleryPathType` | Par thumbnail/image para galerías |
 | `SocialNetworkType.ts` | `SocialNetworkType` | Red social del autor |
-| `ApiResponse.ts` | `ApiPaginatedResponse<T>`, `ApiSingleResponse<T>` | Wrappers genéricos de respuesta API |
 
 ### Tipos de plataforma (`types/Platform/`)
 
 | Archivo | Tipo | Descripción |
 |---------|------|-------------|
-| `PlatformDataType.ts` | `PlatformDataType` | Datos globales de la plataforma |
-| `AuthorType.ts` | `AuthorType` | Datos del autor |
-| `ContentResumeType.ts` | `ContentResumeType` | Resumen de contenidos por tipo |
-| `ContentPageResumeType.ts` | `ContentPageResumeType` | Resumen de una página |
+| `PlatformDataType.ts` | `PlatformDataType` | Ficha de la plataforma (`GET /platforms/{slug}`) |
+| `AuthorType.ts` | `AuthorType` | Autor de la plataforma |
+| `ContentResumeType.ts` | `ContentResumeType` | Total de contenidos publicados y por tipo |
+| `ContentPageResumeType.ts` | `ContentPageResumeType` | Forma compacta de un contenido (páginas, relacionados, destacados) |
 | `PlatformSocialNetworkType.ts` | `PlatformSocialNetworkType` | IDs de redes sociales de la plataforma |
 
 ---
 
 ## Detalle de cada tipo
 
+### `ApiResponseType<T>` / `ApiMetaType`
+
+```typescript
+type ApiResponseType<T> = {
+  success: boolean
+  message: string
+  data: T
+  meta?: ApiMetaType                     // sólo en colecciones paginadas
+  errors?: Record<string, string[]>      // sólo en errores con detalle (422)
+}
+
+type ApiMetaType = {
+  total: number
+  per_page: number
+  current_page: number
+  last_page: number
+  from: number | null
+  to: number | null
+}
+```
+
+### `ImageType`
+
+```typescript
+type ImageType = {
+  url: string                            // original (puede pesar varios MB)
+  width?: number
+  height?: number
+  type?: string
+  alt?: string
+  thumbnails?: { micro?: string, small?: string, medium?: string, large?: string }  // webp
+}
+```
+
+Usar `imageUrl(image, 'small' | 'medium' | 'large')` (`utils/ContentUtils.ts`) para elegir miniatura con caída al original.
+
 ### `ContentType`
 
 ```typescript
 type ContentType = {
+  id: number
   title: string
   slug: string
-  excerpt: string
-  is_featured?: string
-  urlImageSmall?: string
-  urlImageMedium: string
-  urlImage: string
+  excerpt: string | null
+  type?: { id, slug, name, plural_name? }
+  status?: { id, slug, name }
+  is_featured?: boolean
+  image: ImageType | null
+  seo_title?: string | null              // og_title del SEO o el título
+  seo_description?: string | null        // descripción del SEO o el extracto
+  pages_count?: number
+  views_count?: number
+  published_at?: string | null
   created_at?: string
   updated_at?: string
-  created_at_human?: string
-  total_pages?: number
-  categories?: string[]
-  tags?: string[]
-  metadata?: MetadataType
+
+  // Sólo en el detalle
+  pages?: ContentPageIndexType[]         // índice sin texto
+  first_page?: ContentPageType | null    // primera página con su texto
+
+  // Sólo con ?include=
+  metadata?: MetadataType | null
   technologies?: TechnologyType[]
-  pages_slug?: string[]
+  taxonomies?: { categories, subcategories, tags }  // ContentTaxonomyType[]
 }
 ```
 
-**Relaciones**: contiene `MetadataType` y `TechnologyType[]`. Usado en `projectsData.ts`, página de proyectos, tarjetas de proyecto.
+**Relaciones**: contiene `ImageType`, `MetadataType`, `TechnologyType[]`, `ContentPageIndexType[]`. Usado en `projectsData.ts`, página de proyectos, tarjetas y modal de proyecto.
 
-### `ContentPageType`
+### `ContentPageType` / `ContentPageIndexType`
 
 ```typescript
 type ContentPageType = {
   id: number
-  content: BlocksType          // Parseado desde JSON string
+  content_id: number
+  order: number
   title: string
   slug: string
-  order?: number
-  images?: ContentPageImageType // { medium, normal, large }
+  format: 'editorjs' | 'markdown' | 'html'   // formato de body
+  source_format?: ContentPageFormatType
+  body: BlocksType                           // la web pide siempre ?format=editorjs
+  current_page_raw_id?: number | null
+  created_at?: string
+  updated_at?: string
 }
+
+type ContentPageIndexType = { id, order, title, slug, format }  // sin texto
 ```
 
-**Relaciones**: contiene `BlocksType`. Usado en `fetchPageData.ts` y modal de proyecto.
+**Relaciones**: contiene `BlocksType`. Usado en `fetchPageData.ts`, `projectsData.ts` y modal de proyecto.
 
 ### `BlocksType` y subtipos (16 tipos)
 
@@ -97,7 +147,7 @@ type BlockType = {
 | `BlockHeaderType` | `header` | `text`, `level` |
 | `BlockCodeType` | `code` | `code`, `language`, `showlinenumbers` |
 | `BlockImageType` | `image` | `file` (con urls, meta), `caption`, `withBorder`, `withBackground`, `stretched` |
-| `BlockListType` | `list` | `style` (ordered/unordered), `items[]` |
+| `BlockListType` | `list` | `style` (ordered/unordered/checklist), `meta?` (`counterType`, `start`), `items[]`: textos (formato antiguo) o `BlockListItemType` `{ content, meta?.checked, items[] }` anidables (`@editorjs/list` 2.x) |
 | `BlockCheckListType` | `checklist` | `items[{ text, checked }]` |
 | `BlockQuoteType` | `quote` | `text`, `caption`, `alignment` |
 | `BlockWarningType` | `warning` | `title`, `message` |
@@ -113,31 +163,18 @@ type BlockType = {
 
 ```typescript
 type MetadataType = {
-  web?: string
-  telegram_channel?: string
-  youtube_channel?: string
-  youtube?: string
-  youtube_video?: string
-  gitlab?: string
-  github?: string
-  mastodon?: string
-  twitter?: string
-  linkedin?: string
-  twitch?: string
-}
-```
-
-### `PaginationType`
-
-```typescript
-type PaginationType = {
-  totalElements: number
-  totalPages: number
-  quantity_contents_current_page: number
-  quantity_contents_per_page: number
-  hasBackPage: boolean
-  hasNextPage: boolean
-  currentPage: number
+  web?: string | null
+  telegram_channel?: string | null
+  youtube_channel?: string | null
+  youtube?: string | null          // unificado por prepareDataMetadata()
+  youtube_video?: string | null
+  youtube_video_id?: string | null
+  gitlab?: string | null
+  github?: string | null
+  mastodon?: string | null
+  twitter?: string | null
+  linkedin?: string | null
+  twitch?: string | null
 }
 ```
 
@@ -145,27 +182,11 @@ type PaginationType = {
 
 ```typescript
 type TechnologyType = {
+  id?: number
   name: string
   slug: string
-  urlImageSmall: string
-  color?: string
-  colorLight?: string
-}
-```
-
-### `SearchParamsType`
-
-```typescript
-type SearchParamsType = {
-  search?: string
-  page?: number
-  quantity?: number
-  technology?: number
-  technology_id?: number
-  category?: number
-  category_id?: number
-  orderBy?: []
-  orderDirection?: string
+  color?: string | null
+  image: string | null             // miniatura pequeña
 }
 ```
 
@@ -191,36 +212,24 @@ type SocialNetworkType = {
 }
 ```
 
-### `ApiPaginatedResponse<T>` / `ApiSingleResponse<T>`
-
-```typescript
-interface ApiPaginatedResponse<T> {
-  data: T[]
-  current_page: number
-  last_page: number
-  per_page: number
-  total: number
-}
-
-interface ApiSingleResponse<T> {
-  data: T
-  message?: string
-}
-```
-
 ### `PlatformDataType`
 
 ```typescript
 type PlatformDataType = {
+  id: number
+  name: string
   title: string
   slug: string
-  description: string
-  domain: string
-  url_about?: string
+  description: string | null
+  domain: string | null
+  url_about?: string | null
+  image?: ImageType
+  social_networks?: PlatformSocialNetworkType
+  author?: AuthorType
   technologies: TechnologyType[]
   contents: ContentResumeType
-  pages: ContentPageResumeType
-  social_networks?: PlatformSocialNetworkType
+  pages: ContentPageResumeType[]
+  created_at?: string
 }
 ```
 
@@ -230,10 +239,11 @@ type PlatformDataType = {
 type AuthorType = {
   name: string
   nick: string
+  image: string | null
   url_image_micro: string
   url_image_small: string
-  profession: string
-  web: string
+  profession: string | null
+  web: string | null
   social_networks: SocialNetworkType[]
 }
 ```
@@ -242,8 +252,8 @@ type AuthorType = {
 
 ```typescript
 type ContentResumeType = {
-  total?: number
-  types: { slug: string, name: string, plural_name: string, description: string, quantity: number }
+  total: number
+  types: { id, slug, name, plural_name, description, total }[]
 }
 ```
 
@@ -251,11 +261,14 @@ type ContentResumeType = {
 
 ```typescript
 type ContentPageResumeType = {
+  id: number
   title: string
   slug: string
-  excerpt: string
-  url_image_small: string
-  url_image_medium: string
+  excerpt: string | null
+  image: ImageType | null
+  type: ContentTypeRefType
+  is_featured: boolean
+  published_at: string | null
 }
 ```
 
@@ -263,19 +276,20 @@ type ContentPageResumeType = {
 
 ```typescript
 type PlatformSocialNetworkType = {
-  youtube_channel_id: string
-  youtube_presentation_video_id: string
-  twitter: string
-  mastodon: string
-  twitch: string
-  tiktok: string
-  instagram: string
+  youtube_channel_id: string | null
+  youtube_presentation_video_id: string | null
+  twitter: string | null
+  mastodon: string | null
+  twitch: string | null
+  tiktok: string | null
+  instagram: string | null
 }
 ```
 
 ## Relaciones con otros módulos
 
 - → [composables.md](./composables.md): todos los composables importan y usan estos tipos
+- → [utils.md](./utils.md): `ContentUtils.ts` trabaja sobre `ImageType`, `ContentType`, `ContentPageType` y `ApiResponseType`
 - → [componentes-content-blocks.md](./componentes-content-blocks.md): los bloques usan `Block*Type`
 - → [componentes-ui.md](./componentes-ui.md): tarjetas usan `ContentType`, `TechnologyType`
-- → [pagina-proyectos.md](./pagina-proyectos.md): usa `ContentType`, `PaginationType`, `SearchParamsType`
+- → [pagina-proyectos.md](./pagina-proyectos.md): usa `ContentType`, `ApiMetaType`

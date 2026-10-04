@@ -20,11 +20,11 @@ Scripts de despliegue, configuración de servidores web y pipeline de CI/CD con 
 El proyecto se despliega como sitio estático:
 
 ```bash
-# Instalar dependencias
-npm install
+# Instalar dependencias (pnpm, con el lockfile pnpm-lock.yaml)
+pnpm install --frozen-lockfile
 
 # Generar sitio estático
-npm run generate
+pnpm generate
 ```
 
 El output se genera en `.output/public/` (preset `static` de Nitro).
@@ -38,7 +38,7 @@ En el build, el hook `prerender:routes` de Nitro:
 3. Cachea las rutas en `cachedRoutes.json`
 4. Añade cada URL al set de rutas de prerender
 
-## Scripts npm relevantes
+## Scripts relevantes (`pnpm <script>`)
 
 | Script | Comando | Uso |
 |--------|---------|-----|
@@ -81,7 +81,7 @@ El archivo `gocd.yaml` define el pipeline de despliegue automatizado (`www-raupu
 | `test` | `npm ci && npm run test:run` | Tests con Vitest |
 | `build` | `npm ci && npm run generate` | Genera el sitio estático; artefacto: `.output/public` → `dist` |
 
-> ⚠️ El pipeline y `scripts/deploy.sh` dependen de `package-lock.json` (npm). Si se cambia de gestor de paquetes hay que actualizar también estos archivos.
+> ⚠️ El gestor del proyecto es **pnpm**: `scripts/deploy.sh` usa `pnpm install --frozen-lockfile` y `pnpm generate` (requiere `pnpm-lock.yaml` actualizado). `gocd.yaml` todavía usa npm.
 
 ## Variables de Entorno
 
@@ -95,8 +95,8 @@ APP_DOMAIN=localhost
 APP_LOCALE=es_ES
 APP_LOCALE_ALTERNATE=en_US
 API_DOMAIN_URL=http://localhost:8000
-API_BASE_URL=http://localhost:8000/api/v1
-API_PATH_CONTACT=contact
+API_BASE_URL=http://localhost:8000/api/v2
+API_PATH_CONTACT=contact-messages
 CAPTCHA_SITE_KEY=
 CAPTCHA_SITE_PRIVATE_KEY=
 GTAG_ID=

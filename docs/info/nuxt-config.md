@@ -35,8 +35,8 @@ Configuración central del framework Nuxt 4 que define módulos, runtime config,
 | `app.locale` | `APP_LOCALE` | Locale principal |
 | `app.localeAlternate` | `APP_LOCALE_ALTERNATE` | Locale alternativo |
 | `api.domain` | `API_DOMAIN_URL` | Dominio de la API (ej. `https://api.raupulus.dev`) |
-| `api.base` | `API_BASE_URL` | URL base de la API (ej. `https://api.raupulus.dev/api/v1`) |
-| `api.contact` | `API_PATH_CONTACT` | Path del endpoint de contacto |
+| `api.base` | `API_BASE_URL` | URL base de la API V2 (ej. `https://api.raupulus.dev/api/v2`) |
+| `api.contact` | `API_PATH_CONTACT` | Path del endpoint de contacto (por defecto `contact-messages`) |
 | `captcha.siteKey` | `CAPTCHA_SITE_KEY` | Clave pública de Google reCAPTCHA v3 |
 
 ## Módulos Nuxt configurados
@@ -55,17 +55,18 @@ Configuración central del framework Nuxt 4 que define módulos, runtime config,
 
 ```
 routeRules: {
-  '/_proxy/api/**': { proxy: '${API_DOMAIN_URL}/api/**' }
+  '/_proxy/api/**': { proxy: '${API_DOMAIN_URL}/api/**' },
+  '/_proxy/sanctum/**': { proxy: '${API_DOMAIN_URL}/sanctum/**' }   // cookie CSRF del contacto
 }
 ```
 
-En desarrollo, las peticiones del cliente van a `/_proxy/api/v1` para evitar CORS. En producción y en SSR se usa la URL directa. Ver → [composables.md](./composables.md) (`useApiBase`).
+En desarrollo, las peticiones del cliente van a `/_proxy/api/v2` (la ruta sale de `API_BASE_URL`) para evitar CORS. En producción y en SSR se usa la URL directa. Ver → [composables.md](./composables.md) (`useApiBase`).
 
 ## Generación Estática (SSG)
 
 - **Preset**: `static` (Nitro)
 - **SSR**: habilitado (`ssr: true`)
-- **Hook `prerender:routes`**: obtiene todos los proyectos paginados desde la API y genera rutas `/projects/:slug` y `/projects/:slug/:pageSlug`
+- **Hook `prerender:routes`**: obtiene todos los proyectos paginados desde la API V2 (con su índice de páginas de `/pages`, que no suma visitas) y genera rutas `/projects/:slug` y `/projects/:slug/:pageSlug`
 - Las rutas generadas se cachean en `cachedRoutes.json` en la raíz del proyecto
 
 ## Sitemap

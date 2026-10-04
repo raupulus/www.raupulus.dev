@@ -7,6 +7,7 @@ Funciones de utilidad ubicadas en `utils/`. Se auto-importan en toda la aplicaci
 | Archivo | Funciones exportadas | Descripción |
 |---------|---------------------|-------------|
 | `utils/apiClient.ts` | `apiGet()`, `apiPost()`, `apiFetchRaw()` | Cliente API centralizado |
+| `utils/ContentUtils.ts` | `PLATFORM_SLUG`, `imageUrl()`, `formatDate()`, `hasNextPage()`, `normalizePage()`, `apiErrorMessages()`, `buildProjectMetatags()`, `normalizeListItems()`, `listCounterLabel()` | Utilidades puras sobre los datos de la API V2 |
 | `utils/sanitize.ts` | `sanitizeHtml()`, `sanitizeRawHtml()` | Sanitización HTML contra XSS |
 | `utils/TechnologyUtils.ts` | `getTechnologyBySlug()` | Búsqueda de tecnologías en datos de plataforma |
 
@@ -26,7 +27,7 @@ const data = await apiGet<MyType>('/endpoint');
 
 ### `apiPost<T>(path: string, body: Record<string, unknown>): Promise<T | null>`
 
-POST con CSRF token automático. Si no existe el token, lo obtiene de `/auth/csrf-cookie` antes de enviar.
+POST con CSRF token automático. Si no existe el token, lo obtiene de `{API_DOMAIN_URL}/sanctum/csrf-cookie` antes de enviar.
 
 - Mode: `cors`
 - Credentials: `include`
@@ -37,12 +38,32 @@ POST con CSRF token automático. Si no existe el token, lo obtiene de `/auth/csr
 Fetch raw sin contexto de Nuxt. Para usar en `nuxt.config.ts` (hooks de prerender, sitemap) donde `useRuntimeConfig()` no está disponible.
 
 ```typescript
-const data = await apiFetchRaw<MyType>('https://api.raupulus.dev/api/v1/endpoint');
+const data = await apiFetchRaw<MyType>('https://api.raupulus.dev/api/v2/endpoint');
 ```
 
-### Función interna `fetchCsrfTokenInternal(apiBase)`
+### Función interna `fetchCsrfTokenInternal(apiDomain)`
 
-Obtiene el CSRF token desde `/auth/csrf-cookie` con `credentials: 'include'`.
+Obtiene el CSRF token desde `{apiDomain}/sanctum/csrf-cookie` (Sanctum, fuera de `/api/v2`) con `credentials: 'include'`.
+
+> Actualmente ningún componente usa `apiClient.ts`: los datos se piden con los composables y `fetchPost()`.
+
+---
+
+## `ContentUtils.ts` — Datos de la API V2
+
+Funciones puras (sin contexto de Nuxt; también se importan desde `composables/projectsData.ts` en `nuxt.config.ts`).
+
+| Función | Descripción |
+|---------|-------------|
+| `PLATFORM_SLUG` | Slug de la plataforma del portfolio en la API (`'portfolio'`) |
+| `imageUrl(image, size?)` | URL de la miniatura `micro/small/medium/large` de un `ImageType`, cayendo al original. Usar miniaturas en tarjetas: el original puede pesar varios MB |
+| `formatDate(iso, locale = 'es-ES')` | Fecha legible (`7 de diciembre de 2024`); `''` si es vacía o inválida |
+| `hasNextPage(meta)` | `meta.current_page < meta.last_page` |
+| `normalizePage(page)` | Garantiza que `page.body` sea un objeto Editor.js con `blocks` array (admite texto JSON) |
+| `apiErrorMessages(response)` | Lista plana de errores de un envelope V2: los de validación (`errors`) o, si no hay, `message` |
+| `buildProjectMetatags(project, page, urlBase)` | `{ title, description, keywords, url, image }` del proyecto abierto en el modal |
+| `normalizeListItems(items)` | Normaliza los elementos de un bloque `list` (formato antiguo o `@editorjs/list` 2.x anidado) |
+| `listCounterLabel(position, counterType)` | Numeración `numeric`, `lower/upper-roman`, `lower/upper-alpha` |
 
 ---
 
@@ -88,7 +109,7 @@ Busca una tecnología por slug en los datos de la plataforma cacheados.
 
 ```typescript
 const tech = getTechnologyBySlug('laravel');
-// → { name: 'Laravel', slug: 'laravel', urlImageSmall: '...', color: '#c54b4b' }
+// → { id: 12, name: 'Laravel', slug: 'laravel', image: '...', color: '#c54b4b' }
 ```
 
 Depende de `getPlatformData()` del composable `platformData.ts`.

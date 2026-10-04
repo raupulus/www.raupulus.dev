@@ -45,7 +45,7 @@ Perfil personal con descripción, links a CV, skills, pasiones, hobbies, entorno
 
 ## CV
 
-- **PDF**: `${API_DOMAIN_URL}/cv/get/pdf/raupulus/default` (enlace externo a la API)
+- **PDF**: `${API_DOMAIN_URL}/cv/pdf` (ruta web de la API, fuera de `/api/v2`: PDF del currículum por defecto, se regenera al editar el CV)
 - **Online**: `https://curriculum.raupulus.dev` (enlace externo)
 
 ## SEO

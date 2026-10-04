@@ -33,25 +33,34 @@ Página con listado paginado de proyectos consumidos desde la API, con búsqueda
 2. "Cargar más" invoca `fetchNextPage()` que incrementa `currentPage` y concatena resultados
 3. **Búsqueda**: `projectsDataSearch({ search, technology })` limpia datos y carga todas las páginas de resultados
 4. **Filtrado por tecnología**: `handleClickTechnology()` → `projectsDataSearch()`
-5. **URL dinámica**: al abrir un proyecto, `handleChangeUrlSlug()` actualiza la URL con `window.history.pushState()` sin recarga
-6. **SEO dinámico**: `handleChangeMetatags()` actualiza title, description, keywords, og:* y twitter:* al abrir un proyecto
+5. **Abrir proyecto** (`GridProjects.openProject()`): pinta el modal con los datos del listado, descarga el detalle y muestra la página de la URL (busca su `order` por slug en `pages`) o la primera (`first_page`, sin otra petición). Al entrar por URL (`/projects/:slug[/:page]`) se abre en `onMounted` (sólo cliente: el detalle suma visitas)
+6. **Cambio de página**: `ContentPaginator` → `usePageData(order, slug)`
+7. **URL dinámica**: al abrir un proyecto, `handleChangeUrlSlug()` actualiza la URL con `window.history.pushState()` sin recarga
+8. **SEO dinámico**: `buildProjectMetatags()` (título SEO + página, descripción SEO, keywords de categorías/subcategorías/etiquetas/tecnologías, URL e imagen grande) y `handleChangeMetatags()` actualiza title, description, keywords, og:* y twitter:*
 
-## Endpoints API consumidos
+## Endpoints API consumidos (API V2)
 
 | Endpoint | Método | Uso |
 |----------|--------|-----|
-| `/platform/portfolio/content/type/project` | GET | Listado paginado de proyectos |
-| `/content/portfolio/:slug/get` | GET | Detalle de un proyecto por slug |
-| `/content/:slug/get/page/:order/json` | GET | Página individual de un proyecto |
+| `/platforms/portfolio` | GET | Ficha de la plataforma (tecnologías del filtro) |
+| `/platforms/portfolio/contents?type=project` | GET | Listado paginado / búsqueda de proyectos |
+| `/platforms/portfolio/contents/:slug?include=technologies,metadata,taxonomies&format=editorjs` | GET | Detalle de un proyecto (suma una visita) |
+| `/platforms/portfolio/contents/:slug/pages/:order?format=editorjs` | GET | Página de un proyecto por su número |
+| `/platforms/portfolio/contents/:slug/pages?limit=100` | GET | Índice de páginas para prerender/sitemap |
 
-## Parámetros de búsqueda (query string)
+## Parámetros del listado (query string)
 
 | Param | Tipo | Descripción |
 |-------|------|-------------|
+| `type` | string | Siempre `project` |
 | `page` | number | Página actual de paginación |
-| `quantity` | number | Cantidad por página (default 20 en carga, 15 en búsqueda) |
-| `search` | string | Texto de búsqueda libre |
+| `per_page` | number | Cantidad por página (20 en carga, 25 en búsqueda, 100 en build; máx. 100) |
+| `q` | string | Texto a buscar en título o extracto (desde el input de búsqueda) |
 | `technology` | string | Slug de la tecnología para filtrar |
+
+La respuesta trae `meta` (`total`, `current_page`, `last_page`…): el contador muestra `meta.total`.
+
+> El listado no incluye tecnologías ni metadatos: las tarjetas los muestran sólo si vienen en los datos; el modal sí los tiene (detalle con `include`).
 
 ## Componentes del template
 
@@ -70,7 +79,7 @@ Página con listado paginado de proyectos consumidos desde la API, con búsqueda
 ## Relaciones con otros módulos
 
 - → [composables.md](./composables.md): `useProjectsData()`, `projectsDataSearch()`, `getPlatformData()`
-- → [types.md](./types.md): `ContentType`, `PaginationType`, `SearchParamsType`, `TechnologyType`, `MetadataType`
+- → [types.md](./types.md): `ContentType`, `ApiMetaType`, `TechnologyType`, `MetadataType`
 - → [componentes-ui.md](./componentes-ui.md): `GridProjects`, `GridTechnologies`
 - → [componentes-modals.md](./componentes-modals.md): `ModalsProjectShow`
 - → [componentes-content-blocks.md](./componentes-content-blocks.md): bloques de contenido dentro del modal del proyecto
