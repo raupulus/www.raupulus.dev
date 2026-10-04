@@ -12,6 +12,10 @@
           :data-height="embed.data.height"
           :style="'width: 100%; max-width: ' + embed.data.width + 'px; height: ' + embed.data.height + 'px;'"
           :src="embed.data.embed"
+          :title="embed.data.caption || 'Contenido multimedia embebido'"
+          sandbox="allow-scripts allow-same-origin allow-presentation"
+          loading="lazy"
+          referrerpolicy="strict-origin-when-cross-origin"
           frameborder="0"
           allow="autoplay; encrypted-media"
           allowfullscreen

@@ -150,7 +150,15 @@ export function useProjectsData() {
  * Busca proyectos por texto y/o tecnología y carga todos los resultados.
  * Sin parámetros, vuelve a cargar el listado completo.
  */
+let activeSearchAbortController: AbortController | null = null;
+
 export async function projectsDataSearch(params: ProjectsSearchParamsType | null = null) {
+    if (activeSearchAbortController) {
+        activeSearchAbortController.abort();
+    }
+    const abortController = new AbortController();
+    activeSearchAbortController = abortController;
+
     const datas = useState<ProjectsStateType>('projectsData', () => ({}));
     const hasMorePages = useState<boolean>('projectsHasMore', () => true);
 
@@ -168,11 +176,16 @@ export async function projectsDataSearch(params: ProjectsSearchParamsType | null
     const perPage = 25;
 
     while (hasMore) {
+        if (abortController.signal.aborted) return;
         try {
             const res = await $fetch<ApiResponseType<ContentType[]>>(
                 `${API_URL}?${projectsQuery(page, perPage, params)}`,
-                { headers: { Accept: 'application/json' } }
+                {
+                    headers: { Accept: 'application/json' },
+                    signal: abortController.signal,
+                }
             );
+            if (abortController.signal.aborted) return;
             const contents = (res.data ?? []).map(prepareDataContent);
 
             datas.value = {
@@ -182,7 +195,10 @@ export async function projectsDataSearch(params: ProjectsSearchParamsType | null
 
             hasMore = hasNextPage(res.meta);
             page++;
-        } catch (error) {
+        } catch (error: any) {
+            if (error?.name === 'AbortError' || abortController.signal.aborted) {
+                return;
+            }
             console.error('FETCH projectsDataSearch ERROR', error);
             hasMore = false;
         }

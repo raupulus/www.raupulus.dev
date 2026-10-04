@@ -85,6 +85,9 @@
 </template>
 
 <script setup lang="ts">
+const config = useRuntimeConfig()
+const url = config.public.app.url
+
 // SEO de la página de blog
 useHead({
     title: 'Blog Técnico | Raúl Caro Pastorino',
@@ -97,10 +100,14 @@ useHead({
         { property: 'og:type', content: 'website' },
         { property: 'og:title', content: 'Blog Técnico | Raúl Caro Pastorino' },
         { property: 'og:description', content: 'Artículos técnicos sobre backend, IoT y arquitectura de software.' },
+        { property: 'og:url', content: `${url}/blog/` },
         { name: 'twitter:card', content: 'summary' },
         { name: 'twitter:title', content: 'Blog Técnico | Raúl Caro Pastorino' },
         { name: 'twitter:description', content: 'Artículos técnicos sobre backend, IoT y arquitectura de software.' },
-    ]
+    ],
+    link: [
+        { rel: 'canonical', href: `${url}/blog/` },
+    ],
 })
 
 // Áreas temáticas previstas para el blog (contenido real pendiente de publicar)

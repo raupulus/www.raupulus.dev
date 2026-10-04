@@ -30,7 +30,7 @@
 
             <!-- Botón CTA escritorio -->
             <NuxtLink
-                to="/contact"
+                to="/contact/"
                 class="hidden md:block bg-gradient-to-br from-primary to-primary-container text-on-primary px-4 py-2 rounded-md font-headline text-xs font-bold tracking-widest uppercase hover:scale-105 hover:shadow-[0_0_15px_rgba(163,201,255,0.4)] transition-all duration-300"
             >
                 Contacto
@@ -38,7 +38,8 @@
 
             <!-- Botón menú móvil -->
             <button
-                class="md:hidden text-primary p-2"
+                ref="mobileMenuButton"
+                class="md:hidden text-primary p-2 focus:outline-none focus:ring-2 focus:ring-primary rounded-md"
                 :aria-label="isMobileMenuOpen ? 'Cerrar menú' : 'Abrir menú'"
                 :aria-expanded="isMobileMenuOpen"
                 aria-controls="mobile-menu"
@@ -67,7 +68,7 @@
                         {{ link.label }}
                     </NuxtLink>
                     <NuxtLink
-                        to="/contact"
+                        to="/contact/"
                         class="mt-2 bg-gradient-to-br from-primary to-primary-container text-on-primary px-6 py-3 rounded-md font-headline text-xs font-bold tracking-widest uppercase text-center"
                         @click="isMobileMenuOpen = false"
                     >
@@ -86,25 +87,28 @@ interface NavLink {
     label: string
 }
 
-// Rutas de navegación principal
-// El enlace a /contact no va aquí: ya existe como botón CTA propio en el header
+// Rutas de navegación principal con barra final (U-SEO-002)
+// El enlace a /contact/ va como botón CTA propio en el header
+// Blog se excluye del menú principal hasta que cuente con contenido real publicado (U-UX-001)
 const navLinks: NavLink[] = [
     { to: '/', label: 'Inicio' },
-    { to: '/projects', label: 'Proyectos' },
-    { to: '/blog', label: 'Blog' },
-    { to: '/about', label: 'Sobre Mí' },
-    { to: '/webs', label: 'Webs' },
-    { to: '/social', label: 'Social' },
+    { to: '/projects/', label: 'Proyectos' },
+    { to: '/about/', label: 'Sobre Mí' },
+    { to: '/webs/', label: 'Webs' },
+    { to: '/social/', label: 'Social' },
 ]
 
 const route = useRoute()
 const isScrolled = ref(false)
 const isMobileMenuOpen = ref(false)
+const mobileMenuButton = ref<HTMLButtonElement | null>(null)
 
 // Detecta si la ruta actual coincide con el enlace
 const isActiveRoute = (path: string): boolean => {
-    if (path === '/') return route.path === '/'
-    return route.path.startsWith(path)
+    if (path === '/') return route.path === '/' || route.path === ''
+    const normalizedPath = path.replace(/\/$/, '')
+    const normalizedCurrent = route.path.replace(/\/$/, '')
+    return normalizedCurrent === normalizedPath || normalizedCurrent.startsWith(normalizedPath + '/')
 }
 
 // Alterna el menú móvil
@@ -112,13 +116,25 @@ const toggleMobileMenu = () => {
     isMobileMenuOpen.value = !isMobileMenuOpen.value
 }
 
-// Detecta el scroll para cambiar el estilo del header
+// Gestión de accesibilidad con tecla Escape y detección de scroll
 onMounted(() => {
     const handleScroll = () => {
         isScrolled.value = window.scrollY > 20
     }
+    const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === 'Escape' && isMobileMenuOpen.value) {
+            isMobileMenuOpen.value = false
+            mobileMenuButton.value?.focus()
+        }
+    }
+
     window.addEventListener('scroll', handleScroll, { passive: true })
-    onUnmounted(() => window.removeEventListener('scroll', handleScroll))
+    window.addEventListener('keydown', handleKeyDown)
+
+    onUnmounted(() => {
+        window.removeEventListener('scroll', handleScroll)
+        window.removeEventListener('keydown', handleKeyDown)
+    })
 })
 </script>
 

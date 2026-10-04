@@ -74,7 +74,8 @@ const replaceBreakLine = (text: string) => text.replace(/\n|\r/g, '<br>').trim()
 .r-checkbox-item-content {
   flex: 1;
   font-size: 1.1rem;
-  word-break: break-all;
+  overflow-wrap: break-word;
+  word-break: normal;
   text-align: left;
 }
 </style>

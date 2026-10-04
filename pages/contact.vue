@@ -7,9 +7,9 @@ import fetchPost from '@/composables/fetchPostData'
 const runtimeConfig = useRuntimeConfig()
 
 const url = runtimeConfig.public.app.url;
-const title = 'Contacto - Raúl Caro Pastorino | Desarrollador Web Full Stack Backend';
-const description = 'Ponte en contacto con Raúl Caro Pastorino, un desarrollador web full stack especializado en backend. Descubre cómo puedo ayudarte a llevar tu proyecto al siguiente nivel con soluciones tecnológicas innovadoras.';
-const keywords = 'contacto, Raúl Caro Pastorino, desarrollador web, full stack, backend, soluciones tecnológicas, proyectos web';
+const title = 'Contacto - Raúl Caro Pastorino | Desarrollador Web Backend';
+const description = 'Ponte en contacto con Raúl Caro Pastorino, desarrollador web especializado en backend (PHP, Laravel, IoT y Python).';
+const keywords = 'contacto, Raúl Caro Pastorino, desarrollador web, backend, PHP, Laravel, IoT, Python';
 
 useHead({
     title: title,

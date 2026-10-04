@@ -7,6 +7,16 @@
  * legacy y rompen la integración visual.
  */
 
+/* Color scheme oscuro por defecto para controles nativos y barras de desplazamiento (U-RESP-006) */
+:root {
+    color-scheme: dark;
+}
+
+/* Espacio superior para evitar que la cabecera fija tape elementos enfocados al tabular (U-A11Y-008) */
+html {
+    scroll-padding-top: 5rem;
+}
+
 /* Accesibilidad: respetar la preferencia de movimiento reducido */
 @media (prefers-reduced-motion: reduce) {
     html {

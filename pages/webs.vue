@@ -1,9 +1,9 @@
 <script setup lang="ts">
 const config = useRuntimeConfig()
 const url = config.public.app.url
-const title = 'Sitios webs creados por Raúl Caro Pastorino | Desarrollador Web Full Stack Backend'
-const description = 'Descubre los sitios web que he creado y publicado como desarrollador web full stack. Explora mis proyectos más destacados, cada uno diseñado y desarrollado con las mejores prácticas en desarrollo backend y frontend.'
-const keywords = 'sitios web, proyectos, Raúl Caro Pastorino, desarrollador web, full stack, backend, frontend, diseño web, desarrollo web, portafolio'
+const title = 'Sitios web creados por Raúl Caro Pastorino | Desarrollador Web'
+const description = 'Descubre los sitios web que he creado y publicado como desarrollador web. Explora mis proyectos más destacados, cada uno diseñado y desarrollado con las mejores prácticas en desarrollo backend y frontend.'
+const keywords = 'sitios web, proyectos, Raúl Caro Pastorino, desarrollador web, backend, frontend, diseño web, desarrollo web, portafolio'
 
 useHead({
     title: title,
@@ -13,14 +13,16 @@ useHead({
         { name: 'robots', content: 'index, follow' },
         { property: 'og:type', content: 'website' },
         { property: 'og:title', content: title },
-        { property: 'og:description', content: description },
-        { property: 'og:url', content: url + '/webs' },
-        { property: 'og:image', content: url + '/social/webs.webp' },
+        { property: 'og:url', content: `${url}/webs/` },
+        { property: 'og:image', content: `${url}/social/webs.webp` },
         { name: 'twitter:card', content: 'summary_large_image' },
         { name: 'twitter:title', content: title },
         { name: 'twitter:description', content: description },
-        { name: 'twitter:image', content: url + '/social/webs.webp' }
-    ]
+        { name: 'twitter:image', content: `${url}/social/webs.webp` }
+    ],
+    link: [
+        { rel: 'canonical', href: `${url}/webs/` },
+    ],
 })
 
 // Sitios web publicados
@@ -28,14 +30,14 @@ const webs = [
     {
         title: 'Jaja Project',
         image: '/images/icons/webs/jajaproject.webp',
-        description: 'Plataforma web comunitaria dónde puedes compartir tus chistes, adivinanzas y preguntas quiz para consumirla mediante api de comunidad',
+        description: 'Plataforma web comunitaria dónde puedes compartir tus chistes, adivinanzas y preguntas quiz para consumirla mediante API de comunidad',
         url: 'https://jaja.raupulus.dev',
         tags: ['Vue.js', 'Laravel', 'API'],
     },
     {
-        title: 'Api Personal (Para debug y desarrollo iot)',
+        title: 'API Personal (Para debug y desarrollo IoT)',
         image: '/images/icons/world.svg',
-        description: 'Esta es mi Api personal, donde subo los desarrollos que voy haciendo y los comparto con el mundo además de revisar que todo funciona correctamente con el tiempo.',
+        description: 'Esta es mi API personal, donde subo los desarrollos que voy haciendo y los comparto con el mundo además de revisar que todo funciona correctamente con el tiempo.',
         url: 'https://api.raupulus.dev',
         tags: ['Laravel', 'REST API', 'IoT'],
     },
@@ -80,7 +82,7 @@ const webs = [
                 Sitios Publicados
             </span>
             <h1 class="font-headline text-5xl sm:text-6xl md:text-8xl font-bold tracking-tighter text-primary mb-6 max-w-4xl">
-                Mis <span class="text-on-surface-variant font-light">Sitios Webs</span>
+                Mis <span class="text-on-surface-variant font-light">Sitios Web</span>
             </h1>
             <p class="text-on-surface-variant text-lg max-w-2xl border-l-2 border-secondary pl-6 py-2">
                 {{ description }}

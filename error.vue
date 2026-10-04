@@ -22,7 +22,10 @@ const handleClearError = () => clearError({ redirect: '/' })
 
 <template>
     <div class="min-h-screen bg-background text-on-background font-body flex flex-col circuit-pattern">
-        <main class="flex-1 flex items-center justify-center px-8 py-24">
+        <!-- Barra de navegación (U-UX-004) -->
+        <AppHeader />
+
+        <main id="app-box-content" class="flex-1 flex items-center justify-center px-8 py-24 pt-32">
             <div class="max-w-2xl w-full text-center">
                 <!-- Código de error -->
                 <p class="font-label text-tertiary tracking-[0.3em] uppercase text-xs mb-6 flex items-center justify-center gap-3">
@@ -54,7 +57,7 @@ const handleClearError = () => clearError({ redirect: '/' })
                         Volver al Inicio
                     </button>
                     <NuxtLink
-                        to="/projects"
+                        to="/projects/"
                         class="px-8 py-4 border border-outline-variant hover:border-primary transition-all rounded-lg font-headline font-bold text-on-surface tracking-widest uppercase text-sm"
                     >
                         Ver Proyectos
@@ -62,5 +65,8 @@ const handleClearError = () => clearError({ redirect: '/' })
                 </div>
             </div>
         </main>
+
+        <!-- Pie de página (U-UX-004) -->
+        <AppFooter />
     </div>
 </template>

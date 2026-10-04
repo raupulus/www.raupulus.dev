@@ -70,7 +70,8 @@ const items = normalizeListItems(list.data.items)
   border-radius: 5px;
   color: #d3d3d3;
   font-size: 1.1rem;
-  word-break: break-all;
+  overflow-wrap: break-word;
+  word-break: normal;
 }
 
 .r-list-item-content a {

@@ -45,7 +45,8 @@ const computedQuoteCaption = computed(() => sanitizeHtml(`&mdash;${quote.data.ca
   font-size: 1.4rem;
   line-height: 1.4;
   font-style: italic;
-  word-break: break-all;
+  overflow-wrap: break-word;
+  word-break: normal;
   box-sizing: border-box;
   background-color: #eaeaea;
   border-radius: 0.3rem;

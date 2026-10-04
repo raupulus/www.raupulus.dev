@@ -1,28 +1,31 @@
 <template>
   <div
-:id="image.id"
-    :class="'r-image-container' + (image.data.withBorder ? ' r-image-container-with-border' : '') + (image.data.withBackground ? ' r-image-container-withBackground' : '') + (image.data.stretched ? ' r-image-container-stretched' : '')">
+    :id="image.id"
+    :class="'r-image-container' + (image.data.withBorder ? ' r-image-container-with-border' : '') + (image.data.withBackground ? ' r-image-container-withBackground' : '') + (image.data.stretched ? ' r-image-container-stretched' : '')"
+  >
     <div class="r-image-box">
       <figure class="r-image-figure">
         <NuxtImg
-:src="image.data.file.url_thumbnail" class="r-image-img" :data-url_medium="image.data.file.url"
-          :data-url_full="image.data.file.url_large"
-          :alt="image.data.caption || image.data.file?.name || 'Imagen del proyecto'"
-          :title="image.data.caption || image.data.file?.name || ''"
-          loading="lazy" format="webp"
-          @load="loadHighQualityImage" />
+          :src="image.data.file?.url || image.data.file?.url_thumbnail || ''"
+          class="r-image-img"
+          :data-url_medium="image.data.file?.url"
+          :data-url_full="image.data.file?.url_large"
+          :alt="cleanCaption || image.data.file?.name || 'Imagen del proyecto'"
+          :title="cleanCaption || image.data.file?.name || ''"
+          loading="lazy"
+          format="webp"
+        />
 
-        <figcaption v-if="image.data.caption" class="r-image-caption">
-          {{ image.data.caption }}
+        <figcaption v-if="cleanCaption" class="r-image-caption">
+          {{ cleanCaption }}
         </figcaption>
-
       </figure>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import type { BlockImageType, BlockType  } from '@/types/BlocksType';
+import type { BlockImageType, BlockType } from '@/types/BlocksType';
 
 const props = defineProps({
   block: {
@@ -31,14 +34,12 @@ const props = defineProps({
   },
 })
 
-const image = props.block as BlockImageType
-image.data.caption = image?.data?.caption?.replace(/\n|\r/g, '<br>').trim();
-
-const loadHighQualityImage = (event: Event) => {
-  const imgElement = event.target as HTMLImageElement;
-  imgElement.src = image.data.file.url;
-};
-
+const image = computed(() => props.block as BlockImageType)
+const cleanCaption = computed(() => {
+  const cap = image.value?.data?.caption
+  if (!cap) return ''
+  return cap.replace(/<[^>]*>/g, '').trim()
+})
 </script>
 
 <style scoped>

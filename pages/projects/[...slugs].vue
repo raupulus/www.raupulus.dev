@@ -28,7 +28,7 @@ const { data: project } = await useAsyncData(
     }
 )
 
-if (import.meta.server && isDetail.value && !project.value) {
+if (isDetail.value && !project.value) {
     throw createError({
         statusCode: 404,
         statusMessage: 'Proyecto no encontrado',
@@ -69,7 +69,7 @@ const { data: activePage } = await useAsyncData(
     }
 )
 
-if (import.meta.server && isDetail.value && pageSlug.value && !activePage.value) {
+if (isDetail.value && pageSlug.value && !activePage.value) {
     throw createError({
         statusCode: 404,
         statusMessage: 'Página del proyecto no encontrada',
@@ -112,36 +112,73 @@ const nextPageLink = computed(() => {
 // ==========================================
 // MODO CATÁLOGO: Búsqueda y filtrado
 // ==========================================
+const router = useRouter()
 const platformData = getPlatformData()
 const { datas, hasMorePages, isLoading, fetchNextPage } = useProjectsData()
 
-const searchInput = ref('')
-const technologySelect = ref('')
-const currentTechnology = ref()
+const searchInput = ref((route.query.q as string) || '')
+const technologySelect = ref((route.query.tech as string) || '')
+const currentTechnology = ref(technologySelect.value ? getTechnologyBySlug(technologySelect.value) : undefined)
+
+const syncQuery = () => {
+    if (!isDetail.value) {
+        router.replace({
+            query: {
+                ...route.query,
+                q: searchInput.value.trim() || undefined,
+                tech: technologySelect.value || undefined,
+            },
+        })
+    }
+}
+
+const performSearch = () => {
+    syncQuery()
+    if (!searchInput.value.trim() && !technologySelect.value) {
+        projectsDataSearch()
+    } else {
+        projectsDataSearch({
+            search: searchInput.value.trim(),
+            technology: technologySelect.value,
+        })
+    }
+}
+
+let debounceTimer: ReturnType<typeof setTimeout> | null = null
+watch(searchInput, () => {
+    if (debounceTimer) clearTimeout(debounceTimer)
+    debounceTimer = setTimeout(() => {
+        performSearch()
+    }, 300)
+})
 
 watch(technologySelect, (currentSlug) => {
     currentTechnology.value = getTechnologyBySlug(currentSlug)
+    performSearch()
+})
+
+onMounted(() => {
+    if (!isDetail.value && (route.query.q || route.query.tech)) {
+        performSearch()
+    }
 })
 
 function btnSearch() {
-    projectsDataSearch({
-        search: searchInput.value,
-        technology: technologySelect.value,
-    })
+    if (debounceTimer) clearTimeout(debounceTimer)
+    performSearch()
 }
 
 function btnClear() {
+    if (debounceTimer) clearTimeout(debounceTimer)
     searchInput.value = ''
     technologySelect.value = ''
+    currentTechnology.value = undefined
+    syncQuery()
     projectsDataSearch()
 }
 
 function handleClickTechnology(params: { technologySelect: string }) {
     technologySelect.value = params.technologySelect
-    projectsDataSearch({
-        search: searchInput.value,
-        technology: technologySelect.value,
-    })
 }
 
 // ==========================================
@@ -354,7 +391,7 @@ useHead(() => ({
                             name="search"
                             aria-label="Buscar proyecto"
                             placeholder="Buscar proyecto..."
-                            class="w-full bg-surface-container-lowest border-b-2 border-outline-variant focus:border-secondary outline-none px-4 py-3 text-on-surface font-body placeholder:text-outline transition-colors"
+                            class="w-full bg-surface-container-lowest border-b-2 border-outline-variant focus:border-secondary outline-none pl-4 pr-10 py-3 text-on-surface font-body placeholder:text-outline transition-colors"
                             @keydown.enter="btnSearch"
                         >
                         <UiMaterialIcon class="absolute right-3 top-1/2 -translate-y-1/2 text-outline" name="search" />

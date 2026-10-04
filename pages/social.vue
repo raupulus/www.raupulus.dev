@@ -1,9 +1,9 @@
 <script setup lang="ts">
 const config = useRuntimeConfig()
 const url = config.public.app.url
-const title = 'Redes Sociales de Raúl Caro Pastorino | Desarrollador Web Full Stack Backend'
-const description = 'Sígueme en mis redes sociales y mantente actualizado con mi último trabajo y proyectos como desarrollador web full stack especializado en backend. Conecta conmigo en LinkedIn, GitHub, Twitter e Instagram.'
-const keywords = 'redes sociales, Raúl Caro Pastorino, desarrollador web, full stack, backend, LinkedIn, GitHub, Twitter, Instagram'
+const title = 'Redes Sociales de Raúl Caro Pastorino | Desarrollador Web Backend'
+const description = 'Conecta con Raúl Caro Pastorino en redes sociales y plataformas de desarrollo. Sígueme en LinkedIn, GitLab, GitHub, Telegram y más.'
+const keywords = 'redes sociales, Raúl Caro Pastorino, desarrollador web, backend, LinkedIn, GitLab, GitHub, Telegram'
 
 useHead({
     title: title,
@@ -13,14 +13,16 @@ useHead({
         { name: 'robots', content: 'index, follow' },
         { property: 'og:type', content: 'website' },
         { property: 'og:title', content: title },
-        { property: 'og:description', content: description },
-        { property: 'og:url', content: url + '/social' },
-        { property: 'og:image', content: url + '/social/social.webp' },
+        { property: 'og:url', content: `${url}/social/` },
+        { property: 'og:image', content: `${url}/social/social.webp` },
         { name: 'twitter:card', content: 'summary_large_image' },
         { name: 'twitter:title', content: title },
         { name: 'twitter:description', content: description },
-        { name: 'twitter:image', content: url + '/social/social.webp' }
-    ]
+        { name: 'twitter:image', content: `${url}/social/social.webp` }
+    ],
+    link: [
+        { rel: 'canonical', href: `${url}/social/` },
+    ],
 })
 
 // Redes sociales con diseño bento: las primeras son "featured" (grandes), el resto normales
@@ -30,22 +32,22 @@ const socialNetworks = [
         title: 'GitHub',
         handle: '@raupulus',
         image: '/images/icons/social/github.svg',
-        description: 'Visita mi perfil en Github para ver mi código y contribuciones a proyectos de código abierto. Principalmente uso Gitlab, por lo que GitHub es mi respaldo de repositorios.',
+        description: 'Visita mi perfil en GitHub para ver mi código y contribuciones a proyectos de código abierto. Principalmente uso GitLab, por lo que GitHub funciona como espejo de repositorios.',
         url: 'https://github.com/raupulus',
         icon: 'code',
         size: 'large', // col-span-8
         badge: 'Código Abierto',
         badgeIcon: 'code',
         stats: [
-            { label: 'Enfoque', value: 'PHP & Python' },
-            { label: 'Estado', value: 'Alta Frecuencia', active: true },
+            { label: 'Ecosistema', value: 'PHP & Python' },
+            { label: 'Rol', value: 'Open Source', active: true },
         ],
     },
     {
         title: 'LinkedIn',
         handle: '@raulcaropastorino',
         image: '/images/icons/social/linkedin.svg',
-        description: 'Descubre mi perfil de Linkedin para conocer en detalle mi experiencia laboral y académica, y no dudes en contactarme a través de esta plataforma.',
+        description: 'Descubre mi perfil de LinkedIn para conocer en detalle mi trayectoria laboral y académica, o para contactarme profesionalmente.',
         url: 'https://www.linkedin.com/in/raulcaropastorino/',
         icon: 'work',
         size: 'medium', // col-span-4
@@ -56,21 +58,21 @@ const socialNetworks = [
         title: 'GitLab',
         handle: '@raupulus',
         image: '/images/icons/social/gitlab.svg',
-        description: 'Explora mis proyectos y contribuciones en mi perfil de Gitlab. Principalmente uso Gitlab para todos mis proyectos personales y profesionales.',
+        description: 'Explora mis proyectos y código fuente en GitLab, mi plataforma principal de desarrollo para proyectos personales y profesionales.',
         url: 'https://gitlab.com/raupulus',
         icon: 'code_blocks',
         size: 'large',
         badge: 'Repositorio Principal',
         stats: [
-            { label: 'Enfoque', value: 'Laravel & IoT' },
-            { label: 'Estado', value: 'Muy Activo', active: true },
+            { label: 'Ecosistema', value: 'Laravel & IoT' },
+            { label: 'Plataforma', value: 'Principal', active: true },
         ],
     },
     {
         title: 'Twitter / X',
         handle: '@raupulus',
         image: '/images/icons/social/twitter.svg',
-        description: 'Sigue mis publicaciones y mantente al tanto de mis actividades en Twitter, donde suelo estar más activo.',
+        description: 'Sigue mis publicaciones y mantente al tanto de novedades, software libre y tecnología en Twitter.',
         url: 'https://twitter.com/raupulus',
         icon: 'share',
         size: 'medium',
@@ -81,21 +83,21 @@ const socialNetworks = [
         title: 'Telegram - Raupulus Diffusion',
         handle: '@raupulus_diffusion',
         image: '/images/icons/social/telegram.svg',
-        description: 'Únete a mi canal de Telegram donde comparto todo relacionado con tecnología, software libre y GNU/Linux.',
+        description: 'Canal de Telegram donde comparto novedades sobre tecnología, software libre y GNU/Linux.',
         url: 'https://t.me/raupulus_diffusion',
         icon: 'send',
         size: 'large',
         badge: 'Canal de Difusión',
         stats: [
-            { label: 'Contenido', value: 'Tecnología & Linux' },
-            { label: 'Estado', value: 'Actualizaciones Diarias', active: true },
+            { label: 'Temática', value: 'Tecnología & Linux' },
+            { label: 'Canal', value: 'Comunidad', active: true },
         ],
     },
     {
         title: 'YouTube',
         handle: '@raupulus',
         image: '/images/icons/social/youtube.svg',
-        description: 'Mira mis vídeos en mi canal de YouTube y suscríbete para contenido relacionado con programación, tecnología, diseño, y más.',
+        description: 'Vídeos y tutoriales sobre programación, desarrollo web, diseño de sistemas y tecnología.',
         url: 'https://www.youtube.com/@raupulus',
         icon: 'play_circle',
         size: 'medium',
@@ -106,16 +108,16 @@ const socialNetworks = [
         title: 'Mastodon',
         handle: '@raupulus',
         image: '/images/icons/social/mastodon.svg',
-        description: 'Conéctate conmigo en Mastodon para seguir mis publicaciones y actualizaciones.',
+        description: 'Conéctate conmigo en el Fediverso para seguir actualizaciones sobre tecnología y software libre.',
         url: 'https://mastodon.online/@raupulus',
         icon: 'rss_feed',
         size: 'small',
     },
     {
-        title: 'Blue Sky',
+        title: 'Bluesky',
         handle: '@raupulus',
         image: '/images/icons/social/bluesky.svg',
-        description: 'Nuevo por esta red social pero me está encantando y actualmente estoy bastante activo en ella.',
+        description: 'Publicaciones y novedades sobre desarrollo web, código abierto y el ecosistema tech.',
         url: 'https://bsky.app/profile/raupulus.bsky.social',
         icon: 'cloud',
         size: 'small',
@@ -124,7 +126,7 @@ const socialNetworks = [
         title: 'Twitch',
         handle: '@raupulus',
         image: '/images/icons/social/twitch.svg',
-        description: 'Únete a mis directos en Twitch y suscríbete para no perderte ningún stream.',
+        description: 'Directos sobre programación, desarrollo y streaming técnico.',
         url: 'https://www.twitch.tv/raupulus',
         icon: 'live_tv',
         size: 'small',
@@ -133,22 +135,22 @@ const socialNetworks = [
         title: 'Instagram',
         handle: '@raupulus',
         image: '/images/icons/social/instagram.svg',
-        description: 'Descubre mis publicaciones y fotografías en Instagram, donde comparto proyectos y algunas imágenes de mis cámaras.',
+        description: 'Publicaciones y fotografías de proyectos, montajes maker y electrónica.',
         url: 'https://www.instagram.com/raupulus/',
         icon: 'photo_camera',
         size: 'small',
     },
     {
-        title: 'StackOverflow',
+        title: 'Stack Overflow',
         handle: '@raupulus',
         image: '/images/icons/social/stackoverflow.svg',
-        description: 'Consulta mis respuestas y preguntas en la comunidad de StackOverflow en español.',
+        description: 'Respuestas y preguntas técnicas en la comunidad de Stack Overflow en español.',
         url: 'https://es.stackoverflow.com/users/82651/raupulus',
         icon: 'help',
         size: 'small',
     },
     {
-        title: 'Codepen',
+        title: 'CodePen',
         handle: '@raupulus',
         image: '/images/icons/social/codepen.svg',
         description: 'Aquí comparto mis diseños en CSS para que puedan ser reutilizados.',

@@ -4,18 +4,6 @@
 const webTitle = 'Portfolio de Raúl Caro Pastorino Web Developer (@raupulus)';
 const webDescription = 'Portal como desarrollador web de Raúl Caro Pastorino (@raupulus) Developer & Maker';
 
-useSeoMeta({
-    description: webDescription,
-    ogTitle: webTitle,
-    ogDescription: webDescription,
-    ogImage: '/logo_512x512.png',
-    ogUrl: 'https://raupulus.dev',
-    twitterTitle: webTitle,
-    twitterDescription: webDescription,
-    twitterImage: '/logo_512x512.png',
-    twitterCard: 'summary'
-})
-
 // Canonical y og:url dinámicos según la ruta actual (con barra final según URLS=con-barra-final)
 const route = useRoute()
 const config = useRuntimeConfig()
@@ -25,6 +13,18 @@ const canonicalUrl = computed(() => {
     const withSlash = p === '/' ? '/' : (p.endsWith('/') ? p : `${p}/`);
     return siteUrl + withSlash;
 });
+
+useSeoMeta({
+    description: webDescription,
+    ogTitle: webTitle,
+    ogDescription: webDescription,
+    ogImage: `${siteUrl}/logo_512x512.png`,
+    ogUrl: canonicalUrl,
+    twitterTitle: webTitle,
+    twitterDescription: webDescription,
+    twitterImage: `${siteUrl}/logo_512x512.png`,
+    twitterCard: 'summary_large_image'
+})
 
 useHead({
     htmlAttrs: {
@@ -168,11 +168,3 @@ watch(
         <NuxtPage />
     </NuxtLayout>
 </template>
-
-<style>
-body.disable-scroll {
-    height: 100vh;
-    overflow: hidden;
-    box-sizing: border-box;
-}
-</style>

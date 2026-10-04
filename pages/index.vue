@@ -12,9 +12,9 @@
                 <div class="lg:col-span-8 flex flex-col justify-center">
                     <span class="font-label text-tertiary tracking-[0.3em] uppercase mb-6 flex items-center gap-3">
                         <span class="w-12 h-[1px] bg-tertiary"/>
-                        Desarrollador Web &amp; Maker
+                        Desarrollador Web Backend &amp; IoT
                     </span>
-                    <h1 class="font-headline text-5xl sm:text-6xl md:text-8xl font-bold tracking-tighter leading-[0.95] text-on-surface mb-8">
+                    <h1 class="font-headline text-4xl sm:text-6xl md:text-8xl font-bold tracking-tighter leading-[0.95] text-on-surface mb-8">
                         Raúl Caro
                         <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary via-tertiary to-secondary">
                             Pastorino
