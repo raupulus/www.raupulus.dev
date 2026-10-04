@@ -10,6 +10,7 @@ Este directorio almacena el historial y los informes de las auditorías de calid
 | 2026-10-04 | `gemini-externo`  | `externo`       | `05acdf1` | **5.3 / 10**      | [2026-10-04-gemini-externo](./2026-10-04-gemini-externo/README.md)   |
 | 2026-10-04 | `deepsek-externo` | `externo`       | `05acdf1` | **5.0 / 10**      | [2026-10-04-deepsek-externo](./2026-10-04-deepsek-externo/README.md) |
 | 2026-10-04 | `consolidada`     | `consolidacion` | `05acdf1` | **4.5 / 10**      | [2026-10-04-consolidada](./2026-10-04-consolidada/README.md)         |
+| 2026-10-05 | `remediacion`     | `remediacion`   | `remediacion/auditoria-2026-10-04` | — | [2026-10-04-remediacion](./2026-10-04-remediacion/README.md)         |
 
 ---
 
@@ -18,3 +19,4 @@ Este directorio almacena el historial y los informes de las auditorías de calid
 - **`interno`**: Auditoría exhaustiva de primera instancia con conocimiento integral de la infraestructura y el repositorio.
 - **`externo`**: Segunda opinión independiente y ciega ejecutada sin consultar informes previos, orientada a contrastar hallazgos y descubrir puntos ciegos.
 - **`consolidacion`**: Fusión y conciliación de múltiples auditorías para contrastar discrepancias, recalibrar severidades y generar un plan de remediación único.
+- **`remediacion`**: Corrección integral, pruebas automatizadas, preparación de acciones externas y documentación técnica de los hallazgos consolidados.

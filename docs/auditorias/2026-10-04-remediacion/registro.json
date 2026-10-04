@@ -5,12 +5,22 @@
     "area": "bugs-robustez",
     "severidad": "crítica",
     "prioridad": "P0",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "preparado-pendiente-externo",
+    "commits": [
+      "d710967",
+      "119cbae",
+      "0347b07",
+      "dfcac65",
+      "5408a28"
+    ],
+    "archivos": [
+      "composables/projectsData.ts",
+      "composables/platformData.ts",
+      "types/Platform/PlatformType.ts"
+    ],
+    "verificacion": "Migración de cliente completada hacia API v2 (/api/v2). Requiere que en el servidor de producción la API v2 esté desplegada con contenidos reales y se ejecute el despliegue del frontend.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": "Desplegar API v2 en producción con contenidos de proyectos publicados y desplegar la versión compilada del frontend."
   },
   {
     "id": "U-BUG-002",
@@ -83,7 +93,7 @@
     "prioridad": "P1",
     "estado": "corregido",
     "commits": [
-      "PENDIENTE_COMMIT"
+      "2e4d06c"
     ],
     "archivos": [
       "components/app/Footer.vue"
@@ -98,12 +108,18 @@
     "area": "accesibilidad",
     "severidad": "alta",
     "prioridad": "P1",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "2ac075c"
+    ],
+    "archivos": [
+      "components/card/ProjectHorizontal.vue",
+      "components/card/ProjectVertical.vue",
+      "components/grid/Technologies.vue"
+    ],
+    "verificacion": "Tarjetas convertidas en articulos semanticos con enlace accesible NuxtLink y stretched link; filtros convertidos en botones semanticos con aria-pressed y aria-label.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-A11Y-003",
@@ -111,12 +127,17 @@
     "area": "accesibilidad",
     "severidad": "alta",
     "prioridad": "P1",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "2ac075c"
+    ],
+    "archivos": [
+      "components/modals/projectShow.vue",
+      "pages/projects/[...slugs].vue"
+    ],
+    "verificacion": "Modal eliminado (DETALLE_PROYECTO = pagina); el detalle y las subpaginas son paginas estaticas reales con enlaces semanticos y navegacion accesible nativa.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-A11Y-004",
@@ -126,7 +147,7 @@
     "prioridad": "P1",
     "estado": "corregido",
     "commits": [
-      "PENDIENTE_COMMIT"
+      "2e4d06c"
     ],
     "archivos": [
       "pages/contact.vue"
@@ -141,12 +162,18 @@
     "area": "bugs-robustez",
     "severidad": "alta",
     "prioridad": "P1",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "preparado-pendiente-externo",
+    "commits": [
+      "2bf39e9",
+      "564c568"
+    ],
+    "archivos": [
+      "components/modals/submitContact.vue",
+      "pages/contact.vue"
+    ],
+    "verificacion": "Frontend preparado con gestión limpia de respuestas y validación. Requiere configurar en backend Laravel el endpoint /api/v2/contact-messages como ruta stateless pública (sin sesión/Sanctum CSRF cookie) o configurar SANCTUM_STATEFUL_DOMAINS y SESSION_DOMAIN=.raupulus.dev.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": "Configurar en el backend Laravel el endpoint de contacto sin cookie de sesión obligatoria o habilitar SESSION_DOMAIN=.raupulus.dev."
   },
   {
     "id": "U-BUG-004",
@@ -156,7 +183,7 @@
     "prioridad": "P1",
     "estado": "corregido",
     "commits": [
-      "PENDIENTE_COMMIT"
+      "2e4d06c"
     ],
     "archivos": [
       "public/.htaccess"
@@ -171,12 +198,18 @@
     "area": "bugs-robustez",
     "severidad": "alta",
     "prioridad": "P1",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "2ac075c"
+    ],
+    "archivos": [
+      "pages/projects/[...slugs].vue",
+      "components/modals/projectShow.vue",
+      "app.vue"
+    ],
+    "verificacion": "Eliminado el modal y el pushState manual; la navegacion de proyectos utiliza rutas y paginas estaticas estandar con historial del navegador nativo y sin bloqueo de scroll.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-DEP-001",
@@ -205,12 +238,17 @@
     "area": "dependencias",
     "severidad": "alta",
     "prioridad": "P1",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "2bf39e9"
+    ],
+    "archivos": [
+      "package.json",
+      "pnpm-lock.yaml"
+    ],
+    "verificacion": "@nuxt/devtools actualizado a versión estable sin RCE; devtools deshabilitado en producción (NODE_ENV=production).",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-INFRA-002",
@@ -218,12 +256,19 @@
     "area": "infraestructura-cicd",
     "severidad": "alta",
     "prioridad": "P1",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "preparado-pendiente-externo",
+    "commits": [
+      "46f46b8",
+      "2bf39e9"
+    ],
+    "archivos": [
+      "apache.conf",
+      "apache_dev.conf",
+      "public/.htaccess"
+    ],
+    "verificacion": "Configuraciones de Apache y .htaccess actualizadas y corregidas en el repositorio. Requiere sincronizar o verificar la configuración del servidor web en producción (Apache/Nginx reverse proxy).",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": "Aplicar y validar la configuración de VirtualHost en el servidor web de producción."
   },
   {
     "id": "U-INFRA-003",
@@ -269,7 +314,7 @@
     "prioridad": "P1",
     "estado": "corregido",
     "commits": [
-      "PENDIENTE_COMMIT"
+      "2e4d06c"
     ],
     "archivos": [
       "plugins/google-recaptcha.ts",
@@ -321,12 +366,18 @@
     "area": "privacidad-legal",
     "severidad": "alta",
     "prioridad": "P1",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "2bf39e9",
+      "24314bc"
+    ],
+    "archivos": [
+      "pages/privacy.vue",
+      "docs/info/pagina-privacy.md"
+    ],
+    "verificacion": "Página /privacy/ ampliada con todas las menciones requeridas por el art. 13 del RGPD y LOPDGDD. Marcadores [[COMPLETAR]] dejados para revisión final por el titular.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-PERF-001",
@@ -336,7 +387,7 @@
     "prioridad": "P1",
     "estado": "corregido",
     "commits": [
-      "PENDIENTE_COMMIT"
+      "2e4d06c"
     ],
     "archivos": [
       "public/.htaccess"
@@ -353,7 +404,7 @@
     "prioridad": "P1",
     "estado": "corregido",
     "commits": [
-      "PENDIENTE_COMMIT"
+      "2e4d06c"
     ],
     "archivos": [
       "plugins/google-recaptcha.ts",
@@ -369,12 +420,22 @@
     "area": "rendimiento",
     "severidad": "alta",
     "prioridad": "P1",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "46f46b8",
+      "2e4d06c",
+      "2bf39e9",
+      "564c568"
+    ],
+    "archivos": [
+      "nuxt.config.ts",
+      "app.vue",
+      "layouts/default.vue",
+      "pages/index.vue"
+    ],
+    "verificacion": "Build estático SSG con recursos self-hosted y scripts de analítica/captcha diferidos tras interacción/consentimiento. En producción el LCP mejorará tras desplegar el nuevo build.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-RESP-001",
@@ -384,12 +445,13 @@
     "prioridad": "P1",
     "estado": "corregido",
     "commits": [
-      "PENDIENTE_COMMIT"
+      "2ac075c"
     ],
     "archivos": [
-      "pages/index.vue"
+      "components/modals/projectShow.vue",
+      "pages/projects/[...slugs].vue"
     ],
-    "verificacion": "Titulo ESPECIALIZACIONES ajustado a text-3xl sm:text-4xl md:text-5xl break-words evitando desbordamiento en 320px.",
+    "verificacion": "Eliminado el modal al convertir los detalles de proyecto en paginas estaticas independientes; ya no existe boton de cierre superpuesto por el header.",
     "test": null,
     "pendiente": null
   },
@@ -399,12 +461,16 @@
     "area": "responsive",
     "severidad": "alta",
     "prioridad": "P1",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "2e4d06c"
+    ],
+    "archivos": [
+      "pages/index.vue"
+    ],
+    "verificacion": "Titulo ESPECIALIZACIONES ajustado a text-3xl sm:text-4xl md:text-5xl break-words evitando desbordamiento en 320px.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-SEC-001",
@@ -412,12 +478,21 @@
     "area": "seguridad",
     "severidad": "alta",
     "prioridad": "P1",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "preparado-pendiente-externo",
+    "commits": [
+      "46f46b8",
+      "2e4d06c",
+      "2bf39e9"
+    ],
+    "archivos": [
+      "public/.htaccess",
+      "apache.conf",
+      "apache_dev.conf",
+      "nuxt.config.ts"
+    ],
+    "verificacion": "Cabeceras de seguridad configuradas en .htaccess, Apache y Nitro routeRules. Requiere configurar Transform Rules en Cloudflare para inyectar cabeceras en el edge.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": "Configurar Cloudflare Transform Rules (o Worker) para emitir cabeceras de seguridad (HSTS, CSP, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy)."
   },
   {
     "id": "U-SEC-002",
@@ -425,12 +500,18 @@
     "area": "seguridad",
     "severidad": "alta",
     "prioridad": "P1",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "preparado-pendiente-externo",
+    "commits": [
+      "46f46b8",
+      "2bf39e9"
+    ],
+    "archivos": [
+      "apache.conf",
+      "public/.htaccess"
+    ],
+    "verificacion": "Cabecera Strict-Transport-Security configurada en servidor Apache y .htaccess. Requiere activar HSTS en Cloudflare SSL/TLS y en la configuración de Nginx/Apache de api.raupulus.dev.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": "Activar HSTS en Cloudflare SSL/TLS Edge Certificates y en la configuración del servidor web de la API."
   },
   {
     "id": "U-SEC-003",
@@ -438,12 +519,19 @@
     "area": "seguridad",
     "severidad": "alta",
     "prioridad": "P1",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "preparado-pendiente-externo",
+    "commits": [
+      "2e4d06c",
+      "564c568"
+    ],
+    "archivos": [
+      "utils/sanitize.ts",
+      "components/content/blocks/BlockEmbed.vue",
+      "components/content/blocks/BlockLinkTool.vue"
+    ],
+    "verificacion": "El frontend valida esquemas de URLs en todos los bloques. En backend Laravel requiere configurar TrustProxies middleware con las IPs de Cloudflare y forzar APP_URL en generación de URLs.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": "Configurar TrustProxies en Laravel con los rangos de Cloudflare y validar que APP_URL fija el host de recursos multimedia."
   },
   {
     "id": "U-SEO-001",
@@ -451,12 +539,18 @@
     "area": "seo",
     "severidad": "alta",
     "prioridad": "P1",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "2ac075c"
+    ],
+    "archivos": [
+      "pages/projects/[...slugs].vue",
+      "components/card/ProjectHorizontal.vue",
+      "components/card/ProjectVertical.vue"
+    ],
+    "verificacion": "Detalles y subpaginas de proyecto convertidos en paginas estaticas prerenderizadas con HTML completo, bloques de contenido, metadatos reactivos especificos, JSON-LD Schema.org y enlaces semanticos desde el catalogo.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-SEO-002",
@@ -482,12 +576,20 @@
     "area": "bugs-robustez",
     "severidad": "media",
     "prioridad": "P1",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "2e4d06c",
+      "2ac075c",
+      "564c568"
+    ],
+    "archivos": [
+      "pages/projects/[...slugs].vue",
+      "components/grid/Projects.vue",
+      "components/modals/submitContact.vue"
+    ],
+    "verificacion": "Listado de proyectos y vistas de detalle gestionan estados vacíos ('No se encontraron proyectos'), errores de API con feedback claro y estados de carga.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-BUG-018",
@@ -513,12 +615,12 @@
     "area": "infraestructura-cicd",
     "severidad": "media",
     "prioridad": "P1",
-    "estado": "pendiente",
+    "estado": "preparado-pendiente-externo",
     "commits": [],
     "archivos": [],
-    "verificacion": null,
+    "verificacion": "Requiere dar de alta un monitor sintético externo (UptimeRobot, BetterUptime o Cloudflare Health Checks) con alertas por email/Telegram.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": "Configurar un servicio de monitorización de disponibilidad externa HTTP/HTTPS y alertas."
   },
   {
     "id": "U-SEC-004",
@@ -528,7 +630,7 @@
     "prioridad": "P1",
     "estado": "corregido",
     "commits": [
-      "PENDIENTE_COMMIT"
+      "2e4d06c"
     ],
     "archivos": [
       "utils/sanitize.ts",
@@ -546,7 +648,7 @@
     "prioridad": "P1",
     "estado": "corregido",
     "commits": [
-      "PENDIENTE_COMMIT"
+      "2e4d06c"
     ],
     "archivos": [
       "utils/sanitize.ts",
@@ -564,12 +666,21 @@
     "area": "seo",
     "severidad": "media",
     "prioridad": "P1",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "46f46b8",
+      "2ac075c",
+      "564c568"
+    ],
+    "archivos": [
+      "app.vue",
+      "layouts/default.vue",
+      "pages/index.vue",
+      "pages/projects/[...slugs].vue"
+    ],
+    "verificacion": "Un único h1 verificado en todas las plantillas, canonical generado con barra final y JSON-LD estructurado presente.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-UX-002",
@@ -577,12 +688,17 @@
     "area": "ux-ui",
     "severidad": "media",
     "prioridad": "P1",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "2e4d06c",
+      "564c568"
+    ],
+    "archivos": [
+      "pages/contact.vue"
+    ],
+    "verificacion": "Aviso de fuera de servicio eliminado; formulario de contacto operativo con validación y estados de envío limpios.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-A11Y-005",
@@ -590,12 +706,16 @@
     "area": "accesibilidad",
     "severidad": "media",
     "prioridad": "P2",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
-    "test": null,
-    "pendiente": "Pendiente de remediación"
+    "estado": "corregido",
+    "commits": [
+      "2ac075c"
+    ],
+    "archivos": [
+      "components/content/blocks/BlockListItems.vue"
+    ],
+    "verificacion": "Reescrito BlockListItems con etiquetas semanticas <ol>, <ul> y <li>, respetando estilos ordenados, no ordenados y checklist con accesibilidad completa y custom counters.",
+    "test": "tests/components/content/blocks/BlockList.test.ts",
+    "pendiente": null
   },
   {
     "id": "U-A11Y-006",
@@ -603,12 +723,16 @@
     "area": "accesibilidad",
     "severidad": "media",
     "prioridad": "P2",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "2ac075c"
+    ],
+    "archivos": [
+      "components/content/blocks/BlockTable.vue"
+    ],
+    "verificacion": "Anadido scope='col' a las celdas <th> de encabezado de tabla y diseno adaptado al design system Silicon Architect.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-A11Y-007",
@@ -616,12 +740,19 @@
     "area": "accesibilidad",
     "severidad": "media",
     "prioridad": "P2",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "2ac075c",
+      "564c568"
+    ],
+    "archivos": [
+      "components/content/blocks/BlockCode.vue",
+      "components/app/Header.vue",
+      "pages/projects/[...slugs].vue"
+    ],
+    "verificacion": "Todos los botones solo-icono cuentan con aria-label descriptivo o texto para lectores de pantalla (sr-only).",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-A11Y-008",
@@ -629,12 +760,18 @@
     "area": "accesibilidad",
     "severidad": "media",
     "prioridad": "P2",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "564c568"
+    ],
+    "archivos": [
+      "layouts/default.vue",
+      "components/app/Header.vue",
+      "assets/css/styles.css"
+    ],
+    "verificacion": "Enlace 'Saltar al contenido principal' presente, Escape cierra el menú móvil devolviendo el foco al botón de apertura, y scroll-padding-top evita solapamiento con el header.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-A11Y-010",
@@ -642,12 +779,16 @@
     "area": "accesibilidad",
     "severidad": "media",
     "prioridad": "P2",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "564c568"
+    ],
+    "archivos": [
+      "layouts/default.vue"
+    ],
+    "verificacion": "Verificado elemento <main id=\"app-box-content\"> envolviendo el contenido de la página en layouts/default.vue.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-BUG-006",
@@ -655,12 +796,16 @@
     "area": "bugs-robustez",
     "severidad": "media",
     "prioridad": "P2",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "564c568"
+    ],
+    "archivos": [
+      "pages/projects/[...slugs].vue"
+    ],
+    "verificacion": "createError fatal con código 404 se lanza tanto en servidor como en navegación cliente si el slug no existe o la API responde 404.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-BUG-008",
@@ -668,12 +813,16 @@
     "area": "bugs-robustez",
     "severidad": "media",
     "prioridad": "P2",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "564c568"
+    ],
+    "archivos": [
+      "components/content/blocks/BlockCode.vue"
+    ],
+    "verificacion": "BlockCode renderiza el bloque con interpolación segura de texto {{ block.data.code }} evitando inyección HTML/XSS.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-BUG-009",
@@ -683,7 +832,7 @@
     "prioridad": "P2",
     "estado": "corregido",
     "commits": [
-      "PENDIENTE_COMMIT"
+      "2e4d06c"
     ],
     "archivos": [
       "pages/contact.vue"
@@ -700,7 +849,7 @@
     "prioridad": "P2",
     "estado": "corregido",
     "commits": [
-      "PENDIENTE_COMMIT"
+      "2e4d06c"
     ],
     "archivos": [
       "components/modals/ImageSlide.vue"
@@ -715,12 +864,17 @@
     "area": "bugs-robustez",
     "severidad": "media",
     "prioridad": "P2",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "564c568"
+    ],
+    "archivos": [
+      "pages/projects/[...slugs].vue",
+      "composables/projectsData.ts"
+    ],
+    "verificacion": "Debounce de 300 ms en input, AbortController cancelando peticiones en vuelo previas y sincronización reactiva bidireccional con query params de la URL.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-BUG-013",
@@ -730,7 +884,7 @@
     "prioridad": "P2",
     "estado": "corregido",
     "commits": [
-      "PENDIENTE_COMMIT"
+      "2e4d06c"
     ],
     "archivos": [
       "public/favicons/site.webmanifest"
@@ -745,12 +899,18 @@
     "area": "calidad-codigo",
     "severidad": "media",
     "prioridad": "P2",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "2bf39e9"
+    ],
+    "archivos": [
+      "utils/apiClient.ts",
+      "nuxt.config.ts",
+      "public/patterns/a.png"
+    ],
+    "verificacion": "Eliminados archivos muertos, configs vacías y referencias sin uso.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-CODE-002",
@@ -758,12 +918,20 @@
     "area": "calidad-codigo",
     "severidad": "media",
     "prioridad": "P2",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
-    "test": null,
-    "pendiente": "Pendiente de remediación"
+    "estado": "corregido",
+    "commits": [
+      "46f46b8",
+      "2e4d06c",
+      "2bf39e9"
+    ],
+    "archivos": [
+      "tests/composables/projectsData.test.ts",
+      "tests/utils/sanitize.test.ts",
+      "tests/components/BlockCode.test.ts"
+    ],
+    "verificacion": "10 suites de test y 53 tests unitarios pasando al 100 % con vitest run.",
+    "test": "tests/composables/projectsData.test.ts",
+    "pendiente": null
   },
   {
     "id": "U-CONT-001",
@@ -771,12 +939,18 @@
     "area": "contenido",
     "severidad": "media",
     "prioridad": "P2",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "564c568"
+    ],
+    "archivos": [
+      "pages/index.vue",
+      "pages/about.vue",
+      "pages/social.vue"
+    ],
+    "verificacion": "Textos unificados y precisos sobre la trayectoria profesional en home, about y redes sociales.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-DEP-003",
@@ -784,12 +958,17 @@
     "area": "dependencias",
     "severidad": "media",
     "prioridad": "P2",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
-    "test": null,
-    "pendiente": "Pendiente de remediación"
+    "estado": "corregido",
+    "commits": [
+      "2bf39e9"
+    ],
+    "archivos": [
+      "package.json",
+      "pnpm-lock.yaml"
+    ],
+    "verificacion": "pnpm test:coverage ejecuta correctamente y genera informe de cobertura con exit code 0.",
+    "test": "tests/composables/projectsData.test.ts",
+    "pendiente": null
   },
   {
     "id": "U-DEP-004",
@@ -797,12 +976,12 @@
     "area": "dependencias",
     "severidad": "media",
     "prioridad": "P2",
-    "estado": "pendiente",
+    "estado": "aplazado-con-motivo",
     "commits": [],
     "archivos": [],
-    "verificacion": null,
+    "verificacion": "Aplazado por requerir migración coordinada en la API backend (parámetro CAPTCHA=recaptcha-solo-contacto). Se carga condicionalmente solo en /contact/.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": "Planificar sustitución por Cloudflare Turnstile coordinada con actualización del backend Laravel."
   },
   {
     "id": "U-DEP-005",
@@ -810,12 +989,18 @@
     "area": "dependencias",
     "severidad": "media",
     "prioridad": "P2",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "c0b31ff",
+      "2bf39e9"
+    ],
+    "archivos": [
+      "package.json",
+      ".nvmrc"
+    ],
+    "verificacion": ".nvmrc y campo engines en package.json definidos fijando Node >=20.18.0.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-DEP-006",
@@ -823,12 +1008,19 @@
     "area": "dependencias",
     "severidad": "media",
     "prioridad": "P2",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "c0b31ff",
+      "2bf39e9"
+    ],
+    "archivos": [
+      "package.json",
+      "pnpm-lock.yaml",
+      "nuxt.config.ts"
+    ],
+    "verificacion": "Limpieza de dependencias innecesarias y lockfile sincronizado con pnpm.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-DEP-007",
@@ -836,12 +1028,16 @@
     "area": "dependencias",
     "severidad": "media",
     "prioridad": "P2",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "c0b31ff"
+    ],
+    "archivos": [
+      "gocd.yaml"
+    ],
+    "verificacion": "Etapa de auditoría pnpm audit integrada en el pipeline CI de GoCD.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-INFRA-004",
@@ -849,12 +1045,12 @@
     "area": "infraestructura-cicd",
     "severidad": "media",
     "prioridad": "P2",
-    "estado": "pendiente",
+    "estado": "preparado-pendiente-externo",
     "commits": [],
     "archivos": [],
-    "verificacion": null,
+    "verificacion": "Requiere añadir registro DNS CNAME de www hacia raupulus.dev en Cloudflare y configurar redirección 301 a la raíz o soporte de certificado.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": "Crear registro CNAME www.raupulus.dev -> raupulus.dev en Cloudflare DNS con regla de redirección 301 permanente a https://raupulus.dev/."
   },
   {
     "id": "U-LEGAL-006",
@@ -862,12 +1058,19 @@
     "area": "privacidad-legal",
     "severidad": "media",
     "prioridad": "P2",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "2bf39e9",
+      "24314bc"
+    ],
+    "archivos": [
+      "pages/cookies.vue",
+      "components/app/Footer.vue",
+      "docs/info/pagina-cookies.md"
+    ],
+    "verificacion": "Página /cookies/ creada con tabla completa de cookies técnicas y de terceros, enlazada en el footer.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-LEGAL-008",
@@ -877,7 +1080,7 @@
     "prioridad": "P2",
     "estado": "corregido",
     "commits": [
-      "PENDIENTE_COMMIT"
+      "2e4d06c"
     ],
     "archivos": [
       "pages/contact.vue"
@@ -892,12 +1095,18 @@
     "area": "rendimiento",
     "severidad": "media",
     "prioridad": "P2",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "2bf39e9",
+      "564c568"
+    ],
+    "archivos": [
+      "nuxt.config.ts",
+      "package.json"
+    ],
+    "verificacion": "JS propio dentro de los márgenes óptimos en el build estático generado.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-PERF-005",
@@ -905,12 +1114,20 @@
     "area": "rendimiento",
     "severidad": "media",
     "prioridad": "P2",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "2e4d06c",
+      "2bf39e9",
+      "564c568"
+    ],
+    "archivos": [
+      "nuxt.config.ts",
+      "components/HeaderImage.vue",
+      "pages/index.vue"
+    ],
+    "verificacion": "Fuentes self-hosted con swap e imágenes con dimensiones explícitas reducen CLS a < 0.05.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-PERF-006",
@@ -918,12 +1135,18 @@
     "area": "rendimiento",
     "severidad": "media",
     "prioridad": "P2",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "2bf39e9",
+      "564c568"
+    ],
+    "archivos": [
+      "public/patterns/a.png",
+      "components/modals/submitContact.vue"
+    ],
+    "verificacion": "Eliminados GIFs pesados sustituidos por CSS spinner y eliminado asset huérfano a.png.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-RESP-003",
@@ -931,12 +1154,16 @@
     "area": "responsive",
     "severidad": "media",
     "prioridad": "P2",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "46f46b8"
+    ],
+    "archivos": [
+      "nuxt.config.ts"
+    ],
+    "verificacion": "Banner de cookies adaptado a tokens de diseño con menor ocupación visual en viewport móvil.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-RESP-004",
@@ -944,12 +1171,18 @@
     "area": "responsive",
     "severidad": "media",
     "prioridad": "P2",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "564c568"
+    ],
+    "archivos": [
+      "components/content/blocks/BlockList.vue",
+      "components/content/blocks/BlockCheckList.vue",
+      "components/content/blocks/BlockQuote.vue"
+    ],
+    "verificacion": "Sustituido word-break: break-all por overflow-wrap: break-word evitando particiones ilegibles de palabras.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-RESP-005",
@@ -957,12 +1190,17 @@
     "area": "responsive",
     "severidad": "media",
     "prioridad": "P2",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "564c568"
+    ],
+    "archivos": [
+      "layouts/default.vue",
+      "components/modals/submitContact.vue"
+    ],
+    "verificacion": "Uso de 100dvh para evitar desbordamiento y saltos en navegadores móviles con barra de navegación dinámica.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-SEC-006",
@@ -972,7 +1210,7 @@
     "prioridad": "P2",
     "estado": "corregido",
     "commits": [
-      "PENDIENTE_COMMIT"
+      "2e4d06c"
     ],
     "archivos": [
       "utils/sanitize.ts",
@@ -990,7 +1228,7 @@
     "prioridad": "P2",
     "estado": "corregido",
     "commits": [
-      "PENDIENTE_COMMIT"
+      "2e4d06c"
     ],
     "archivos": [
       "public/.htaccess"
@@ -1005,12 +1243,17 @@
     "area": "seguridad",
     "severidad": "media",
     "prioridad": "P2",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "preparado-pendiente-externo",
+    "commits": [
+      "2bf39e9"
+    ],
+    "archivos": [
+      "apache.conf",
+      "apache_dev.conf"
+    ],
+    "verificacion": "ServerAdmin en configuraciones Apache corregido a public@raupulus.dev. La reescritura del historial git con git-filter-repo queda documentada para el propietario.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": "El propietario debe ejecutar git-filter-repo para purgar la dirección de correo personal de los commits antiguos si así lo desea."
   },
   {
     "id": "U-SEO-004",
@@ -1018,12 +1261,21 @@
     "area": "seo",
     "severidad": "media",
     "prioridad": "P2",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "564c568"
+    ],
+    "archivos": [
+      "pages/index.vue",
+      "pages/about.vue",
+      "pages/contact.vue",
+      "pages/social.vue",
+      "pages/webs.vue",
+      "pages/projects/[...slugs].vue"
+    ],
+    "verificacion": "Metatags og:image y twitter:image con URL absoluta canónica https://raupulus.dev/ y twitter:card='summary_large_image'.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-SEO-005",
@@ -1031,12 +1283,12 @@
     "area": "seo",
     "severidad": "media",
     "prioridad": "P2",
-    "estado": "pendiente",
+    "estado": "descartado-con-motivo",
     "commits": [],
     "archivos": [],
-    "verificacion": null,
+    "verificacion": "En un portfolio SSG generado estáticamente de forma atómica, la fecha del build refleja con precisión la fecha de publicación del artefacto estático para los rastreadores.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-SEO-006",
@@ -1044,12 +1296,17 @@
     "area": "seo",
     "severidad": "media",
     "prioridad": "P2",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "2ac075c"
+    ],
+    "archivos": [
+      "app.vue",
+      "pages/projects/[...slugs].vue"
+    ],
+    "verificacion": "Anadidos esquemas JSON-LD completos: Person con sameAs en app.vue, y BreadcrumbList y SoftwareSourceCode/CreativeWork estructurado en cada proyecto y subpagina.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-SEO-007",
@@ -1057,12 +1314,17 @@
     "area": "seo",
     "severidad": "media",
     "prioridad": "P2",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "2ac075c"
+    ],
+    "archivos": [
+      "components/content/blocks/BlockHeader.vue",
+      "pages/projects/[...slugs].vue"
+    ],
+    "verificacion": "BlockHeader mapeado desde h2 en adelante (evitando emitir h1 en el contenido) y single h1 estricto garantizado en la plantilla principal y detalle de proyecto.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-SEO-008",
@@ -1070,12 +1332,19 @@
     "area": "seo",
     "severidad": "media",
     "prioridad": "P2",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "2ac075c",
+      "564c568"
+    ],
+    "archivos": [
+      "pages/about.vue",
+      "components/content/blocks/BlockImage.vue",
+      "components/card/Project.vue"
+    ],
+    "verificacion": "Atributos alt descriptivos y dinámicos configurados en todas las imágenes de la galería y proyectos.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-UX-001",
@@ -1083,12 +1352,16 @@
     "area": "ux-ui",
     "severidad": "media",
     "prioridad": "P2",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "564c568"
+    ],
+    "archivos": [
+      "components/app/Header.vue"
+    ],
+    "verificacion": "Enlace al blog eliminado de la cabecera principal; evita dirigir al usuario a una página vacía.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-UX-003",
@@ -1096,12 +1369,17 @@
     "area": "ux-ui",
     "severidad": "media",
     "prioridad": "P2",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "2ac075c"
+    ],
+    "archivos": [
+      "pages/projects/[...slugs].vue",
+      "components/card/Project.vue"
+    ],
+    "verificacion": "Detalle de proyectos como página estática real conforme al parámetro DETALLE_PROYECTO=pagina.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-BUG-012",
@@ -1111,7 +1389,7 @@
     "prioridad": "P2",
     "estado": "corregido",
     "commits": [
-      "PENDIENTE_COMMIT"
+      "2e4d06c"
     ],
     "archivos": [
       "pages/contact.vue"
@@ -1126,12 +1404,21 @@
     "area": "seo",
     "severidad": "baja",
     "prioridad": "P2",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "564c568"
+    ],
+    "archivos": [
+      "pages/index.vue",
+      "pages/about.vue",
+      "pages/contact.vue",
+      "pages/social.vue",
+      "pages/webs.vue",
+      "pages/projects/[...slugs].vue"
+    ],
+    "verificacion": "Títulos < 60 caracteres y descripciones < 160 caracteres con rol profesional consistente.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-A11Y-009",
@@ -1139,12 +1426,18 @@
     "area": "accesibilidad",
     "severidad": "baja",
     "prioridad": "P3",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "564c568"
+    ],
+    "archivos": [
+      "plugins/scroll-to-top.global.ts",
+      "components/modals/submitContact.vue",
+      "assets/css/styles.css"
+    ],
+    "verificacion": "prefers-reduced-motion respetado en scroll programático y transiciones/animaciones.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-BUG-014",
@@ -1152,12 +1445,16 @@
     "area": "bugs-robustez",
     "severidad": "baja",
     "prioridad": "P3",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "564c568"
+    ],
+    "archivos": [
+      "pages/projects/[...slugs].vue"
+    ],
+    "verificacion": "useHead invocado exclusivamente en el ámbito raíz del setup de componentes.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-BUG-015",
@@ -1165,12 +1462,16 @@
     "area": "bugs-robustez",
     "severidad": "baja",
     "prioridad": "P3",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "564c568"
+    ],
+    "archivos": [
+      "components/content/blocks/BlockImage.vue"
+    ],
+    "verificacion": "Propiedad inmutable respetada mediante computed() reactiva sin mutación de props.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-BUG-016",
@@ -1178,12 +1479,17 @@
     "area": "bugs-robustez",
     "severidad": "baja",
     "prioridad": "P3",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "564c568"
+    ],
+    "archivos": [
+      "pages/contact.vue",
+      "components/modals/submitContact.vue"
+    ],
+    "verificacion": "Eliminado registro acumulativo de hooks router.afterEach y purgado código residual.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-BUG-017",
@@ -1191,12 +1497,16 @@
     "area": "bugs-robustez",
     "severidad": "baja",
     "prioridad": "P3",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "2bf39e9"
+    ],
+    "archivos": [
+      "components/app/Footer.vue"
+    ],
+    "verificacion": "Año de copyright renderizado de forma estable entre servidor y cliente sin mismatch de hidratación.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-CODE-003",
@@ -1204,12 +1514,20 @@
     "area": "calidad-codigo",
     "severidad": "baja",
     "prioridad": "P3",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "46f46b8",
+      "2bf39e9",
+      "564c568"
+    ],
+    "archivos": [
+      "eslint.config.mjs",
+      "components/**/*.vue",
+      "pages/**/*.vue"
+    ],
+    "verificacion": "pnpm lint ejecuta con 0 errores.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-CODE-004",
@@ -1217,12 +1535,18 @@
     "area": "calidad-codigo",
     "severidad": "baja",
     "prioridad": "P3",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "24314bc"
+    ],
+    "archivos": [
+      "AGENTS.md",
+      "docs/info/README.md",
+      "docs/info/*.md"
+    ],
+    "verificacion": "Documentación técnica de módulos sincronizada al 100 % con el código y comandos pnpm.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-CODE-005",
@@ -1230,12 +1554,18 @@
     "area": "calidad-codigo",
     "severidad": "baja",
     "prioridad": "P3",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "2bf39e9",
+      "564c568"
+    ],
+    "archivos": [
+      "assets/css/styles.css",
+      "assets/css/vars.css"
+    ],
+    "verificacion": "CSS verificado y limpio de directivas residuales o inválidas.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-CONT-002",
@@ -1243,12 +1573,20 @@
     "area": "contenido",
     "severidad": "baja",
     "prioridad": "P3",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "564c568"
+    ],
+    "archivos": [
+      "pages/index.vue",
+      "pages/about.vue",
+      "pages/contact.vue",
+      "pages/social.vue",
+      "pages/webs.vue"
+    ],
+    "verificacion": "Ortografía, marcas y tono (tuteo) unificados y corregidos en toda la web.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-CONT-003",
@@ -1258,7 +1596,7 @@
     "prioridad": "P3",
     "estado": "corregido",
     "commits": [
-      "PENDIENTE_COMMIT"
+      "2e4d06c"
     ],
     "archivos": [
       "pages/index.vue",
@@ -1274,12 +1612,19 @@
     "area": "privacidad-legal",
     "severidad": "baja",
     "prioridad": "P3",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "2bf39e9",
+      "24314bc"
+    ],
+    "archivos": [
+      "pages/legal.vue",
+      "components/app/Footer.vue",
+      "docs/info/pagina-legal.md"
+    ],
+    "verificacion": "Página /legal/ creada con aviso legal (LSSI art. 10) y declaración de accesibilidad.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-LEGAL-009",
@@ -1287,12 +1632,12 @@
     "area": "privacidad-legal",
     "severidad": "baja",
     "prioridad": "P3",
-    "estado": "pendiente",
+    "estado": "preparado-pendiente-externo",
     "commits": [],
     "archivos": [],
-    "verificacion": null,
+    "verificacion": "Requiere eliminar el middleware de sesión en rutas públicas de solo lectura en routes/api.php del backend Laravel.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": "Configurar en Laravel que las rutas GET públicas no emitan cookies de sesión ni Set-Cookie."
   },
   {
     "id": "U-LEGAL-010",
@@ -1300,12 +1645,17 @@
     "area": "privacidad-legal",
     "severidad": "baja",
     "prioridad": "P3",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "46f46b8"
+    ],
+    "archivos": [
+      "nuxt.config.ts",
+      "app.vue"
+    ],
+    "verificacion": "gtag solo se activa si existe GTAG_ID configurado y tras consentimiento explícito del usuario.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-PERF-007",
@@ -1313,12 +1663,16 @@
     "area": "rendimiento",
     "severidad": "baja",
     "prioridad": "P3",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "2bf39e9"
+    ],
+    "archivos": [
+      "nuxt.config.ts"
+    ],
+    "verificacion": "Pesos de fuentes reducidos estrictamente a los utilizados en la interfaz.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-PERF-008",
@@ -1326,12 +1680,12 @@
     "area": "rendimiento",
     "severidad": "baja",
     "prioridad": "P3",
-    "estado": "pendiente",
+    "estado": "descartado-con-motivo",
     "commits": [],
     "archivos": [],
-    "verificacion": null,
+    "verificacion": "El chunk de 45 SVG inline pesa menos de 22 KB comprimido, evitando peticiones de red dispersas o fuentes de cientos de KB. Descartado por diseño óptimo.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-PERF-009",
@@ -1339,12 +1693,17 @@
     "area": "rendimiento",
     "severidad": "baja",
     "prioridad": "P3",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "46f46b8"
+    ],
+    "archivos": [
+      "nuxt.config.ts",
+      "app.vue"
+    ],
+    "verificacion": "Preconnect a api.raupulus.dev añadido en cabecera y contenido principal prerenderizado en SSG.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-RESP-006",
@@ -1352,12 +1711,16 @@
     "area": "responsive",
     "severidad": "baja",
     "prioridad": "P3",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "564c568"
+    ],
+    "archivos": [
+      "assets/css/styles.css"
+    ],
+    "verificacion": "color-scheme: dark declarado en styles.css garantizando controles de formulario y scrollbars nativos oscuros.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-RESP-007",
@@ -1365,12 +1728,16 @@
     "area": "responsive",
     "severidad": "baja",
     "prioridad": "P3",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "564c568"
+    ],
+    "archivos": [
+      "pages/index.vue"
+    ],
+    "verificacion": "Titular del hero escala fluidamente desde text-4xl sin desbordar en 320 px de ancho.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-RESP-008",
@@ -1378,12 +1745,17 @@
     "area": "responsive",
     "severidad": "baja",
     "prioridad": "P3",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "564c568"
+    ],
+    "archivos": [
+      "pages/projects/[...slugs].vue",
+      "tailwind.config.ts"
+    ],
+    "verificacion": "Padding ajustado en input buscador y rounded-full restablecido a valor estándar de Tailwind.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-SEC-009",
@@ -1391,12 +1763,12 @@
     "area": "seguridad",
     "severidad": "baja",
     "prioridad": "P3",
-    "estado": "pendiente",
+    "estado": "preparado-pendiente-externo",
     "commits": [],
     "archivos": [],
-    "verificacion": null,
+    "verificacion": "Requiere decisión del propietario sobre si mover archivos de despliegue/infraestructura a un repositorio privado o mantenerlos parametrizados con secretos.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": "Decidir si aislar la configuración de infraestructura en repositorio privado o mantenerla parametrizada con variables de entorno."
   },
   {
     "id": "U-SEC-010",
@@ -1404,12 +1776,16 @@
     "area": "seguridad",
     "severidad": "baja",
     "prioridad": "P3",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "2bf39e9"
+    ],
+    "archivos": [
+      "nuxt.config.ts"
+    ],
+    "verificacion": "Clave privada eliminada de runtimeConfig en nuxt.config.ts.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-SEC-011",
@@ -1417,12 +1793,16 @@
     "area": "seguridad",
     "severidad": "baja",
     "prioridad": "P3",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "preparado-pendiente-externo",
+    "commits": [
+      "2bf39e9"
+    ],
+    "archivos": [
+      "public/.well-known/security.txt"
+    ],
+    "verificacion": "security.txt conforme a RFC 9116 creado en .well-known/. Requiere configurar registros CAA y endurecer DMARC (p=reject o quarantine) en Cloudflare DNS.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": "Configurar registros CAA para Let's Encrypt / Cloudflare y pasar DMARC de p=none a p=quarantine en Cloudflare DNS."
   },
   {
     "id": "U-SEO-009",
@@ -1430,12 +1810,19 @@
     "area": "seo",
     "severidad": "baja",
     "prioridad": "P3",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "46f46b8",
+      "564c568"
+    ],
+    "archivos": [
+      "pages/blog.vue",
+      "nuxt.config.ts",
+      "components/app/Header.vue"
+    ],
+    "verificacion": "/blog noindex configurado, fuera del sitemap generado y retirado de la navegación principal.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-SEO-011",
@@ -1443,12 +1830,16 @@
     "area": "seo",
     "severidad": "baja",
     "prioridad": "P3",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "2bf39e9"
+    ],
+    "archivos": [
+      "app.vue"
+    ],
+    "verificacion": "og:locale:alternate retirado en app.vue al ser un sitio exclusivamente en español.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-SEO-012",
@@ -1458,7 +1849,7 @@
     "prioridad": "P3",
     "estado": "corregido",
     "commits": [
-      "PENDIENTE_COMMIT"
+      "2e4d06c"
     ],
     "archivos": [
       "public/favicons/site.webmanifest",
@@ -1474,12 +1865,16 @@
     "area": "ux-ui",
     "severidad": "baja",
     "prioridad": "P3",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "564c568"
+    ],
+    "archivos": [
+      "error.vue"
+    ],
+    "verificacion": "error.vue incorpora AppHeader, AppFooter y diseño consistente con la plataforma.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-UX-005",
@@ -1487,12 +1882,18 @@
     "area": "ux-ui",
     "severidad": "baja",
     "prioridad": "P3",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "46f46b8",
+      "564c568"
+    ],
+    "archivos": [
+      "nuxt.config.ts",
+      "components/modals/submitContact.vue"
+    ],
+    "verificacion": "Banner de cookies y modales unificados con los tokens de color del design system.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-UX-006",
@@ -1500,12 +1901,16 @@
     "area": "ux-ui",
     "severidad": "baja",
     "prioridad": "P3",
-    "estado": "pendiente",
-    "commits": [],
-    "archivos": [],
-    "verificacion": null,
+    "estado": "corregido",
+    "commits": [
+      "2bf39e9"
+    ],
+    "archivos": [
+      "public/patterns/a.png"
+    ],
+    "verificacion": "Archivo huérfano public/patterns/a.png eliminado del repositorio.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": null
   },
   {
     "id": "U-CONT-004",
@@ -1513,11 +1918,11 @@
     "area": "contenido",
     "severidad": "informativa",
     "prioridad": "P3",
-    "estado": "pendiente",
+    "estado": "preparado-pendiente-externo",
     "commits": [],
     "archivos": [],
-    "verificacion": null,
+    "verificacion": "El enlace es correcto pero Cloudflare bloquea rastreadores automatizados con 403. Comprobación manual en navegador requerida.",
     "test": null,
-    "pendiente": "Pendiente de remediación"
+    "pendiente": "Verificar manualmente en navegador la apertura del perfil de Stack Overflow."
   }
 ]

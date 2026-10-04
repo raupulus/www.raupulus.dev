@@ -57,17 +57,19 @@ Repositorio: [https://gitlab.com/raupulus/www.raupulus.dev](https://gitlab.com/r
 | `/projects` | Listado de proyectos |
 | `/projects/:slug` | Detalle de proyecto |
 | `/projects/:slug/:page` | Página de un proyecto |
-| `/blog` | Blog (en construcción) |
 | `/about` | Sobre mí + galería |
 | `/webs` | Sitios web creados |
 | `/social` | Redes sociales |
 | `/contact` | Formulario de contacto |
-| `/privacy` | Política de privacidad |
+| `/privacy` | Política de privacidad (RGPD Art. 13) |
+| `/cookies` | Política de cookies y panel de preferencias |
+| `/legal` | Aviso legal (LSSI Art. 10) y accesibilidad |
+| `/blog` | Blog (en construcción) |
 
 ## Instalar dependencias
 
 ```bash
-npm install
+pnpm install --frozen-lockfile
 ```
 
 ## Preparar variables de entorno
@@ -86,7 +88,7 @@ cp env.example .env
 El servidor de desarrollo se arranca en el puerto **3020** siendo accesible desde http://localhost:3020
 
 ```bash
-npm run dev
+pnpm dev
 ```
 
 ## Generar contenido estático para producción (SSG)
@@ -94,7 +96,7 @@ npm run dev
 Genera el sitio estático con SSG, incluyendo las rutas dinámicas de proyectos y el `sitemap.xml`.
 
 ```bash
-npm run generate
+pnpm generate
 ```
 
 ## Previsualizar proyecto en producción
@@ -102,36 +104,39 @@ npm run generate
 Permite generar y visualizar el proyecto localmente simulando el entorno de producción para detectar errores antes del despliegue.
 
 ```bash
-npm run preview
+pnpm preview
 ```
 
 ## Calidad de código
 
 ```bash
 # Verificar linting
-npm run lint
+pnpm lint
 
 # Corregir errores de linting automáticamente
-npm run lint:fix
+pnpm lint:fix
+
+# Chequeo estricto de tipos TypeScript
+pnpm exec vue-tsc --noEmit
 
 # Formatear código con Prettier
-npm run format
+pnpm format
 
 # Verificar formato sin modificar
-npm run format:check
+pnpm format:check
 ```
 
 ## Tests
 
 ```bash
 # Ejecutar tests en modo watch
-npm run test
+pnpm test
 
 # Ejecutar tests una vez
-npm run test:run
+pnpm test:run
 
 # Ejecutar tests con cobertura
-npm run test:coverage
+pnpm test:coverage
 ```
 
 ## Despliegue
@@ -140,10 +145,10 @@ El proyecto se despliega en un VPS propio usando **GoCD**.
 
 ### Pipeline GoCD
 
-1. **lint** — Verifica calidad de código con ESLint.
-2. **test** — Ejecuta tests unitarios con Vitest.
-3. **build** — Genera el sitio estático con `npm run generate`.
-4. **deploy** — (Aprobación manual) Despliega al VPS con rsync e incluye backup y rollback automático.
+1. **lint** — Verifica calidad de código con ESLint (`pnpm lint`) y tipos (`pnpm exec vue-tsc --noEmit`).
+2. **test** — Ejecuta tests unitarios con Vitest (`pnpm test:run`) y auditoría (`pnpm audit`).
+3. **build** — Genera el sitio estático con `pnpm generate` y publica el artefacto comprimido.
+4. **deploy** — Despliega al VPS con releases atómicas por symlink, purga de caché en Cloudflare y smoke test estricto.
 
 ### Despliegue manual
 
