@@ -108,27 +108,6 @@ useHead({
     ]
 })
 
-const scrollDisabled = useScrollDisabled();
-
-/**
- * Deshabilita el scroll en el body
- *
- * @param {boolean} disabled
- */
-function scrollToggle(disabled: boolean) {
-    if (disabled) {
-        document.body.classList.add('disable-scroll');
-    } else {
-        document.body.classList.remove('disable-scroll');
-    }
-}
-
-
-watch(scrollDisabled, (current) => {
-    //console.log('Valor actual: ', current);
-    scrollToggle(current);
-});
-
 
 onNuxtReady(async () => {
     /*

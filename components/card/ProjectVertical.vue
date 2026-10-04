@@ -8,8 +8,6 @@ const props = defineProps({
     },
 })
 
-const emit = defineEmits(['projecteventshow'])
-
 // Carga progresiva de imagen: primero la miniatura pequeña, luego la grande
 // (no el original: puede pesar varios MB). Se usa <img> y no <NuxtImg>: las
 // miniaturas ya vienen optimizadas en webp desde la API y, en el build
@@ -23,9 +21,8 @@ const publishedAt = computed(() => formatDate(props.data.published_at ?? props.d
 </script>
 
 <template>
-    <div
-        class="group flex flex-col bg-surface-container-high rounded-xl border border-outline-variant/20 overflow-hidden hover:border-primary/40 transition-all duration-300 cursor-pointer"
-        @click="emit('projecteventshow', data)"
+    <article
+        class="group relative flex flex-col bg-surface-container-high rounded-xl border border-outline-variant/20 overflow-hidden hover:border-primary/40 transition-all duration-300"
     >
         <!-- Imagen del proyecto -->
         <div class="relative h-48 overflow-hidden bg-surface-container-lowest">
@@ -42,7 +39,7 @@ const publishedAt = computed(() => formatDate(props.data.published_at ?? props.d
                 @load="onImageLoaded"
             >
             <!-- Overlay con tecnologías -->
-            <div class="absolute bottom-0 left-0 right-0 p-3 flex flex-wrap gap-1 justify-end">
+            <div class="absolute bottom-0 left-0 right-0 p-3 flex flex-wrap gap-1 justify-end pointer-events-none">
                 <template v-for="technology in data.technologies" :key="technology.slug">
                     <NuxtImg
                         v-if="technology.image"
@@ -67,7 +64,9 @@ const publishedAt = computed(() => formatDate(props.data.published_at ?? props.d
 
             <!-- Título -->
             <h3 class="font-headline text-lg font-bold text-on-surface group-hover:text-primary transition-colors mb-3 line-clamp-2">
-                {{ data.title }}
+                <NuxtLink :to="`/projects/${data.slug}/`" class="after:absolute after:inset-0 after:z-0 focus:outline-none focus-visible:underline">
+                    {{ data.title }}
+                </NuxtLink>
             </h3>
 
             <!-- Descripción -->
@@ -77,13 +76,13 @@ const publishedAt = computed(() => formatDate(props.data.published_at ?? props.d
 
             <!-- Botón ver proyecto -->
             <div class="pt-4 border-t border-outline-variant/10 flex items-center justify-between">
-                <span class="font-label text-xs font-bold text-primary uppercase tracking-widest flex items-center gap-2 group-hover:gap-3 transition-all">
+                <span class="font-label text-xs font-bold text-primary uppercase tracking-widest flex items-center gap-2 group-hover:gap-3 transition-all pointer-events-none">
                     Ver Proyecto
                     <UiMaterialIcon class="text-sm" name="arrow_forward" />
                 </span>
 
                 <!-- Links externos del footer -->
-                <div v-if="data.metadata" class="flex items-center gap-2">
+                <div v-if="data.metadata" class="relative z-10 flex items-center gap-2">
                     <IconsYoutube v-if="data.metadata.youtube" :margin="0" :url="data.metadata.youtube" :grayscale="true" display="block" :legacy="true" />
                     <IconsEarth v-if="data.metadata.web" :margin="0" :url="data.metadata.web" :grayscale="true" display="block" :legacy="true" />
                     <IconsTwitter v-if="data.metadata.twitter" :margin="0" :url="data.metadata.twitter" :grayscale="true" display="block" :legacy="true" />
@@ -96,5 +95,5 @@ const publishedAt = computed(() => formatDate(props.data.published_at ?? props.d
                 </div>
             </div>
         </div>
-    </div>
+    </article>
 </template>

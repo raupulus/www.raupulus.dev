@@ -115,9 +115,9 @@ export function buildProjectMetatags(
   let url: string | undefined = undefined;
 
   if (project?.slug && page?.slug) {
-    url = `${urlBase}/projects/${project.slug}/${page.slug}`;
+    url = `${urlBase}/projects/${project.slug}/${page.slug}/`;
   } else if (project?.slug) {
-    url = `${urlBase}/projects/${project.slug}`;
+    url = `${urlBase}/projects/${project.slug}/`;
   }
 
   const title = [project?.seo_title || project?.title, page?.title].filter(Boolean).join(' - ');

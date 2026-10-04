@@ -87,7 +87,7 @@ describe('ContentUtils', () => {
         expect(meta.title).toBe('Gadget SEO - Hardware')
         expect(meta.description).toBe('Descripción SEO')
         expect(meta.keywords).toBe('iot,maker,MicroPython')
-        expect(meta.url).toBe('https://raupulus.dev/projects/gadget/hardware')
+        expect(meta.url).toBe('https://raupulus.dev/projects/gadget/hardware/')
         expect(meta.image).toBe(image.thumbnails.large)
     })
 
