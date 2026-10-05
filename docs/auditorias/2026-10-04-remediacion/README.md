@@ -30,15 +30,15 @@ Todas las correcciones en el ámbito del repositorio se han implementado con rig
 |---|:---:|:---:|:---:|:---:|:---:|
 | **Crítica** | 2 | 1 | 1 | 0 | 0 |
 | **Alta** | 28 | 23 | 5 | 0 | 0 |
-| **Media** | 45 | 40 | 3 | 1 | 1 |
+| **Media** | 45 | 41 | 3 | 0 | 1 |
 | **Baja** | 30 | 26 | 3 | 0 | 1 |
 | **Informativa** | 1 | 0 | 1 | 0 | 0 |
-| **TOTAL** | **106** | **90** | **13** | **1** | **2** |
+| **TOTAL** | **106** | **91** | **13** | **0** | **2** |
 
 ### Glosario de estados finales
-- **`corregido` (90):** El hallazgo está resuelto completamente en el código de la rama y verificado con tests o build.
+- **`corregido` (91):** El hallazgo está resuelto completamente en el código de la rama y verificado con tests o build.
 - **`preparado-pendiente-externo` (13):** El código del frontend está listo y preparado; requiere una acción en backend Laravel, Cloudflare, DNS, servidor web o decisión del titular (`U-BUG-001`, `U-BUG-003`, `U-INFRA-002`, `U-INFRA-004`, `U-INFRA-005`, `U-SEC-001`, `U-SEC-002`, `U-SEC-003`, `U-SEC-008`, `U-SEC-009`, `U-SEC-011`, `U-LEGAL-009`, `U-CONT-004`).
-- **`aplazado-con-motivo` (1):** `U-DEP-004` (sustitución de `vue-recaptcha-v3` por Cloudflare Turnstile), aplazado hasta que la API backend implemente el endpoint de verificación correspondiente.
+- **`aplazado-con-motivo` (0):** Ninguno. `U-DEP-004` (sustitución de `vue-recaptcha-v3` por Cloudflare Turnstile) resuelto e integrado tras habilitarse el soporte dual en la API backend.
 - **`descartado-con-motivo` (2):** `U-SEO-005` (fecha lastmod en sitemap coincide con build SSG atómico, comportamiento intencionado y estándar en SSG) y `U-PERF-008` (chunk de 45 SVG inline pesa menos de 22 KB comprimido, vastamente más eficiente que fuentes de iconos).
 
 ---
@@ -64,6 +64,12 @@ La rama `remediacion/auditoria-2026-10-04` contiene una serie de commits pequeñ
 15. `8033a9c`: `fix(security): configure Nitro and Apache security headers, robots disallow, domain link and Schema.org JSON-LD (Bloque 3)`
 16. `04b0a59`: `test(components): complete unit test coverage for all EditorJS blocks and app layout (Bloque 4)`
 17. `15a3b14`: `test(e2e): add Playwright and Axe-core accessibility test suite (Bloque 5)`
+18. `8250e52`: `chore(scripts): add automation scripts for Cloudflare, backend health and git history, and synchronize audit tracking`
+19. `b945d69`: `build: specify type module in package.json to eliminate node esm warning`
+20. `f654f67`: `docs(agents): enforce local backend testing rule and prohibit querying production`
+21. `53e8092`: `style: format all codebase files with prettier configuration`
+22. `439ec35`: `test(components): add unit tests for cards, modals and form controls`
+23. `b43de31`: `feat(contact): sustituir Google reCAPTCHA por Cloudflare Turnstile (U-DEP-004)`
 
 ---
 

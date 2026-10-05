@@ -976,12 +976,26 @@
     "area": "dependencias",
     "severidad": "media",
     "prioridad": "P2",
-    "estado": "aplazado-con-motivo",
-    "commits": [],
-    "archivos": [],
-    "verificacion": "Aplazado por requerir migración coordinada en la API backend (parámetro CAPTCHA=recaptcha-solo-contacto). Se carga condicionalmente solo en /contact/.",
-    "test": null,
-    "pendiente": "Planificar sustitución por Cloudflare Turnstile coordinada con actualización del backend Laravel."
+    "estado": "corregido",
+    "commits": [
+      "b43de31"
+    ],
+    "archivos": [
+      "package.json",
+      "pnpm-lock.yaml",
+      "pages/contact.vue",
+      "pages/privacy.vue",
+      "composables/useGoogleRecaptcha.ts",
+      "nuxt.config.ts",
+      "apache.conf",
+      "nginx.conf",
+      "scripts/cloudflare/security-headers.json",
+      "TODO.md",
+      "docs/info/*"
+    ],
+    "verificacion": "Eliminado vue-recaptcha-v3 e integrado @nuxtjs/turnstile con soporte para cf-turnstile-response y turnstile_token. Verificado con tests unitarios y tests E2E.",
+    "test": "tests/e2e/console-clean.e2e.ts",
+    "pendiente": null
   },
   {
     "id": "U-DEP-005",
