@@ -26,7 +26,28 @@ useHead({
         { name: 'twitter:title', content: title },
         { name: 'twitter:description', content: description },
         { name: 'twitter:image', content: url + '/social/contact.webp' }
-    ]
+    ],
+    link: [
+        { rel: 'canonical', href: `${url}/contact/` },
+    ],
+    script: [
+        {
+            type: 'application/ld+json',
+            innerHTML: JSON.stringify({
+                '@context': 'https://schema.org',
+                '@type': 'ContactPage',
+                name: title,
+                url: `${url}/contact/`,
+                description: description,
+                mainEntity: {
+                    '@type': 'Person',
+                    name: 'Raúl Caro Pastorino',
+                    email: 'public@raupulus.dev',
+                    url: `${url}/`,
+                },
+            }),
+        },
+    ],
 });
 
 // useApiBase() resuelve la URL correcta (proxy en dev para evitar CORS)

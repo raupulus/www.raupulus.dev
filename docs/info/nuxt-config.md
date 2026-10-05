@@ -47,16 +47,24 @@ Configuración central del framework Nuxt 4 que define módulos, runtime config,
 | ESLint | `@nuxt/eslint` | Genera flat config con soporte para Nuxt |
 | Fonts | `@nuxt/fonts` | Self-hosting de Space Grotesk (`[400, 700]`) y Plus Jakarta Sans (`[400, 500, 700]`) |
 
-## Proxy de API (desarrollo)
+## Reglas de Rutas y Cabeceras de Seguridad (`routeRules`)
 
 ```typescript
 routeRules: {
+  '/**': {
+    headers: {
+      'X-Content-Type-Options': 'nosniff',
+      'X-Frame-Options': 'DENY',
+      'Referrer-Policy': 'strict-origin-when-cross-origin',
+      'Permissions-Policy': 'camera=(), microphone=(), geolocation=(), payment=(), usb=()',
+    },
+  },
   '/_proxy/api/**': { proxy: `${API_DOMAIN_URL}/api/**` },
   '/_proxy/sanctum/**': { proxy: `${API_DOMAIN_URL}/sanctum/**` }   // cookie CSRF del contacto
 }
 ```
 
-En desarrollo, las peticiones del cliente van a `/_proxy/api/v2` (la ruta sale de `API_BASE_URL`) para evitar CORS. En producción y en SSR se usa la URL directa. Ver → [composables.md](./composables.md) (`useApiBase`).
+Las cabeceras de seguridad se inyectan a nivel de Nitro en todas las rutas servidas. En desarrollo, las peticiones del cliente van a `/_proxy/api/v2` (la ruta sale de `API_BASE_URL`) para evitar CORS. En producción y en SSR se usa la URL directa. Ver → [composables.md](./composables.md) (`useApiBase`).
 
 ## Generación Estática (SSG)
 

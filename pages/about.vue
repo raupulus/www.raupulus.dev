@@ -30,6 +30,31 @@ useHead({
     link: [
         { rel: 'canonical', href: `${url}/about/` },
     ],
+    script: [
+        {
+            type: 'application/ld+json',
+            innerHTML: JSON.stringify({
+                '@context': 'https://schema.org',
+                '@type': 'ProfilePage',
+                name: title,
+                url: `${url}/about/`,
+                description: description,
+                mainEntity: {
+                    '@type': 'Person',
+                    name: 'Raúl Caro Pastorino',
+                    alternateName: 'raupulus',
+                    jobTitle: 'Desarrollador Web Backend',
+                    url: `${url}/`,
+                    email: 'public@raupulus.dev',
+                    sameAs: [
+                        'https://github.com/raupulus',
+                        'https://gitlab.com/raupulus',
+                        'https://www.linkedin.com/in/raulcaropastorino',
+                    ],
+                },
+            }),
+        },
+    ],
 })
 
 // Genera las rutas de la galería de imágenes

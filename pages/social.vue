@@ -23,6 +23,23 @@ useHead({
     link: [
         { rel: 'canonical', href: `${url}/social/` },
     ],
+    script: [
+        {
+            type: 'application/ld+json',
+            innerHTML: JSON.stringify({
+                '@context': 'https://schema.org',
+                '@type': 'CollectionPage',
+                name: title,
+                url: `${url}/social/`,
+                description: description,
+                author: {
+                    '@type': 'Person',
+                    name: 'Raúl Caro Pastorino',
+                    url: `${url}/`,
+                },
+            }),
+        },
+    ],
 })
 
 // Redes sociales con diseño bento: las primeras son "featured" (grandes), el resto normales

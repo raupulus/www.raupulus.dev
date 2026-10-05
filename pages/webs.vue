@@ -23,6 +23,23 @@ useHead({
     link: [
         { rel: 'canonical', href: `${url}/webs/` },
     ],
+    script: [
+        {
+            type: 'application/ld+json',
+            innerHTML: JSON.stringify({
+                '@context': 'https://schema.org',
+                '@type': 'CollectionPage',
+                name: title,
+                url: `${url}/webs/`,
+                description: description,
+                author: {
+                    '@type': 'Person',
+                    name: 'Raúl Caro Pastorino',
+                    url: `${url}/`,
+                },
+            }),
+        },
+    ],
 })
 
 // Sitios web publicados
@@ -45,7 +62,7 @@ const webs = [
         title: 'Micro-Blog Personal',
         image: '/images/icons/webs/blog_personal.svg',
         description: 'En este sitio encontrarás mi micro-blog personal, donde escribo sobre lo que voy aprendiendo y resumo las cosas que voy realizando.',
-        url: 'https://microblog.fryntiz.dev/',
+        url: 'https://microblog.raupulus.dev/',
         tags: ['Blog', 'Personal'],
     },
     {

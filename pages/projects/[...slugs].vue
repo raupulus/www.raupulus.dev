@@ -330,11 +330,11 @@ useHead(() => ({
     script: [
         {
             type: 'application/ld+json',
-            children: JSON.stringify(breadcrumbSchema.value),
+            innerHTML: JSON.stringify(breadcrumbSchema.value),
         },
         {
             type: 'application/ld+json',
-            children: JSON.stringify(projectSchema.value),
+            innerHTML: JSON.stringify(projectSchema.value),
         },
     ],
 }))

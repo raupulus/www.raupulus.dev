@@ -16,6 +16,14 @@ export default defineNuxtConfig({
     devtools: { enabled: process.env.NODE_ENV !== 'production' },
 
     routeRules: {
+        '/**': {
+            headers: {
+                'X-Content-Type-Options': 'nosniff',
+                'X-Frame-Options': 'DENY',
+                'Referrer-Policy': 'strict-origin-when-cross-origin',
+                'Permissions-Policy': 'camera=(), microphone=(), geolocation=(), payment=(), usb=()',
+            },
+        },
         '/_proxy/api/**': {
             proxy: `${process.env.API_DOMAIN_URL || 'http://localhost:8000'}/api/**`,
         },

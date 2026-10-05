@@ -1,4 +1,9 @@
 User-agent: *
-Disallow:
+Disallow: /_proxy/
+Disallow: /200.html
+Disallow: /404.html
+Disallow: /_payload.json
+Disallow: /*_payload.json
+Allow: /
 
 Sitemap: https://raupulus.dev/sitemap.xml

@@ -47,15 +47,20 @@ useHead({
 | `og:locale` | es_ES |
 | `og:locale:alternate` | en_US |
 
-## Datos estructurados JSON-LD (`app.vue`)
+## Datos estructurados JSON-LD
 
-`app.vue` inyecta un bloque `application/ld+json` global con un `@graph` de dos entidades:
+Además del bloque global `@graph` en `app.vue` (`Person` y `WebSite`), cada página inyecta su propio esquema JSON-LD tipado para mejorar el SEO y los fragmentos enriquecidos:
 
-- **`Person`** (`#person`): nombre, alias, foto, `jobTitle`, `knowsAbout` y `sameAs` con los perfiles sociales
-- **`WebSite`** (`#website`): nombre del sitio, idioma y `publisher` → `#person`
+- **Home (`/`)**: `ProfilePage` con entidad principal `Person`, `jobTitle`, `sameAs` y contacto.
+- **Proyectos (`/projects/...`)**: `CollectionPage` en catálogo; `SoftwareSourceCode` o `CreativeWork` en vista de detalle con `BreadcrumbList`.
+- **Sobre Mí (`/about/`)**: `ProfilePage` con metadatos profesionales del desarrollador.
+- **Contacto (`/contact/`)**: `ContactPage` con canal oficial de contacto.
+- **Redes Sociales (`/social/`)**: `CollectionPage` con perfiles y canales de comunicación.
+- **Sitios Web (`/webs/`)**: `CollectionPage` con la selección de plataformas y aplicaciones.
 
-## Página de error y noindex
+## Robots.txt y Directivas de Indexación
 
+- `public/robots.txt` permite el rastreo general del sitio (`Allow: /`) e incluye directivas `Disallow` explícitas para artefactos técnicos no destinados a indexación (`/_proxy/`, `/200.html`, `/404.html`, `/_payload.json`, `/*_payload.json`).
 - `error.vue` (raíz del proyecto) renderiza el 404/500 con el design system, `robots: noindex` y CTAs a inicio/proyectos. En SSG genera `.output/public/404.html`, que Apache sirve con `ErrorDocument 404` (sin soft-404)
 - `/blog` está en `noindex, follow` **temporalmente** mientras no tenga contenido real; revertir a `index, follow` al publicar entradas
 

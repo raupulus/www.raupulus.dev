@@ -314,6 +314,9 @@ src="/images/technologies/postgresql_60x60.webp" format="webp" width="60" height
 </template>
 
 <script setup lang="ts">
+const config = useRuntimeConfig()
+const url = config.public.app.url
+
 // SEO de la página principal
 useHead({
     title: 'Raúl Caro Pastorino - Desarrollador Web Backend',
@@ -324,6 +327,37 @@ useHead({
         { property: 'og:type', content: 'website' },
         { property: 'og:title', content: 'Raúl Caro Pastorino - Desarrollador Web Backend' },
         { property: 'og:description', content: 'Portfolio de Raúl Caro Pastorino (@raupulus), Desarrollador Web Backend especializado en PHP/Laravel, IoT, Python y sistemas distribuidos.' },
-    ]
+    ],
+    link: [
+        { rel: 'canonical', href: `${url}/` },
+    ],
+    script: [
+        {
+            type: 'application/ld+json',
+            innerHTML: JSON.stringify({
+                '@context': 'https://schema.org',
+                '@type': 'ProfilePage',
+                name: 'Raúl Caro Pastorino - Desarrollador Web Backend',
+                url: `${url}/`,
+                mainEntity: {
+                    '@type': 'Person',
+                    name: 'Raúl Caro Pastorino',
+                    alternateName: 'raupulus',
+                    jobTitle: 'Desarrollador Web Backend & IoT',
+                    url: `${url}/`,
+                    email: 'public@raupulus.dev',
+                    sameAs: [
+                        'https://github.com/raupulus',
+                        'https://gitlab.com/raupulus',
+                        'https://www.linkedin.com/in/raulcaropastorino',
+                        'https://twitter.com/raupulus',
+                        'https://mastodon.online/@raupulus',
+                        'https://www.youtube.com/@raupulus',
+                        'https://t.me/raupulus_diffusion',
+                    ],
+                },
+            }),
+        },
+    ],
 })
 </script>
