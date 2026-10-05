@@ -88,6 +88,24 @@ En desarrollo, las peticiones del cliente van a `/_proxy/api/v2` (la ruta sale d
 | `pnpm test:coverage` | `vitest run --coverage` | Cobertura con `@vitest/coverage-v8` |
 | `pnpm exec vue-tsc --noEmit` | `vue-tsc --noEmit` | Chequeo estricto de tipos TypeScript |
 
+## Gestor de dependencias y overrides (`pnpm-workspace.yaml`)
+
+El proyecto utiliza **pnpm** de forma exclusiva. Para garantizar compatibilidad, evitar regresiones en la generación estática (SSG) y resolver vulnerabilidades sin romper el ecosistema de Nuxt 4, se definen overrides específicos en `pnpm-workspace.yaml`:
+
+- `vite: ^7.3.6`: Unifica el entorno de Vite en la versión 7 soportada por Nuxt 4 y Nitro, evitando que herramientas de test (como Vitest) introduzcan Vite 8 en paralelo y rompan el prerendering SSR.
+- `postcss: ^8.5.28`: Parchea vulnerabilidades conocidas en subdependencias de `@vue/compiler-sfc`.
+- `devalue: ^5.9.4`: Parchea vulnerabilidad en deserialización de estado Nuxt.
+- `esbuild: ^0.28.1`: Unifica el compilador para evitar versiones vulnerables arrastradas por módulos de fuentes.
+
+### Estado de auditoría de paquetes
+- `pnpm audit --prod`: **0 vulnerabilidades conocidas** (`No known vulnerabilities found`), tras la actualización de `isomorphic-dompurify` a `^4.4.0`.
+
+### Criterios de fijación de versiones (Pins)
+- `nuxt: 4.4.8`: Fijada exactamente en 4.4.8 para evitar la regresión de `nitropack@2.13.4` / oxc-parser presente en Nuxt 4.5.x, la cual produce fallos `[500] Server Error` durante el prerender SSG de rutas dinámicas.
+- `tailwindcss: ^3.4.19`: Mantenido en v3 según directrices de `AGENTS.md` (el módulo `@nuxtjs/tailwindcss` 6.x no soporta Tailwind 4).
+- `@nuxt/devtools: ^2.7.0`: Mantenido en la última versión estable (sin usar versiones beta de DevTools 4).
+- `vitest: ^4.1.9`: Mantenido en la rama 4.x para compartir el runtime Vite 7 sin conflictos.
+
 ## Relaciones con otros módulos
 
 - → [composables.md](./composables.md): `usefetchProjectsPaginated()` usado en hooks de prerender y sitemap

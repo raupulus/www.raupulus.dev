@@ -15,7 +15,7 @@
 | **Chequeo de tipos** | `pnpm exec vue-tsc --noEmit` | ✅ PASA | 0 errores de tipos en TypeScript estricto |
 | **Tests unitarios** | `pnpm test:run` | ✅ PASA | 12 suites pasadas (12/12), 56 tests pasados (56/56, 100 %) |
 | **Cobertura de tests** | `pnpm test:coverage` | ✅ PASA | Cobertura ejecutada con `@vitest/coverage-v8`, exit code 0 |
-| **Auditoría de paquetes** | `pnpm audit --prod` | ⚠️ CONTROLADO | 0 vulnerabilidades críticas (RCE de `@nuxt/devtools` resuelto), 21 transitivas en jsdom/undici |
+| **Auditoría de paquetes** | `pnpm audit --prod` | ✅ PASA | 0 vulnerabilidades conocidas en producción (`No known vulnerabilities found`) tras actualizar `isomorphic-dompurify` a 4.4.0 |
 | **Compilación estática (SSG)** | `pnpm generate` | ✅ PASA | 223 rutas prerenderizadas en 4,2 segundos |
 
 ---
@@ -77,8 +77,17 @@ Ejecutado con `@vitest/coverage-v8@^4.1.9`. Cobertura en módulos críticos:
 ---
 
 ### 2.5 `pnpm audit --prod`
-- Vulnerabilidad crítica `GHSA-m4cx-3528-92g7` (RCE en `@nuxt/devtools`): **Corregida** actualizando a versión estable `^2.6.5` y desactivando devtools en producción.
-- Vulnerabilidades restantes: 21 (4 low, 11 moderate, 6 high), todas correspondientes a dependencias transitivas de desarrollo/parsing en `jsdom` / `undici` invocadas a través de `isomorphic-dompurify`. Ninguna afecta a la ejecución del artefacto estático desplegado en cliente.
+```text
+No known vulnerabilities found
+```
+- **Vulnerabilidades en producción:** 0 conocidas (exit code 0).
+- **Actualización clave:** `isomorphic-dompurify` actualizado de `3.18.0` a `^4.4.0`, resolviendo todas las vulnerabilidades transitivas de `jsdom` / `undici`.
+- **Overrides de seguridad y compatibilidad en `pnpm-workspace.yaml`:**
+  - `postcss: ^8.5.28`: mitigación de vulnerabilidad en el compilador SFC.
+  - `devalue: ^5.9.4`: corrección de vulnerabilidad de serialización.
+  - `esbuild: ^0.28.1`: actualización de seguridad en tooling de fuentes.
+  - `vite: ^7.3.6`: unificación estricta de runtime para evitar dualidad Vite 7/8 y garantizar generación SSG limpia en Nitro.
+- **Vulnerabilidad crítica `GHSA-m4cx-3528-92g7` (RCE en `@nuxt/devtools`):** Corregida manteniendo versión estable `^2.7.0` y deshabilitado en producción.
 
 ---
 
