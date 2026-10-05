@@ -51,6 +51,7 @@
     },
     "dependencies": {
         "isomorphic-dompurify": "^4.4.0",
+        "recaptcha-v3": "^1.11.3",
         "vue-recaptcha-v3": "^2.0.1"
     }
 }
