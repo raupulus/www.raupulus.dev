@@ -51,6 +51,11 @@ Ejecutar en este orden y dejar todo en verde:
 3. `pnpm test:run` — todos los tests pasan
 4. Si el cambio afecta al build/SSG: `pnpm generate` (requiere la API accesible: usar siempre el backend local, `API_DOMAIN_URL=http://127.0.0.1:8000 API_BASE_URL=http://127.0.0.1:8000/api/v2`; nunca probar contra producción)
 
+## Backend y Entorno de Desarrollo (Regla Estricta)
+
+- **En desarrollo se prueba SIEMPRE contra el backend local** (`API_DOMAIN_URL=http://127.0.0.1:8000`, `API_BASE_URL=http://127.0.0.1:8000/api/v2`), a no ser que el usuario indique puntualmente lo contrario de forma explícita.
+- **Si el backend local está apagado o no responde**: **AVISA AL USUARIO INMEDIATAMENTE**, pero **NUNCA TIRES CONTRA PRODUCCIÓN** (`api.raupulus.dev`). Queda terminantemente prohibido hacer fallback o consultar la API de producción por iniciativa propia.
+
 ## Variables de Entorno
 
 Copiar `env.example` (desarrollo) o `env.example.production` (producción) a `.env`. Variables clave:
