@@ -11,9 +11,10 @@
 
 | Puerta de calidad | Comando | Estado | Resultado |
 |---|---|:---:|---|
-| **Linting** | `pnpm lint` | ✅ PASA | 0 errores, 0 warnings (100 % limpio; v-html sanitizado anotado explícitamente) |
+| **Linting** | `pnpm lint` | ✅ PASA | 0 errores, 0 warnings (100 % limpio) |
 | **Chequeo de tipos** | `pnpm exec vue-tsc --noEmit` | ✅ PASA | 0 errores de tipos en TypeScript estricto |
-| **Tests unitarios** | `pnpm test:run` | ✅ PASA | 12 suites pasadas (12/12), 56 tests pasados (56/56, 100 %) |
+| **Tests unitarios** | `pnpm test:run` | ✅ PASA | 27 suites pasadas (27/27), 78 tests pasados (78/78, 100 %) |
+| **Tests E2E / A11y** | `pnpm test:e2e` | ✅ PASA | 23 tests E2E y de accesibilidad pasados (23/23, 100 %) con Playwright y Axe-core |
 | **Cobertura de tests** | `pnpm test:coverage` | ✅ PASA | Cobertura ejecutada con `@vitest/coverage-v8`, exit code 0 |
 | **Auditoría de paquetes** | `pnpm audit --prod` | ✅ PASA | 0 vulnerabilidades conocidas en producción (`No known vulnerabilities found`) tras actualizar `isomorphic-dompurify` a 4.4.0 |
 | **Compilación estática (SSG)** | `pnpm generate` | ✅ PASA | 223 rutas prerenderizadas en 4,2 segundos |
@@ -29,7 +30,7 @@ $ eslint .
 # Exit code: 0 (salida completamente limpia: 0 errors, 0 warnings)
 ```
 - **Errores:** 0
-- **Warnings:** 0 (todas las directivas `v-html` con contenido sanitizado con `sanitizeHtml()` / `sanitizeRawHtml()` cuentan con anotación explícita `<!-- eslint-disable-next-line vue/no-v-html -->`).
+- **Warnings:** 0
 - 0 advertencias de props o tipos `any`.
 
 ---
@@ -45,12 +46,12 @@ $ vue-tsc --noEmit
 
 ### 2.3 `pnpm test:run`
 ```text
- Test Files  12 passed (12)
-      Tests  56 passed (56)
-   Start at  01:24:54
-   Duration  2.64s (transform 5.21s, setup 723ms, import 2.91s, tests 7.68s, environment 4.43s)
+ Test Files  27 passed (27)
+      Tests  78 passed (78)
+   Start at  08:53:50
+   Duration  5.23s
 ```
-Suites ejecutadas:
+Suites ejecutadas (27 archivos, 78 tests unitarios):
 - `tests/utils/ContentUtils.test.ts` (8 tests)
 - `tests/utils/sanitize.test.ts` (15 tests)
 - `tests/utils/TechnologyUtils.test.ts` (1 test)
@@ -59,10 +60,39 @@ Suites ejecutadas:
 - `tests/composables/projectsData.test.ts` (7 tests — incluye test de fallback vacío y error fatal sin ALLOW_EMPTY_PROJECTS)
 - `tests/composables/fetchPostData.test.ts` (7 tests)
 - `tests/composables/useApiBase.test.ts` (2 tests)
+- `tests/composables/useModalAccessibility.test.ts` (5 tests — bloqueo de scroll, trampa de foco y retorno al disparador)
+- `tests/components/content/blocks/Block.test.ts` (3 tests — despachador de bloques y fallback visual)
 - `tests/components/content/blocks/BlockAlert.test.ts` (2 tests)
-- `tests/components/content/blocks/BlockParagraph.test.ts` (3 tests)
+- `tests/components/content/blocks/BlockAttaches.test.ts` (1 test)
+- `tests/components/content/blocks/BlockCheckList.test.ts` (1 test)
+- `tests/components/content/blocks/BlockCode.test.ts` (1 test)
+- `tests/components/content/blocks/BlockDelimiter.test.ts` (1 test)
+- `tests/components/content/blocks/BlockEmbed.test.ts` (2 tests)
+- `tests/components/content/blocks/BlockHeader.test.ts` (2 tests — jerarquía semántica)
+- `tests/components/content/blocks/BlockImage.test.ts` (1 test)
+- `tests/components/content/blocks/BlockLinkTool.test.ts` (1 test)
 - `tests/components/content/blocks/BlockList.test.ts` (3 tests)
+- `tests/components/content/blocks/BlockParagraph.test.ts` (3 tests)
+- `tests/components/content/blocks/BlockQuote.test.ts` (1 test)
 - `tests/components/content/blocks/BlockRaw.test.ts` (3 tests)
+- `tests/components/content/blocks/BlockTable.test.ts` (1 test)
+- `tests/components/content/blocks/BlockWarning.test.ts` (2 tests)
+- `tests/components/app/Header.test.ts` (2 tests — marca, navegación y atributos WCAG)
+- `tests/components/app/Footer.test.ts` (1 test — role contentinfo y enlaces legales)
+
+---
+
+### 2.4 `pnpm test:e2e` (Playwright + Axe-core)
+```text
+Running 23 tests using 5 workers
+23 passed (12.2s)
+```
+Pruebas ejecutadas:
+- `tests/e2e/routes.e2e.ts` (10 tests): validación de respuesta HTTP 200 y presencia de landmarks en las 10 rutas canónicas.
+- `tests/e2e/not-found.e2e.ts` (1 test): página 404 personalizada y navegación de retorno al inicio.
+- `tests/e2e/console-clean.e2e.ts` (1 test): 0 excepciones JavaScript o errores fatales de consola durante navegación por 7 páginas.
+- `tests/e2e/responsive-320px.e2e.ts` (6 tests): verificación de ausencia de desbordamiento horizontal (`scrollWidth <= clientWidth`) en 5 páginas y apertura/cierre accesible del menú móvil.
+- `tests/e2e/accessibility.e2e.ts` (5 tests): escaneo de conformidad WCAG 2.1 AA con `@axe-core/playwright` en páginas principales.
 
 ---
 

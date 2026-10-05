@@ -49,6 +49,11 @@
   2. Asegurar que la plataforma `portfolio` tiene contenidos asociados de tipo `project` con estado publicado (`is_published = true`).
   3. Verificar que el endpoint `/cv/pdf` devuelve el archivo PDF correctamente.
 - **Verificación:**
+  Se ha preparado el script automatizado `scripts/backend/check-api-v2.sh`:
+  ```bash
+  ./scripts/backend/check-api-v2.sh
+  ```
+  O manualmente:
   ```bash
   curl -s "https://api.raupulus.dev/api/v2/platforms/portfolio/contents?type=project" | jq '.data | length'
   # Debe devolver un número mayor que 0
@@ -143,6 +148,11 @@
      - `Cross-Origin-Opener-Policy`: `same-origin`
      - `Cross-Origin-Resource-Policy`: `same-origin`
 - **Verificación:**
+  Se ha preparado la definición declarativa en `scripts/cloudflare/security-headers.json` y el script de aprovisionamiento perimetral `scripts/cloudflare/setup-dns.sh`:
+  ```bash
+  CLOUDFLARE_API_TOKEN='...' CLOUDFLARE_ZONE_ID='...' ./scripts/cloudflare/setup-dns.sh
+  ```
+  O manualmente comprobando con curl:
   ```bash
   curl -I -s "https://raupulus.dev/" | grep -E -i "content-security-policy|x-frame-options|x-content-type-options"
   ```
@@ -153,9 +163,9 @@
 - **Ámbito:** Panel Cloudflare (`raupulus.dev`) y servidor de la API.
 - **Problema:** En producción se detectó HSTS con `max-age=0`.
 - **Acción requerida:**
-  1. En Cloudflare: **SSL/TLS** → **Edge Certificates** → **HTTP Strict Transport Security (HSTS)**:
+  1. En Cloudflare: **SSL/TLS** → **Edge Certificates** → **HTTP Strict Transport Security (HSTS)** (o ejecutando `scripts/cloudflare/setup-dns.sh`):
      - Enable HSTS: **Sí**
-     - Max Age Header: **1 year (31536000)**
+     - Max Age Header: **1 year (31536000)** (o 2 años 63072000)
      - Apply HSTS policy to subdomains (`includeSubDomains`): **Sí**
      - Preload: **Sí**
      - No-sniff header: **Sí**
@@ -166,7 +176,7 @@
 - **Verificación:**
   ```bash
   curl -I -s "https://raupulus.dev/" | grep -i "strict-transport-security"
-  # Debe responder: Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+  # Debe responder: Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
   ```
 
 ---
@@ -341,6 +351,11 @@
 - **Decisión requerida:**
   El parámetro de remediación fue `REESCRIBIR_HISTORIA = no` porque reescribir la historia exige `git push --force` e invalida clones existentes.
 - **Procedimiento si el propietario decide purgarlo:**
+  Se ha preparado el script `scripts/maintenance/git-filter-repo-clean-emails.sh`, que automatiza la creación de una rama de respaldo previa y la verificación de 0 ocurrencias:
+  ```bash
+  OLD_EMAIL="correo-personal-a-reemplazar" ./scripts/maintenance/git-filter-repo-clean-emails.sh
+  ```
+  O manualmente:
   1. Hacer una copia de seguridad completa del repositorio:
      ```bash
      cp -r /Users/fryntiz/git/3-Raupulus/www.raupulus.dev /tmp/www.raupulus.dev.backup
@@ -353,7 +368,7 @@
      ```bash
      git log --format='%an <%ae>' | sort -u
      ```
-  4. Si es conforme, sincronizar con el remoto mediante push forzado de todas las ramas.
+  4. Si es conforme, sincronizar con el remoto mediante push forzado de todas las ramas (`git push origin --force --all`).
 
 ---
 

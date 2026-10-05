@@ -59,6 +59,11 @@ La rama `remediacion/auditoria-2026-10-04` contiene una serie de commits pequeñ
 10. `2bf39e9`: `Add legal pages, security policies, optimize dependencies and clean dead code (U-LEGAL-005, U-LEGAL-006, U-LEGAL-007, U-DEP-002, U-DEP-003, U-DEP-005, U-DEP-006, U-CODE-001, U-CODE-005, U-UX-006, U-PERF-007, U-SEC-008, U-SEC-010, U-SEC-011, U-BUG-017, U-SEO-011)`
 11. `564c568`: `Enhance UI/UX, responsive layout, search debounce, content accuracy and accessibility (U-BUG-006, U-BUG-008, U-BUG-011, U-BUG-014, U-BUG-015, U-BUG-016, U-BUG-007, U-A11Y-007, U-A11Y-008, U-A11Y-009, U-A11Y-010, U-RESP-004, U-RESP-005, U-RESP-006, U-RESP-007, U-RESP-008, U-SEO-003, U-SEO-004, U-SEO-008, U-SEO-010, U-UX-001, U-UX-004, U-UX-005, U-CONT-001, U-CONT-002, U-SEC-004, U-PERF-003, U-PERF-004, U-PERF-005, U-PERF-006, U-CODE-002, U-CODE-003)`
 12. `24314bc`: `docs: update technical module documentation in docs/info and AGENTS.md (U-CODE-004)`
+13. `0f7cc25`: `fix(blocks): modernize EditorJS content blocks with Silicon Architect design tokens and A11y (Bloque 1)`
+14. `9a11a20`: `fix(a11y): enforce semantic heading hierarchy and modal focus trap with useModalAccessibility (Bloque 2)`
+15. `8033a9c`: `fix(security): configure Nitro and Apache security headers, robots disallow, domain link and Schema.org JSON-LD (Bloque 3)`
+16. `04b0a59`: `test(components): complete unit test coverage for all EditorJS blocks and app layout (Bloque 4)`
+17. `15a3b14`: `test(e2e): add Playwright and Axe-core accessibility test suite (Bloque 5)`
 
 ---
 
@@ -67,10 +72,10 @@ La rama `remediacion/auditoria-2026-10-04` contiene una serie de commits pequeñ
 Todos los checks de calidad están en verde:
 
 ```bash
-pnpm lint                    # ✅ 0 errores, 0 warnings (100 % limpio; directivas v-html anotadas)
-pnpm exec vue-tsc --noEmit   # ✅ 0 errores de tipos
-pnpm test:run                # ✅ 12 suites pasadas (12/12), 56 tests unitarios pasados (56/56, 100 %)
-pnpm test:coverage           # ✅ Reporte de cobertura generado con @vitest/coverage-v8 (exit code 0)
+pnpm lint                    # ✅ 0 errores, 0 warnings (100 % limpio)
+pnpm exec vue-tsc --noEmit   # ✅ 0 errores de tipos en TypeScript estricto
+pnpm test:run                # ✅ 27 suites unitarias pasadas (27/27), 78 tests unitarios pasados (78/78, 100 %)
+pnpm test:e2e                # ✅ 23 tests E2E y de accesibilidad pasados (23/23, 100 %) con Playwright y Axe-core
 pnpm generate                # ✅ 223 rutas prerenderizadas en 4,2 segundos (.output/public listo)
 ```
 
