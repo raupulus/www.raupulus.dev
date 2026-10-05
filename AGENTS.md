@@ -60,16 +60,16 @@ Ejecutar en este orden y dejar todo en verde:
 
 Copiar `env.example` (desarrollo) o `env.example.production` (producción) a `.env`. Variables clave:
 
-| Variable | Descripción |
-|----------|-------------|
-| `APP_URL` | URL pública del sitio |
-| `APP_DOMAIN` | Dominio del sitio |
-| `API_DOMAIN_URL` | Dominio de la API Laravel |
-| `API_BASE_URL` | URL base completa de la API (`/api/v2`) |
-| `API_PATH_CONTACT` | Ruta relativa del endpoint de contacto (`contact-messages`) |
-| `CAPTCHA_SITE_KEY` | Clave pública reCAPTCHA v3 |
-| `CAPTCHA_SITE_PRIVATE_KEY` | Clave privada reCAPTCHA v3 |
-| `GTAG_ID` | ID de Google Analytics |
+| Variable                   | Descripción                                                 |
+| -------------------------- | ----------------------------------------------------------- |
+| `APP_URL`                  | URL pública del sitio                                       |
+| `APP_DOMAIN`               | Dominio del sitio                                           |
+| `API_DOMAIN_URL`           | Dominio de la API Laravel                                   |
+| `API_BASE_URL`             | URL base completa de la API (`/api/v2`)                     |
+| `API_PATH_CONTACT`         | Ruta relativa del endpoint de contacto (`contact-messages`) |
+| `CAPTCHA_SITE_KEY`         | Clave pública reCAPTCHA v3                                  |
+| `CAPTCHA_SITE_PRIVATE_KEY` | Clave privada reCAPTCHA v3                                  |
+| `GTAG_ID`                  | ID de Google Analytics                                      |
 
 ## Convenciones de Código
 
@@ -82,7 +82,7 @@ Copiar `env.example` (desarrollo) o `env.example.production` (producción) a `.e
 - Composables: las funciones exportadas usan prefijo `use` (ej. `useProjectsData`), ubicados en `composables/`. Los nombres de archivo no siempre llevan prefijo `use` (ej. `projectsData.ts` exporta `useProjectsData()`)
 - Tipos TypeScript: archivos dedicados en `types/`, sufijo `Type` (ej. `ContentType`). Subdirectorio `types/Platform/` para tipos de la plataforma
 - Utils: funciones puras en `utils/`, auto-importadas por Nuxt
-- SEO: cada página debe definir `useHead()` con title, description, keywords, og:*, twitter:*
+- SEO: cada página debe definir `useHead()` con title, description, keywords, og:_, twitter:_
 - Sanitización HTML: usar `sanitizeHtml()` / `sanitizeRawHtml()` de `utils/sanitize.ts`
 - API base: usar `useApiBase()` para resolver URL correcta según contexto (SSR/cliente/dev). En desarrollo, usa proxy `/_proxy/api/**` para evitar CORS
 - Estado global: usar `useState()` de Nuxt (nunca variables globales mutables). Ver `composables/states.ts` como ejemplo
@@ -126,35 +126,35 @@ components/
 
 ## Estructura de Navegación
 
-| Ruta | Archivo | Descripción |
-|------|---------|-------------|
-| `/` | `pages/index.vue` | Página principal / Landing |
-| `/projects` | `pages/projects/[...slugs].vue` | Listado de proyectos |
-| `/projects/:slug` | (misma página, catch-all) | Detalle de proyecto |
-| `/projects/:slug/:page` | (misma página, catch-all) | Página de un proyecto |
-| `/blog` | `pages/blog.vue` | Blog (en construcción) |
-| `/about` | `pages/about.vue` | Sobre mí + galería |
-| `/webs` | `pages/webs.vue` | Sitios web creados |
-| `/social` | `pages/social.vue` | Redes sociales |
-| `/contact` | `pages/contact.vue` | Formulario de contacto |
-| `/privacy` | `pages/privacy.vue` | Política de privacidad |
+| Ruta                    | Archivo                         | Descripción                |
+| ----------------------- | ------------------------------- | -------------------------- |
+| `/`                     | `pages/index.vue`               | Página principal / Landing |
+| `/projects`             | `pages/projects/[...slugs].vue` | Listado de proyectos       |
+| `/projects/:slug`       | (misma página, catch-all)       | Detalle de proyecto        |
+| `/projects/:slug/:page` | (misma página, catch-all)       | Página de un proyecto      |
+| `/blog`                 | `pages/blog.vue`                | Blog (en construcción)     |
+| `/about`                | `pages/about.vue`               | Sobre mí + galería         |
+| `/webs`                 | `pages/webs.vue`                | Sitios web creados         |
+| `/social`               | `pages/social.vue`              | Redes sociales             |
+| `/contact`              | `pages/contact.vue`             | Formulario de contacto     |
+| `/privacy`              | `pages/privacy.vue`             | Política de privacidad     |
 
 ## Endpoints API Consumidos
 
-| Endpoint | Método | Uso |
-|----------|--------|-----|
-Todas bajo `/api/v2` salvo que se indique. Envelope: `{ success, message, data, meta?, errors? }`.
+| Endpoint                                                                                           | Método | Uso |
+| -------------------------------------------------------------------------------------------------- | ------ | --- |
+| Todas bajo `/api/v2` salvo que se indique. Envelope: `{ success, message, data, meta?, errors? }`. |
 
-| Endpoint | Método | Uso |
-|----------|--------|-----|
-| `/platforms/portfolio` | GET | Ficha de la plataforma (tecnologías, redes, autor) |
-| `/platforms/portfolio/contents?type=project` | GET | Listado paginado / búsqueda (`q`, `technology`) de proyectos |
-| `/platforms/portfolio/contents/:slug?include=…&format=editorjs` | GET | Detalle de un proyecto (suma una visita: sólo en cliente) |
-| `/platforms/portfolio/contents/:slug/pages/:order?format=editorjs` | GET | Página individual de un proyecto |
-| `/platforms/portfolio/contents/:slug/pages` | GET | Índice de páginas (prerender/sitemap, no suma visitas) |
-| `/sanctum/csrf-cookie` (fuera de `/api/v2`) | GET | Obtener CSRF token |
-| `/{API_PATH_CONTACT}` → `/contact-messages` | POST | Envío del formulario de contacto |
-| `/cv/pdf` (fuera de `/api/v2`) | GET | Descarga del CV por defecto en PDF |
+| Endpoint                                                           | Método | Uso                                                          |
+| ------------------------------------------------------------------ | ------ | ------------------------------------------------------------ |
+| `/platforms/portfolio`                                             | GET    | Ficha de la plataforma (tecnologías, redes, autor)           |
+| `/platforms/portfolio/contents?type=project`                       | GET    | Listado paginado / búsqueda (`q`, `technology`) de proyectos |
+| `/platforms/portfolio/contents/:slug?include=…&format=editorjs`    | GET    | Detalle de un proyecto (suma una visita: sólo en cliente)    |
+| `/platforms/portfolio/contents/:slug/pages/:order?format=editorjs` | GET    | Página individual de un proyecto                             |
+| `/platforms/portfolio/contents/:slug/pages`                        | GET    | Índice de páginas (prerender/sitemap, no suma visitas)       |
+| `/sanctum/csrf-cookie` (fuera de `/api/v2`)                        | GET    | Obtener CSRF token                                           |
+| `/{API_PATH_CONTACT}` → `/contact-messages`                        | POST   | Envío del formulario de contacto                             |
+| `/cv/pdf` (fuera de `/api/v2`)                                     | GET    | Descarga del CV por defecto en PDF                           |
 
 La web es de **sólo lectura**: el único POST es el formulario de contacto.
 
@@ -164,32 +164,32 @@ La documentación técnica de cada módulo se encuentra en `docs/info/`. **Es ob
 
 ### Índice de módulos (`docs/info/`)
 
-| Archivo | Módulo |
-|---------|--------|
-| [README.md](docs/info/README.md) | Índice general de módulos |
-| [nuxt-config.md](docs/info/nuxt-config.md) | Configuración de Nuxt, módulos y variables de entorno |
-| [layout-navegacion.md](docs/info/layout-navegacion.md) | Layout principal, Header y Footer |
-| [pagina-home.md](docs/info/pagina-home.md) | Página principal (landing) |
-| [pagina-proyectos.md](docs/info/pagina-proyectos.md) | Página de proyectos (listado, búsqueda, detalle) |
-| [pagina-about.md](docs/info/pagina-about.md) | Página "Sobre mí" con galería |
-| [pagina-blog.md](docs/info/pagina-blog.md) | Página del blog (en construcción) |
-| [pagina-contact.md](docs/info/pagina-contact.md) | Formulario de contacto con reCAPTCHA |
-| [pagina-social.md](docs/info/pagina-social.md) | Página de redes sociales |
-| [pagina-webs.md](docs/info/pagina-webs.md) | Página de sitios web creados |
-| [pagina-privacy.md](docs/info/pagina-privacy.md) | Política de privacidad |
-| [pagina-cookies.md](docs/info/pagina-cookies.md) | Política de cookies y panel de preferencias |
-| [pagina-legal.md](docs/info/pagina-legal.md) | Aviso legal y condiciones de uso |
-| [composables.md](docs/info/composables.md) | Composables (lógica reutilizable) |
-| [types.md](docs/info/types.md) | Sistema de tipos TypeScript |
-| [componentes-ui.md](docs/info/componentes-ui.md) | Componentes UI reutilizables |
-| [componentes-content-blocks.md](docs/info/componentes-content-blocks.md) | Bloques de contenido (EditorJS) |
-| [componentes-icons.md](docs/info/componentes-icons.md) | Componentes de iconos SVG |
-| [componentes-modals.md](docs/info/componentes-modals.md) | Componentes modales |
-| [utils.md](docs/info/utils.md) | Utilidades (apiClient, sanitize, TechnologyUtils) |
-| [plugins-middleware.md](docs/info/plugins-middleware.md) | Plugins y middleware |
-| [design-system.md](docs/info/design-system.md) | Design system, CSS y TailwindCSS |
-| [seo-sitemap.md](docs/info/seo-sitemap.md) | SEO, metatags y sitemap |
-| [deploy-cicd.md](docs/info/deploy-cicd.md) | Despliegue, scripts y CI/CD |
+| Archivo                                                                  | Módulo                                                |
+| ------------------------------------------------------------------------ | ----------------------------------------------------- |
+| [README.md](docs/info/README.md)                                         | Índice general de módulos                             |
+| [nuxt-config.md](docs/info/nuxt-config.md)                               | Configuración de Nuxt, módulos y variables de entorno |
+| [layout-navegacion.md](docs/info/layout-navegacion.md)                   | Layout principal, Header y Footer                     |
+| [pagina-home.md](docs/info/pagina-home.md)                               | Página principal (landing)                            |
+| [pagina-proyectos.md](docs/info/pagina-proyectos.md)                     | Página de proyectos (listado, búsqueda, detalle)      |
+| [pagina-about.md](docs/info/pagina-about.md)                             | Página "Sobre mí" con galería                         |
+| [pagina-blog.md](docs/info/pagina-blog.md)                               | Página del blog (en construcción)                     |
+| [pagina-contact.md](docs/info/pagina-contact.md)                         | Formulario de contacto con reCAPTCHA                  |
+| [pagina-social.md](docs/info/pagina-social.md)                           | Página de redes sociales                              |
+| [pagina-webs.md](docs/info/pagina-webs.md)                               | Página de sitios web creados                          |
+| [pagina-privacy.md](docs/info/pagina-privacy.md)                         | Política de privacidad                                |
+| [pagina-cookies.md](docs/info/pagina-cookies.md)                         | Política de cookies y panel de preferencias           |
+| [pagina-legal.md](docs/info/pagina-legal.md)                             | Aviso legal y condiciones de uso                      |
+| [composables.md](docs/info/composables.md)                               | Composables (lógica reutilizable)                     |
+| [types.md](docs/info/types.md)                                           | Sistema de tipos TypeScript                           |
+| [componentes-ui.md](docs/info/componentes-ui.md)                         | Componentes UI reutilizables                          |
+| [componentes-content-blocks.md](docs/info/componentes-content-blocks.md) | Bloques de contenido (EditorJS)                       |
+| [componentes-icons.md](docs/info/componentes-icons.md)                   | Componentes de iconos SVG                             |
+| [componentes-modals.md](docs/info/componentes-modals.md)                 | Componentes modales                                   |
+| [utils.md](docs/info/utils.md)                                           | Utilidades (apiClient, sanitize, TechnologyUtils)     |
+| [plugins-middleware.md](docs/info/plugins-middleware.md)                 | Plugins y middleware                                  |
+| [design-system.md](docs/info/design-system.md)                           | Design system, CSS y TailwindCSS                      |
+| [seo-sitemap.md](docs/info/seo-sitemap.md)                               | SEO, metatags y sitemap                               |
+| [deploy-cicd.md](docs/info/deploy-cicd.md)                               | Despliegue, scripts y CI/CD                           |
 
 ### Reglas de actualización de `docs/info/`
 
@@ -200,12 +200,12 @@ La documentación técnica de cada módulo se encuentra en `docs/info/`. **Es ob
 3. **Al eliminar un módulo**, eliminar el archivo `.md` correspondiente y quitarlo de los índices.
 
 4. Cada archivo en `docs/info/` debe contener:
-   - Resumen breve del módulo (1-2 frases) al inicio
-   - Archivos principales involucrados (modelo, controlador, resource, vistas, etc.)
-   - Campos del modelo con tipos y descripciones
-   - Relaciones, scopes y métodos relevantes
-   - Rutas (web y API) si aplica
-   - Configuración si aplica
+    - Resumen breve del módulo (1-2 frases) al inicio
+    - Archivos principales involucrados (modelo, controlador, resource, vistas, etc.)
+    - Campos del modelo con tipos y descripciones
+    - Relaciones, scopes y métodos relevantes
+    - Rutas (web y API) si aplica
+    - Configuración si aplica
 
 ## Información de Contacto (Norma Estricta)
 

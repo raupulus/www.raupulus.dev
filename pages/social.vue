@@ -1,268 +1,275 @@
 <script setup lang="ts">
-const config = useRuntimeConfig()
-const url = config.public.app.url
-const title = 'Redes Sociales de Raúl Caro Pastorino | Desarrollador Web Backend'
-const description = 'Conecta con Raúl Caro Pastorino en redes sociales y plataformas de desarrollo. Sígueme en LinkedIn, GitLab, GitHub, Telegram y más.'
-const keywords = 'redes sociales, Raúl Caro Pastorino, desarrollador web, backend, LinkedIn, GitLab, GitHub, Telegram'
+    const config = useRuntimeConfig();
+    const url = config.public.app.url;
+    const title = 'Redes Sociales de Raúl Caro Pastorino | Desarrollador Web Backend';
+    const description =
+        'Conecta con Raúl Caro Pastorino en redes sociales y plataformas de desarrollo. Sígueme en LinkedIn, GitLab, GitHub, Telegram y más.';
+    const keywords =
+        'redes sociales, Raúl Caro Pastorino, desarrollador web, backend, LinkedIn, GitLab, GitHub, Telegram';
 
-useHead({
-    title: title,
-    meta: [
-        { name: 'description', content: description },
-        { name: 'keywords', content: keywords },
-        { name: 'robots', content: 'index, follow' },
-        { property: 'og:type', content: 'website' },
-        { property: 'og:title', content: title },
-        { property: 'og:url', content: `${url}/social/` },
-        { property: 'og:image', content: `${url}/social/social.webp` },
-        { name: 'twitter:card', content: 'summary_large_image' },
-        { name: 'twitter:title', content: title },
-        { name: 'twitter:description', content: description },
-        { name: 'twitter:image', content: `${url}/social/social.webp` }
-    ],
-    link: [
-        { rel: 'canonical', href: `${url}/social/` },
-    ],
-    script: [
+    useHead({
+        title: title,
+        meta: [
+            { name: 'description', content: description },
+            { name: 'keywords', content: keywords },
+            { name: 'robots', content: 'index, follow' },
+            { property: 'og:type', content: 'website' },
+            { property: 'og:title', content: title },
+            { property: 'og:url', content: `${url}/social/` },
+            { property: 'og:image', content: `${url}/social/social.webp` },
+            { name: 'twitter:card', content: 'summary_large_image' },
+            { name: 'twitter:title', content: title },
+            { name: 'twitter:description', content: description },
+            { name: 'twitter:image', content: `${url}/social/social.webp` },
+        ],
+        link: [{ rel: 'canonical', href: `${url}/social/` }],
+        script: [
+            {
+                type: 'application/ld+json',
+                innerHTML: JSON.stringify({
+                    '@context': 'https://schema.org',
+                    '@type': 'CollectionPage',
+                    name: title,
+                    url: `${url}/social/`,
+                    description: description,
+                    author: {
+                        '@type': 'Person',
+                        name: 'Raúl Caro Pastorino',
+                        url: `${url}/`,
+                    },
+                }),
+            },
+        ],
+    });
+
+    // Redes sociales con diseño bento: las primeras son "featured" (grandes), el resto normales
+    const socialNetworks = [
+        // Fila 1: GitHub grande (col-8) + LinkedIn (col-4)
         {
-            type: 'application/ld+json',
-            innerHTML: JSON.stringify({
-                '@context': 'https://schema.org',
-                '@type': 'CollectionPage',
-                name: title,
-                url: `${url}/social/`,
-                description: description,
-                author: {
-                    '@type': 'Person',
-                    name: 'Raúl Caro Pastorino',
-                    url: `${url}/`,
-                },
-            }),
+            title: 'GitHub',
+            handle: '@raupulus',
+            image: '/images/icons/social/github.svg',
+            description:
+                'Visita mi perfil en GitHub para ver mi código y contribuciones a proyectos de código abierto. Principalmente uso GitLab, por lo que GitHub funciona como espejo de repositorios.',
+            url: 'https://github.com/raupulus',
+            icon: 'code',
+            size: 'large', // col-span-8
+            badge: 'Código Abierto',
+            badgeIcon: 'code',
+            stats: [
+                { label: 'Ecosistema', value: 'PHP & Python' },
+                { label: 'Rol', value: 'Open Source', active: true },
+            ],
         },
-    ],
-})
+        {
+            title: 'LinkedIn',
+            handle: '@raulcaropastorino',
+            image: '/images/icons/social/linkedin.svg',
+            description:
+                'Descubre mi perfil de LinkedIn para conocer en detalle mi trayectoria laboral y académica, o para contactarme profesionalmente.',
+            url: 'https://www.linkedin.com/in/raulcaropastorino/',
+            icon: 'work',
+            size: 'medium', // col-span-4
+            badge: 'Red Profesional',
+        },
+        // Fila 2: GitLab grande (col-8) + Twitter (col-4)
+        {
+            title: 'GitLab',
+            handle: '@raupulus',
+            image: '/images/icons/social/gitlab.svg',
+            description:
+                'Explora mis proyectos y código fuente en GitLab, mi plataforma principal de desarrollo para proyectos personales y profesionales.',
+            url: 'https://gitlab.com/raupulus',
+            icon: 'code_blocks',
+            size: 'large',
+            badge: 'Repositorio Principal',
+            stats: [
+                { label: 'Ecosistema', value: 'Laravel & IoT' },
+                { label: 'Plataforma', value: 'Principal', active: true },
+            ],
+        },
+        {
+            title: 'Twitter / X',
+            handle: '@raupulus',
+            image: '/images/icons/social/twitter.svg',
+            description:
+                'Sigue mis publicaciones y mantente al tanto de novedades, software libre y tecnología en Twitter.',
+            url: 'https://twitter.com/raupulus',
+            icon: 'share',
+            size: 'medium',
+            badge: 'Red Social',
+        },
+        // Fila 3: Telegram grande (col-8) + YouTube (col-4)
+        {
+            title: 'Telegram - Raupulus Diffusion',
+            handle: '@raupulus_diffusion',
+            image: '/images/icons/social/telegram.svg',
+            description: 'Canal de Telegram donde comparto novedades sobre tecnología, software libre y GNU/Linux.',
+            url: 'https://t.me/raupulus_diffusion',
+            icon: 'send',
+            size: 'large',
+            badge: 'Canal de Difusión',
+            stats: [
+                { label: 'Temática', value: 'Tecnología & Linux' },
+                { label: 'Canal', value: 'Comunidad', active: true },
+            ],
+        },
+        {
+            title: 'YouTube',
+            handle: '@raupulus',
+            image: '/images/icons/social/youtube.svg',
+            description: 'Vídeos y tutoriales sobre programación, desarrollo web, diseño de sistemas y tecnología.',
+            url: 'https://www.youtube.com/@raupulus',
+            icon: 'play_circle',
+            size: 'medium',
+            badge: 'Contenido en Vídeo',
+        },
+        // Fila 4: tarjetas pequeñas (col-3 cada una)
+        {
+            title: 'Mastodon',
+            handle: '@raupulus',
+            image: '/images/icons/social/mastodon.svg',
+            description:
+                'Conéctate conmigo en el Fediverso para seguir actualizaciones sobre tecnología y software libre.',
+            url: 'https://mastodon.online/@raupulus',
+            icon: 'rss_feed',
+            size: 'small',
+        },
+        {
+            title: 'Bluesky',
+            handle: '@raupulus',
+            image: '/images/icons/social/bluesky.svg',
+            description: 'Publicaciones y novedades sobre desarrollo web, código abierto y el ecosistema tech.',
+            url: 'https://bsky.app/profile/raupulus.bsky.social',
+            icon: 'cloud',
+            size: 'small',
+        },
+        {
+            title: 'Twitch',
+            handle: '@raupulus',
+            image: '/images/icons/social/twitch.svg',
+            description: 'Directos sobre programación, desarrollo y streaming técnico.',
+            url: 'https://www.twitch.tv/raupulus',
+            icon: 'live_tv',
+            size: 'small',
+        },
+        {
+            title: 'Instagram',
+            handle: '@raupulus',
+            image: '/images/icons/social/instagram.svg',
+            description: 'Publicaciones y fotografías de proyectos, montajes maker y electrónica.',
+            url: 'https://www.instagram.com/raupulus/',
+            icon: 'photo_camera',
+            size: 'small',
+        },
+        {
+            title: 'Stack Overflow',
+            handle: '@raupulus',
+            image: '/images/icons/social/stackoverflow.svg',
+            description: 'Respuestas y preguntas técnicas en la comunidad de Stack Overflow en español.',
+            url: 'https://es.stackoverflow.com/users/82651/raupulus',
+            icon: 'help',
+            size: 'small',
+        },
+        {
+            title: 'CodePen',
+            handle: '@raupulus',
+            image: '/images/icons/social/codepen.svg',
+            description: 'Aquí comparto mis diseños en CSS para que puedan ser reutilizados.',
+            url: 'https://codepen.io/raupulus',
+            icon: 'code',
+            size: 'small',
+        },
+        {
+            title: 'Thingiverse',
+            handle: '@raupulus',
+            image: '/images/icons/social/thingiverse.webp',
+            description: 'Descubre mis modelos 3D en Thingiverse, donde comparto mis creaciones para impresoras 3D.',
+            url: 'https://www.thingiverse.com/raupulus/designs',
+            icon: 'view_in_ar',
+            size: 'small',
+        },
+        {
+            title: 'Printables',
+            handle: '@raupulus',
+            image: '/images/icons/social/printables.svg',
+            description: 'Explora mis diseños 3D en Printables y encuentra modelos únicos para tus proyectos.',
+            url: 'https://www.printables.com/@raupulus_2109175',
+            icon: 'view_in_ar',
+            size: 'small',
+        },
+        {
+            title: 'Facebook',
+            handle: '@raupulus',
+            image: '/images/icons/social/facebook.svg',
+            description: 'Sigue mis publicaciones y actualizaciones en mi perfil de Facebook.',
+            url: 'https://www.facebook.com/raupulus/',
+            icon: 'group',
+            size: 'small',
+        },
+        {
+            title: 'TikTok',
+            handle: '@raupulus',
+            image: '/images/icons/social/tiktok.svg',
+            description: 'Sigue mis vídeos en TikTok y mantente al tanto de mis nuevas publicaciones.',
+            url: 'https://www.tiktok.com/@raupulus',
+            icon: 'music_video',
+            size: 'small',
+        },
+        {
+            title: 'Npmjs',
+            handle: '@fryntiz',
+            image: '/images/icons/social/npmjs.svg',
+            description: 'Revisa mis paquetes publicados junto con sus versiones y detalles en mi perfil de Npmjs.',
+            url: 'https://www.npmjs.com/~fryntiz',
+            icon: 'package_2',
+            size: 'small',
+        },
+        {
+            title: 'Packagist',
+            handle: '@raupulus',
+            image: '/images/icons/social/packagist.svg',
+            description: 'Consulta mis paquetes publicados y sus detalles en mi perfil de Packagist.',
+            url: 'https://packagist.org/users/raupulus/',
+            icon: 'package_2',
+            size: 'small',
+        },
+    ];
 
-// Redes sociales con diseño bento: las primeras son "featured" (grandes), el resto normales
-const socialNetworks = [
-    // Fila 1: GitHub grande (col-8) + LinkedIn (col-4)
-    {
-        title: 'GitHub',
-        handle: '@raupulus',
-        image: '/images/icons/social/github.svg',
-        description: 'Visita mi perfil en GitHub para ver mi código y contribuciones a proyectos de código abierto. Principalmente uso GitLab, por lo que GitHub funciona como espejo de repositorios.',
-        url: 'https://github.com/raupulus',
-        icon: 'code',
-        size: 'large', // col-span-8
-        badge: 'Código Abierto',
-        badgeIcon: 'code',
-        stats: [
-            { label: 'Ecosistema', value: 'PHP & Python' },
-            { label: 'Rol', value: 'Open Source', active: true },
-        ],
-    },
-    {
-        title: 'LinkedIn',
-        handle: '@raulcaropastorino',
-        image: '/images/icons/social/linkedin.svg',
-        description: 'Descubre mi perfil de LinkedIn para conocer en detalle mi trayectoria laboral y académica, o para contactarme profesionalmente.',
-        url: 'https://www.linkedin.com/in/raulcaropastorino/',
-        icon: 'work',
-        size: 'medium', // col-span-4
-        badge: 'Red Profesional',
-    },
-    // Fila 2: GitLab grande (col-8) + Twitter (col-4)
-    {
-        title: 'GitLab',
-        handle: '@raupulus',
-        image: '/images/icons/social/gitlab.svg',
-        description: 'Explora mis proyectos y código fuente en GitLab, mi plataforma principal de desarrollo para proyectos personales y profesionales.',
-        url: 'https://gitlab.com/raupulus',
-        icon: 'code_blocks',
-        size: 'large',
-        badge: 'Repositorio Principal',
-        stats: [
-            { label: 'Ecosistema', value: 'Laravel & IoT' },
-            { label: 'Plataforma', value: 'Principal', active: true },
-        ],
-    },
-    {
-        title: 'Twitter / X',
-        handle: '@raupulus',
-        image: '/images/icons/social/twitter.svg',
-        description: 'Sigue mis publicaciones y mantente al tanto de novedades, software libre y tecnología en Twitter.',
-        url: 'https://twitter.com/raupulus',
-        icon: 'share',
-        size: 'medium',
-        badge: 'Red Social',
-    },
-    // Fila 3: Telegram grande (col-8) + YouTube (col-4)
-    {
-        title: 'Telegram - Raupulus Diffusion',
-        handle: '@raupulus_diffusion',
-        image: '/images/icons/social/telegram.svg',
-        description: 'Canal de Telegram donde comparto novedades sobre tecnología, software libre y GNU/Linux.',
-        url: 'https://t.me/raupulus_diffusion',
-        icon: 'send',
-        size: 'large',
-        badge: 'Canal de Difusión',
-        stats: [
-            { label: 'Temática', value: 'Tecnología & Linux' },
-            { label: 'Canal', value: 'Comunidad', active: true },
-        ],
-    },
-    {
-        title: 'YouTube',
-        handle: '@raupulus',
-        image: '/images/icons/social/youtube.svg',
-        description: 'Vídeos y tutoriales sobre programación, desarrollo web, diseño de sistemas y tecnología.',
-        url: 'https://www.youtube.com/@raupulus',
-        icon: 'play_circle',
-        size: 'medium',
-        badge: 'Contenido en Vídeo',
-    },
-    // Fila 4: tarjetas pequeñas (col-3 cada una)
-    {
-        title: 'Mastodon',
-        handle: '@raupulus',
-        image: '/images/icons/social/mastodon.svg',
-        description: 'Conéctate conmigo en el Fediverso para seguir actualizaciones sobre tecnología y software libre.',
-        url: 'https://mastodon.online/@raupulus',
-        icon: 'rss_feed',
-        size: 'small',
-    },
-    {
-        title: 'Bluesky',
-        handle: '@raupulus',
-        image: '/images/icons/social/bluesky.svg',
-        description: 'Publicaciones y novedades sobre desarrollo web, código abierto y el ecosistema tech.',
-        url: 'https://bsky.app/profile/raupulus.bsky.social',
-        icon: 'cloud',
-        size: 'small',
-    },
-    {
-        title: 'Twitch',
-        handle: '@raupulus',
-        image: '/images/icons/social/twitch.svg',
-        description: 'Directos sobre programación, desarrollo y streaming técnico.',
-        url: 'https://www.twitch.tv/raupulus',
-        icon: 'live_tv',
-        size: 'small',
-    },
-    {
-        title: 'Instagram',
-        handle: '@raupulus',
-        image: '/images/icons/social/instagram.svg',
-        description: 'Publicaciones y fotografías de proyectos, montajes maker y electrónica.',
-        url: 'https://www.instagram.com/raupulus/',
-        icon: 'photo_camera',
-        size: 'small',
-    },
-    {
-        title: 'Stack Overflow',
-        handle: '@raupulus',
-        image: '/images/icons/social/stackoverflow.svg',
-        description: 'Respuestas y preguntas técnicas en la comunidad de Stack Overflow en español.',
-        url: 'https://es.stackoverflow.com/users/82651/raupulus',
-        icon: 'help',
-        size: 'small',
-    },
-    {
-        title: 'CodePen',
-        handle: '@raupulus',
-        image: '/images/icons/social/codepen.svg',
-        description: 'Aquí comparto mis diseños en CSS para que puedan ser reutilizados.',
-        url: 'https://codepen.io/raupulus',
-        icon: 'code',
-        size: 'small',
-    },
-    {
-        title: 'Thingiverse',
-        handle: '@raupulus',
-        image: '/images/icons/social/thingiverse.webp',
-        description: 'Descubre mis modelos 3D en Thingiverse, donde comparto mis creaciones para impresoras 3D.',
-        url: 'https://www.thingiverse.com/raupulus/designs',
-        icon: 'view_in_ar',
-        size: 'small',
-    },
-    {
-        title: 'Printables',
-        handle: '@raupulus',
-        image: '/images/icons/social/printables.svg',
-        description: 'Explora mis diseños 3D en Printables y encuentra modelos únicos para tus proyectos.',
-        url: 'https://www.printables.com/@raupulus_2109175',
-        icon: 'view_in_ar',
-        size: 'small',
-    },
-    {
-        title: 'Facebook',
-        handle: '@raupulus',
-        image: '/images/icons/social/facebook.svg',
-        description: 'Sigue mis publicaciones y actualizaciones en mi perfil de Facebook.',
-        url: 'https://www.facebook.com/raupulus/',
-        icon: 'group',
-        size: 'small',
-    },
-    {
-        title: 'TikTok',
-        handle: '@raupulus',
-        image: '/images/icons/social/tiktok.svg',
-        description: 'Sigue mis vídeos en TikTok y mantente al tanto de mis nuevas publicaciones.',
-        url: 'https://www.tiktok.com/@raupulus',
-        icon: 'music_video',
-        size: 'small',
-    },
-    {
-        title: 'Npmjs',
-        handle: '@fryntiz',
-        image: '/images/icons/social/npmjs.svg',
-        description: 'Revisa mis paquetes publicados junto con sus versiones y detalles en mi perfil de Npmjs.',
-        url: 'https://www.npmjs.com/~fryntiz',
-        icon: 'package_2',
-        size: 'small',
-    },
-    {
-        title: 'Packagist',
-        handle: '@raupulus',
-        image: '/images/icons/social/packagist.svg',
-        description: 'Consulta mis paquetes publicados y sus detalles en mi perfil de Packagist.',
-        url: 'https://packagist.org/users/raupulus/',
-        icon: 'package_2',
-        size: 'small',
-    },
-]
+    // Separa las redes por tamaño para el layout bento
+    const bentoRows = computed(() => {
+        const rows: Array<typeof socialNetworks> = [];
+        let i = 0;
+        while (i < socialNetworks.length) {
+            const net = socialNetworks[i];
+            if (!net) break;
 
-// Separa las redes por tamaño para el layout bento
-const bentoRows = computed(() => {
-    const rows: Array<typeof socialNetworks> = []
-    let i = 0
-    while (i < socialNetworks.length) {
-        const net = socialNetworks[i]
-        if (!net) break
-
-        const next = socialNetworks[i + 1]
-        if (net.size === 'large' && next && next.size === 'medium') {
-            rows.push([net, next])
-            i += 2
-        } else {
-            // Agrupa las small de 4 en 4
-            const smallGroup: typeof socialNetworks = []
-            let current = socialNetworks[i]
-            while (current && current.size === 'small') {
-                smallGroup.push(current)
-                i++
-                current = socialNetworks[i]
+            const next = socialNetworks[i + 1];
+            if (net.size === 'large' && next && next.size === 'medium') {
+                rows.push([net, next]);
+                i += 2;
+            } else {
+                // Agrupa las small de 4 en 4
+                const smallGroup: typeof socialNetworks = [];
+                let current = socialNetworks[i];
+                while (current && current.size === 'small') {
+                    smallGroup.push(current);
+                    i++;
+                    current = socialNetworks[i];
+                }
+                if (smallGroup.length) rows.push(smallGroup);
+                else {
+                    rows.push([net]);
+                    i++;
+                }
             }
-            if (smallGroup.length) rows.push(smallGroup)
-            else { rows.push([net]); i++ }
         }
-    }
-    return rows
-})
+        return rows;
+    });
 </script>
 
 <template>
     <div class="min-h-screen bg-background circuit-pattern">
-
         <!-- Cabecera -->
         <div class="pt-12 pb-8 px-8 max-w-7xl mx-auto">
             <div class="inline-block mb-4 px-3 py-1 bg-surface-container-low border border-outline-variant/30 rounded">
@@ -279,9 +286,7 @@ const bentoRows = computed(() => {
         <!-- Bento Grid -->
         <div class="px-8 pb-24 max-w-7xl mx-auto">
             <div v-for="(row, rowIdx) in bentoRows" :key="rowIdx" class="grid grid-cols-1 md:grid-cols-12 gap-6 mb-6">
-
                 <template v-for="network in row" :key="network.title">
-
                     <!-- Tarjeta LARGE (col-span-8) -->
                     <a
                         v-if="network.size === 'large'"
@@ -299,7 +304,9 @@ const bentoRows = computed(() => {
                         <div>
                             <div class="flex items-center gap-3 mb-6">
                                 <!-- Fondo claro para que los logos oscuros (GitHub, Codepen...) contrasten -->
-                                <div class="w-12 h-12 flex items-center justify-center bg-on-surface rounded-lg border border-outline-variant/30">
+                                <div
+                                    class="w-12 h-12 flex items-center justify-center bg-on-surface rounded-lg border border-outline-variant/30"
+                                >
                                     <NuxtImg
                                         v-if="network.image"
                                         :src="network.image"
@@ -324,14 +331,24 @@ const bentoRows = computed(() => {
                                     :key="stat.label"
                                     class="bg-surface-container-lowest px-4 py-2 rounded border border-outline-variant/30"
                                 >
-                                    <span class="block font-label text-[10px] text-outline uppercase tracking-wider">{{ stat.label }}</span>
-                                    <span class="flex items-center gap-2 text-sm font-medium" :class="stat.active ? 'text-tertiary' : 'text-on-surface'">
-                                        <span v-if="stat.active" class="w-2 h-2 rounded-full bg-tertiary animate-pulse"/>
+                                    <span class="block font-label text-[10px] text-outline uppercase tracking-wider">{{
+                                        stat.label
+                                    }}</span>
+                                    <span
+                                        class="flex items-center gap-2 text-sm font-medium"
+                                        :class="stat.active ? 'text-tertiary' : 'text-on-surface'"
+                                    >
+                                        <span
+                                            v-if="stat.active"
+                                            class="w-2 h-2 rounded-full bg-tertiary animate-pulse"
+                                        />
                                         {{ stat.value }}
                                     </span>
                                 </div>
                             </template>
-                            <span class="ml-auto flex items-center gap-2 font-label text-xs font-bold text-primary group-hover:translate-x-1 transition-transform">
+                            <span
+                                class="ml-auto flex items-center gap-2 font-label text-xs font-bold text-primary group-hover:translate-x-1 transition-transform"
+                            >
                                 VER_PERFIL <UiMaterialIcon class="text-sm" name="arrow_forward" />
                             </span>
                         </div>
@@ -346,7 +363,9 @@ const bentoRows = computed(() => {
                         class="md:col-span-4 bg-surface-container-low rounded-xl p-8 flex flex-col justify-between border border-outline-variant/10 group hover:border-primary/30 transition-all duration-300"
                     >
                         <div>
-                            <div class="w-12 h-12 flex items-center justify-center bg-on-surface rounded-full mb-6 border border-primary/20">
+                            <div
+                                class="w-12 h-12 flex items-center justify-center bg-on-surface rounded-full mb-6 border border-primary/20"
+                            >
                                 <NuxtImg
                                     v-if="network.image"
                                     :src="network.image"
@@ -358,12 +377,19 @@ const bentoRows = computed(() => {
                                 <UiMaterialIcon v-else class="text-primary-container" :name="network.icon" />
                             </div>
                             <h2 class="font-headline text-xl font-bold mb-2">{{ network.title }}</h2>
-                            <p v-if="network.badge" class="font-label text-xs text-secondary mb-4 uppercase tracking-widest">{{ network.badge }}</p>
+                            <p
+                                v-if="network.badge"
+                                class="font-label text-xs text-secondary mb-4 uppercase tracking-widest"
+                            >
+                                {{ network.badge }}
+                            </p>
                             <p class="text-sm text-on-surface-variant leading-relaxed">{{ network.description }}</p>
                         </div>
                         <div class="mt-8">
-                            <div class="w-full h-[1px] bg-outline-variant/20 mb-6"/>
-                            <span class="flex items-center justify-between text-on-surface group-hover:text-primary transition-colors">
+                            <div class="w-full h-[1px] bg-outline-variant/20 mb-6" />
+                            <span
+                                class="flex items-center justify-between text-on-surface group-hover:text-primary transition-colors"
+                            >
                                 <span class="font-label text-sm">Ver Perfil</span>
                                 <UiMaterialIcon name="north_east" />
                             </span>
@@ -390,13 +416,15 @@ const bentoRows = computed(() => {
                                 />
                                 <UiMaterialIcon v-else class="text-sm text-primary-container" :name="network.icon" />
                             </div>
-                            <UiMaterialIcon class="text-outline group-hover:text-primary transition-colors text-sm" name="north_east" />
+                            <UiMaterialIcon
+                                class="text-outline group-hover:text-primary transition-colors text-sm"
+                                name="north_east"
+                            />
                         </div>
                         <h2 class="font-headline text-base font-bold mb-1">{{ network.title }}</h2>
                         <p class="font-label text-[10px] text-outline mb-2">{{ network.handle }}</p>
                         <p class="text-xs text-on-surface-variant leading-relaxed flex-1">{{ network.description }}</p>
                     </a>
-
                 </template>
             </div>
         </div>

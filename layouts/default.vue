@@ -1,5 +1,4 @@
-<script setup lang="ts">
-</script>
+<script setup lang="ts"></script>
 
 <template>
     <div id="app" class="bg-background text-on-background font-body min-h-screen flex flex-col">
@@ -28,7 +27,7 @@
 </template>
 
 <style>
-#app-box-content {
-    min-height: calc(100dvh - 80px);
-}
+    #app-box-content {
+        min-height: calc(100dvh - 80px);
+    }
 </style>

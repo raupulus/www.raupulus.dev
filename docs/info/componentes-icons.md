@@ -4,26 +4,26 @@ Iconos SVG como componentes Vue para redes sociales e iconos genéricos. Ubicado
 
 ## Índice
 
-| Componente | Archivo | Descripción |
-|-----------|---------|-------------|
-| `IconsGeneric` | `components/icons/Generic.vue` | Icono SVG genérico base |
+| Componente           | Archivo                              | Descripción                       |
+| -------------------- | ------------------------------------ | --------------------------------- |
+| `IconsGeneric`       | `components/icons/Generic.vue`       | Icono SVG genérico base           |
 | `IconsGenericSocial` | `components/icons/GenericSocial.vue` | Wrapper social con hover y enlace |
-| `IconsEarth` | `components/icons/Earth.vue` | Icono de globo terráqueo (web) |
-| `IconsGithub` | `components/icons/Github.vue` | Logo GitHub |
-| `IconsGitlab` | `components/icons/Gitlab.vue` | Logo GitLab |
-| `IconsYoutube` | `components/icons/Youtube.vue` | Logo YouTube |
-| `IconsLinkedin` | `components/icons/Linkedin.vue` | Logo LinkedIn |
-| `IconsTwitter` | `components/icons/Twitter.vue` | Logo Twitter/X |
-| `IconsTwitch` | `components/icons/Twitch.vue` | Logo Twitch |
-| `IconsMastodon` | `components/icons/Mastodon.vue` | Logo Mastodon |
-| `IconsTelegram` | `components/icons/Telegram.vue` | Logo Telegram |
-| `IconsInfo` | `components/icons/Info.vue` | Icono de información |
+| `IconsEarth`         | `components/icons/Earth.vue`         | Icono de globo terráqueo (web)    |
+| `IconsGithub`        | `components/icons/Github.vue`        | Logo GitHub                       |
+| `IconsGitlab`        | `components/icons/Gitlab.vue`        | Logo GitLab                       |
+| `IconsYoutube`       | `components/icons/Youtube.vue`       | Logo YouTube                      |
+| `IconsLinkedin`      | `components/icons/Linkedin.vue`      | Logo LinkedIn                     |
+| `IconsTwitter`       | `components/icons/Twitter.vue`       | Logo Twitter/X                    |
+| `IconsTwitch`        | `components/icons/Twitch.vue`        | Logo Twitch                       |
+| `IconsMastodon`      | `components/icons/Mastodon.vue`      | Logo Mastodon                     |
+| `IconsTelegram`      | `components/icons/Telegram.vue`      | Logo Telegram                     |
+| `IconsInfo`          | `components/icons/Info.vue`          | Icono de información              |
 
 ## Props comunes
 
-| Prop | Tipo | Default | Descripción |
-|------|------|---------|-------------|
-| `size` | `string` | — | Tamaño del icono (ej. `"80px"`) |
+| Prop      | Tipo      | Default | Descripción                            |
+| --------- | --------- | ------- | -------------------------------------- |
+| `size`    | `string`  | —       | Tamaño del icono (ej. `"80px"`)        |
 | `decored` | `boolean` | `false` | Muestra decoración alrededor del icono |
 
 ## Uso típico

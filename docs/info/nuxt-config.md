@@ -4,48 +4,48 @@ Configuración central del framework Nuxt 4 que define módulos, runtime config,
 
 ## Archivos principales
 
-| Archivo | Rol |
-|---------|-----|
-| `nuxt.config.ts` | Configuración principal de Nuxt |
-| `tailwind.config.ts` | Configuración de TailwindCSS |
-| `tsconfig.json` | Configuración TypeScript |
-| `vitest.config.ts` | Configuración de tests |
-| `eslint.config.mjs` | Configuración de ESLint |
-| `env.example` | Variables de entorno de desarrollo |
+| Archivo                  | Rol                                |
+| ------------------------ | ---------------------------------- |
+| `nuxt.config.ts`         | Configuración principal de Nuxt    |
+| `tailwind.config.ts`     | Configuración de TailwindCSS       |
+| `tsconfig.json`          | Configuración TypeScript           |
+| `vitest.config.ts`       | Configuración de tests             |
+| `eslint.config.mjs`      | Configuración de ESLint            |
+| `env.example`            | Variables de entorno de desarrollo |
 | `env.example.production` | Variables de entorno de producción |
-| `package.json` | Dependencias y scripts con pnpm |
+| `package.json`           | Dependencias y scripts con pnpm    |
 
 ## Runtime Config
 
 ### Pública (`runtimeConfig.public`)
 
-| Variable | Env | Descripción |
-|----------|-----|-------------|
-| `app.name` | `APP_NAME` | Nombre de la aplicación |
-| `app.description` | `APP_DESCRIPTION` | Descripción de la aplicación |
-| `app.url` | `APP_URL` | URL pública del sitio (ej. `https://raupulus.dev`) |
-| `app.domain` | `APP_DOMAIN` | Dominio del sitio |
-| `app.currentLocale` | — | Locale actual, fijado a `'es'` |
-| `app.locale` | `APP_LOCALE` | Locale principal |
-| `app.localeAlternate` | `APP_LOCALE_ALTERNATE` | Locale alternativo |
-| `api.domain` | `API_DOMAIN_URL` | Dominio de la API (ej. `https://api.raupulus.dev`) |
-| `api.base` | `API_BASE_URL` | URL base de la API V2 (ej. `https://api.raupulus.dev/api/v2`) |
-| `api.contact` | `API_PATH_CONTACT` | Path del endpoint de contacto (por defecto `contact-messages`) |
-| `captcha.siteKey` | `CAPTCHA_SITE_KEY` | Clave pública de Google reCAPTCHA v3 |
+| Variable              | Env                    | Descripción                                                    |
+| --------------------- | ---------------------- | -------------------------------------------------------------- |
+| `app.name`            | `APP_NAME`             | Nombre de la aplicación                                        |
+| `app.description`     | `APP_DESCRIPTION`      | Descripción de la aplicación                                   |
+| `app.url`             | `APP_URL`              | URL pública del sitio (ej. `https://raupulus.dev`)             |
+| `app.domain`          | `APP_DOMAIN`           | Dominio del sitio                                              |
+| `app.currentLocale`   | —                      | Locale actual, fijado a `'es'`                                 |
+| `app.locale`          | `APP_LOCALE`           | Locale principal                                               |
+| `app.localeAlternate` | `APP_LOCALE_ALTERNATE` | Locale alternativo                                             |
+| `api.domain`          | `API_DOMAIN_URL`       | Dominio de la API (ej. `https://api.raupulus.dev`)             |
+| `api.base`            | `API_BASE_URL`         | URL base de la API V2 (ej. `https://api.raupulus.dev/api/v2`)  |
+| `api.contact`         | `API_PATH_CONTACT`     | Path del endpoint de contacto (por defecto `contact-messages`) |
+| `captcha.siteKey`     | `CAPTCHA_SITE_KEY`     | Clave pública de Google reCAPTCHA v3                           |
 
-*Nota sobre seguridad (U-SEC-010)*: La clave secreta de reCAPTCHA (`CAPTCHA_SITE_PRIVATE_KEY`) ha sido excluida de `runtimeConfig` para evitar su empaquetado innecesario en un sitio generado de forma estática (SSG).
+_Nota sobre seguridad (U-SEC-010)_: La clave secreta de reCAPTCHA (`CAPTCHA_SITE_PRIVATE_KEY`) ha sido excluida de `runtimeConfig` para evitar su empaquetado innecesario en un sitio generado de forma estática (SSG).
 
 ## Módulos Nuxt configurados
 
-| Módulo | Paquete | Función |
-|--------|---------|---------|
-| Nuxt Image | `@nuxt/image` | Optimización de imágenes (provider IPX) |
-| Sitemap | `@nuxtjs/sitemap` | Generación automática del sitemap XML con URLs normalizadas con barra final |
-| Google Tag | `nuxt-gtag` | Google Analytics con inicialización manual bajo Consent Mode v2 |
-| Cookie Control | `@dargmuesli/nuxt-cookie-control` | Banner RGPD con targetCookieIds (`_ga`, `_gid`) y enlaces canónicos |
-| TailwindCSS | `@nuxtjs/tailwindcss` | Framework CSS utility-first (TailwindCSS 3) |
-| ESLint | `@nuxt/eslint` | Genera flat config con soporte para Nuxt |
-| Fonts | `@nuxt/fonts` | Self-hosting de Space Grotesk (`[400, 700]`) y Plus Jakarta Sans (`[400, 500, 700]`) |
+| Módulo         | Paquete                           | Función                                                                              |
+| -------------- | --------------------------------- | ------------------------------------------------------------------------------------ |
+| Nuxt Image     | `@nuxt/image`                     | Optimización de imágenes (provider IPX)                                              |
+| Sitemap        | `@nuxtjs/sitemap`                 | Generación automática del sitemap XML con URLs normalizadas con barra final          |
+| Google Tag     | `nuxt-gtag`                       | Google Analytics con inicialización manual bajo Consent Mode v2                      |
+| Cookie Control | `@dargmuesli/nuxt-cookie-control` | Banner RGPD con targetCookieIds (`_ga`, `_gid`) y enlaces canónicos                  |
+| TailwindCSS    | `@nuxtjs/tailwindcss`             | Framework CSS utility-first (TailwindCSS 3)                                          |
+| ESLint         | `@nuxt/eslint`                    | Genera flat config con soporte para Nuxt                                             |
+| Fonts          | `@nuxt/fonts`                     | Self-hosting de Space Grotesk (`[400, 700]`) y Plus Jakarta Sans (`[400, 500, 700]`) |
 
 ## Reglas de Rutas y Cabeceras de Seguridad (`routeRules`)
 
@@ -81,20 +81,20 @@ Las cabeceras de seguridad se inyectan a nivel de Nitro en todas las rutas servi
 
 ## Scripts de desarrollo (pnpm)
 
-| Script | Comando | Descripción |
-|--------|---------|-------------|
-| `pnpm dev` | `nuxt dev -p 3020` | Servidor de desarrollo en puerto 3020 |
-| `pnpm build` | `nuxt build` | Build para producción |
-| `pnpm generate` | `nuxt generate` | Generación estática SSG |
-| `pnpm preview` | `nuxt preview` | Preview del build estático |
-| `pnpm lint` | `eslint .` | Verificación de linting |
-| `pnpm lint:fix` | `eslint . --fix` | Corrección automática de linting |
-| `pnpm format` | `prettier --write ...` | Formateo con Prettier |
-| `pnpm format:check` | `prettier --check ...` | Verificación de formato |
-| `pnpm test` | `vitest` | Tests en modo interactivo |
-| `pnpm test:run` | `vitest run` | Ejecución única de tests |
-| `pnpm test:coverage` | `vitest run --coverage` | Cobertura con `@vitest/coverage-v8` |
-| `pnpm exec vue-tsc --noEmit` | `vue-tsc --noEmit` | Chequeo estricto de tipos TypeScript |
+| Script                       | Comando                 | Descripción                           |
+| ---------------------------- | ----------------------- | ------------------------------------- |
+| `pnpm dev`                   | `nuxt dev -p 3020`      | Servidor de desarrollo en puerto 3020 |
+| `pnpm build`                 | `nuxt build`            | Build para producción                 |
+| `pnpm generate`              | `nuxt generate`         | Generación estática SSG               |
+| `pnpm preview`               | `nuxt preview`          | Preview del build estático            |
+| `pnpm lint`                  | `eslint .`              | Verificación de linting               |
+| `pnpm lint:fix`              | `eslint . --fix`        | Corrección automática de linting      |
+| `pnpm format`                | `prettier --write ...`  | Formateo con Prettier                 |
+| `pnpm format:check`          | `prettier --check ...`  | Verificación de formato               |
+| `pnpm test`                  | `vitest`                | Tests en modo interactivo             |
+| `pnpm test:run`              | `vitest run`            | Ejecución única de tests              |
+| `pnpm test:coverage`         | `vitest run --coverage` | Cobertura con `@vitest/coverage-v8`   |
+| `pnpm exec vue-tsc --noEmit` | `vue-tsc --noEmit`      | Chequeo estricto de tipos TypeScript  |
 
 ## Gestor de dependencias y overrides (`pnpm-workspace.yaml`)
 
@@ -106,9 +106,11 @@ El proyecto utiliza **pnpm** de forma exclusiva. Para garantizar compatibilidad,
 - `esbuild: ^0.28.1`: Unifica el compilador para evitar versiones vulnerables arrastradas por módulos de fuentes.
 
 ### Estado de auditoría de paquetes
+
 - `pnpm audit --prod`: **0 vulnerabilidades conocidas** (`No known vulnerabilities found`), tras la actualización de `isomorphic-dompurify` a `^4.4.0`.
 
 ### Criterios de fijación de versiones (Pins)
+
 - `nuxt: 4.4.8`: Fijada exactamente en 4.4.8 para evitar la regresión de `nitropack@2.13.4` / oxc-parser presente en Nuxt 4.5.x, la cual produce fallos `[500] Server Error` durante el prerender SSG de rutas dinámicas.
 - `tailwindcss: ^3.4.19`: Mantenido en v3 según directrices de `AGENTS.md` (el módulo `@nuxtjs/tailwindcss` 6.x no soporta Tailwind 4).
 - `@nuxt/devtools: ^2.7.0`: Mantenido en la última versión estable (sin usar versiones beta de DevTools 4).

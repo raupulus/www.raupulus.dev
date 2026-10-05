@@ -1,6 +1,6 @@
-import { describe, it, expect } from 'vitest'
-import { mountSuspended } from '@nuxt/test-utils/runtime'
-import BlockAlert from '~/components/content/blocks/BlockAlert.vue'
+import { describe, it, expect } from 'vitest';
+import { mountSuspended } from '@nuxt/test-utils/runtime';
+import BlockAlert from '~/components/content/blocks/BlockAlert.vue';
 
 describe('BlockAlert', () => {
     it('debe renderizar mensaje de alerta', async () => {
@@ -15,10 +15,10 @@ describe('BlockAlert', () => {
                     },
                 },
             },
-        })
+        });
 
-        expect(wrapper.text()).toContain('Este es un mensaje de alerta')
-    })
+        expect(wrapper.text()).toContain('Este es un mensaje de alerta');
+    });
 
     it('debe sanitizar contenido malicioso en alertas', async () => {
         const wrapper = await mountSuspended(BlockAlert, {
@@ -32,9 +32,9 @@ describe('BlockAlert', () => {
                     },
                 },
             },
-        })
+        });
 
-        expect(wrapper.html()).not.toContain('<script>')
-        expect(wrapper.text()).toContain('Alerta segura')
-    })
-})
+        expect(wrapper.html()).not.toContain('<script>');
+        expect(wrapper.text()).toContain('Alerta segura');
+    });
+});

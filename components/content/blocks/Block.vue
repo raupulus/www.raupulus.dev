@@ -1,47 +1,46 @@
 <template>
-  <div class="content-block">
+    <div class="content-block">
+        <ContentBlocksBlockParagraph v-if="block.type === 'paragraph'" :block="block" />
+        <ContentBlocksBlockRaw v-else-if="block.type === 'raw'" :block="block" />
+        <ContentBlocksBlockHeader v-else-if="block.type === 'header'" :block="block" />
+        <ContentBlocksBlockCode v-else-if="block.type === 'code'" :block="block" />
+        <ContentBlocksBlockWarning v-else-if="block.type === 'warning'" :block="block" />
+        <ContentBlocksBlockQuote v-else-if="block.type === 'quote'" :block="block" />
+        <ContentBlocksBlockList v-else-if="block.type === 'list'" :block="block" />
+        <ContentBlocksBlockCheckList v-else-if="block.type === 'checklist'" :block="block" />
+        <ContentBlocksBlockDelimiter v-else-if="block.type === 'delimiter'" :block="block" />
+        <ContentBlocksBlockAlert v-else-if="block.type === 'alert'" :block="block" />
+        <ContentBlocksBlockLinkTool v-else-if="block.type === 'linkTool'" :block="block" />
+        <ContentBlocksBlockTable v-else-if="block.type === 'table'" :block="block" />
+        <ContentBlocksBlockAttaches v-else-if="block.type === 'attaches'" :block="block" />
+        <ContentBlocksBlockImage v-else-if="block.type === 'image'" :block="block" />
+        <ContentBlocksBlockEmbed v-else-if="block.type === 'embed'" :block="block" />
 
-    <ContentBlocksBlockParagraph v-if="block.type === 'paragraph'" :block="block" />
-    <ContentBlocksBlockRaw v-else-if="block.type === 'raw'" :block="block" />
-    <ContentBlocksBlockHeader v-else-if="block.type === 'header'" :block="block" />
-    <ContentBlocksBlockCode v-else-if="block.type === 'code'" :block="block" />
-    <ContentBlocksBlockWarning v-else-if="block.type === 'warning'" :block="block" />
-    <ContentBlocksBlockQuote v-else-if="block.type === 'quote'" :block="block" />
-    <ContentBlocksBlockList v-else-if="block.type === 'list'" :block="block" />
-    <ContentBlocksBlockCheckList v-else-if="block.type === 'checklist'" :block="block" />
-    <ContentBlocksBlockDelimiter v-else-if="block.type === 'delimiter'" :block="block" />
-    <ContentBlocksBlockAlert v-else-if="block.type === 'alert'" :block="block" />
-    <ContentBlocksBlockLinkTool v-else-if="block.type === 'linkTool'" :block="block" />
-    <ContentBlocksBlockTable v-else-if="block.type === 'table'" :block="block" />
-    <ContentBlocksBlockAttaches v-else-if="block.type === 'attaches'" :block="block" />
-    <ContentBlocksBlockImage v-else-if="block.type === 'image'" :block="block" />
-    <ContentBlocksBlockEmbed v-else-if="block.type === 'embed'" :block="block" />
-
-    <div
-      v-else
-      class="my-4 p-3 rounded-lg border border-dashed border-outline-variant/30 text-xs font-mono text-on-surface-variant/60"
-    >
-      [Bloque no soportado: {{ block.type }}]
+        <div
+            v-else
+            class="my-4 p-3 rounded-lg border border-dashed border-outline-variant/30 text-xs font-mono text-on-surface-variant/60"
+        >
+            [Bloque no soportado: {{ block.type }}]
+        </div>
     </div>
-  </div>
 </template>
 
 <script lang="ts" setup>
-import type { BlockType } from '@/types/BlocksType';
+    import type { BlockType } from '@/types/BlocksType';
 
-defineProps({
-  block: {
-    type: Object as PropType<BlockType>,
-    required: true,
-  },
-})
+    defineProps({
+        block: {
+            type: Object as PropType<BlockType>,
+            required: true,
+        },
+    });
 </script>
 
 <style scoped>
-.content-block {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  box-sizing: border-box;
-}
+    .content-block {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        box-sizing: border-box;
+    }
 </style>

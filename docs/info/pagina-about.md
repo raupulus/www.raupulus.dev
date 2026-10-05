@@ -4,11 +4,11 @@ Perfil personal con descripción, links a CV, skills, pasiones, hobbies, entorno
 
 ## Archivos principales
 
-| Archivo | Rol |
-|---------|-----|
-| `pages/about.vue` | Página "Sobre mí" |
-| `components/modals/ImageSlide.vue` | Modal slideshow para la galería |
-| `types/GalleryPathType.ts` | Tipo para rutas de imágenes de galería |
+| Archivo                            | Rol                                    |
+| ---------------------------------- | -------------------------------------- |
+| `pages/about.vue`                  | Página "Sobre mí"                      |
+| `components/modals/ImageSlide.vue` | Modal slideshow para la galería        |
+| `types/GalleryPathType.ts`         | Tipo para rutas de imágenes de galería |
 
 ## Ruta
 
@@ -17,23 +17,23 @@ Perfil personal con descripción, links a CV, skills, pasiones, hobbies, entorno
 
 ## Secciones del template
 
-| Sección | Descripción |
-|---------|-------------|
-| **Cabecera** | Título "Sobre Mí" |
+| Sección                   | Descripción                                                                            |
+| ------------------------- | -------------------------------------------------------------------------------------- |
+| **Cabecera**              | Título "Sobre Mí"                                                                      |
 | **Descripción + Botones** | Grid 2/3 descripción + 1/3 botones (Descargar CV PDF, Ver CV Online, LinkedIn, GitHub) |
-| **Info Portfolio** | Caja destacada sobre el portfolio |
-| **Skills y Pasiones** | Grid 2 columnas con listas |
-| **Entorno de Trabajo** | Banner con imagen de fondo y botón CV Online |
-| **Hobbies y Pasatiempos** | Grid 2 columnas con listas |
-| **Galería** | Grid de 50 thumbnails con click para abrir modal |
+| **Info Portfolio**        | Caja destacada sobre el portfolio                                                      |
+| **Skills y Pasiones**     | Grid 2 columnas con listas                                                             |
+| **Entorno de Trabajo**    | Banner con imagen de fondo y botón CV Online                                           |
+| **Hobbies y Pasatiempos** | Grid 2 columnas con listas                                                             |
+| **Galería**               | Grid de 50 thumbnails con click para abrir modal                                       |
 
 ## Datos estáticos
 
-| Array | Contenido |
-|-------|-----------|
-| `skills` | 7 habilidades técnicas |
+| Array      | Contenido                |
+| ---------- | ------------------------ |
+| `skills`   | 7 habilidades técnicas   |
 | `passions` | 8 pasiones profesionales |
-| `hobbies` | 7 hobbies tecnológicos |
+| `hobbies`  | 7 hobbies tecnológicos   |
 | `pastimes` | 7 pasatiempos personales |
 
 ## Galería de imágenes

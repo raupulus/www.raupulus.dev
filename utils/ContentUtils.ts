@@ -14,35 +14,35 @@ export const PLATFORM_SLUG = 'portfolio';
  * imagen original si no existe esa miniatura.
  */
 export function imageUrl(image: ImageType | null | undefined, size?: ImageSizeType): string | undefined {
-  if (!image) {
-    return undefined;
-  }
+    if (!image) {
+        return undefined;
+    }
 
-  return (size && image.thumbnails?.[size]) || image.url;
+    return (size && image.thumbnails?.[size]) || image.url;
 }
 
 /**
  * Formatea una fecha ISO para mostrarla (ej. "20 de agosto de 2026").
  */
 export function formatDate(iso: string | null | undefined, locale = 'es-ES'): string {
-  if (!iso) {
-    return '';
-  }
+    if (!iso) {
+        return '';
+    }
 
-  const date = new Date(iso);
+    const date = new Date(iso);
 
-  if (Number.isNaN(date.getTime())) {
-    return '';
-  }
+    if (Number.isNaN(date.getTime())) {
+        return '';
+    }
 
-  return date.toLocaleDateString(locale, { year: 'numeric', month: 'long', day: 'numeric' });
+    return date.toLocaleDateString(locale, { year: 'numeric', month: 'long', day: 'numeric' });
 }
 
 /**
  * Indica si una colección paginada tiene más páginas tras la actual.
  */
 export function hasNextPage(meta: ApiMetaType | undefined): boolean {
-  return !!meta && meta.current_page < meta.last_page;
+    return !!meta && meta.current_page < meta.last_page;
 }
 
 /**
@@ -52,25 +52,25 @@ export function hasNextPage(meta: ApiMetaType | undefined): boolean {
  * llegue como texto JSON o vacío.
  */
 export function normalizePage(page: ContentPageType): ContentPageType {
-  let body: unknown = page.body;
+    let body: unknown = page.body;
 
-  if (typeof body === 'string') {
-    try {
-      body = JSON.parse(body);
-    } catch {
-      body = null;
+    if (typeof body === 'string') {
+        try {
+            body = JSON.parse(body);
+        } catch {
+            body = null;
+        }
     }
-  }
 
-  const blocks = (body as BlocksType | null)?.blocks;
+    const blocks = (body as BlocksType | null)?.blocks;
 
-  return {
-    ...page,
-    body: {
-      ...(body as BlocksType),
-      blocks: Array.isArray(blocks) ? blocks : [],
-    },
-  };
+    return {
+        ...page,
+        body: {
+            ...(body as BlocksType),
+            blocks: Array.isArray(blocks) ? blocks : [],
+        },
+    };
 }
 
 /**
@@ -78,90 +78,90 @@ export function normalizePage(page: ContentPageType): ContentPageType {
  * plana: primero los de validación (`errors`) y, si no hay, el `message`.
  */
 export function apiErrorMessages(response: Partial<ApiResponseType<unknown>> | null | undefined): string[] {
-  const errors = response?.errors ? Object.values(response.errors).flat().filter(Boolean) : [];
+    const errors = response?.errors ? Object.values(response.errors).flat().filter(Boolean) : [];
 
-  if (errors.length) {
-    return errors;
-  }
+    if (errors.length) {
+        return errors;
+    }
 
-  return response?.message ? [response.message] : [];
+    return response?.message ? [response.message] : [];
 }
 
 export type ContentMetatagsType = {
-  title: string,
-  description: string | undefined,
-  keywords: string,
-  url: string | undefined,
-  image: string | undefined,
-}
+    title: string;
+    description: string | undefined;
+    keywords: string;
+    url: string | undefined;
+    image: string | undefined;
+};
 
 /**
  * Prepara los metatags de un proyecto abierto en el modal (y su página actual).
  */
 export function buildProjectMetatags(
-  project: ContentType | undefined,
-  page: ContentPageType | undefined,
-  urlBase: string,
+    project: ContentType | undefined,
+    page: ContentPageType | undefined,
+    urlBase: string,
 ): ContentMetatagsType {
-  const taxonomies = project?.taxonomies;
+    const taxonomies = project?.taxonomies;
 
-  const keywords = [
-    ...(taxonomies?.categories ?? []),
-    ...(taxonomies?.subcategories ?? []),
-    ...(taxonomies?.tags ?? []),
-    ...(project?.technologies ?? []),
-  ].map(item => item.name);
+    const keywords = [
+        ...(taxonomies?.categories ?? []),
+        ...(taxonomies?.subcategories ?? []),
+        ...(taxonomies?.tags ?? []),
+        ...(project?.technologies ?? []),
+    ].map((item) => item.name);
 
-  let url: string | undefined = undefined;
+    let url: string | undefined = undefined;
 
-  if (project?.slug && page?.slug) {
-    url = `${urlBase}/projects/${project.slug}/${page.slug}/`;
-  } else if (project?.slug) {
-    url = `${urlBase}/projects/${project.slug}/`;
-  }
+    if (project?.slug && page?.slug) {
+        url = `${urlBase}/projects/${project.slug}/${page.slug}/`;
+    } else if (project?.slug) {
+        url = `${urlBase}/projects/${project.slug}/`;
+    }
 
-  const title = [project?.seo_title || project?.title, page?.title].filter(Boolean).join(' - ');
+    const title = [project?.seo_title || project?.title, page?.title].filter(Boolean).join(' - ');
 
-  return {
-    title,
-    description: project?.seo_description || project?.excerpt || undefined,
-    keywords: [...new Set(keywords)].join(','),
-    url,
-    image: imageUrl(project?.image, 'large'),
-  };
+    return {
+        title,
+        description: project?.seo_description || project?.excerpt || undefined,
+        keywords: [...new Set(keywords)].join(','),
+        url,
+        image: imageUrl(project?.image, 'large'),
+    };
 }
 
 /**
  * Elemento de lista Editor.js normalizado (formato antiguo o 2.x).
  */
 export type NormalizedListItemType = {
-  content: string,
-  checked: boolean,
-  items: NormalizedListItemType[],
-}
+    content: string;
+    checked: boolean;
+    items: NormalizedListItemType[];
+};
 
 /**
  * Normaliza los elementos de un bloque `list` de Editor.js: admite el formato
  * antiguo (array de textos) y el de `@editorjs/list` 2.x (objetos anidados).
  */
 export function normalizeListItems(items: unknown): NormalizedListItemType[] {
-  if (!Array.isArray(items)) {
-    return [];
-  }
-
-  return items.map((item) => {
-    if (typeof item === 'string') {
-      return { content: item, checked: false, items: [] };
+    if (!Array.isArray(items)) {
+        return [];
     }
 
-    const obj = (item ?? {}) as { content?: unknown, meta?: { checked?: unknown }, items?: unknown };
+    return items.map((item) => {
+        if (typeof item === 'string') {
+            return { content: item, checked: false, items: [] };
+        }
 
-    return {
-      content: typeof obj.content === 'string' ? obj.content : '',
-      checked: obj.meta?.checked === true,
-      items: normalizeListItems(obj.items),
-    };
-  });
+        const obj = (item ?? {}) as { content?: unknown; meta?: { checked?: unknown }; items?: unknown };
+
+        return {
+            content: typeof obj.content === 'string' ? obj.content : '',
+            checked: obj.meta?.checked === true,
+            items: normalizeListItems(obj.items),
+        };
+    });
 }
 
 /**
@@ -170,49 +170,60 @@ export function normalizeListItems(items: unknown): NormalizedListItemType[] {
  * `lower-alpha`, `upper-alpha`).
  */
 export function listCounterLabel(position: number, counterType = 'numeric'): string {
-  if (position < 1) {
-    return String(position);
-  }
+    if (position < 1) {
+        return String(position);
+    }
 
-  switch (counterType) {
-    case 'lower-roman':
-      return toRoman(position).toLowerCase();
-    case 'upper-roman':
-      return toRoman(position);
-    case 'lower-alpha':
-      return toAlpha(position);
-    case 'upper-alpha':
-      return toAlpha(position).toUpperCase();
-    default:
-      return String(position);
-  }
+    switch (counterType) {
+        case 'lower-roman':
+            return toRoman(position).toLowerCase();
+        case 'upper-roman':
+            return toRoman(position);
+        case 'lower-alpha':
+            return toAlpha(position);
+        case 'upper-alpha':
+            return toAlpha(position).toUpperCase();
+        default:
+            return String(position);
+    }
 }
 
 function toRoman(num: number): string {
-  const numerals: [number, string][] = [
-    [1000, 'M'], [900, 'CM'], [500, 'D'], [400, 'CD'], [100, 'C'], [90, 'XC'],
-    [50, 'L'], [40, 'XL'], [10, 'X'], [9, 'IX'], [5, 'V'], [4, 'IV'], [1, 'I'],
-  ];
-  let result = '';
+    const numerals: [number, string][] = [
+        [1000, 'M'],
+        [900, 'CM'],
+        [500, 'D'],
+        [400, 'CD'],
+        [100, 'C'],
+        [90, 'XC'],
+        [50, 'L'],
+        [40, 'XL'],
+        [10, 'X'],
+        [9, 'IX'],
+        [5, 'V'],
+        [4, 'IV'],
+        [1, 'I'],
+    ];
+    let result = '';
 
-  for (const [value, symbol] of numerals) {
-    while (num >= value) {
-      result += symbol;
-      num -= value;
+    for (const [value, symbol] of numerals) {
+        while (num >= value) {
+            result += symbol;
+            num -= value;
+        }
     }
-  }
 
-  return result;
+    return result;
 }
 
 function toAlpha(num: number): string {
-  let result = '';
+    let result = '';
 
-  while (num > 0) {
-    const rest = (num - 1) % 26;
-    result = String.fromCharCode(97 + rest) + result;
-    num = Math.floor((num - 1) / 26);
-  }
+    while (num > 0) {
+        const rest = (num - 1) % 26;
+        result = String.fromCharCode(97 + rest) + result;
+        num = Math.floor((num - 1) / 26);
+    }
 
-  return result;
+    return result;
 }

@@ -1,54 +1,60 @@
 <script setup>
-defineProps({
-    url: {
-        type: String,
-        required: false,
-        default: null
-    },
-    size: {
-        type: String,
-        required: false,
-        default: "24px"
-    },
-    show: {
-        type: Boolean,
-        required: false,
-        default: false,
-    },
-    type: {
-        type: String,
-        required: false,
-        default: 'info',
-        validator: (value) => {
-            return ['info', 'success', 'error'].includes(value);
-        }
-    },
-    legacy: {
-        type: Boolean,
-        required: false,
-        default: false,
-    },
-    display: {
-        type: String,
-        required: false,
-        default: 'inline-block'
-    },
-    title: {
-        type: String,
-        required: false,
-        default: 'Enlace a más información'
-    }
-})
+    defineProps({
+        url: {
+            type: String,
+            required: false,
+            default: null,
+        },
+        size: {
+            type: String,
+            required: false,
+            default: '24px',
+        },
+        show: {
+            type: Boolean,
+            required: false,
+            default: false,
+        },
+        type: {
+            type: String,
+            required: false,
+            default: 'info',
+            validator: (value) => {
+                return ['info', 'success', 'error'].includes(value);
+            },
+        },
+        legacy: {
+            type: Boolean,
+            required: false,
+            default: false,
+        },
+        display: {
+            type: String,
+            required: false,
+            default: 'inline-block',
+        },
+        title: {
+            type: String,
+            required: false,
+            default: 'Enlace a más información',
+        },
+    });
 </script>
 
 <template>
     <IconsGeneric v-if="show" :url="url" :display="display" :title="title" :size="size">
         <NuxtImg
-v-if="type === 'info' || type === 'error'" src="/images/icons/info.svg" style="width: 100%;"
-            alt="Icono de Información" />
+            v-if="type === 'info' || type === 'error'"
+            src="/images/icons/info.svg"
+            style="width: 100%"
+            alt="Icono de Información"
+        />
         <NuxtImg
-v-if="type === 'success'" src="/images/icons/success.svg" style="width: 100%;"
-            alt="Icono de Información" />
+            v-if="type === 'success'"
+            src="/images/icons/success.svg"
+            style="width: 100%"
+            alt="Icono de Información"
+        />
     </IconsGeneric>
 
     <!--
@@ -68,5 +74,4 @@ v-if="type === 'success'" src="/images/icons/success.svg" style="width: 100%;"
         </svg>
 
     </IconsGeneric>
--->
-</template>
+--></template>

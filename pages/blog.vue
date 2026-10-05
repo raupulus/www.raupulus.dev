@@ -3,14 +3,17 @@
         <!-- Cabecera de la sección -->
         <div class="pt-12 pb-8 px-8 max-w-7xl mx-auto">
             <span class="font-label text-secondary tracking-[0.3em] uppercase mb-4 flex items-center gap-3 text-xs">
-                <span class="w-8 h-[1px] bg-secondary"/>
+                <span class="w-8 h-[1px] bg-secondary" />
                 Artículos Técnicos
             </span>
-            <h1 class="font-headline text-5xl sm:text-6xl md:text-8xl font-bold tracking-tighter text-primary mb-6 max-w-4xl">
+            <h1
+                class="font-headline text-5xl sm:text-6xl md:text-8xl font-bold tracking-tighter text-primary mb-6 max-w-4xl"
+            >
                 Mi <span class="text-on-surface-variant font-light">Blog</span> Personal
             </h1>
             <p class="text-on-surface-variant text-lg max-w-2xl border-l-2 border-secondary pl-6 py-2">
-                Artículos técnicos, guías en profundidad y casos de estudio sobre arquitectura backend, IoT y sistemas distribuidos.
+                Artículos técnicos, guías en profundidad y casos de estudio sobre arquitectura backend, IoT y sistemas
+                distribuidos.
             </p>
         </div>
 
@@ -21,16 +24,16 @@
                 <div class="w-16 h-16 rounded-lg bg-secondary/10 flex items-center justify-center mx-auto mb-6">
                     <UiMaterialIcon class="text-secondary text-3xl" name="construction" />
                 </div>
-                <h2 class="font-headline text-3xl font-bold tracking-tight mb-4">
-                    EN CONSTRUCCIÓN
-                </h2>
+                <h2 class="font-headline text-3xl font-bold tracking-tight mb-4">EN CONSTRUCCIÓN</h2>
                 <p class="text-on-surface-variant max-w-lg mx-auto mb-8 leading-relaxed">
-                    Actualmente estoy trabajando en la implementación para crear las entradas desde mi panel backend
-                    y poder mostrar aquí todo el blog completo.
+                    Actualmente estoy trabajando en la implementación para crear las entradas desde mi panel backend y
+                    poder mostrar aquí todo el blog completo.
                 </p>
                 <div class="flex items-center justify-center gap-3">
-                    <span class="w-2 h-2 rounded-full bg-secondary animate-pulse"/>
-                    <span class="font-label text-xs text-outline uppercase tracking-widest">Despliegue en progreso...</span>
+                    <span class="w-2 h-2 rounded-full bg-secondary animate-pulse" />
+                    <span class="font-label text-xs text-outline uppercase tracking-widest"
+                        >Despliegue en progreso...</span
+                    >
                 </div>
             </div>
 
@@ -47,10 +50,12 @@
                     >
                         <div class="p-8">
                             <div class="flex items-center gap-2 mb-6">
-                                <span class="text-[10px] font-label text-secondary uppercase tracking-[0.2em] font-bold">
+                                <span
+                                    class="text-[10px] font-label text-secondary uppercase tracking-[0.2em] font-bold"
+                                >
                                     {{ article.type }}
                                 </span>
-                                <span class="w-1 h-1 bg-outline-variant rounded-full"/>
+                                <span class="w-1 h-1 bg-outline-variant rounded-full" />
                                 <span class="text-[10px] font-label text-outline uppercase tracking-[0.1em]">
                                     {{ article.readTime }}
                                 </span>
@@ -73,7 +78,9 @@
                             </div>
                         </div>
                         <div class="mt-auto p-8 pt-0">
-                            <span class="inline-flex items-center gap-2 text-outline text-sm font-bold tracking-widest uppercase">
+                            <span
+                                class="inline-flex items-center gap-2 text-outline text-sm font-bold tracking-widest uppercase"
+                            >
                                 Próximamente <UiMaterialIcon class="text-sm" name="schedule" />
                             </span>
                         </div>
@@ -85,62 +92,76 @@
 </template>
 
 <script setup lang="ts">
-const config = useRuntimeConfig()
-const url = config.public.app.url
+    const config = useRuntimeConfig();
+    const url = config.public.app.url;
 
-// SEO de la página de blog
-useHead({
-    title: 'Blog Técnico | Raúl Caro Pastorino',
-    meta: [
-        { name: 'description', content: 'Artículos técnicos sobre backend, IoT, sistemas distribuidos y arquitectura de software por Raúl Caro Pastorino.' },
-        { name: 'keywords', content: 'blog, artículos técnicos, backend, IoT, sistemas distribuidos, Raúl Caro Pastorino' },
-        // noindex temporal: la página está en construcción sin contenido real.
-        // Cambiar a 'index, follow' cuando se publiquen las primeras entradas.
-        { name: 'robots', content: 'noindex, follow' },
-        { property: 'og:type', content: 'website' },
-        { property: 'og:title', content: 'Blog Técnico | Raúl Caro Pastorino' },
-        { property: 'og:description', content: 'Artículos técnicos sobre backend, IoT y arquitectura de software.' },
-        { property: 'og:url', content: `${url}/blog/` },
-        { name: 'twitter:card', content: 'summary' },
-        { name: 'twitter:title', content: 'Blog Técnico | Raúl Caro Pastorino' },
-        { name: 'twitter:description', content: 'Artículos técnicos sobre backend, IoT y arquitectura de software.' },
-    ],
-    link: [
-        { rel: 'canonical', href: `${url}/blog/` },
-    ],
-})
+    // SEO de la página de blog
+    useHead({
+        title: 'Blog Técnico | Raúl Caro Pastorino',
+        meta: [
+            {
+                name: 'description',
+                content:
+                    'Artículos técnicos sobre backend, IoT, sistemas distribuidos y arquitectura de software por Raúl Caro Pastorino.',
+            },
+            {
+                name: 'keywords',
+                content: 'blog, artículos técnicos, backend, IoT, sistemas distribuidos, Raúl Caro Pastorino',
+            },
+            // noindex temporal: la página está en construcción sin contenido real.
+            // Cambiar a 'index, follow' cuando se publiquen las primeras entradas.
+            { name: 'robots', content: 'noindex, follow' },
+            { property: 'og:type', content: 'website' },
+            { property: 'og:title', content: 'Blog Técnico | Raúl Caro Pastorino' },
+            {
+                property: 'og:description',
+                content: 'Artículos técnicos sobre backend, IoT y arquitectura de software.',
+            },
+            { property: 'og:url', content: `${url}/blog/` },
+            { name: 'twitter:card', content: 'summary' },
+            { name: 'twitter:title', content: 'Blog Técnico | Raúl Caro Pastorino' },
+            {
+                name: 'twitter:description',
+                content: 'Artículos técnicos sobre backend, IoT y arquitectura de software.',
+            },
+        ],
+        link: [{ rel: 'canonical', href: `${url}/blog/` }],
+    });
 
-// Áreas temáticas previstas para el blog (contenido real pendiente de publicar)
-const upcomingArticles = [
-    {
-        type: 'Desarrollo Web',
-        readTime: 'Laravel · PostgreSQL',
-        title: 'Backend con Laravel y PostgreSQL',
-        description: 'Lo que voy aprendiendo construyendo APIs, paneles de administración y optimizando consultas en mis proyectos: decisiones, errores y soluciones que me han funcionado.',
-        tags: [
-            { icon: 'dns', label: 'APIS REST' },
-            { icon: 'database', label: 'POSTGRESQL' },
-        ],
-    },
-    {
-        type: 'IoT y Maker',
-        readTime: 'Raspberry Pi · ESP32',
-        title: 'Proyectos con microcontroladores',
-        description: 'Los detalles detrás de mis cacharros: estaciones meteorológicas, monitores de energía, sensores y cómo conecto todo con mis propias APIs.',
-        tags: [
-            { icon: 'memory', label: 'MICROPYTHON' },
-            { icon: 'hub', label: 'SENSORES' },
-        ],
-    },
-    {
-        type: 'GNU/Linux',
-        readTime: 'Debian · Bash',
-        title: 'Automatización y servidores',
-        description: 'Scripts, trucos de terminal y administración de servidores para el día a día, en la línea de lo que ya comparto en La Guía Linux y mis repositorios.',
-        tags: [
-            { icon: 'terminal', label: 'BASH' },
-            { icon: 'settings_ethernet', label: 'SERVIDORES' },
-        ],
-    },
-]
+    // Áreas temáticas previstas para el blog (contenido real pendiente de publicar)
+    const upcomingArticles = [
+        {
+            type: 'Desarrollo Web',
+            readTime: 'Laravel · PostgreSQL',
+            title: 'Backend con Laravel y PostgreSQL',
+            description:
+                'Lo que voy aprendiendo construyendo APIs, paneles de administración y optimizando consultas en mis proyectos: decisiones, errores y soluciones que me han funcionado.',
+            tags: [
+                { icon: 'dns', label: 'APIS REST' },
+                { icon: 'database', label: 'POSTGRESQL' },
+            ],
+        },
+        {
+            type: 'IoT y Maker',
+            readTime: 'Raspberry Pi · ESP32',
+            title: 'Proyectos con microcontroladores',
+            description:
+                'Los detalles detrás de mis cacharros: estaciones meteorológicas, monitores de energía, sensores y cómo conecto todo con mis propias APIs.',
+            tags: [
+                { icon: 'memory', label: 'MICROPYTHON' },
+                { icon: 'hub', label: 'SENSORES' },
+            ],
+        },
+        {
+            type: 'GNU/Linux',
+            readTime: 'Debian · Bash',
+            title: 'Automatización y servidores',
+            description:
+                'Scripts, trucos de terminal y administración de servidores para el día a día, en la línea de lo que ya comparto en La Guía Linux y mis repositorios.',
+            tags: [
+                { icon: 'terminal', label: 'BASH' },
+                { icon: 'settings_ethernet', label: 'SERVIDORES' },
+            ],
+        },
+    ];
 </script>

@@ -11,16 +11,16 @@ const DEV_PROXY_PREFIX = '/_proxy';
  * - Client-side en producción: Usa la URL completa (la API tiene CORS configurado)
  */
 export function useApiBase(): string {
-  const config = useRuntimeConfig();
+    const config = useRuntimeConfig();
 
-  // Client-side en desarrollo: usar proxy para evitar CORS.
-  // Se conserva la ruta de API_BASE_URL (ej. /api/v2) para no fijar la versión aquí.
-  if (import.meta.client && import.meta.dev) {
-    return DEV_PROXY_PREFIX + new URL(config.public.api.base).pathname.replace(/\/$/, '');
-  }
+    // Client-side en desarrollo: usar proxy para evitar CORS.
+    // Se conserva la ruta de API_BASE_URL (ej. /api/v2) para no fijar la versión aquí.
+    if (import.meta.client && import.meta.dev) {
+        return DEV_PROXY_PREFIX + new URL(config.public.api.base).pathname.replace(/\/$/, '');
+    }
 
-  // Server-side o cliente en producción: acceso directo
-  return config.public.api.base;
+    // Server-side o cliente en producción: acceso directo
+    return config.public.api.base;
 }
 
 /**
@@ -29,11 +29,11 @@ export function useApiBase(): string {
  * `useApiBase()`.
  */
 export function useApiDomain(): string {
-  const config = useRuntimeConfig();
+    const config = useRuntimeConfig();
 
-  if (import.meta.client && import.meta.dev) {
-    return DEV_PROXY_PREFIX;
-  }
+    if (import.meta.client && import.meta.dev) {
+        return DEV_PROXY_PREFIX;
+    }
 
-  return config.public.api.domain;
+    return config.public.api.domain;
 }

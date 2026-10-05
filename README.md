@@ -4,24 +4,24 @@
 
 Sitio web: [https://raupulus.dev](https://raupulus.dev)
 
-![Imagen del Proyecto](docs/images/web_preview.png "Previsualización del Portfolio web para Raúl Caro Pastorino")
+![Imagen del Proyecto](docs/images/web_preview.png 'Previsualización del Portfolio web para Raúl Caro Pastorino')
 
 Repositorio: [https://gitlab.com/raupulus/www.raupulus.dev](https://gitlab.com/raupulus/www.raupulus.dev)
 
 ## Stack Tecnológico
 
-| Tecnología | Detalle |
-|------------|---------|
-| **Framework** | [Nuxt 4](https://nuxt.com/) (Vue 3, Composition API, `<script setup lang="ts">`) |
-| **Lenguaje** | TypeScript (modo estricto) |
-| **Estilos** | TailwindCSS 3 + design system "Silicon Architect" (tema oscuro, tokens Material Design 3) |
-| **Generación** | Estática (SSG) con preset `static` de Nitro |
-| **API Backend** | Laravel REST API V2 en `api.raupulus.dev/api/v2` |
-| **Testing** | Vitest + Vue Test Utils + happy-dom |
-| **Linting** | ESLint + Prettier |
-| **Analytics** | Google Analytics (nuxt-gtag) con control de cookies |
-| **SEO** | Sitemap dinámico (`@nuxtjs/sitemap`), metatags Open Graph y Twitter Cards |
-| **Imágenes** | `@nuxt/image` con IPX, lazy loading y formatos webp |
+| Tecnología      | Detalle                                                                                   |
+| --------------- | ----------------------------------------------------------------------------------------- |
+| **Framework**   | [Nuxt 4](https://nuxt.com/) (Vue 3, Composition API, `<script setup lang="ts">`)          |
+| **Lenguaje**    | TypeScript (modo estricto)                                                                |
+| **Estilos**     | TailwindCSS 3 + design system "Silicon Architect" (tema oscuro, tokens Material Design 3) |
+| **Generación**  | Estática (SSG) con preset `static` de Nitro                                               |
+| **API Backend** | Laravel REST API V2 en `api.raupulus.dev/api/v2`                                          |
+| **Testing**     | Vitest + Vue Test Utils + happy-dom                                                       |
+| **Linting**     | ESLint + Prettier                                                                         |
+| **Analytics**   | Google Analytics (nuxt-gtag) con control de cookies                                       |
+| **SEO**         | Sitemap dinámico (`@nuxtjs/sitemap`), metatags Open Graph y Twitter Cards                 |
+| **Imágenes**    | `@nuxt/image` con IPX, lazy loading y formatos webp                                       |
 
 ## Estructura del Proyecto
 
@@ -51,20 +51,20 @@ Repositorio: [https://gitlab.com/raupulus/www.raupulus.dev](https://gitlab.com/r
 
 ## Páginas
 
-| Ruta | Descripción |
-|------|-------------|
-| `/` | Página principal / Landing |
-| `/projects` | Listado de proyectos |
-| `/projects/:slug` | Detalle de proyecto |
-| `/projects/:slug/:page` | Página de un proyecto |
-| `/about` | Sobre mí + galería |
-| `/webs` | Sitios web creados |
-| `/social` | Redes sociales |
-| `/contact` | Formulario de contacto |
-| `/privacy` | Política de privacidad (RGPD Art. 13) |
-| `/cookies` | Política de cookies y panel de preferencias |
-| `/legal` | Aviso legal (LSSI Art. 10) y accesibilidad |
-| `/blog` | Blog (en construcción) |
+| Ruta                    | Descripción                                 |
+| ----------------------- | ------------------------------------------- |
+| `/`                     | Página principal / Landing                  |
+| `/projects`             | Listado de proyectos                        |
+| `/projects/:slug`       | Detalle de proyecto                         |
+| `/projects/:slug/:page` | Página de un proyecto                       |
+| `/about`                | Sobre mí + galería                          |
+| `/webs`                 | Sitios web creados                          |
+| `/social`               | Redes sociales                              |
+| `/contact`              | Formulario de contacto                      |
+| `/privacy`              | Política de privacidad (RGPD Art. 13)       |
+| `/cookies`              | Política de cookies y panel de preferencias |
+| `/legal`                | Aviso legal (LSSI Art. 10) y accesibilidad  |
+| `/blog`                 | Blog (en construcción)                      |
 
 ## Instalar dependencias
 
@@ -157,6 +157,7 @@ El proyecto se despliega en un VPS propio usando **GoCD**.
 ```
 
 El script realiza automáticamente:
+
 - Backup del directorio actual.
 - Generación del sitio estático.
 - Despliegue con rsync.

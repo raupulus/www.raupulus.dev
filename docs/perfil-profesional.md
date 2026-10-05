@@ -21,8 +21,8 @@ open source en 2001). Ubicado en Chipiona (Cádiz, España).
 
 - **Titular**: "Desarrollador Web Backend especializado en PHP/Laravel, Python, IoT y
   sistemas distribuidos".
-- En la página "Sobre mí": *"desarrollador backend con amplia experiencia en PHP,
-  Laravel, Javascript y PostgreSQL"*, con experiencia desde pequeños sitios web hasta
+- En la página "Sobre mí": _"desarrollador backend con amplia experiencia en PHP,
+  Laravel, Javascript y PostgreSQL"_, con experiencia desde pequeños sitios web hasta
   aplicaciones empresariales.
 - Habilidades que destaca: creación de APIs, gestión de MySQL/PostgreSQL, optimización
   de rendimiento, prácticas de seguridad, administración Linux desde terminal
@@ -35,13 +35,13 @@ open source en 2001). Ubicado en Chipiona (Cádiz, España).
 
 La especialización declarada está respaldada por proyectos reales y verificables:
 
-| Evidencia | Detalle |
-|-----------|---------|
-| `api.raupulus.dev` | API propia en Laravel que alimenta el portfolio (contenidos, proyectos, CV, formulario de contacto con reCAPTCHA validado en servidor y CSRF de Sanctum) |
-| `www.jaja.raupulus.dev` | Proyecto Laravel con panel **Filament** y API de comunidad (chistes/adivinanzas) |
-| `api-fryntiz` (GitLab) | API con información en tiempo real de sus webs |
-| Este portfolio | Nuxt 4 SSG que consume su API Laravel; el propio autor separa frontend estático y backend API |
-| Seguridad server-side | Su API implementa validación de origen, bloqueo de IPs y alertas al administrador ante peticiones sospechosas (verificado durante el desarrollo de este repo) |
+| Evidencia               | Detalle                                                                                                                                                       |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `api.raupulus.dev`      | API propia en Laravel que alimenta el portfolio (contenidos, proyectos, CV, formulario de contacto con reCAPTCHA validado en servidor y CSRF de Sanctum)      |
+| `www.jaja.raupulus.dev` | Proyecto Laravel con panel **Filament** y API de comunidad (chistes/adivinanzas)                                                                              |
+| `api-fryntiz` (GitLab)  | API con información en tiempo real de sus webs                                                                                                                |
+| Este portfolio          | Nuxt 4 SSG que consume su API Laravel; el propio autor separa frontend estático y backend API                                                                 |
+| Seguridad server-side   | Su API implementa validación de origen, bloqueo de IPs y alertas al administrador ante peticiones sospechosas (verificado durante el desarrollo de este repo) |
 
 ## Stack tecnológico (según sus perfiles públicos)
 

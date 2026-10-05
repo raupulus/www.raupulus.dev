@@ -1,23 +1,21 @@
 <script setup lang="ts">
-import type { NuxtError } from '#app'
+    import type { NuxtError } from '#app';
 
-const props = defineProps({
-    error: {
-        type: Object as PropType<NuxtError>,
-        required: true,
-    },
-})
+    const props = defineProps({
+        error: {
+            type: Object as PropType<NuxtError>,
+            required: true,
+        },
+    });
 
-const is404 = computed(() => props.error?.statusCode === 404)
+    const is404 = computed(() => props.error?.statusCode === 404);
 
-useHead({
-    title: computed(() => (is404.value ? 'Página no encontrada' : 'Error') + ' | Raúl Caro Pastorino'),
-    meta: [
-        { name: 'robots', content: 'noindex, follow' },
-    ],
-})
+    useHead({
+        title: computed(() => (is404.value ? 'Página no encontrada' : 'Error') + ' | Raúl Caro Pastorino'),
+        meta: [{ name: 'robots', content: 'noindex, follow' }],
+    });
 
-const handleClearError = () => clearError({ redirect: '/' })
+    const handleClearError = () => clearError({ redirect: '/' });
 </script>
 
 <template>
@@ -28,7 +26,9 @@ const handleClearError = () => clearError({ redirect: '/' })
         <main id="app-box-content" class="flex-1 flex items-center justify-center px-8 py-24 pt-32">
             <div class="max-w-2xl w-full text-center">
                 <!-- Código de error -->
-                <p class="font-label text-tertiary tracking-[0.3em] uppercase text-xs mb-6 flex items-center justify-center gap-3">
+                <p
+                    class="font-label text-tertiary tracking-[0.3em] uppercase text-xs mb-6 flex items-center justify-center gap-3"
+                >
                     <span class="w-8 h-[1px] bg-tertiary" />
                     Error {{ error?.statusCode ?? 500 }}
                     <span class="w-8 h-[1px] bg-tertiary" />
@@ -43,9 +43,11 @@ const handleClearError = () => clearError({ redirect: '/' })
                 </h2>
 
                 <p class="text-on-surface-variant text-lg leading-relaxed max-w-lg mx-auto mb-12">
-                    {{ is404
-                        ? 'La ruta que buscas no existe o ha cambiado de sitio. Puedes volver al inicio o explorar mis proyectos.'
-                        : 'Se ha producido un error inesperado. Puedes volver al inicio e intentarlo de nuevo.' }}
+                    {{
+                        is404
+                            ? 'La ruta que buscas no existe o ha cambiado de sitio. Puedes volver al inicio o explorar mis proyectos.'
+                            : 'Se ha producido un error inesperado. Puedes volver al inicio e intentarlo de nuevo.'
+                    }}
                 </p>
 
                 <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">

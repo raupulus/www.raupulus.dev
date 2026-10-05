@@ -12,14 +12,14 @@ Registra `vue-recaptcha-v3` como plugin de Vue en la aplicación Nuxt.
 
 ```typescript
 const options: IReCaptchaOptions = {
-  siteKey: runtimeConfig.public.captcha.siteKey,
-  loaderOptions: {
-    useRecaptchaNet: true,       // Usa recaptcha.net en lugar de google.com
-    autoHideBadge: true,         // Oculta badge por defecto
-    explicitRenderParameters: {
-      badge: 'bottomleft',       // Posición del badge: abajo-izquierda
+    siteKey: runtimeConfig.public.captcha.siteKey,
+    loaderOptions: {
+        useRecaptchaNet: true, // Usa recaptcha.net en lugar de google.com
+        autoHideBadge: true, // Oculta badge por defecto
+        explicitRenderParameters: {
+            badge: 'bottomleft', // Posición del badge: abajo-izquierda
+        },
     },
-  },
 };
 ```
 
@@ -31,9 +31,9 @@ const options: IReCaptchaOptions = {
 
 ### Dependencias
 
-| Paquete | Versión | Uso |
-|---------|---------|-----|
-| `vue-recaptcha-v3` | ^2.0.1 | Plugin de reCAPTCHA v3 para Vue |
+| Paquete            | Versión | Uso                             |
+| ------------------ | ------- | ------------------------------- |
+| `vue-recaptcha-v3` | ^2.0.1  | Plugin de reCAPTCHA v3 para Vue |
 
 ---
 
@@ -47,11 +47,13 @@ Middleware global que hace smooth scroll to top al cambiar de ruta.
 
 ```typescript
 export default defineNuxtRouteMiddleware((to, from) => {
-  if (to.path !== from.path) {       // Solo si cambia la ruta (no el hash)
-    if (import.meta.client) {         // Solo en el cliente
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (to.path !== from.path) {
+        // Solo si cambia la ruta (no el hash)
+        if (import.meta.client) {
+            // Solo en el cliente
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
     }
-  }
 });
 ```
 

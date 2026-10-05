@@ -4,12 +4,12 @@ Modales overlay para visualización de galerías y flujos interactivos. Ubicados
 
 ## Índice
 
-| Componente | Archivo | Usado en | Descripción |
-|-----------|---------|----------|-------------|
-| `ModalsImageSlide` | `components/modals/ImageSlide.vue` | `pages/about.vue` | Slideshow accesible de galería con navegación y cierre por teclado |
-| `ModalsSubmitContact` | `components/modals/submitContact.vue` | `pages/contact.vue` | Confirmación y feedback del envío de formulario de contacto |
+| Componente            | Archivo                               | Usado en            | Descripción                                                        |
+| --------------------- | ------------------------------------- | ------------------- | ------------------------------------------------------------------ |
+| `ModalsImageSlide`    | `components/modals/ImageSlide.vue`    | `pages/about.vue`   | Slideshow accesible de galería con navegación y cierre por teclado |
+| `ModalsSubmitContact` | `components/modals/submitContact.vue` | `pages/contact.vue` | Confirmación y feedback del envío de formulario de contacto        |
 
-*Nota arquitectónica (U-SEO-001)*: El modal legacy `ModalsProjectShow` fue eliminado en favor de rutas y páginas estáticas completas prerenderizadas en SSG (`pages/projects/[...slugs].vue`), asegurando indexación SEO completa, URLs canónicas únicas, esquemas Schema.org y eliminación de bloqueos de scroll artificiales.
+_Nota arquitectónica (U-SEO-001)_: El modal legacy `ModalsProjectShow` fue eliminado en favor de rutas y páginas estáticas completas prerenderizadas en SSG (`pages/projects/[...slugs].vue`), asegurando indexación SEO completa, URLs canónicas únicas, esquemas Schema.org y eliminación de bloqueos de scroll artificiales.
 
 ## `ModalsImageSlide` — Galería de imágenes
 
@@ -17,16 +17,16 @@ Slideshow modal para la galería de fotos de la página "Sobre Mí".
 
 ### Props
 
-| Prop | Tipo | Descripción |
-|------|------|-------------|
-| `show` | `boolean` | Visibilidad del modal |
-| `galleryPaths` | `GalleryPathType[]` | Array de rutas thumbnail/image con textos alternativos descriptivos |
-| `selectedIndex` | `number` | Índice de la imagen seleccionada |
+| Prop            | Tipo                | Descripción                                                         |
+| --------------- | ------------------- | ------------------------------------------------------------------- |
+| `show`          | `boolean`           | Visibilidad del modal                                               |
+| `galleryPaths`  | `GalleryPathType[]` | Array de rutas thumbnail/image con textos alternativos descriptivos |
+| `selectedIndex` | `number`            | Índice de la imagen seleccionada                                    |
 
 ### Eventos
 
-| Evento | Payload | Descripción |
-|--------|---------|-------------|
+| Evento        | Payload   | Descripción     |
+| ------------- | --------- | --------------- |
 | `update:show` | `boolean` | Cierra el modal |
 
 ### Funcionalidad
@@ -45,8 +45,8 @@ Modal multi-paso accesible para la confirmación previa, estado de carga y resul
 1. **Paso 1 (Resumen)**: muestra un desglose de los datos introducidos (nombre, email, asunto y mensaje) para confirmación explícita del usuario.
 2. **Paso 2 (Procesando)**: indicador de espera accesible con spinner CSS animado que respeta `prefers-reduced-motion` (sustituye GIFs animados pesados).
 3. **Paso 3 (Resultado)**:
-   - **Éxito**: confirmación visual con icono accesible y mensaje informativo.
-   - **Error**: desglose de errores normalizados (`formattedErrors`) procedentes de la validación del servidor o captcha.
+    - **Éxito**: confirmación visual con icono accesible y mensaje informativo.
+    - **Error**: desglose de errores normalizados (`formattedErrors`) procedentes de la validación del servidor o captcha.
 
 ### Accesibilidad y diseño
 

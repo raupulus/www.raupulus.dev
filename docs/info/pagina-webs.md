@@ -4,8 +4,8 @@ Listado estático de sitios web creados y publicados por el autor.
 
 ## Archivos principales
 
-| Archivo | Rol |
-|---------|-----|
+| Archivo          | Rol                  |
+| ---------------- | -------------------- |
 | `pages/webs.vue` | Página de sitios web |
 
 ## Ruta
@@ -17,13 +17,13 @@ Listado estático de sitios web creados y publicados por el autor.
 
 Array `webs` con 6 sitios web. Cada entrada:
 
-| Campo | Tipo | Descripción |
-|-------|------|-------------|
-| `title` | `string` | Nombre del sitio |
-| `image` | `string` | Ruta a la imagen/logo |
-| `description` | `string` | Descripción del sitio |
-| `url` | `string` | URL del sitio |
-| `tags` | `string[]` | Etiquetas de tecnologías |
+| Campo         | Tipo       | Descripción              |
+| ------------- | ---------- | ------------------------ |
+| `title`       | `string`   | Nombre del sitio         |
+| `image`       | `string`   | Ruta a la imagen/logo    |
+| `description` | `string`   | Descripción del sitio    |
+| `url`         | `string`   | URL del sitio            |
+| `tags`        | `string[]` | Etiquetas de tecnologías |
 
 ## Sitios incluidos
 

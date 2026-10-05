@@ -1,4 +1,4 @@
-import type { Config } from 'tailwindcss'
+import type { Config } from 'tailwindcss';
 
 // Configuración de Tailwind CSS con el design system "Silicon Architect"
 export default {
@@ -31,8 +31,8 @@ export default {
     theme: {
         extend: {
             colors: {
-                'background': '#091421',
-                'surface': '#091421',
+                background: '#091421',
+                surface: '#091421',
                 'surface-dim': '#091421',
                 'surface-bright': '#303a48',
                 'surface-container-lowest': '#050f1c',
@@ -44,7 +44,7 @@ export default {
                 'on-surface': '#d9e3f6',
                 'on-surface-variant': '#c1c7d2',
                 'on-background': '#d9e3f6',
-                'primary': '#a3c9ff',
+                primary: '#a3c9ff',
                 'primary-container': '#3272b8',
                 'primary-fixed': '#d3e3ff',
                 'primary-fixed-dim': '#a3c9ff',
@@ -52,7 +52,7 @@ export default {
                 'on-primary-container': '#f2f5ff',
                 'on-primary-fixed': '#001c39',
                 'on-primary-fixed-variant': '#004882',
-                'secondary': '#ffb691',
+                secondary: '#ffb691',
                 'secondary-container': '#ea6b15',
                 'secondary-fixed': '#ffdbcb',
                 'secondary-fixed-dim': '#ffb691',
@@ -60,7 +60,7 @@ export default {
                 'on-secondary-container': '#4a1c00',
                 'on-secondary-fixed': '#341100',
                 'on-secondary-fixed-variant': '#783100',
-                'tertiary': '#4cd6ff',
+                tertiary: '#4cd6ff',
                 'tertiary-container': '#007a96',
                 'tertiary-fixed': '#b7eaff',
                 'tertiary-fixed-dim': '#4cd6ff',
@@ -68,9 +68,9 @@ export default {
                 'on-tertiary-container': '#e7f7ff',
                 'on-tertiary-fixed': '#001f28',
                 'on-tertiary-fixed-variant': '#004e60',
-                'outline': '#8b919c',
+                outline: '#8b919c',
                 'outline-variant': '#414751',
-                'error': '#ffb4ab',
+                error: '#ffb4ab',
                 'error-container': '#93000a',
                 'on-error': '#690005',
                 'on-error-container': '#ffdad6',
@@ -80,17 +80,17 @@ export default {
                 'surface-tint': '#a3c9ff',
             },
             fontFamily: {
-                'headline': ['Space Grotesk', 'sans-serif'],
-                'body': ['Plus Jakarta Sans', 'sans-serif'],
-                'label': ['Space Grotesk', 'sans-serif'],
+                headline: ['Space Grotesk', 'sans-serif'],
+                body: ['Plus Jakarta Sans', 'sans-serif'],
+                label: ['Space Grotesk', 'sans-serif'],
             },
             borderRadius: {
                 DEFAULT: '0.125rem',
-                'lg': '0.25rem',
-                'xl': '0.5rem',
-                'pill': '0.75rem',
+                lg: '0.25rem',
+                xl: '0.5rem',
+                pill: '0.75rem',
             },
         },
     },
     plugins: [],
-} satisfies Config
+} satisfies Config;

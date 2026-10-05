@@ -1,61 +1,61 @@
 export type BlockTunesType = {
-    textVariant?: string, // citation, call-out
-}
+    textVariant?: string; // citation, call-out
+};
 
 export type BlockType = {
-    id: string,
-    type: string,
-    tunes?: BlockTunesType,
-    data?: unknown,
-}
+    id: string;
+    type: string;
+    tunes?: BlockTunesType;
+    data?: unknown;
+};
 
 export type BlocksType = {
-    time: number,
-    blocks: BlockType[],
-    version: string,
-}
+    time: number;
+    blocks: BlockType[];
+    version: string;
+};
 
 export type BlockRawType = BlockType & {
     data: {
-        html: string, // Contiene HTML como cadena
-    }
-}
+        html: string; // Contiene HTML como cadena
+    };
+};
 
 export type BlockParagraphType = BlockType & {
     data: {
-        text: string
-    }
-}
+        text: string;
+    };
+};
 
 export type BlockHeaderType = BlockType & {
     data: {
-        text: string,
-        level: number,
-    }
-}
+        text: string;
+        level: number;
+    };
+};
 
 export type BlockCodeType = BlockType & {
     data: {
-        code: string,
-        language: string,
-        showlinenumbers: boolean,
-    }
-}
+        code: string;
+        language: string;
+        showlinenumbers: boolean;
+    };
+};
 
 export type BlockWarningType = BlockType & {
     data: {
-        title: string,
-        message: string,
-    }
-}
+        title: string;
+        message: string;
+    };
+};
 
 export type BlockQuoteType = BlockType & {
     data: {
-        text: string,
-        caption: string,
-        alignment: string, // left, center, right
-    }
-}
+        text: string;
+        caption: string;
+        alignment: string; // left, center, right
+    };
+};
 
 /**
  * Lista de Editor.js. Llega en dos formatos según cuándo se guardó la página:
@@ -65,137 +65,138 @@ export type BlockQuoteType = BlockType & {
  */
 export type BlockListType = BlockType & {
     data: {
-        style: BlockListStyleType,
+        style: BlockListStyleType;
         meta?: {
-            counterType?: BlockListCounterType,
-            start?: number,
-        },
-        items: (string | BlockListItemType)[],
-    }
-}
+            counterType?: BlockListCounterType;
+            start?: number;
+        };
+        items: (string | BlockListItemType)[];
+    };
+};
 
-export type BlockListStyleType = 'ordered' | 'unordered' | 'checklist'
+export type BlockListStyleType = 'ordered' | 'unordered' | 'checklist';
 
-export type BlockListCounterType = 'numeric' | 'lower-roman' | 'upper-roman' | 'lower-alpha' | 'upper-alpha'
+export type BlockListCounterType = 'numeric' | 'lower-roman' | 'upper-roman' | 'lower-alpha' | 'upper-alpha';
 
 export type BlockListItemType = {
-    content: string,
+    content: string;
     meta?: {
-        checked?: boolean,
-    },
-    items?: BlockListItemType[],
-}
+        checked?: boolean;
+    };
+    items?: BlockListItemType[];
+};
 
 export type BlockCheckListType = BlockType & {
     data: {
         items: [
             {
-                text: string,
-                checked: boolean,
-            }
-        ],
-    }
-}
+                text: string;
+                checked: boolean;
+            },
+        ];
+    };
+};
 
 export type BlockAttachesType = BlockType & {
     data: {
         file: {
-            url: string,
-            title: string,
-            name: string,
-            alt: string,
-            path: string,
-            extension: string,
-            mime: string,
-            size: number,
-            file_type_image: string,
-            url_thumbnail: string,
-            path_thumbnail: string,
-            url_large: string,
-            path_large: string,
-            content_id: number,
-            content_file_id: number,
-            file_id: number,
-            module: string, // content
-        },
-        title: string,
-    }
-}
+            url: string;
+            title: string;
+            name: string;
+            alt: string;
+            path: string;
+            extension: string;
+            mime: string;
+            size: number;
+            file_type_image: string;
+            url_thumbnail: string;
+            path_thumbnail: string;
+            url_large: string;
+            path_large: string;
+            content_id: number;
+            content_file_id: number;
+            file_id: number;
+            module: string; // content
+        };
+        title: string;
+    };
+};
 
 export type BlockImageType = BlockType & {
     data: {
         file: {
-            url: string,
-            path: string,
-            url_thumbnail: string,
-            path_thumbnail: string,
-            url_large: string,
-            path_large: string,
-            content_id: number,
-            content_file_id: number,
-            file_id: number,
-            module: string, // content
-            title: string,
-            alt: string,
-            name: string,
-            extension: string,
-            mime: string,
-            size: number,
-            file_type_image: string,
-        },
-        caption: string,
-        withBorder: boolean,
-        withBackground: boolean,
-        stretched: boolean,
-    }
-}
+            url: string;
+            path: string;
+            url_thumbnail: string;
+            path_thumbnail: string;
+            url_large: string;
+            path_large: string;
+            content_id: number;
+            content_file_id: number;
+            file_id: number;
+            module: string; // content
+            title: string;
+            alt: string;
+            name: string;
+            extension: string;
+            mime: string;
+            size: number;
+            file_type_image: string;
+        };
+        caption: string;
+        withBorder: boolean;
+        withBackground: boolean;
+        stretched: boolean;
+    };
+};
 
 export type BlockDelimiterType = BlockType & {
-    data: Record<string, never>
-}
+    data: Record<string, never>;
+};
 
 export type BlockAlertType = BlockType & {
     data: {
-        type: string, // info, success, warning, danger, primary, secondary, dark, light
-        title: string,
-        message: string,
-        align: string, // left, center, right
-    }
-}
+        type: string; // info, success, warning, danger, primary, secondary, dark, light
+        title: string;
+        message: string;
+        align: string; // left, center, right
+    };
+};
 
-export type BlockLinkToolType = BlockType & { // Link Preview
+export type BlockLinkToolType = BlockType & {
+    // Link Preview
     data: {
-        link: string,
+        link: string;
         meta: {
-            title: string,
-            description: string,
-            keywords: string,
+            title: string;
+            description: string;
+            keywords: string;
             image?: {
-                url: string,
-            }
-            images?: string[], // Imágenes en base64
-            content_page_id?: number,
-            content_page_url?: string,
-        }
-    }
-}
+                url: string;
+            };
+            images?: string[]; // Imágenes en base64
+            content_page_id?: number;
+            content_page_url?: string;
+        };
+    };
+};
 
 export type BlockEmbedType = BlockType & {
     data: {
-        link: string,  // Enlace del vídeo embebido
-        service: string, // youtube, vimeo, twitter, instagram, facebook, vine, vk
-        source: string,
-        embed: string,
-        width: number,
-        height: number,
-        caption: string,
-    }
-}
+        link: string; // Enlace del vídeo embebido
+        service: string; // youtube, vimeo, twitter, instagram, facebook, vine, vk
+        source: string;
+        embed: string;
+        width: number;
+        height: number;
+        caption: string;
+    };
+};
 
 export type BlockTableType = BlockType & {
     data: {
-        content: string[][], // Todas las filas/columnas
-        withHeadings: boolean, // Fila 0 será la cabecera si es true
-        caption?: string,
-    }
-}
+        content: string[][]; // Todas las filas/columnas
+        withHeadings: boolean; // Fila 0 será la cabecera si es true
+        caption?: string;
+    };
+};

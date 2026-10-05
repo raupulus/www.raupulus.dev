@@ -8,7 +8,8 @@ import path from 'path';
 const cachedRoutesPath = path.resolve('cachedRoutes.json');
 
 // Fuente única de verdad para la API durante la compilación/prerender
-const configuredApiBase = process.env.API_BASE_URL ||
+const configuredApiBase =
+    process.env.API_BASE_URL ||
     (process.env.API_DOMAIN_URL ? `${process.env.API_DOMAIN_URL}/api/v2` : 'http://127.0.0.1:8000/api/v2');
 
 export default defineNuxtConfig({
@@ -51,8 +52,8 @@ export default defineNuxtConfig({
             },
             captcha: {
                 siteKey: process.env.CAPTCHA_SITE_KEY,
-            }
-        }
+            },
+        },
     },
 
     app: {
@@ -61,9 +62,17 @@ export default defineNuxtConfig({
             charset: 'utf-8',
             viewport: 'width=device-width, initial-scale=1',
             meta: [
-                { name: 'description', content: 'Portfolio de presentación con la información de Raúl Caro Pastorino (@raupulus) Desarrollador Web (Chipiona, Andalucía, Cádiz, España)' },
+                {
+                    name: 'description',
+                    content:
+                        'Portfolio de presentación con la información de Raúl Caro Pastorino (@raupulus) Desarrollador Web (Chipiona, Andalucía, Cádiz, España)',
+                },
                 { name: 'application-name', content: 'raupulus.dev' },
-                { name: 'keywords', content: 'Raúl Caro Pastorino, raupulus, desarrollador, desarrollador web, web developer, iot, maker, php, laravel, vue, vue3, vuejs, nuxt, js, javascript, python, bash, linux, Raul Caro Pastorino' },
+                {
+                    name: 'keywords',
+                    content:
+                        'Raúl Caro Pastorino, raupulus, desarrollador, desarrollador web, web developer, iot, maker, php, laravel, vue, vue3, vuejs, nuxt, js, javascript, python, bash, linux, Raul Caro Pastorino',
+                },
                 { name: 'author', content: 'Raúl Caro Pastorino' },
                 { name: 'color-scheme', content: 'dark' },
                 { name: 'twitter:card', content: 'summary_large_image' },
@@ -88,7 +97,7 @@ export default defineNuxtConfig({
                 {
                     rel: 'icon',
                     type: 'image/x-icon',
-                    href: '/favicons/favicon.ico'
+                    href: '/favicons/favicon.ico',
                 },
                 { rel: 'apple-touch-icon', sizes: '180x180', href: '/favicons/apple-touch-icon.png' },
                 { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicons/favicon-32x32.png' },
@@ -109,17 +118,11 @@ export default defineNuxtConfig({
             noscript: [
                 // <noscript>JavaScript is required</noscript>
                 //{ children: 'JavaScript is required' }
-            ]
+            ],
         },
-
-
     },
 
-    css: [
-        '@/assets/css/vars.css',
-        '@/assets/css/theme.css',
-        '@/assets/css/styles.css',
-    ],
+    css: ['@/assets/css/vars.css', '@/assets/css/theme.css', '@/assets/css/styles.css'],
 
     //plugins: [{ src: '~/plugins/vuejs-medium-editor', ssr: false }]
     typescript: {
@@ -127,7 +130,15 @@ export default defineNuxtConfig({
         typeCheck: false,
     },
 
-    modules: ["@nuxt/image", '@nuxtjs/sitemap', 'nuxt-gtag', '@dargmuesli/nuxt-cookie-control', '@nuxtjs/tailwindcss', '@nuxt/eslint', '@nuxt/fonts'],
+    modules: [
+        '@nuxt/image',
+        '@nuxtjs/sitemap',
+        'nuxt-gtag',
+        '@dargmuesli/nuxt-cookie-control',
+        '@nuxtjs/tailwindcss',
+        '@nuxt/eslint',
+        '@nuxt/fonts',
+    ],
 
     // Fuentes self-hosted (descargadas en build, servidas desde el propio dominio)
     fonts: {
@@ -158,16 +169,14 @@ export default defineNuxtConfig({
                 if (projects.length === 0 && !process.env.ALLOW_EMPTY_PROJECTS) {
                     throw new Error(
                         `[build] Error fatal: No se encontraron proyectos en la API (${configuredApiBase}). ` +
-                        'El build estático requiere proyectos para no vaciar el catálogo y el sitemap. ' +
-                        'Para desarrollo offline sin backend, define ALLOW_EMPTY_PROJECTS=1.'
+                            'El build estático requiere proyectos para no vaciar el catálogo y el sitemap. ' +
+                            'Para desarrollo offline sin backend, define ALLOW_EMPTY_PROJECTS=1.',
                     );
                 }
 
                 const urls = projects.flatMap((project) => {
                     const mainProjectUrl = `/projects/${project.slug}/`;
-                    const pageUrls = project.pages?.map((page) =>
-                        `/projects/${project.slug}/${page.slug}/`
-                    ) ?? [];
+                    const pageUrls = project.pages?.map((page) => `/projects/${project.slug}/${page.slug}/`) ?? [];
                     return [mainProjectUrl, ...pageUrls];
                 });
 
@@ -180,7 +189,7 @@ export default defineNuxtConfig({
                 fs.writeFileSync(cachedRoutesPath, JSON.stringify(['/', ...urls], null, 2));
 
                 // Añadir cada URL generada a las rutas de prerender
-                urls.forEach(url => routes.add(url));
+                urls.forEach((url) => routes.add(url));
 
                 console.warn(`[prerender] ${urls.length} rutas de proyectos añadidas al prerender.`);
             },
@@ -197,10 +206,7 @@ export default defineNuxtConfig({
         trailingSlash: true,
     },
     sitemap: {
-        exclude: [
-            '/admin/**',
-            '/login'
-        ],
+        exclude: ['/admin/**', '/login'],
         urls: async () => {
             const projects: ContentType[] = await usefetchProjectsPaginated(configuredApiBase);
 
@@ -217,16 +223,17 @@ export default defineNuxtConfig({
                     loc: `/projects/${project.slug}/`,
                     changefreq: 'weekly',
                     priority: 0.9,
-                    lastmod: project.updated_at
+                    lastmod: project.updated_at,
                 };
 
                 // URLs para las páginas del proyecto con barra final
-                const pageUrls: SitemapItem[] = project.pages?.map((page) => ({
-                    loc: `/projects/${project.slug}/${page.slug}/`,
-                    changefreq: 'weekly',
-                    priority: 0.7,
-                    lastmod: project.updated_at
-                })) ?? [];
+                const pageUrls: SitemapItem[] =
+                    project.pages?.map((page) => ({
+                        loc: `/projects/${project.slug}/${page.slug}/`,
+                        changefreq: 'weekly',
+                        priority: 0.7,
+                        lastmod: project.updated_at,
+                    })) ?? [];
 
                 return [mainProjectUrl, ...pageUrls];
             });
@@ -236,7 +243,7 @@ export default defineNuxtConfig({
         defaults: {
             changefreq: 'weekly',
             priority: 0.5,
-            lastmod: new Date()
+            lastmod: new Date(),
         },
     },
 
@@ -247,14 +254,18 @@ export default defineNuxtConfig({
         initMode: 'manual',
         initCommands: [
             // Setup up consent mode
-            ['consent', 'default', {
-                ad_user_data: 'denied',
-                ad_personalization: 'denied',
-                ad_storage: 'denied',
-                analytics_storage: 'denied',
-                wait_for_update: 500,
-            }]
-        ]
+            [
+                'consent',
+                'default',
+                {
+                    ad_user_data: 'denied',
+                    ad_personalization: 'denied',
+                    ad_storage: 'denied',
+                    analytics_storage: 'denied',
+                    wait_for_update: 500,
+                },
+            ],
+        ],
     },
 
     cookieControl: {
@@ -294,7 +305,7 @@ export default defineNuxtConfig({
                     id: 'necessary', // ID necesario de la cookie
                     name: {
                         en: 'Necessary Cookies',
-                        es: 'Cookies Necesarias'
+                        es: 'Cookies Necesarias',
                     },
                     description: {
                         en: 'These cookies are essential for the website to function properly.',
@@ -312,7 +323,7 @@ export default defineNuxtConfig({
                     id: 'google-analytics', // ID opcional de la cookie
                     name: {
                         en: 'Analytics Cookies',
-                        es: 'Cookies de Analítica'
+                        es: 'Cookies de Analítica',
                     },
                     description: {
                         en: 'These cookies provide analytic data about site traffic.',
@@ -351,9 +362,9 @@ export default defineNuxtConfig({
                 acceptAll: 'Accept All',
                 declineAll: 'Decline All',
                 manageCookies: 'Manage Cookies',
-            }
-        }
+            },
+        },
     },
 
-    compatibilityDate: '2024-09-10'
-})
+    compatibilityDate: '2024-09-10',
+});

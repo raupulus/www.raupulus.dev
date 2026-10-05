@@ -4,21 +4,21 @@ Sistema de diseño oscuro inspirado en Material Design 3 con estética de circui
 
 ## Archivos principales
 
-| Archivo | Rol |
-|---------|-----|
-| `tailwind.config.ts` | Configuración de TailwindCSS con tokens de color y tipografías (única config; el duplicado `tailwind.config.js` fue eliminado) |
-| `assets/css/vars.css` | Variables CSS custom |
-| `assets/css/fonts.css` | Declaraciones de fuentes locales (Open Sans) |
-| `assets/css/theme.css` | Tokens de tema y clases de design system |
-| `assets/css/styles.css` | Estilos globales, componentes reutilizables y utilidades CSS |
-| `assets/css/tailwind.css` | Archivo de entrada de TailwindCSS (@tailwind directives) |
+| Archivo                   | Rol                                                                                                                            |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `tailwind.config.ts`      | Configuración de TailwindCSS con tokens de color y tipografías (única config; el duplicado `tailwind.config.js` fue eliminado) |
+| `assets/css/vars.css`     | Variables CSS custom                                                                                                           |
+| `assets/css/fonts.css`    | Declaraciones de fuentes locales (Open Sans)                                                                                   |
+| `assets/css/theme.css`    | Tokens de tema y clases de design system                                                                                       |
+| `assets/css/styles.css`   | Estilos globales, componentes reutilizables y utilidades CSS                                                                   |
+| `assets/css/tailwind.css` | Archivo de entrada de TailwindCSS (@tailwind directives)                                                                       |
 
 ## Fuentes tipográficas
 
-| Familia | Uso | Clase Tailwind | Carga |
-|---------|-----|----------------|-------|
-| **Space Grotesk** | Headlines y labels | `font-headline`, `font-label` | **Self-hosted** via `@nuxt/fonts` (descarga en build, sirve desde `/_fonts/`) |
-| **Plus Jakarta Sans** | Texto body | `font-body` | **Self-hosted** via `@nuxt/fonts` |
+| Familia               | Uso                | Clase Tailwind                | Carga                                                                         |
+| --------------------- | ------------------ | ----------------------------- | ----------------------------------------------------------------------------- |
+| **Space Grotesk**     | Headlines y labels | `font-headline`, `font-label` | **Self-hosted** via `@nuxt/fonts` (descarga en build, sirve desde `/_fonts/`) |
+| **Plus Jakarta Sans** | Texto body         | `font-body`                   | **Self-hosted** via `@nuxt/fonts`                                             |
 
 Ya no hay peticiones a Google Fonts: se eliminaron los `<link>` a `fonts.googleapis.com`, la fuente Open Sans local sin uso (`assets/fonts/`, `fonts.css`) y la fuente de iconos Material Symbols.
 
@@ -41,68 +41,68 @@ Esquema oscuro con tokens Material Design 3:
 
 ### Primarios (azul)
 
-| Token | Hex | Uso |
-|-------|-----|-----|
-| `primary` | `#a3c9ff` | Acento principal, CTAs, headings |
-| `primary-container` | `#3272b8` | Backgrounds de contenedores primarios |
-| `on-primary` | `#00315c` | Texto sobre primary |
-| `on-primary-container` | `#f2f5ff` | Texto sobre primary-container |
+| Token                  | Hex       | Uso                                   |
+| ---------------------- | --------- | ------------------------------------- |
+| `primary`              | `#a3c9ff` | Acento principal, CTAs, headings      |
+| `primary-container`    | `#3272b8` | Backgrounds de contenedores primarios |
+| `on-primary`           | `#00315c` | Texto sobre primary                   |
+| `on-primary-container` | `#f2f5ff` | Texto sobre primary-container         |
 
 ### Secundarios (naranja)
 
-| Token | Hex | Uso |
-|-------|-----|-----|
-| `secondary` | `#ffb691` | Acento secundario, labels |
-| `secondary-container` | `#ea6b15` | Backgrounds secundarios |
-| `on-secondary` | `#552100` | Texto sobre secondary |
+| Token                 | Hex       | Uso                       |
+| --------------------- | --------- | ------------------------- |
+| `secondary`           | `#ffb691` | Acento secundario, labels |
+| `secondary-container` | `#ea6b15` | Backgrounds secundarios   |
+| `on-secondary`        | `#552100` | Texto sobre secondary     |
 
 ### Terciarios (cian)
 
-| Token | Hex | Uso |
-|-------|-----|-----|
-| `tertiary` | `#4cd6ff` | Acento tecnológico, enlaces, indicadores |
-| `tertiary-container` | `#007a96` | Backgrounds terciarios |
-| `on-tertiary` | `#003543` | Texto sobre tertiary |
+| Token                | Hex       | Uso                                      |
+| -------------------- | --------- | ---------------------------------------- |
+| `tertiary`           | `#4cd6ff` | Acento tecnológico, enlaces, indicadores |
+| `tertiary-container` | `#007a96` | Backgrounds terciarios                   |
+| `on-tertiary`        | `#003543` | Texto sobre tertiary                     |
 
 ### Superficies (oscuras)
 
-| Token | Hex | Uso |
-|-------|-----|-----|
-| `background` / `surface` | `#091421` | Fondo principal |
-| `surface-container-lowest` | `#050f1c` | Nivel más profundo |
-| `surface-container-low` | `#121c2a` | Nivel bajo |
-| `surface-container` | `#16202e` | Nivel medio |
-| `surface-container-high` | `#212b39` | Nivel alto (tarjetas) |
-| `surface-container-highest` | `#2b3544` | Nivel más elevado |
-| `on-surface` | `#d9e3f6` | Texto principal |
-| `on-surface-variant` | `#c1c7d2` | Texto secundario |
+| Token                       | Hex       | Uso                   |
+| --------------------------- | --------- | --------------------- |
+| `background` / `surface`    | `#091421` | Fondo principal       |
+| `surface-container-lowest`  | `#050f1c` | Nivel más profundo    |
+| `surface-container-low`     | `#121c2a` | Nivel bajo            |
+| `surface-container`         | `#16202e` | Nivel medio           |
+| `surface-container-high`    | `#212b39` | Nivel alto (tarjetas) |
+| `surface-container-highest` | `#2b3544` | Nivel más elevado     |
+| `on-surface`                | `#d9e3f6` | Texto principal       |
+| `on-surface-variant`        | `#c1c7d2` | Texto secundario      |
 
 ### Otros
 
-| Token | Hex | Uso |
-|-------|-----|-----|
-| `outline` | `#8b919c` | Bordes y texto terciario |
-| `outline-variant` | `#414751` | Bordes sutiles, separadores |
-| `error` | `#ffb4ab` | Errores, validaciones fallidas |
+| Token             | Hex       | Uso                            |
+| ----------------- | --------- | ------------------------------ |
+| `outline`         | `#8b919c` | Bordes y texto terciario       |
+| `outline-variant` | `#414751` | Bordes sutiles, separadores    |
+| `error`           | `#ffb4ab` | Errores, validaciones fallidas |
 
 ## Border Radius personalizado
 
-| Token | Valor | Uso |
-|-------|-------|-----|
-| `DEFAULT` | `0.125rem` | Bordes mínimos |
-| `lg` | `0.25rem` | Bordes ligeros |
-| `xl` | `0.5rem` | Tarjetas, contenedores |
-| `pill` | `0.75rem` | Bordes redondeados intermedios |
-| `full` | `9999px` (Tailwind default) | Círculos, avatares, pills estándar |
+| Token     | Valor                       | Uso                                |
+| --------- | --------------------------- | ---------------------------------- |
+| `DEFAULT` | `0.125rem`                  | Bordes mínimos                     |
+| `lg`      | `0.25rem`                   | Bordes ligeros                     |
+| `xl`      | `0.5rem`                    | Tarjetas, contenedores             |
+| `pill`    | `0.75rem`                   | Bordes redondeados intermedios     |
+| `full`    | `9999px` (Tailwind default) | Círculos, avatares, pills estándar |
 
 ## Clases CSS custom
 
-| Clase | Definida en | Efecto |
-|-------|-------------|--------|
-| `.circuit-pattern` | `theme.css` | Patrón de fondo tipo circuito PCB |
-| `.glass-panel` | `theme.css` | Efecto glassmorphism con blur y transparencia |
-| `.disable-scroll` | `app.vue` (global) | Bloquea scroll del body (para modales) |
-| `.box-privacy` | `pages/privacy.vue` (scoped) | Maquetación de la política de privacidad |
+| Clase              | Definida en                  | Efecto                                        |
+| ------------------ | ---------------------------- | --------------------------------------------- |
+| `.circuit-pattern` | `theme.css`                  | Patrón de fondo tipo circuito PCB             |
+| `.glass-panel`     | `theme.css`                  | Efecto glassmorphism con blur y transparencia |
+| `.disable-scroll`  | `app.vue` (global)           | Bloquea scroll del body (para modales)        |
+| `.box-privacy`     | `pages/privacy.vue` (scoped) | Maquetación de la política de privacidad      |
 
 ## ⚠️ Regla: no crear utilidades CSS con nombres de Tailwind
 

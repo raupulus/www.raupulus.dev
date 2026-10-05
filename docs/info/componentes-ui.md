@@ -4,24 +4,24 @@ Componentes de interfaz compartidos entre páginas: tarjetas, badges, formulario
 
 ## Índice
 
-| Componente | Archivo | Descripción |
-|-----------|---------|-------------|
-| `Alert` | `components/Alert.vue` | Alerta con tipo y mensaje |
-| `HeaderImage` | `components/HeaderImage.vue` | Imagen de cabecera de sección |
-| `SpecializationBadge` | `components/SpecializationBadge.vue` | Badge de especialización |
-| `StackBadge` | `components/StackBadge.vue` | Badge de tecnología (rectangular) |
-| `StackBadgeHexagon` | `components/StackBadgeHexagon.vue` | Badge hexagonal SVG con slot para imagen/icono |
-| `Trajectory` | `components/Trajectory.vue` | Componente de trayectoria profesional |
-| `BtnGeneric` | `components/btn/Generic.vue` | Botón genérico estilizado |
-| `CardProject` | `components/card/Project.vue` | Tarjeta de proyecto (base) |
-| `CardProjectHorizontal` | `components/card/ProjectHorizontal.vue` | Tarjeta de proyecto horizontal |
-| `CardProjectVertical` | `components/card/ProjectVertical.vue` | Tarjeta de proyecto vertical |
-| `CardSkill` | `components/card/Skill.vue` | Tarjeta de skill/habilidad |
-| `CardVertical` | `components/card/Vertical.vue` | Tarjeta vertical genérica |
-| `FormSelect` | `components/form/Select.vue` | Select personalizado |
-| `GridProjects` | `components/grid/Projects.vue` | Grid de tarjetas de proyectos con eventos de navegación |
-| `GridTechnologies` | `components/grid/Technologies.vue` | Grid de tecnologías para filtrado |
-| `ContentPaginator` | `components/content/contentPaginator.vue` | Paginador de contenido |
+| Componente              | Archivo                                   | Descripción                                             |
+| ----------------------- | ----------------------------------------- | ------------------------------------------------------- |
+| `Alert`                 | `components/Alert.vue`                    | Alerta con tipo y mensaje                               |
+| `HeaderImage`           | `components/HeaderImage.vue`              | Imagen de cabecera de sección                           |
+| `SpecializationBadge`   | `components/SpecializationBadge.vue`      | Badge de especialización                                |
+| `StackBadge`            | `components/StackBadge.vue`               | Badge de tecnología (rectangular)                       |
+| `StackBadgeHexagon`     | `components/StackBadgeHexagon.vue`        | Badge hexagonal SVG con slot para imagen/icono          |
+| `Trajectory`            | `components/Trajectory.vue`               | Componente de trayectoria profesional                   |
+| `BtnGeneric`            | `components/btn/Generic.vue`              | Botón genérico estilizado                               |
+| `CardProject`           | `components/card/Project.vue`             | Tarjeta de proyecto (base)                              |
+| `CardProjectHorizontal` | `components/card/ProjectHorizontal.vue`   | Tarjeta de proyecto horizontal                          |
+| `CardProjectVertical`   | `components/card/ProjectVertical.vue`     | Tarjeta de proyecto vertical                            |
+| `CardSkill`             | `components/card/Skill.vue`               | Tarjeta de skill/habilidad                              |
+| `CardVertical`          | `components/card/Vertical.vue`            | Tarjeta vertical genérica                               |
+| `FormSelect`            | `components/form/Select.vue`              | Select personalizado                                    |
+| `GridProjects`          | `components/grid/Projects.vue`            | Grid de tarjetas de proyectos con eventos de navegación |
+| `GridTechnologies`      | `components/grid/Technologies.vue`        | Grid de tecnologías para filtrado                       |
+| `ContentPaginator`      | `components/content/contentPaginator.vue` | Paginador de contenido                                  |
 
 ## Componentes clave
 
@@ -37,12 +37,14 @@ Badge hexagonal con SVG y slot. Usado en la página home para mostrar el stack t
 Grid que renderiza tarjetas de proyectos y gestiona apertura de modales.
 
 **Props**:
+
 - `projects: ContentType[]` — array de proyectos
 - `slugContent: string` — slug del proyecto activo
 - `slugPage: string` — slug de la página activa
 - `openProjetOnLoad: boolean` — si debe abrir un proyecto al cargar
 
 **Eventos emitidos**:
+
 - `@slugchange(contentSlug, pageSlug)` — al cambiar de proyecto/página
 - `@metatagchange(title, description, keywords, url, image)` — al cambiar metatags
 
@@ -51,10 +53,12 @@ Grid que renderiza tarjetas de proyectos y gestiona apertura de modales.
 Grid de tecnologías disponibles para filtrado en la página de proyectos.
 
 **Props**:
+
 - `technologies: TechnologyType[]` — lista de tecnologías
 - `technologySelect: string` — slug de la tecnología seleccionada
 
 **Eventos emitidos**:
+
 - `@clickTechnologySelect({ technologySelect: slug })` — al seleccionar una tecnología
 
 ### `FormSelect`

@@ -4,48 +4,48 @@ Estrategia SEO del portfolio con metatags dinámicos por página, Open Graph, Tw
 
 ## Archivos principales
 
-| Archivo | Rol |
-|---------|-----|
-| `app.vue` | SEO global (`useSeoMeta`, `useHead`) |
-| `nuxt.config.ts` | Metatags por defecto en `app.head.meta`, config de sitemap |
-| Cada `pages/*.vue` | SEO específico por página con `useHead()` |
+| Archivo            | Rol                                                        |
+| ------------------ | ---------------------------------------------------------- |
+| `app.vue`          | SEO global (`useSeoMeta`, `useHead`)                       |
+| `nuxt.config.ts`   | Metatags por defecto en `app.head.meta`, config de sitemap |
+| Cada `pages/*.vue` | SEO específico por página con `useHead()`                  |
 
 ## SEO Global (`app.vue`)
 
 ```typescript
 useSeoMeta({
-  description: webDescription,
-  ogTitle: webTitle,
-  ogDescription: webDescription,
-  ogImage: '/logo_512x512.png',
-  ogUrl: 'https://raupulus.dev',
-  twitterTitle: webTitle,
-  twitterDescription: webDescription,
-  twitterImage: '/logo_512x512.png',
-  twitterCard: 'summary'
-})
+    description: webDescription,
+    ogTitle: webTitle,
+    ogDescription: webDescription,
+    ogImage: '/logo_512x512.png',
+    ogUrl: 'https://raupulus.dev',
+    twitterTitle: webTitle,
+    twitterDescription: webDescription,
+    twitterImage: '/logo_512x512.png',
+    twitterCard: 'summary',
+});
 
 useHead({
-  htmlAttrs: { lang: 'es' },
-  link: [{ rel: 'icon', type: 'image/ico', href: '/favicon.ico' }]
-})
+    htmlAttrs: { lang: 'es' },
+    link: [{ rel: 'icon', type: 'image/ico', href: '/favicon.ico' }],
+});
 ```
 
 ## Metatags por Defecto (`nuxt.config.ts → app.head.meta`)
 
-| Meta | Contenido |
-|------|-----------|
-| `description` | Portfolio de presentación con la información de Raúl Caro Pastorino... |
-| `application-name` | raupulus.dev |
-| `keywords` | Raúl Caro Pastorino, raupulus, desarrollador, ... |
-| `author` | Raúl Caro Pastorino |
-| `twitter:card` | summary_large_image |
-| `twitter:site` | @raupulus |
-| `twitter:creator` | @raupulus |
-| `og:type` | website |
-| `og:url` | https://raupulus.dev |
-| `og:locale` | es_ES |
-| `og:locale:alternate` | en_US |
+| Meta                  | Contenido                                                              |
+| --------------------- | ---------------------------------------------------------------------- |
+| `description`         | Portfolio de presentación con la información de Raúl Caro Pastorino... |
+| `application-name`    | raupulus.dev                                                           |
+| `keywords`            | Raúl Caro Pastorino, raupulus, desarrollador, ...                      |
+| `author`              | Raúl Caro Pastorino                                                    |
+| `twitter:card`        | summary_large_image                                                    |
+| `twitter:site`        | @raupulus                                                              |
+| `twitter:creator`     | @raupulus                                                              |
+| `og:type`             | website                                                                |
+| `og:url`              | https://raupulus.dev                                                   |
+| `og:locale`           | es_ES                                                                  |
+| `og:locale:alternate` | en_US                                                                  |
 
 ## Datos estructurados JSON-LD
 
@@ -72,16 +72,16 @@ Además del bloque global `@graph` en `app.vue` (`Person` y `WebSite`), cada pá
 
 Cada página define `useHead()` con:
 
-| Página | Title | Imagen OG |
-|--------|-------|-----------|
-| `/` | Raúl Caro Pastorino - Desarrollador Web Backend | (global) |
-| `/projects` | Proyectos de Raúl Caro Pastorino | `/social/projects.webp` |
-| `/about` | Sobre mí - Raúl Caro Pastorino | `/social/about.webp` |
-| `/blog` | Blog Técnico \| Raúl Caro Pastorino | (global) |
-| `/contact` | Contacto - Raúl Caro Pastorino | `/social/contact.webp` |
-| `/social` | Redes Sociales de Raúl Caro Pastorino | `/social/social.webp` |
-| `/webs` | Sitios webs creados por Raúl Caro Pastorino | `/social/webs.webp` |
-| `/privacy` | Política de Privacidad - Raúl Caro Pastorino | `/social/privacy.webp` |
+| Página      | Title                                           | Imagen OG               |
+| ----------- | ----------------------------------------------- | ----------------------- |
+| `/`         | Raúl Caro Pastorino - Desarrollador Web Backend | (global)                |
+| `/projects` | Proyectos de Raúl Caro Pastorino                | `/social/projects.webp` |
+| `/about`    | Sobre mí - Raúl Caro Pastorino                  | `/social/about.webp`    |
+| `/blog`     | Blog Técnico \| Raúl Caro Pastorino             | (global)                |
+| `/contact`  | Contacto - Raúl Caro Pastorino                  | `/social/contact.webp`  |
+| `/social`   | Redes Sociales de Raúl Caro Pastorino           | `/social/social.webp`   |
+| `/webs`     | Sitios webs creados por Raúl Caro Pastorino     | `/social/webs.webp`     |
+| `/privacy`  | Política de Privacidad - Raúl Caro Pastorino    | `/social/privacy.webp`  |
 
 ## SEO Dinámico (Proyectos)
 
@@ -117,20 +117,22 @@ sitemap: {
 
 ### Prioridades
 
-| Tipo | Prioridad | Frecuencia |
-|------|-----------|------------|
-| Páginas estáticas | 0.5 | weekly |
-| Proyectos | 0.9 | weekly |
-| Páginas de proyecto | 0.7 | weekly |
+| Tipo                | Prioridad | Frecuencia |
+| ------------------- | --------- | ---------- |
+| Páginas estáticas   | 0.5       | weekly     |
+| Proyectos           | 0.9       | weekly     |
+| Páginas de proyecto | 0.7       | weekly     |
 
 ## Imágenes OG
 
 Las imágenes para Open Graph están en `public/social/`:
+
 - `about.webp`, `contact.webp`, `projects.webp`, `social.webp`, `webs.webp`, `privacy.webp`
 
 ## Favicons
 
 Ubicados en `public/favicons/`:
+
 - `favicon.ico`, `apple-touch-icon.png`, `favicon-32x32.png`, `favicon-16x16.png`, `site.webmanifest`
 - También: `android-chrome-192x192.png`, `android-chrome-512x512.png`
 

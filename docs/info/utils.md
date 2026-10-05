@@ -4,12 +4,12 @@ Funciones de utilidad ubicadas en `utils/`. Se auto-importan en toda la aplicaci
 
 ## Índice
 
-| Archivo | Funciones exportadas | Descripción |
-|---------|---------------------|-------------|
-| `utils/apiClient.ts` | `apiGet()`, `apiPost()`, `apiFetchRaw()` | Cliente API centralizado |
-| `utils/ContentUtils.ts` | `PLATFORM_SLUG`, `imageUrl()`, `formatDate()`, `hasNextPage()`, `normalizePage()`, `apiErrorMessages()`, `buildProjectMetatags()`, `normalizeListItems()`, `listCounterLabel()` | Utilidades puras sobre los datos de la API V2 |
-| `utils/sanitize.ts` | `sanitizeHtml()`, `sanitizeRawHtml()` | Sanitización HTML contra XSS |
-| `utils/TechnologyUtils.ts` | `getTechnologyBySlug()` | Búsqueda de tecnologías en datos de plataforma |
+| Archivo                    | Funciones exportadas                                                                                                                                                            | Descripción                                    |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------- |
+| `utils/apiClient.ts`       | `apiGet()`, `apiPost()`, `apiFetchRaw()`                                                                                                                                        | Cliente API centralizado                       |
+| `utils/ContentUtils.ts`    | `PLATFORM_SLUG`, `imageUrl()`, `formatDate()`, `hasNextPage()`, `normalizePage()`, `apiErrorMessages()`, `buildProjectMetatags()`, `normalizeListItems()`, `listCounterLabel()` | Utilidades puras sobre los datos de la API V2  |
+| `utils/sanitize.ts`        | `sanitizeHtml()`, `sanitizeRawHtml()`                                                                                                                                           | Sanitización HTML contra XSS                   |
+| `utils/TechnologyUtils.ts` | `getTechnologyBySlug()`                                                                                                                                                         | Búsqueda de tecnologías en datos de plataforma |
 
 ---
 
@@ -53,17 +53,17 @@ Obtiene el CSRF token desde `{apiDomain}/sanctum/csrf-cookie` (Sanctum, fuera de
 
 Funciones puras (sin contexto de Nuxt; también se importan desde `composables/projectsData.ts` en `nuxt.config.ts`).
 
-| Función | Descripción |
-|---------|-------------|
-| `PLATFORM_SLUG` | Slug de la plataforma del portfolio en la API (`'portfolio'`) |
-| `imageUrl(image, size?)` | URL de la miniatura `micro/small/medium/large` de un `ImageType`, cayendo al original. Usar miniaturas en tarjetas: el original puede pesar varios MB |
-| `formatDate(iso, locale = 'es-ES')` | Fecha legible (`7 de diciembre de 2024`); `''` si es vacía o inválida |
-| `hasNextPage(meta)` | `meta.current_page < meta.last_page` |
-| `normalizePage(page)` | Garantiza que `page.body` sea un objeto Editor.js con `blocks` array (admite texto JSON) |
-| `apiErrorMessages(response)` | Lista plana de errores de un envelope V2: los de validación (`errors`) o, si no hay, `message` |
-| `buildProjectMetatags(project, page, urlBase)` | `{ title, description, keywords, url, image }` del proyecto abierto en el modal |
-| `normalizeListItems(items)` | Normaliza los elementos de un bloque `list` (formato antiguo o `@editorjs/list` 2.x anidado) |
-| `listCounterLabel(position, counterType)` | Numeración `numeric`, `lower/upper-roman`, `lower/upper-alpha` |
+| Función                                        | Descripción                                                                                                                                           |
+| ---------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `PLATFORM_SLUG`                                | Slug de la plataforma del portfolio en la API (`'portfolio'`)                                                                                         |
+| `imageUrl(image, size?)`                       | URL de la miniatura `micro/small/medium/large` de un `ImageType`, cayendo al original. Usar miniaturas en tarjetas: el original puede pesar varios MB |
+| `formatDate(iso, locale = 'es-ES')`            | Fecha legible (`7 de diciembre de 2024`); `''` si es vacía o inválida                                                                                 |
+| `hasNextPage(meta)`                            | `meta.current_page < meta.last_page`                                                                                                                  |
+| `normalizePage(page)`                          | Garantiza que `page.body` sea un objeto Editor.js con `blocks` array (admite texto JSON)                                                              |
+| `apiErrorMessages(response)`                   | Lista plana de errores de un envelope V2: los de validación (`errors`) o, si no hay, `message`                                                        |
+| `buildProjectMetatags(project, page, urlBase)` | `{ title, description, keywords, url, image }` del proyecto abierto en el modal                                                                       |
+| `normalizeListItems(items)`                    | Normaliza los elementos de un bloque `list` (formato antiguo o `@editorjs/list` 2.x anidado)                                                          |
+| `listCounterLabel(position, counterType)`      | Numeración `numeric`, `lower/upper-roman`, `lower/upper-alpha`                                                                                        |
 
 ---
 
@@ -116,9 +116,9 @@ Depende de `getPlatformData()` del composable `platformData.ts`.
 
 ## Dependencias externas
 
-| Paquete | Versión | Uso |
-|---------|---------|-----|
-| `isomorphic-dompurify` | ^3.7.1 | Sanitización HTML isomórfica |
+| Paquete                | Versión | Uso                          |
+| ---------------------- | ------- | ---------------------------- |
+| `isomorphic-dompurify` | ^3.7.1  | Sanitización HTML isomórfica |
 
 ## Relaciones con otros módulos
 

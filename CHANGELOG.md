@@ -8,6 +8,7 @@ y este proyecto adhiere a [Versionado Semántico](https://semver.org/lang/es/).
 ## [Sin publicar]
 
 ### Seguridad
+
 - Sanitización de HTML con DOMPurify en todos los `v-html` (BlockRaw, BlockParagraph, BlockAlert, BlockList, BlockCheckList, BlockQuote, BlockLinkTool, BlockCode).
 - Cabeceras de seguridad HTTP configuradas en Apache y Nginx (X-Content-Type-Options, X-Frame-Options, CSP, HSTS, Referrer-Policy, Permissions-Policy).
 - HSTS configurado sin `includeSubDomains` para no afectar otros subdominios.
@@ -18,6 +19,7 @@ y este proyecto adhiere a [Versionado Semántico](https://semver.org/lang/es/).
 - `rel="noopener noreferrer"` y `aria-label` añadidos a todos los enlaces externos.
 
 ### Corregido
+
 - Bug en `.catch()` de `fetchPageData.ts` (se evaluaba inmediatamente en lugar de como callback).
 - Doble parsing JSON en formulario de contacto (`contact.vue`).
 - Datos de prueba hardcodeados eliminados del formulario de contacto.
@@ -31,6 +33,7 @@ y este proyecto adhiere a [Versionado Semántico](https://semver.org/lang/es/).
 - Textos en inglés traducidos en Header (navegación), Footer (copyright, estado) y componentes.
 
 ### Añadido
+
 - Layout por defecto (`layouts/default.vue`).
 - Cliente API centralizado (`utils/apiClient.ts`).
 - Utilidad de sanitización HTML (`utils/sanitize.ts`) con DOMPurify.
@@ -47,6 +50,7 @@ y este proyecto adhiere a [Versionado Semántico](https://semver.org/lang/es/).
 - ARIA roles y labels en modal de proyecto.
 
 ### Cambiado
+
 - `platformData.ts` migrado a `$fetch` con caché via `useState`.
 - `projectsData.ts` refactorizado con carga bajo demanda, `useState` y `$fetch`.
 - `fetchPageData.ts` reescrito con `useState`, `$fetch` y manejo de errores.
@@ -61,6 +65,7 @@ y este proyecto adhiere a [Versionado Semántico](https://semver.org/lang/es/).
 - `nav aria-label` añadido al Header, `role="contentinfo"` al Footer.
 
 ### Eliminado
+
 - Console.logs de depuración en formulario de contacto y app.vue.
 - Datos de prueba hardcodeados en campos del formulario.
 - Líneas SSL comentadas innecesarias en `apache.conf`.
@@ -68,6 +73,7 @@ y este proyecto adhiere a [Versionado Semántico](https://semver.org/lang/es/).
 ## [1.0.0] - 2026-03-29
 
 ### Añadido
+
 - Versión inicial del portfolio personal en Nuxt 3.
 - SSR con generación estática.
 - Integración con API `api.raupulus.dev`.

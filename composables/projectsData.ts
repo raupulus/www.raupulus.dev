@@ -8,14 +8,14 @@ import type { MetadataType } from '@/types/MetadataType';
 import { PLATFORM_SLUG, hasNextPage } from '../utils/ContentUtils';
 
 type ProjectsStateType = {
-    contents?: ContentType[],
-    meta?: ApiMetaType,
-}
+    contents?: ContentType[];
+    meta?: ApiMetaType;
+};
 
 export type ProjectsSearchParamsType = {
-    search?: string,
-    technology?: string,
-}
+    search?: string;
+    technology?: string;
+};
 
 /**
  * Partes del detalle que necesita el modal de proyecto.
@@ -41,8 +41,16 @@ function prepareDataContent(content: ContentType): ContentType {
  */
 function prepareDataMetadata(metadata: MetadataType) {
     const priority: (keyof MetadataType)[] = [
-        'web', 'youtube_channel', 'youtube_video', 'youtube', 'gitlab', 'github',
-        'twitter', 'linkedin', 'mastodon', 'twitch',
+        'web',
+        'youtube_channel',
+        'youtube_video',
+        'youtube',
+        'gitlab',
+        'github',
+        'twitter',
+        'linkedin',
+        'mastodon',
+        'twitch',
         'telegram_channel',
     ];
 
@@ -50,8 +58,8 @@ function prepareDataMetadata(metadata: MetadataType) {
     let counter = 0;
 
     if (metadata) {
-        priority.forEach(p => {
-            if ((p === 'youtube_channel') || (p === 'youtube_video')) {
+        priority.forEach((p) => {
+            if (p === 'youtube_channel' || p === 'youtube_video') {
                 if (metadata[p] && counter < 4) {
                     if (!results.youtube) {
                         counter++;
@@ -109,7 +117,7 @@ export function useProjectsData() {
 
         try {
             const res = await $fetch<ApiResponseType<ContentType[]>>(
-                `${API_URL}?${projectsQuery(currentPage.value, perPage)}`
+                `${API_URL}?${projectsQuery(currentPage.value, perPage)}`,
             );
             const contents = (res.data ?? []).map(prepareDataContent);
 
@@ -183,7 +191,7 @@ export async function projectsDataSearch(params: ProjectsSearchParamsType | null
                 {
                     headers: { Accept: 'application/json' },
                     signal: abortController.signal,
-                }
+                },
             );
             if (abortController.signal.aborted) return;
             const contents = (res.data ?? []).map(prepareDataContent);
@@ -239,7 +247,10 @@ export async function useGetProjectBySlug(slug: string): Promise<ContentType | n
  * @returns Lista completa de proyectos
  */
 export async function usefetchProjectsPaginated(apiBaseUrl?: string): Promise<ContentType[]> {
-    const API_BASE = apiBaseUrl || process.env.API_BASE_URL || (process.env.API_DOMAIN_URL ? `${process.env.API_DOMAIN_URL}/api/v2` : 'http://127.0.0.1:8000/api/v2');
+    const API_BASE =
+        apiBaseUrl ||
+        process.env.API_BASE_URL ||
+        (process.env.API_DOMAIN_URL ? `${process.env.API_DOMAIN_URL}/api/v2` : 'http://127.0.0.1:8000/api/v2');
     const API_URL = contentsUrl(API_BASE);
     let allProjects: ContentType[] = [];
     let currentPage = 1;
@@ -260,7 +271,7 @@ export async function usefetchProjectsPaginated(apiBaseUrl?: string): Promise<Co
                 break;
             }
 
-            const json = await response.json() as ApiResponseType<ContentType[]>;
+            const json = (await response.json()) as ApiResponseType<ContentType[]>;
 
             if (Array.isArray(json?.data)) {
                 allProjects = [...allProjects, ...json.data];
@@ -281,7 +292,7 @@ export async function usefetchProjectsPaginated(apiBaseUrl?: string): Promise<Co
         }
         console.warn(
             `[proyectos] No se pudo conectar con la API (${API_BASE}). ` +
-            'ALLOW_EMPTY_PROJECTS activo: se continúa sin las rutas dinámicas de proyectos.'
+                'ALLOW_EMPTY_PROJECTS activo: se continúa sin las rutas dinámicas de proyectos.',
         );
     }
 
@@ -301,7 +312,7 @@ async function fetchProjectPagesIndex(contentsApiUrl: string, slug: string): Pro
         return [];
     }
 
-    const json = await response.json() as ApiResponseType<ContentPageType[]>;
+    const json = (await response.json()) as ApiResponseType<ContentPageType[]>;
 
     return (json?.data ?? []).map(({ id, order, title, slug, format }) => ({ id, order, title, slug, format }));
 }

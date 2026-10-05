@@ -1,17 +1,17 @@
 <script lang="ts" setup>
-import type { ContentType } from '~/types/ContentType'
+    import type { ContentType } from '~/types/ContentType';
 
-defineProps({
-    projects: {
-        type: Array as PropType<Array<ContentType>>,
-        default: () => [],
-        required: false,
-    },
-})
+    defineProps({
+        projects: {
+            type: Array as PropType<Array<ContentType>>,
+            default: () => [],
+            required: false,
+        },
+    });
 
-function isHorizontal(pos: number) {
-    return (pos + 1) % 3 === 0
-}
+    function isHorizontal(pos: number) {
+        return (pos + 1) % 3 === 0;
+    }
 </script>
 
 <template>

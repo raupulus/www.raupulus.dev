@@ -7,13 +7,13 @@ import type { ApiResponseType } from '~/types/ApiResponse';
  * usarla en la cabecera X-XSRF-TOKEN (si no, el servidor responde 419).
  */
 function getXsrfTokenFromCookie(): string {
-  if (typeof document === 'undefined') {
-    return '';
-  }
+    if (typeof document === 'undefined') {
+        return '';
+    }
 
-  const match = document.cookie.match(/(?:^|;\s*)XSRF-TOKEN=([^;]*)/);
+    const match = document.cookie.match(/(?:^|;\s*)XSRF-TOKEN=([^;]*)/);
 
-  return match?.[1] ? decodeURIComponent(match[1]) : '';
+    return match?.[1] ? decodeURIComponent(match[1]) : '';
 }
 
 /**
@@ -22,17 +22,17 @@ function getXsrfTokenFromCookie(): string {
  * La ruta es `/sanctum/csrf-cookie`, en el dominio de la API (fuera de `/api/v2`).
  */
 export async function fetchCsrfToken(): Promise<string> {
-  const apiDomain = useApiDomain();
+    const apiDomain = useApiDomain();
 
-  const response = await fetch(apiDomain + '/sanctum/csrf-cookie', {
-    credentials: 'include',
-  });
+    const response = await fetch(apiDomain + '/sanctum/csrf-cookie', {
+        credentials: 'include',
+    });
 
-  if (!response.ok) {
-    throw new Error('No se pudo obtener el token CSRF');
-  }
+    if (!response.ok) {
+        throw new Error('No se pudo obtener el token CSRF');
+    }
 
-  return getXsrfTokenFromCookie();
+    return getXsrfTokenFromCookie();
 }
 
 /**
@@ -44,29 +44,29 @@ export async function fetchCsrfToken(): Promise<string> {
  * Solo lanza excepción ante fallos de red o respuestas sin JSON.
  */
 export default async function fetchPost(url: string, body: Record<string, unknown>): Promise<ApiResponseType<unknown>> {
-  let csrfToken = getXsrfTokenFromCookie();
+    let csrfToken = getXsrfTokenFromCookie();
 
-  if (!csrfToken) {
-    csrfToken = await fetchCsrfToken();
-  }
+    if (!csrfToken) {
+        csrfToken = await fetchCsrfToken();
+    }
 
-  const response = await fetch(url, {
-    method: 'POST',
-    mode: 'cors',
-    credentials: 'include',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      'X-XSRF-TOKEN': csrfToken,
-    },
-    body: JSON.stringify(body),
-  });
+    const response = await fetch(url, {
+        method: 'POST',
+        mode: 'cors',
+        credentials: 'include',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            'X-XSRF-TOKEN': csrfToken,
+        },
+        body: JSON.stringify(body),
+    });
 
-  const json = await response.json().catch(() => null);
+    const json = await response.json().catch(() => null);
 
-  if (json === null) {
-    throw new Error(`Respuesta no válida del servidor (HTTP ${response.status})`);
-  }
+    if (json === null) {
+        throw new Error(`Respuesta no válida del servidor (HTTP ${response.status})`);
+    }
 
-  return json;
+    return json;
 }

@@ -3,28 +3,32 @@
         <!-- ===== HERO ===== -->
         <section class="relative min-h-[80vh] flex items-center px-8 overflow-hidden">
             <div class="absolute inset-0 z-0 opacity-20 pointer-events-none">
-                <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-primary-container rounded-full blur-[128px]"/>
-                <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-tertiary-container rounded-full blur-[128px]"/>
+                <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-primary-container rounded-full blur-[128px]" />
+                <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-tertiary-container rounded-full blur-[128px]" />
             </div>
 
             <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 z-10">
                 <!-- Texto principal -->
                 <div class="lg:col-span-8 flex flex-col justify-center">
                     <span class="font-label text-tertiary tracking-[0.3em] uppercase mb-6 flex items-center gap-3">
-                        <span class="w-12 h-[1px] bg-tertiary"/>
+                        <span class="w-12 h-[1px] bg-tertiary" />
                         Desarrollador Web Backend &amp; IoT
                     </span>
-                    <h1 class="font-headline text-4xl sm:text-6xl md:text-8xl font-bold tracking-tighter leading-[0.95] text-on-surface mb-8">
+                    <h1
+                        class="font-headline text-4xl sm:text-6xl md:text-8xl font-bold tracking-tighter leading-[0.95] text-on-surface mb-8"
+                    >
                         Raúl Caro
-                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary via-tertiary to-secondary">
+                        <span
+                            class="text-transparent bg-clip-text bg-gradient-to-r from-primary via-tertiary to-secondary"
+                        >
                             Pastorino
                         </span>
                     </h1>
                     <p class="text-lg md:text-xl text-on-surface-variant max-w-2xl leading-relaxed mb-12">
-                        Soy desarrollador web especializado en backend con PHP/Laravel y PostgreSQL.
-                        También me muevo por Python, Vue y la administración de sistemas GNU/Linux.
-                        Este es mi portal personal: aquí comparto mis proyectos, experimentos IoT
-                        y todo lo que voy publicando como software libre desde 2001.
+                        Soy desarrollador web especializado en backend con PHP/Laravel y PostgreSQL. También me muevo
+                        por Python, Vue y la administración de sistemas GNU/Linux. Este es mi portal personal: aquí
+                        comparto mis proyectos, experimentos IoT y todo lo que voy publicando como software libre desde
+                        2001.
                     </p>
                     <div class="flex flex-wrap gap-6">
                         <NuxtLink
@@ -45,20 +49,36 @@
                 <!-- Decoración derecha -->
                 <div class="lg:col-span-4 flex items-center justify-center relative">
                     <div class="relative w-full aspect-square max-w-md">
-                        <div class="absolute inset-0 glass-panel rounded-xl border border-outline-variant/30 flex items-center justify-center p-8">
-                            <div class="w-full h-full relative border border-dashed border-tertiary/20 rounded-full flex items-center justify-center p-12">
-                                <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-tertiary animate-[pulse-glow_2s_ease-in-out_infinite] shadow-[0_0_15px_rgba(76,214,255,0.8)]"/>
-                                <div class="w-full h-full border border-primary/40 rounded-full flex items-center justify-center">
+                        <div
+                            class="absolute inset-0 glass-panel rounded-xl border border-outline-variant/30 flex items-center justify-center p-8"
+                        >
+                            <div
+                                class="w-full h-full relative border border-dashed border-tertiary/20 rounded-full flex items-center justify-center p-12"
+                            >
+                                <div
+                                    class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-tertiary animate-[pulse-glow_2s_ease-in-out_infinite] shadow-[0_0_15px_rgba(76,214,255,0.8)]"
+                                />
+                                <div
+                                    class="w-full h-full border border-primary/40 rounded-full flex items-center justify-center"
+                                >
                                     <UiMaterialIcon class="text-7xl text-primary" name="memory" />
                                 </div>
                             </div>
                         </div>
-                        <div class="absolute -top-4 -right-4 glass-panel px-4 py-2 border border-secondary/40 rounded-lg">
-                            <span class="font-label text-xs text-secondary tracking-widest uppercase">Open Source desde 2001</span>
+                        <div
+                            class="absolute -top-4 -right-4 glass-panel px-4 py-2 border border-secondary/40 rounded-lg"
+                        >
+                            <span class="font-label text-xs text-secondary tracking-widest uppercase"
+                                >Open Source desde 2001</span
+                            >
                         </div>
-                        <div class="absolute -bottom-6 -left-4 glass-panel px-4 py-2 border border-tertiary/40 rounded-lg flex items-center gap-2">
-                            <span class="w-2 h-2 rounded-full bg-tertiary"/>
-                            <span class="font-label text-xs text-on-surface tracking-widest uppercase">Debian GNU/Linux</span>
+                        <div
+                            class="absolute -bottom-6 -left-4 glass-panel px-4 py-2 border border-tertiary/40 rounded-lg flex items-center gap-2"
+                        >
+                            <span class="w-2 h-2 rounded-full bg-tertiary" />
+                            <span class="font-label text-xs text-on-surface tracking-widest uppercase"
+                                >Debian GNU/Linux</span
+                            >
                         </div>
                     </div>
                 </div>
@@ -70,7 +90,9 @@
             <div class="max-w-7xl mx-auto">
                 <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
                     <div>
-                        <h2 class="font-headline text-4xl font-bold tracking-tight text-primary mb-4">Mi Stack Principal</h2>
+                        <h2 class="font-headline text-4xl font-bold tracking-tight text-primary mb-4">
+                            Mi Stack Principal
+                        </h2>
                         <p class="text-on-surface-variant max-w-md">
                             Las tecnologías con las que trabajo a diario y en las que tengo más rodaje.
                         </p>
@@ -81,37 +103,66 @@
                 </div>
 
                 <!-- Hexágonos estáticos originales -->
-                <div style="text-align: center;">
+                <div style="text-align: center">
                     <StackBadgeHexagon text="PHP" color="#777bb3" color-light="#9b9fd8">
                         <NuxtImg
-src="/images/technologies/php_60x60.webp" format="webp" width="60" height="60" quality="90"
-                            title="Lenguaje de Programación PHP" alt="Lenguaje de Programación PHP" />
+                            src="/images/technologies/php_60x60.webp"
+                            format="webp"
+                            width="60"
+                            height="60"
+                            quality="90"
+                            title="Lenguaje de Programación PHP"
+                            alt="Lenguaje de Programación PHP"
+                        />
                     </StackBadgeHexagon>
 
                     <StackBadgeHexagon text="Laravel" color="#c54b4b" color-light="#d56565">
                         <NuxtImg
-src="/images/technologies/laravel_60x60.webp" format="webp" width="60" height="60" quality="90"
-                            title="Framework Laravel" alt="Framework Laravel" />
+                            src="/images/technologies/laravel_60x60.webp"
+                            format="webp"
+                            width="60"
+                            height="60"
+                            quality="90"
+                            title="Framework Laravel"
+                            alt="Framework Laravel"
+                        />
                     </StackBadgeHexagon>
 
                     <div class="inline-block">
                         <StackBadgeHexagon text="Vue" color="#2f3239" color-light="#454850">
                             <NuxtImg
-src="/images/technologies/vuejs_60x60.webp" format="webp" width="60" height="60" quality="90"
-                                title="Framework VueJs" alt="Framework VueJs" />
+                                src="/images/technologies/vuejs_60x60.webp"
+                                format="webp"
+                                width="60"
+                                height="60"
+                                quality="90"
+                                title="Framework VueJs"
+                                alt="Framework VueJs"
+                            />
                         </StackBadgeHexagon>
 
                         <StackBadgeHexagon text="Javascript" color="#d7af21" color-light="#e9c853">
                             <NuxtImg
-src="/images/technologies/javascript_60x60.webp" format="webp" width="60" height="60"
-                                quality="90" title="Lenguaje de Programación Javascript"
-                                alt="Lenguaje de Programación Javascript" />
+                                src="/images/technologies/javascript_60x60.webp"
+                                format="webp"
+                                width="60"
+                                height="60"
+                                quality="90"
+                                title="Lenguaje de Programación Javascript"
+                                alt="Lenguaje de Programación Javascript"
+                            />
                         </StackBadgeHexagon>
 
                         <StackBadgeHexagon text="PostgreSQL" color="#336791" color-light="#68ace4">
                             <NuxtImg
-src="/images/technologies/postgresql_60x60.webp" format="webp" width="60" height="60"
-                                quality="90" title="Bases de datos PostgreSQL" alt="Bases de datos PostgreSQL" />
+                                src="/images/technologies/postgresql_60x60.webp"
+                                format="webp"
+                                width="60"
+                                height="60"
+                                quality="90"
+                                title="Bases de datos PostgreSQL"
+                                alt="Bases de datos PostgreSQL"
+                            />
                         </StackBadgeHexagon>
                     </div>
                 </div>
@@ -126,26 +177,45 @@ src="/images/technologies/postgresql_60x60.webp" format="webp" width="60" height
                         Pasión por el <span class="text-tertiary">Código Abierto</span> &amp; IoT
                     </h2>
                     <p class="text-on-surface-variant text-lg leading-relaxed mb-6">
-                        Publico mis proyectos como software libre desde 2001. Me encanta el mundo maker:
-                        estaciones meteorológicas, monitores de energía, sensores... casi siempre con
-                        Raspberry Pi o ESP32, conectados a mis propias APIs para recoger y consultar los datos.
+                        Publico mis proyectos como software libre desde 2001. Me encanta el mundo maker: estaciones
+                        meteorológicas, monitores de energía, sensores... casi siempre con Raspberry Pi o ESP32,
+                        conectados a mis propias APIs para recoger y consultar los datos.
                     </p>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-10">
-                        <div class="p-6 bg-surface-container-high rounded-lg border-l-2 border-secondary hover:bg-surface-container-highest transition-colors group">
-                            <UiMaterialIcon class="text-secondary mb-2 block group-hover:scale-110 transition-transform" name="memory" />
+                        <div
+                            class="p-6 bg-surface-container-high rounded-lg border-l-2 border-secondary hover:bg-surface-container-highest transition-colors group"
+                        >
+                            <UiMaterialIcon
+                                class="text-secondary mb-2 block group-hover:scale-110 transition-transform"
+                                name="memory"
+                            />
                             <div class="font-headline font-bold text-lg mb-1">Electrónica y Maker</div>
-                            <p class="text-sm text-outline">Microcontroladores, sensores y diseño 3D para darles una carcasa a mis inventos.</p>
+                            <p class="text-sm text-outline">
+                                Microcontroladores, sensores y diseño 3D para darles una carcasa a mis inventos.
+                            </p>
                         </div>
-                        <div class="p-6 bg-surface-container-high rounded-lg border-l-2 border-tertiary hover:bg-surface-container-highest transition-colors group">
-                            <UiMaterialIcon class="text-tertiary mb-2 block group-hover:scale-110 transition-transform" name="hub" />
+                        <div
+                            class="p-6 bg-surface-container-high rounded-lg border-l-2 border-tertiary hover:bg-surface-container-highest transition-colors group"
+                        >
+                            <UiMaterialIcon
+                                class="text-tertiary mb-2 block group-hover:scale-110 transition-transform"
+                                name="hub"
+                            />
                             <div class="font-headline font-bold text-lg mb-1">Todo Publicado</div>
-                            <p class="text-sm text-outline">Código y documentación en mis repositorios de GitLab y GitHub, por si a alguien le sirve.</p>
+                            <p class="text-sm text-outline">
+                                Código y documentación en mis repositorios de GitLab y GitHub, por si a alguien le
+                                sirve.
+                            </p>
                         </div>
                     </div>
                 </div>
                 <div class="relative group">
-                    <div class="absolute -inset-4 bg-tertiary/10 rounded-xl blur-2xl group-hover:bg-tertiary/20 transition-all"/>
-                    <div class="relative rounded-xl border border-outline-variant/30 shadow-2xl w-full aspect-[4/3] bg-surface-container-high flex items-center justify-center overflow-hidden">
+                    <div
+                        class="absolute -inset-4 bg-tertiary/10 rounded-xl blur-2xl group-hover:bg-tertiary/20 transition-all"
+                    />
+                    <div
+                        class="relative rounded-xl border border-outline-variant/30 shadow-2xl w-full aspect-[4/3] bg-surface-container-high flex items-center justify-center overflow-hidden"
+                    >
                         <UiMaterialIcon class="text-9xl text-primary/20" name="developer_board" />
                     </div>
                 </div>
@@ -156,43 +226,70 @@ src="/images/technologies/postgresql_60x60.webp" format="webp" width="60" height
         <section class="py-24 px-8 bg-surface-container-lowest">
             <div class="max-w-7xl mx-auto">
                 <div class="mb-20 text-center">
-                    <h2 class="font-headline text-3xl sm:text-4xl md:text-5xl font-black tracking-tight mb-4 break-words">ESPECIALIZACIONES</h2>
-                    <div class="w-24 h-1 bg-secondary mx-auto"/>
+                    <h2
+                        class="font-headline text-3xl sm:text-4xl md:text-5xl font-black tracking-tight mb-4 break-words"
+                    >
+                        ESPECIALIZACIONES
+                    </h2>
+                    <div class="w-24 h-1 bg-secondary mx-auto" />
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border border-outline-variant/20 rounded-xl overflow-hidden">
-                    <div class="p-10 bg-surface flex flex-col items-start group hover:bg-surface-container-low transition-colors border-b lg:border-b-0 md:border-r border-outline-variant/10">
-                        <div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                <div
+                    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border border-outline-variant/20 rounded-xl overflow-hidden"
+                >
+                    <div
+                        class="p-10 bg-surface flex flex-col items-start group hover:bg-surface-container-low transition-colors border-b lg:border-b-0 md:border-r border-outline-variant/10"
+                    >
+                        <div
+                            class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform"
+                        >
                             <UiMaterialIcon class="text-primary" name="hub" />
                         </div>
                         <h3 class="font-headline text-xl font-bold mb-4 tracking-tight">Backend con Laravel</h3>
                         <p class="text-on-surface-variant text-sm leading-relaxed mb-8">
-                            Mi especialidad: APIs REST, paneles de administración, integración de servicios y bases de datos. Desde pequeños sitios web hasta aplicaciones empresariales.
+                            Mi especialidad: APIs REST, paneles de administración, integración de servicios y bases de
+                            datos. Desde pequeños sitios web hasta aplicaciones empresariales.
                         </p>
-                        <div class="mt-auto px-4 py-1.5 border border-primary/30 rounded-full font-label text-xs tracking-widest text-primary uppercase">
+                        <div
+                            class="mt-auto px-4 py-1.5 border border-primary/30 rounded-full font-label text-xs tracking-widest text-primary uppercase"
+                        >
                             PHP · Laravel · PostgreSQL
                         </div>
                     </div>
-                    <div class="p-10 bg-surface flex flex-col items-start group hover:bg-surface-container-low transition-colors border-b md:border-b-0 lg:border-r border-outline-variant/10">
-                        <div class="w-12 h-12 rounded-lg bg-tertiary/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <div
+                        class="p-10 bg-surface flex flex-col items-start group hover:bg-surface-container-low transition-colors border-b md:border-b-0 lg:border-r border-outline-variant/10"
+                    >
+                        <div
+                            class="w-12 h-12 rounded-lg bg-tertiary/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform"
+                        >
                             <UiMaterialIcon class="text-tertiary" name="dns" />
                         </div>
                         <h3 class="font-headline text-xl font-bold mb-4 tracking-tight">IoT y Electrónica</h3>
                         <p class="text-on-surface-variant text-sm leading-relaxed mb-8">
-                            Dispositivos con Raspberry Pi, Pico y ESP32 que miden, registran y envían datos a mis APIs: meteorología, energía, sensores ambientales y otros experimentos.
+                            Dispositivos con Raspberry Pi, Pico y ESP32 que miden, registran y envían datos a mis APIs:
+                            meteorología, energía, sensores ambientales y otros experimentos.
                         </p>
-                        <div class="mt-auto px-4 py-1.5 border border-tertiary/30 rounded-full font-label text-xs tracking-widest text-tertiary uppercase">
+                        <div
+                            class="mt-auto px-4 py-1.5 border border-tertiary/30 rounded-full font-label text-xs tracking-widest text-tertiary uppercase"
+                        >
                             Python · Micropython
                         </div>
                     </div>
-                    <div class="p-10 bg-surface flex flex-col items-start group hover:bg-surface-container-low transition-colors">
-                        <div class="w-12 h-12 rounded-lg bg-secondary/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <div
+                        class="p-10 bg-surface flex flex-col items-start group hover:bg-surface-container-low transition-colors"
+                    >
+                        <div
+                            class="w-12 h-12 rounded-lg bg-secondary/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform"
+                        >
                             <UiMaterialIcon class="text-secondary" name="terminal" />
                         </div>
                         <h3 class="font-headline text-xl font-bold mb-4 tracking-tight">Sistemas y Automatización</h3>
                         <p class="text-on-surface-variant text-sm leading-relaxed mb-8">
-                            GNU/Linux desde la terminal: servidores VPS, despliegues, copias de seguridad y scripts para automatizar tareas repetitivas, en servidores y en mi día a día.
+                            GNU/Linux desde la terminal: servidores VPS, despliegues, copias de seguridad y scripts para
+                            automatizar tareas repetitivas, en servidores y en mi día a día.
                         </p>
-                        <div class="mt-auto px-4 py-1.5 border border-secondary/30 rounded-full font-label text-xs tracking-widest text-secondary uppercase">
+                        <div
+                            class="mt-auto px-4 py-1.5 border border-secondary/30 rounded-full font-label text-xs tracking-widest text-secondary uppercase"
+                        >
                             Linux · Bash · CI/CD
                         </div>
                     </div>
@@ -205,59 +302,106 @@ src="/images/technologies/postgresql_60x60.webp" format="webp" width="60" height
             <div class="max-w-7xl mx-auto">
                 <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
                     <div>
-                        <span class="font-label text-secondary tracking-widest text-xs uppercase mb-4 block">Con qué trabajo</span>
-                        <h2 class="text-4xl md:text-6xl font-headline font-black tracking-tighter">STACK TECNOLÓGICO</h2>
+                        <span class="font-label text-secondary tracking-widest text-xs uppercase mb-4 block"
+                            >Con qué trabajo</span
+                        >
+                        <h2 class="text-4xl md:text-6xl font-headline font-black tracking-tighter">
+                            STACK TECNOLÓGICO
+                        </h2>
                     </div>
                     <div class="text-right">
                         <p class="text-outline text-sm font-label uppercase tracking-widest">Aprendiendo siempre</p>
-                        <p class="text-outline-variant text-xs font-label tracking-tighter uppercase">Curioso por naturaleza</p>
+                        <p class="text-outline-variant text-xs font-label tracking-tighter uppercase">
+                            Curioso por naturaleza
+                        </p>
                     </div>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     <!-- PHP/Laravel principal -->
-                    <div class="md:col-span-2 md:row-span-2 p-10 bg-surface-container-high rounded-xl border border-outline-variant/20 flex flex-col justify-between group hover:border-primary/50 transition-all duration-500 shadow-xl">
+                    <div
+                        class="md:col-span-2 md:row-span-2 p-10 bg-surface-container-high rounded-xl border border-outline-variant/20 flex flex-col justify-between group hover:border-primary/50 transition-all duration-500 shadow-xl"
+                    >
                         <div>
                             <div class="flex items-center gap-4 mb-8">
-                                <div class="w-16 h-16 rounded-lg bg-surface-container-lowest flex items-center justify-center border border-outline-variant/30 text-primary">
+                                <div
+                                    class="w-16 h-16 rounded-lg bg-surface-container-lowest flex items-center justify-center border border-outline-variant/30 text-primary"
+                                >
                                     <UiMaterialIcon class="text-4xl" name="terminal" />
                                 </div>
                                 <h3 class="text-3xl font-headline font-bold">PHP &amp; Laravel</h3>
                             </div>
                             <p class="text-on-surface-variant text-lg leading-relaxed">
-                                El corazón de mi trabajo: APIs REST, paneles de gestión, tiendas y webs
-                                empresariales, integración de servicios (pagos, streaming, IA...) y
-                                optimización de consultas y caché. Con años de rodaje en producción.
+                                El corazón de mi trabajo: APIs REST, paneles de gestión, tiendas y webs empresariales,
+                                integración de servicios (pagos, streaming, IA...) y optimización de consultas y caché.
+                                Con años de rodaje en producción.
                             </p>
                         </div>
                         <div class="mt-8 flex flex-wrap gap-3">
-                            <span class="px-3 py-1 bg-surface-container-lowest text-primary text-[10px] font-label uppercase rounded border border-outline-variant/20">APIs REST</span>
-                            <span class="px-3 py-1 bg-surface-container-lowest text-primary text-[10px] font-label uppercase rounded border border-outline-variant/20">Paneles de gestión</span>
-                            <span class="px-3 py-1 bg-surface-container-lowest text-primary text-[10px] font-label uppercase rounded border border-outline-variant/20">Optimización SQL</span>
+                            <span
+                                class="px-3 py-1 bg-surface-container-lowest text-primary text-[10px] font-label uppercase rounded border border-outline-variant/20"
+                                >APIs REST</span
+                            >
+                            <span
+                                class="px-3 py-1 bg-surface-container-lowest text-primary text-[10px] font-label uppercase rounded border border-outline-variant/20"
+                                >Paneles de gestión</span
+                            >
+                            <span
+                                class="px-3 py-1 bg-surface-container-lowest text-primary text-[10px] font-label uppercase rounded border border-outline-variant/20"
+                                >Optimización SQL</span
+                            >
                         </div>
                     </div>
                     <!-- Python -->
-                    <div class="p-8 bg-surface-container rounded-xl border border-outline-variant/10 hover:bg-surface-container-high transition-all group">
-                        <UiMaterialIcon class="text-tertiary mb-4 block group-hover:scale-110 transition-transform" name="integration_instructions" />
+                    <div
+                        class="p-8 bg-surface-container rounded-xl border border-outline-variant/10 hover:bg-surface-container-high transition-all group"
+                    >
+                        <UiMaterialIcon
+                            class="text-tertiary mb-4 block group-hover:scale-110 transition-transform"
+                            name="integration_instructions"
+                        />
                         <h4 class="font-headline font-bold text-xl mb-2">Python</h4>
-                        <p class="text-sm text-on-surface-variant leading-relaxed">Automatización, scripts, bots y el lenguaje de mis proyectos con Raspberry Pi.</p>
+                        <p class="text-sm text-on-surface-variant leading-relaxed">
+                            Automatización, scripts, bots y el lenguaje de mis proyectos con Raspberry Pi.
+                        </p>
                     </div>
                     <!-- Vue.js -->
-                    <div class="p-8 bg-surface-container rounded-xl border border-outline-variant/10 hover:bg-surface-container-high transition-all group">
-                        <UiMaterialIcon class="text-secondary mb-4 block group-hover:scale-110 transition-transform" name="layers" />
+                    <div
+                        class="p-8 bg-surface-container rounded-xl border border-outline-variant/10 hover:bg-surface-container-high transition-all group"
+                    >
+                        <UiMaterialIcon
+                            class="text-secondary mb-4 block group-hover:scale-110 transition-transform"
+                            name="layers"
+                        />
                         <h4 class="font-headline font-bold text-xl mb-2">Vue.js</h4>
-                        <p class="text-sm text-on-surface-variant leading-relaxed">El frontend de mis proyectos, como este mismo portfolio hecho con Nuxt.</p>
+                        <p class="text-sm text-on-surface-variant leading-relaxed">
+                            El frontend de mis proyectos, como este mismo portfolio hecho con Nuxt.
+                        </p>
                     </div>
                     <!-- PostgreSQL -->
-                    <div class="p-8 bg-surface-container rounded-xl border border-outline-variant/10 hover:bg-surface-container-high transition-all group">
-                        <UiMaterialIcon class="text-primary mb-4 block group-hover:scale-110 transition-transform" name="database" />
+                    <div
+                        class="p-8 bg-surface-container rounded-xl border border-outline-variant/10 hover:bg-surface-container-high transition-all group"
+                    >
+                        <UiMaterialIcon
+                            class="text-primary mb-4 block group-hover:scale-110 transition-transform"
+                            name="database"
+                        />
                         <h4 class="font-headline font-bold text-xl mb-2">PostgreSQL</h4>
-                        <p class="text-sm text-on-surface-variant leading-relaxed">Mi base de datos preferida: diseño relacional, consultas y rendimiento.</p>
+                        <p class="text-sm text-on-surface-variant leading-relaxed">
+                            Mi base de datos preferida: diseño relacional, consultas y rendimiento.
+                        </p>
                     </div>
                     <!-- Bash & Ops -->
-                    <div class="p-8 bg-surface-container rounded-xl border border-outline-variant/10 hover:bg-surface-container-high transition-all group">
-                        <UiMaterialIcon class="text-outline mb-4 block group-hover:scale-110 transition-transform" name="settings_ethernet" />
+                    <div
+                        class="p-8 bg-surface-container rounded-xl border border-outline-variant/10 hover:bg-surface-container-high transition-all group"
+                    >
+                        <UiMaterialIcon
+                            class="text-outline mb-4 block group-hover:scale-110 transition-transform"
+                            name="settings_ethernet"
+                        />
                         <h4 class="font-headline font-bold text-xl mb-2">Bash &amp; Ops</h4>
-                        <p class="text-sm text-on-surface-variant leading-relaxed">Administración de servidores, despliegues automatizados y scripting.</p>
+                        <p class="text-sm text-on-surface-variant leading-relaxed">
+                            Administración de servidores, despliegues automatizados y scripting.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -265,14 +409,16 @@ src="/images/technologies/postgresql_60x60.webp" format="webp" width="60" height
 
         <!-- ===== CTA ===== -->
         <section class="py-32 px-8 relative">
-            <div class="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary/5 via-transparent to-transparent"/>
+            <div
+                class="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary/5 via-transparent to-transparent"
+            />
             <div class="max-w-4xl mx-auto text-center relative z-10">
                 <h2 class="font-headline text-4xl md:text-6xl font-bold tracking-tighter mb-8 leading-tight">
                     ¿Te interesa algo de lo que hago? <span class="italic text-primary">Hablemos</span>
                 </h2>
                 <p class="text-on-surface-variant text-lg mb-10 max-w-2xl mx-auto">
-                    Si tienes alguna duda sobre mis proyectos, quieres comentarme una idea
-                    o simplemente saludar, puedes escribirme cuando quieras.
+                    Si tienes alguna duda sobre mis proyectos, quieres comentarme una idea o simplemente saludar, puedes
+                    escribirme cuando quieras.
                 </p>
                 <div class="flex flex-col md:flex-row gap-6 justify-center items-center">
                     <NuxtLink
@@ -283,7 +429,11 @@ src="/images/technologies/postgresql_60x60.webp" format="webp" width="60" height
                     </NuxtLink>
                     <div class="flex items-center gap-4 px-6 py-4 border border-outline-variant/30 rounded glass-panel">
                         <UiMaterialIcon class="text-tertiary" name="alternate_email" />
-                        <a href="mailto:public@raupulus.dev" class="font-label text-sm text-on-surface-variant hover:text-primary transition-colors select-all">public@raupulus.dev</a>
+                        <a
+                            href="mailto:public@raupulus.dev"
+                            class="font-label text-sm text-on-surface-variant hover:text-primary transition-colors select-all"
+                            >public@raupulus.dev</a
+                        >
                     </div>
                 </div>
             </div>
@@ -294,8 +444,10 @@ src="/images/technologies/postgresql_60x60.webp" format="webp" width="60" height
             <div class="max-w-7xl mx-auto">
                 <div class="block text-center">
                     <div class="mb-12">
-                        <h2 class="font-headline text-4xl md:text-5xl font-bold tracking-tighter text-center mb-4">Redes Sociales</h2>
-                        <div class="w-24 h-1 bg-tertiary mx-auto"/>
+                        <h2 class="font-headline text-4xl md:text-5xl font-bold tracking-tighter text-center mb-4">
+                            Redes Sociales
+                        </h2>
+                        <div class="w-24 h-1 bg-tertiary mx-auto" />
                     </div>
 
                     <div class="flex flex-wrap justify-center gap-6 md:gap-8">
@@ -314,50 +466,59 @@ src="/images/technologies/postgresql_60x60.webp" format="webp" width="60" height
 </template>
 
 <script setup lang="ts">
-const config = useRuntimeConfig()
-const url = config.public.app.url
+    const config = useRuntimeConfig();
+    const url = config.public.app.url;
 
-// SEO de la página principal
-useHead({
-    title: 'Raúl Caro Pastorino - Desarrollador Web Backend',
-    meta: [
-        { name: 'description', content: 'Portfolio de Raúl Caro Pastorino (@raupulus), Desarrollador Web Backend especializado en PHP/Laravel, IoT, Python y sistemas distribuidos.' },
-        { name: 'keywords', content: 'Raúl Caro Pastorino, raupulus, desarrollador web, backend, PHP, Laravel, IoT, Python, Vue.js' },
-        { name: 'robots', content: 'index, follow' },
-        { property: 'og:type', content: 'website' },
-        { property: 'og:title', content: 'Raúl Caro Pastorino - Desarrollador Web Backend' },
-        { property: 'og:description', content: 'Portfolio de Raúl Caro Pastorino (@raupulus), Desarrollador Web Backend especializado en PHP/Laravel, IoT, Python y sistemas distribuidos.' },
-    ],
-    link: [
-        { rel: 'canonical', href: `${url}/` },
-    ],
-    script: [
-        {
-            type: 'application/ld+json',
-            innerHTML: JSON.stringify({
-                '@context': 'https://schema.org',
-                '@type': 'ProfilePage',
-                name: 'Raúl Caro Pastorino - Desarrollador Web Backend',
-                url: `${url}/`,
-                mainEntity: {
-                    '@type': 'Person',
-                    name: 'Raúl Caro Pastorino',
-                    alternateName: 'raupulus',
-                    jobTitle: 'Desarrollador Web Backend & IoT',
+    // SEO de la página principal
+    useHead({
+        title: 'Raúl Caro Pastorino - Desarrollador Web Backend',
+        meta: [
+            {
+                name: 'description',
+                content:
+                    'Portfolio de Raúl Caro Pastorino (@raupulus), Desarrollador Web Backend especializado en PHP/Laravel, IoT, Python y sistemas distribuidos.',
+            },
+            {
+                name: 'keywords',
+                content: 'Raúl Caro Pastorino, raupulus, desarrollador web, backend, PHP, Laravel, IoT, Python, Vue.js',
+            },
+            { name: 'robots', content: 'index, follow' },
+            { property: 'og:type', content: 'website' },
+            { property: 'og:title', content: 'Raúl Caro Pastorino - Desarrollador Web Backend' },
+            {
+                property: 'og:description',
+                content:
+                    'Portfolio de Raúl Caro Pastorino (@raupulus), Desarrollador Web Backend especializado en PHP/Laravel, IoT, Python y sistemas distribuidos.',
+            },
+        ],
+        link: [{ rel: 'canonical', href: `${url}/` }],
+        script: [
+            {
+                type: 'application/ld+json',
+                innerHTML: JSON.stringify({
+                    '@context': 'https://schema.org',
+                    '@type': 'ProfilePage',
+                    name: 'Raúl Caro Pastorino - Desarrollador Web Backend',
                     url: `${url}/`,
-                    email: 'public@raupulus.dev',
-                    sameAs: [
-                        'https://github.com/raupulus',
-                        'https://gitlab.com/raupulus',
-                        'https://www.linkedin.com/in/raulcaropastorino',
-                        'https://twitter.com/raupulus',
-                        'https://mastodon.online/@raupulus',
-                        'https://www.youtube.com/@raupulus',
-                        'https://t.me/raupulus_diffusion',
-                    ],
-                },
-            }),
-        },
-    ],
-})
+                    mainEntity: {
+                        '@type': 'Person',
+                        name: 'Raúl Caro Pastorino',
+                        alternateName: 'raupulus',
+                        jobTitle: 'Desarrollador Web Backend & IoT',
+                        url: `${url}/`,
+                        email: 'public@raupulus.dev',
+                        sameAs: [
+                            'https://github.com/raupulus',
+                            'https://gitlab.com/raupulus',
+                            'https://www.linkedin.com/in/raulcaropastorino',
+                            'https://twitter.com/raupulus',
+                            'https://mastodon.online/@raupulus',
+                            'https://www.youtube.com/@raupulus',
+                            'https://t.me/raupulus_diffusion',
+                        ],
+                    },
+                }),
+            },
+        ],
+    });
 </script>

@@ -20,9 +20,11 @@
                     :key="link.to"
                     :to="link.to"
                     class="font-headline tracking-tight text-sm font-bold uppercase transition-colors"
-                    :class="isActiveRoute(link.to)
-                        ? 'text-primary border-b-2 border-primary pb-1'
-                        : 'text-on-surface-variant hover:text-primary'"
+                    :class="
+                        isActiveRoute(link.to)
+                            ? 'text-primary border-b-2 border-primary pb-1'
+                            : 'text-on-surface-variant hover:text-primary'
+                    "
                 >
                     {{ link.label }}
                 </NuxtLink>
@@ -81,71 +83,71 @@
 </template>
 
 <script setup lang="ts">
-// Enlace de navegación
-interface NavLink {
-    to: string
-    label: string
-}
-
-// Rutas de navegación principal con barra final (U-SEO-002)
-// El enlace a /contact/ va como botón CTA propio en el header
-// Blog se excluye del menú principal hasta que cuente con contenido real publicado (U-UX-001)
-const navLinks: NavLink[] = [
-    { to: '/', label: 'Inicio' },
-    { to: '/projects/', label: 'Proyectos' },
-    { to: '/about/', label: 'Sobre Mí' },
-    { to: '/webs/', label: 'Webs' },
-    { to: '/social/', label: 'Social' },
-]
-
-const route = useRoute()
-const isScrolled = ref(false)
-const isMobileMenuOpen = ref(false)
-const mobileMenuButton = ref<HTMLButtonElement | null>(null)
-
-// Detecta si la ruta actual coincide con el enlace
-const isActiveRoute = (path: string): boolean => {
-    if (path === '/') return route.path === '/' || route.path === ''
-    const normalizedPath = path.replace(/\/$/, '')
-    const normalizedCurrent = route.path.replace(/\/$/, '')
-    return normalizedCurrent === normalizedPath || normalizedCurrent.startsWith(normalizedPath + '/')
-}
-
-// Alterna el menú móvil
-const toggleMobileMenu = () => {
-    isMobileMenuOpen.value = !isMobileMenuOpen.value
-}
-
-// Gestión de accesibilidad con tecla Escape y detección de scroll
-onMounted(() => {
-    const handleScroll = () => {
-        isScrolled.value = window.scrollY > 20
-    }
-    const handleKeyDown = (e: KeyboardEvent) => {
-        if (e.key === 'Escape' && isMobileMenuOpen.value) {
-            isMobileMenuOpen.value = false
-            mobileMenuButton.value?.focus()
-        }
+    // Enlace de navegación
+    interface NavLink {
+        to: string;
+        label: string;
     }
 
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    window.addEventListener('keydown', handleKeyDown)
+    // Rutas de navegación principal con barra final (U-SEO-002)
+    // El enlace a /contact/ va como botón CTA propio en el header
+    // Blog se excluye del menú principal hasta que cuente con contenido real publicado (U-UX-001)
+    const navLinks: NavLink[] = [
+        { to: '/', label: 'Inicio' },
+        { to: '/projects/', label: 'Proyectos' },
+        { to: '/about/', label: 'Sobre Mí' },
+        { to: '/webs/', label: 'Webs' },
+        { to: '/social/', label: 'Social' },
+    ];
 
-    onUnmounted(() => {
-        window.removeEventListener('scroll', handleScroll)
-        window.removeEventListener('keydown', handleKeyDown)
-    })
-})
+    const route = useRoute();
+    const isScrolled = ref(false);
+    const isMobileMenuOpen = ref(false);
+    const mobileMenuButton = ref<HTMLButtonElement | null>(null);
+
+    // Detecta si la ruta actual coincide con el enlace
+    const isActiveRoute = (path: string): boolean => {
+        if (path === '/') return route.path === '/' || route.path === '';
+        const normalizedPath = path.replace(/\/$/, '');
+        const normalizedCurrent = route.path.replace(/\/$/, '');
+        return normalizedCurrent === normalizedPath || normalizedCurrent.startsWith(normalizedPath + '/');
+    };
+
+    // Alterna el menú móvil
+    const toggleMobileMenu = () => {
+        isMobileMenuOpen.value = !isMobileMenuOpen.value;
+    };
+
+    // Gestión de accesibilidad con tecla Escape y detección de scroll
+    onMounted(() => {
+        const handleScroll = () => {
+            isScrolled.value = window.scrollY > 20;
+        };
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === 'Escape' && isMobileMenuOpen.value) {
+                isMobileMenuOpen.value = false;
+                mobileMenuButton.value?.focus();
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        window.addEventListener('keydown', handleKeyDown);
+
+        onUnmounted(() => {
+            window.removeEventListener('scroll', handleScroll);
+            window.removeEventListener('keydown', handleKeyDown);
+        });
+    });
 </script>
 
 <style scoped>
-.slide-down-enter-active,
-.slide-down-leave-active {
-    transition: all 0.3s ease;
-}
-.slide-down-enter-from,
-.slide-down-leave-to {
-    opacity: 0;
-    transform: translateY(-10px);
-}
+    .slide-down-enter-active,
+    .slide-down-leave-active {
+        transition: all 0.3s ease;
+    }
+    .slide-down-enter-from,
+    .slide-down-leave-to {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
 </style>

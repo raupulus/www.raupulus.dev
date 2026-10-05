@@ -16,9 +16,9 @@ Proporciona información completa, transparente y detallada sobre las cookies ut
 
 1. **Definición y finalidad de las cookies**: explicación clara y accesible para el usuario.
 2. **Tipos de cookies utilizadas**:
-   - **Técnicas / Necesarias**: `ncc_c`, `ncc_e` del módulo de cookies (duración 1 año).
-   - **Analíticas (opcionales)**: `_ga`, `_gid` de Google Analytics 4 (sujetas a consentimiento explícito).
+    - **Técnicas / Necesarias**: `ncc_c`, `ncc_e` del módulo de cookies (duración 1 año).
+    - **Analíticas (opcionales)**: `_ga`, `_gid` de Google Analytics 4 (sujetas a consentimiento explícito).
 3. **Gestión y revocación**:
-   - Botón directo para reabrir el modal de preferencias (`useCookieControl().isModalActive = true`).
-   - Instrucciones para configurar o bloquear cookies en los principales navegadores (Chrome, Firefox, Safari, Edge).
+    - Botón directo para reabrir el modal de preferencias (`useCookieControl().isModalActive = true`).
+    - Instrucciones para configurar o bloquear cookies en los principales navegadores (Chrome, Firefox, Safari, Edge).
 4. **Transferencias internacionales**: advertencia sobre Google LLC y marco EU-US Data Privacy Framework.

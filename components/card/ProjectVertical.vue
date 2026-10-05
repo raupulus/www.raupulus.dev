@@ -1,23 +1,23 @@
 <script lang="ts" setup>
-import type { ContentType } from '@/types/ContentType'
+    import type { ContentType } from '@/types/ContentType';
 
-const props = defineProps({
-    data: {
-        type: Object as PropType<ContentType>,
-        required: true
-    },
-})
+    const props = defineProps({
+        data: {
+            type: Object as PropType<ContentType>,
+            required: true,
+        },
+    });
 
-// Carga progresiva de imagen: primero la miniatura pequeña, luego la grande
-// (no el original: puede pesar varios MB). Se usa <img> y no <NuxtImg>: las
-// miniaturas ya vienen optimizadas en webp desde la API y, en el build
-// estático, IPX reescribe la URL remota contra el dominio de la web (404).
-const currentImgSrc = ref(imageUrl(props.data.image, 'small'))
-const onImageLoaded = () => {
-    currentImgSrc.value = imageUrl(props.data.image, 'large')
-}
+    // Carga progresiva de imagen: primero la miniatura pequeña, luego la grande
+    // (no el original: puede pesar varios MB). Se usa <img> y no <NuxtImg>: las
+    // miniaturas ya vienen optimizadas en webp desde la API y, en el build
+    // estático, IPX reescribe la URL remota contra el dominio de la web (404).
+    const currentImgSrc = ref(imageUrl(props.data.image, 'small'));
+    const onImageLoaded = () => {
+        currentImgSrc.value = imageUrl(props.data.image, 'large');
+    };
 
-const publishedAt = computed(() => formatDate(props.data.published_at ?? props.data.created_at))
+    const publishedAt = computed(() => formatDate(props.data.published_at ?? props.data.created_at));
 </script>
 
 <template>
@@ -37,7 +37,7 @@ const publishedAt = computed(() => formatDate(props.data.published_at ?? props.d
                 :title="data.title"
                 class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 @load="onImageLoaded"
-            >
+            />
             <!-- Overlay con tecnologías -->
             <div class="absolute bottom-0 left-0 right-0 p-3 flex flex-wrap gap-1 justify-end pointer-events-none">
                 <template v-for="technology in data.technologies" :key="technology.slug">
@@ -63,8 +63,13 @@ const publishedAt = computed(() => formatDate(props.data.published_at ?? props.d
             </div>
 
             <!-- Título -->
-            <h3 class="font-headline text-lg font-bold text-on-surface group-hover:text-primary transition-colors mb-3 line-clamp-2">
-                <NuxtLink :to="`/projects/${data.slug}/`" class="after:absolute after:inset-0 after:z-0 focus:outline-none focus-visible:underline">
+            <h3
+                class="font-headline text-lg font-bold text-on-surface group-hover:text-primary transition-colors mb-3 line-clamp-2"
+            >
+                <NuxtLink
+                    :to="`/projects/${data.slug}/`"
+                    class="after:absolute after:inset-0 after:z-0 focus:outline-none focus-visible:underline"
+                >
                     {{ data.title }}
                 </NuxtLink>
             </h3>
@@ -76,22 +81,87 @@ const publishedAt = computed(() => formatDate(props.data.published_at ?? props.d
 
             <!-- Botón ver proyecto -->
             <div class="pt-4 border-t border-outline-variant/10 flex items-center justify-between">
-                <span class="font-label text-xs font-bold text-primary uppercase tracking-widest flex items-center gap-2 group-hover:gap-3 transition-all pointer-events-none">
+                <span
+                    class="font-label text-xs font-bold text-primary uppercase tracking-widest flex items-center gap-2 group-hover:gap-3 transition-all pointer-events-none"
+                >
                     Ver Proyecto
                     <UiMaterialIcon class="text-sm" name="arrow_forward" />
                 </span>
 
                 <!-- Links externos del footer -->
                 <div v-if="data.metadata" class="relative z-10 flex items-center gap-2">
-                    <IconsYoutube v-if="data.metadata.youtube" :margin="0" :url="data.metadata.youtube" :grayscale="true" display="block" :legacy="true" />
-                    <IconsEarth v-if="data.metadata.web" :margin="0" :url="data.metadata.web" :grayscale="true" display="block" :legacy="true" />
-                    <IconsTwitter v-if="data.metadata.twitter" :margin="0" :url="data.metadata.twitter" :grayscale="true" display="block" :legacy="true" />
-                    <IconsGitlab v-if="data.metadata.gitlab" :margin="0" :url="data.metadata.gitlab" :grayscale="true" display="block" :legacy="true" />
-                    <IconsTelegram v-if="data.metadata.telegram_channel" :margin="0" :url="data.metadata.telegram_channel" :grayscale="true" display="block" :legacy="true" />
-                    <IconsGithub v-if="data.metadata.github" :margin="0" :url="data.metadata.github" :grayscale="true" display="block" :legacy="true" />
-                    <IconsLinkedin v-if="data.metadata.linkedin" :margin="0" :url="data.metadata.linkedin" :grayscale="true" display="block" :legacy="true" />
-                    <IconsMastodon v-if="data.metadata.mastodon" :margin="0" :url="data.metadata.mastodon" :grayscale="true" display="block" :legacy="true" />
-                    <IconsTwitch v-if="data.metadata.twitch" :margin="0" :url="data.metadata.twitch" :grayscale="true" display="block" :legacy="true" />
+                    <IconsYoutube
+                        v-if="data.metadata.youtube"
+                        :margin="0"
+                        :url="data.metadata.youtube"
+                        :grayscale="true"
+                        display="block"
+                        :legacy="true"
+                    />
+                    <IconsEarth
+                        v-if="data.metadata.web"
+                        :margin="0"
+                        :url="data.metadata.web"
+                        :grayscale="true"
+                        display="block"
+                        :legacy="true"
+                    />
+                    <IconsTwitter
+                        v-if="data.metadata.twitter"
+                        :margin="0"
+                        :url="data.metadata.twitter"
+                        :grayscale="true"
+                        display="block"
+                        :legacy="true"
+                    />
+                    <IconsGitlab
+                        v-if="data.metadata.gitlab"
+                        :margin="0"
+                        :url="data.metadata.gitlab"
+                        :grayscale="true"
+                        display="block"
+                        :legacy="true"
+                    />
+                    <IconsTelegram
+                        v-if="data.metadata.telegram_channel"
+                        :margin="0"
+                        :url="data.metadata.telegram_channel"
+                        :grayscale="true"
+                        display="block"
+                        :legacy="true"
+                    />
+                    <IconsGithub
+                        v-if="data.metadata.github"
+                        :margin="0"
+                        :url="data.metadata.github"
+                        :grayscale="true"
+                        display="block"
+                        :legacy="true"
+                    />
+                    <IconsLinkedin
+                        v-if="data.metadata.linkedin"
+                        :margin="0"
+                        :url="data.metadata.linkedin"
+                        :grayscale="true"
+                        display="block"
+                        :legacy="true"
+                    />
+                    <IconsMastodon
+                        v-if="data.metadata.mastodon"
+                        :margin="0"
+                        :url="data.metadata.mastodon"
+                        :grayscale="true"
+                        display="block"
+                        :legacy="true"
+                    />
+                    <IconsTwitch
+                        v-if="data.metadata.twitch"
+                        :margin="0"
+                        :url="data.metadata.twitch"
+                        :grayscale="true"
+                        display="block"
+                        :legacy="true"
+                    />
                 </div>
             </div>
         </div>

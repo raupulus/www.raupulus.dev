@@ -8,9 +8,9 @@ Página informativa obligatoria según el artículo 13 del RGPD que detalla los 
 
 ## Archivos principales
 
-| Archivo | Rol |
-|---------|-----|
-| `pages/privacy.vue` | Página principal de política de privacidad |
+| Archivo                     | Rol                                        |
+| --------------------------- | ------------------------------------------ |
+| `pages/privacy.vue`         | Página principal de política de privacidad |
 | `components/app/Footer.vue` | Enlace canónico en el footer (`/privacy/`) |
 
 ## Ruta y SEO
@@ -23,8 +23,8 @@ Página informativa obligatoria según el artículo 13 del RGPD que detalla los 
 
 1. **Responsable del tratamiento**: identificación de Raúl Caro Pastorino y canal de contacto (`public@raupulus.dev`).
 2. **Finalidad y legitimación**:
-   - Gestión de consultas mediante formulario de contacto: base de consentimiento explícito e interés legítimo precontractual (Art. 6.1.a y 6.1.b RGPD).
-   - Analítica web agregada mediante Google Analytics: base de consentimiento previo (Art. 6.1.a RGPD).
+    - Gestión de consultas mediante formulario de contacto: base de consentimiento explícito e interés legítimo precontractual (Art. 6.1.a y 6.1.b RGPD).
+    - Analítica web agregada mediante Google Analytics: base de consentimiento previo (Art. 6.1.a RGPD).
 3. **Plazos de conservación de los datos**: criterios de retención conforme a prescripción de responsabilidades legales.
 4. **Destinatarios y transferencias internacionales**: proveedores de infraestructura, Cloudflare y Google LLC bajo el EU-US Data Privacy Framework.
 5. **Derechos de las personas interesadas (ARCO-POL)**: acceso, rectificación, supresión, oposición, limitación y portabilidad mediante correo a `public@raupulus.dev`, con derecho a reclamar ante la AEPD (`www.aepd.es`).

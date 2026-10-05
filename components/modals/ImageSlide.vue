@@ -8,10 +8,13 @@
         aria-label="Visor de galería de imágenes"
         @click.self="closeModal"
     >
-        <div class="relative flex flex-col w-full max-w-6xl max-h-full bg-surface-container-low border border-outline-variant/30 rounded-xl overflow-hidden shadow-2xl">
-
+        <div
+            class="relative flex flex-col w-full max-w-6xl max-h-full bg-surface-container-low border border-outline-variant/30 rounded-xl overflow-hidden shadow-2xl"
+        >
             <!-- Barra superior: contador y cerrar -->
-            <div class="flex items-center justify-between px-5 py-3 border-b border-outline-variant/20 bg-surface-container-high">
+            <div
+                class="flex items-center justify-between px-5 py-3 border-b border-outline-variant/20 bg-surface-container-high"
+            >
                 <span class="font-label text-xs tracking-widest uppercase text-outline">
                     Galería · <span class="text-tertiary">{{ currentIndex + 1 }}</span> / {{ galleryPaths.length }}
                 </span>
@@ -61,9 +64,11 @@
                         :key="index"
                         type="button"
                         class="shrink-0 rounded-lg overflow-hidden border-2 transition-all"
-                        :class="index === currentIndex
-                            ? 'border-primary opacity-100'
-                            : 'border-transparent opacity-50 hover:opacity-100'"
+                        :class="
+                            index === currentIndex
+                                ? 'border-primary opacity-100'
+                                : 'border-transparent opacity-50 hover:opacity-100'
+                        "
                         :aria-label="'Ver imagen ' + (index + 1)"
                         :aria-current="index === currentIndex ? 'true' : undefined"
                         @click="selectImage(index)"
@@ -84,82 +89,85 @@
 </template>
 
 <script lang="ts" setup>
-import { toRef } from 'vue';
-import type { GalleryPathType } from '@/types/GalleryPathType';
+    import { toRef } from 'vue';
+    import type { GalleryPathType } from '@/types/GalleryPathType';
 
-const props = defineProps({
-    show: {
-        type: Boolean,
-        required: true,
-    },
-    galleryPaths: {
-        type: Array as PropType<GalleryPathType[]>,
-        default: () => [],
-    },
-    selectedIndex: {
-        type: Number,
-        default: 0,
-    },
-});
+    const props = defineProps({
+        show: {
+            type: Boolean,
+            required: true,
+        },
+        galleryPaths: {
+            type: Array as PropType<GalleryPathType[]>,
+            default: () => [],
+        },
+        selectedIndex: {
+            type: Number,
+            default: 0,
+        },
+    });
 
-const emit = defineEmits(['update:show']);
+    const emit = defineEmits(['update:show']);
 
-const modalRef = ref<HTMLElement | null>(null);
-useModalAccessibility(toRef(props, 'show'), modalRef);
+    const modalRef = ref<HTMLElement | null>(null);
+    useModalAccessibility(toRef(props, 'show'), modalRef);
 
-const currentIndex = ref<number>(props.selectedIndex);
-const currentImage = computed(() => props.galleryPaths[currentIndex.value]);
-const thumbnailsRef = ref<HTMLElement | null>(null);
+    const currentIndex = ref<number>(props.selectedIndex);
+    const currentImage = computed(() => props.galleryPaths[currentIndex.value]);
+    const thumbnailsRef = ref<HTMLElement | null>(null);
 
-watch(() => props.selectedIndex, (newIndex) => {
-    currentIndex.value = newIndex;
-});
+    watch(
+        () => props.selectedIndex,
+        (newIndex) => {
+            currentIndex.value = newIndex;
+        },
+    );
 
-// Mantiene visible la miniatura activa al navegar
-watch(currentIndex, async () => {
-    await nextTick();
-    const container = thumbnailsRef.value;
-    const active = container?.children[currentIndex.value] as HTMLElement | undefined;
-    active?.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' });
-});
+    // Mantiene visible la miniatura activa al navegar
+    watch(currentIndex, async () => {
+        await nextTick();
+        const container = thumbnailsRef.value;
+        const active = container?.children[currentIndex.value] as HTMLElement | undefined;
+        active?.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' });
+    });
 
-const closeModal = () => {
-    emit('update:show', false);
-};
+    const closeModal = () => {
+        emit('update:show', false);
+    };
 
-const selectImage = (index: number) => {
-    currentIndex.value = index;
-};
+    const selectImage = (index: number) => {
+        currentIndex.value = index;
+    };
 
-const previousImage = () => {
-    if (currentIndex.value > 0) {
-        currentIndex.value -= 1;
-    }
-};
-
-const nextImage = () => {
-    if (currentIndex.value < props.galleryPaths.length - 1) {
-        currentIndex.value += 1;
-    }
-};
-
-const handleKeydown = (event: KeyboardEvent) => {
-    if (props.show) {
-        if (event.key === 'Escape') {
-            closeModal();
-        } else if (event.key === 'ArrowLeft') {
-            previousImage();
-        } else if (event.key === 'ArrowRight') {
-            nextImage();
+    const previousImage = () => {
+        if (currentIndex.value > 0) {
+            currentIndex.value -= 1;
         }
-    }
-};
+    };
 
-onMounted(() => {
-    window.addEventListener('keydown', handleKeydown);
-});
+    const nextImage = () => {
+        if (currentIndex.value < props.galleryPaths.length - 1) {
+            currentIndex.value += 1;
+        }
+    };
 
-onBeforeUnmount(() => {
-    window.removeEventListener('keydown', handleKeydown);
-});
+    const handleKeydown = (event: KeyboardEvent) => {
+        if (props.show) {
+            if (event.key === 'Escape') {
+                closeModal();
+            } else if (event.key === 'ArrowLeft') {
+                previousImage();
+            } else if (event.key === 'ArrowRight') {
+                nextImage();
+            }
+        }
+    };
+
+    onMounted(() => {
+        window.addEventListener('keydown', handleKeydown);
+    });
+
+    onBeforeUnmount(() => {
+        window.removeEventListener('keydown', handleKeydown);
+    });
 </script>

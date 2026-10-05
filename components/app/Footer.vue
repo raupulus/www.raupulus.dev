@@ -53,9 +53,9 @@
 </template>
 
 <script setup lang="ts">
-// Año actual para el copyright: fijado con base de compilación e hidratación cliente segura
-const currentYear = ref(2026)
-onMounted(() => {
-    currentYear.value = new Date().getFullYear()
-})
+    // Año actual para el copyright: fijado con base de compilación e hidratación cliente segura
+    const currentYear = ref(2026);
+    onMounted(() => {
+        currentYear.value = new Date().getFullYear();
+    });
 </script>

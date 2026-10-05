@@ -4,16 +4,16 @@ Lógica reutilizable del proyecto encapsulada en composables de Nuxt. Todos se a
 
 ## Índice
 
-| Archivo | Exporta | Descripción |
-|---------|---------|-------------|
-| `projectsData.ts` | `useProjectsData()`, `projectsDataSearch()`, `useGetProjectBySlug()`, `usefetchProjectsPaginated()` | Gestión completa de datos de proyectos |
-| `fetchPageData.ts` | `usePageData()`, `getPageData()`, `setCurrentPage()` | Página actual del proyecto abierto en el modal |
-| `fetchPostData.ts` | `fetchPost()`, `fetchCsrfToken()` | Peticiones POST con CSRF token |
-| `platformData.ts` | `usePlatformData()`, `getPlatformData()` | Datos globales de la plataforma |
-| `states.ts` | `useScrollDisabled()` | Estado global para bloqueo de scroll |
-| `useApiBase.ts` | `useApiBase()`, `useApiDomain()` | URL base / dominio de la API según contexto de ejecución |
-| `useGoogleRecaptcha.ts` | `useGoogleRecaptcha()`, `RecaptchaAction` | Wrapper de Google reCAPTCHA v3 |
-| `useModalAccessibility.ts` | `useModalAccessibility(isOpen, modalRef)` | Gestión de accesibilidad modal (bloqueo de scroll, trampa de foco y restauración) |
+| Archivo                    | Exporta                                                                                             | Descripción                                                                       |
+| -------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| `projectsData.ts`          | `useProjectsData()`, `projectsDataSearch()`, `useGetProjectBySlug()`, `usefetchProjectsPaginated()` | Gestión completa de datos de proyectos                                            |
+| `fetchPageData.ts`         | `usePageData()`, `getPageData()`, `setCurrentPage()`                                                | Página actual del proyecto abierto en el modal                                    |
+| `fetchPostData.ts`         | `fetchPost()`, `fetchCsrfToken()`                                                                   | Peticiones POST con CSRF token                                                    |
+| `platformData.ts`          | `usePlatformData()`, `getPlatformData()`                                                            | Datos globales de la plataforma                                                   |
+| `states.ts`                | `useScrollDisabled()`                                                                               | Estado global para bloqueo de scroll                                              |
+| `useApiBase.ts`            | `useApiBase()`, `useApiDomain()`                                                                    | URL base / dominio de la API según contexto de ejecución                          |
+| `useGoogleRecaptcha.ts`    | `useGoogleRecaptcha()`, `RecaptchaAction`                                                           | Wrapper de Google reCAPTCHA v3                                                    |
+| `useModalAccessibility.ts` | `useModalAccessibility(isOpen, modalRef)`                                                           | Gestión de accesibilidad modal (bloqueo de scroll, trampa de foco y restauración) |
 
 Todos consumen la **API V2** (`/api/v2`). Las respuestas llegan en el envelope
 `{ success, message, data, meta?, errors? }` (`ApiResponseType<T>`); el slug de la
@@ -25,11 +25,11 @@ plataforma es la constante `PLATFORM_SLUG = 'portfolio'` (`utils/ContentUtils.ts
 
 `useApiBase()` devuelve la URL base (`.../api/v2`) según el contexto:
 
-| Contexto | URL devuelta |
-|----------|-------------|
-| **Server-side** (SSR/SSG) | `runtimeConfig.public.api.base` (URL directa, sin CORS) |
+| Contexto                   | URL devuelta                                                                            |
+| -------------------------- | --------------------------------------------------------------------------------------- |
+| **Server-side** (SSR/SSG)  | `runtimeConfig.public.api.base` (URL directa, sin CORS)                                 |
 | **Client-side desarrollo** | `/_proxy` + ruta de `API_BASE_URL` (ej. `/_proxy/api/v2`), proxy local para evitar CORS |
-| **Client-side producción** | `runtimeConfig.public.api.base` (API tiene CORS configurado) |
+| **Client-side producción** | `runtimeConfig.public.api.base` (API tiene CORS configurado)                            |
 
 `useApiDomain()` devuelve el dominio de la API (sin `/api/v2`) con el mismo criterio
 (`/_proxy` en cliente de desarrollo), para rutas fuera del grupo `api` como
@@ -42,6 +42,7 @@ plataforma es la constante `PLATFORM_SLUG = 'portfolio'` (`utils/ContentUtils.ts
 Carga la ficha de la plataforma desde `GET /platforms/portfolio`. Se cachea en `useState('platformData')` y no recarga si ya hay datos.
 
 **Retorna**: `Ref<PlatformDataType | undefined>` con:
+
 - `technologies: TechnologyType[]` — tecnologías de los proyectos publicados (filtro de proyectos)
 - `contents: ContentResumeType` — total de contenidos publicados y por tipo
 - `pages: ContentPageResumeType[]` — contenidos de tipo `page` de la plataforma
@@ -59,12 +60,12 @@ Endpoint: `GET /platforms/portfolio/contents?type=project&page=&per_page=`.
 
 ### Estado (useState)
 
-| Key | Tipo | Descripción |
-|-----|------|-------------|
-| `'projectsData'` | `{ contents?: ContentType[], meta?: ApiMetaType }` | Proyectos cargados y paginación de la API |
-| `'projectsCurrentPage'` | `number` | Página actual |
-| `'projectsHasMore'` | `boolean` | Si hay más páginas (`meta.current_page < meta.last_page`) |
-| `'projectsLoading'` | `boolean` | Si está cargando |
+| Key                     | Tipo                                               | Descripción                                               |
+| ----------------------- | -------------------------------------------------- | --------------------------------------------------------- |
+| `'projectsData'`        | `{ contents?: ContentType[], meta?: ApiMetaType }` | Proyectos cargados y paginación de la API                 |
+| `'projectsCurrentPage'` | `number`                                           | Página actual                                             |
+| `'projectsHasMore'`     | `boolean`                                          | Si hay más páginas (`meta.current_page < meta.last_page`) |
+| `'projectsLoading'`     | `boolean`                                          | Si está cargando                                          |
 
 ### Retorna
 
@@ -136,8 +137,8 @@ Wrapper sobre `vue-recaptcha-v3`:
 
 ```typescript
 class RecaptchaAction {
-  static readonly login = new RecaptchaAction('login');
-  static readonly contact = new RecaptchaAction('contact');
+    static readonly login = new RecaptchaAction('login');
+    static readonly contact = new RecaptchaAction('contact');
 }
 ```
 
@@ -148,6 +149,7 @@ class RecaptchaAction {
 ## `useModalAccessibility()` — Accesibilidad para diálogos y modales (WCAG 2.1 AA)
 
 Composable que asegura el cumplimiento de accesibilidad en elementos de diálogo:
+
 1. **Bloqueo de scroll**: cuando `isOpen` es `true`, bloquea el desplazamiento del fondo (`document.body.style.overflow = 'hidden'`) y lo restaura al cerrarse.
 2. **Trampa de foco (Focus Trap)**: intercepta la navegación con tecla `Tab` / `Shift+Tab` para mantener el foco exclusivamente dentro de los elementos interactivos del modal.
 3. **Restauración de foco**: al abrir el modal guarda el elemento que tenía el foco activo y, tras cerrarse, devuelve el foco automáticamente a dicho elemento.
