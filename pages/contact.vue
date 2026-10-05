@@ -1,5 +1,4 @@
 <script setup lang="ts">
-    import useGoogleRecaptcha, { RecaptchaAction } from '~/composables/useGoogleRecaptcha';
     import fetchPost from '@/composables/fetchPostData';
 
     const runtimeConfig = useRuntimeConfig();
@@ -51,22 +50,14 @@
     const apiBase = useApiBase();
     const API_PATH_CONTACT: string = runtimeConfig.public.api.contact || 'contact-messages';
 
-    const { executeRecaptcha, initRecaptcha, showBadge, hideBadge } = useGoogleRecaptcha();
-
-    const onFormInteract = () => {
-        initRecaptcha();
-        showBadge();
-    };
+    const turnstileToken = ref('');
+    const turnstileRef = ref<{ reset: () => void } | null>(null);
 
     onMounted(() => {
         // Pre-carga la cookie CSRF para que el primer envío no falle ni tarde
         fetchCsrfToken().catch(() => {
             /* se reintentará al enviar */
         });
-    });
-
-    onBeforeUnmount(() => {
-        hideBadge();
     });
 
     interface Validation {
@@ -289,7 +280,7 @@ watch(dataForm.value.message.value, async () => {
         await showConfirmModal(e);
     };
 
-    /* Protección anti-bots (además del reCAPTCHA v3 validado en servidor):
+    /* Protección anti-bots (además de Cloudflare Turnstile validado en servidor):
      * - Honeypot: campo oculto que los humanos no ven; si llega relleno, es un bot.
      * - Tiempo mínimo: un humano tarda varios segundos en rellenar el formulario.
      * - Bloqueo de doble envío mientras hay una petición en curso. */
@@ -320,21 +311,13 @@ watch(dataForm.value.message.value, async () => {
 
         isSubmitting.value = true;
 
-        let token: string;
-
-        try {
-            ({ token } = await executeRecaptcha(RecaptchaAction.contact));
-        } catch {
-            token = '';
-        }
-
-        if (!token) {
+        if (!turnstileToken.value) {
             info.step = 3;
             info.validated = false;
             info.submitted = false;
             info.fail = true;
             info.messages.errors = [
-                'Error al verificar el captcha. Por favor, recarga la página e inténtalo de nuevo.',
+                'Error al verificar la seguridad. Por favor, completa la verificación de Turnstile e inténtalo de nuevo.',
             ];
             isSubmitting.value = false;
             return;
@@ -349,7 +332,8 @@ watch(dataForm.value.message.value, async () => {
             message: isFormField(dataForm.value.message) ? dataForm.value.message.value : '',
             privacity: isFormField(dataForm.value.privacity) ? dataForm.value.privacity.value : false,
             contactme: isFormField(dataForm.value.consent) ? dataForm.value.consent.value : false,
-            'g-recaptcha-response': token,
+            'cf-turnstile-response': turnstileToken.value,
+            turnstile_token: turnstileToken.value,
         };
 
         const apiUrl = apiBase + '/' + API_PATH_CONTACT;
@@ -386,6 +370,8 @@ watch(dataForm.value.message.value, async () => {
             .finally(() => {
                 info.step = 3;
                 isSubmitting.value = false;
+                turnstileRef.value?.reset();
+                turnstileToken.value = '';
             });
     };
 
@@ -519,7 +505,6 @@ watch(dataForm.value.message.value, async () => {
                                     ]"
                                     placeholder="Tu nombre completo"
                                     @input="checkValidationsFromEvent"
-                                    @focus.once="onFormInteract"
                                 />
                                 <template v-if="isFormField(dataForm.name) && dataForm.name.errors?.length">
                                     <span
@@ -556,7 +541,6 @@ watch(dataForm.value.message.value, async () => {
                                     ]"
                                     placeholder="tu@email.com"
                                     @input="checkValidationsFromEvent"
-                                    @focus.once="onFormInteract"
                                 />
                                 <template v-if="isFormField(dataForm.email) && dataForm.email.errors?.length">
                                     <span
@@ -595,7 +579,6 @@ watch(dataForm.value.message.value, async () => {
                                 ]"
                                 placeholder="Asunto del mensaje"
                                 @input="checkValidationsFromEvent"
-                                @focus.once="onFormInteract"
                             />
                             <template v-if="isFormField(dataForm.subject) && dataForm.subject.errors?.length">
                                 <span
@@ -641,7 +624,6 @@ watch(dataForm.value.message.value, async () => {
                                 ]"
                                 placeholder="Escribe tu mensaje aquí..."
                                 @input="checkValidationsFromEvent"
-                                @focus.once="onFormInteract"
                             />
                             <template v-if="isFormField(dataForm.message) && dataForm.message.errors?.length">
                                 <span
@@ -684,7 +666,6 @@ watch(dataForm.value.message.value, async () => {
                                         class="mt-1 w-4 h-4 accent-primary shrink-0"
                                         required
                                         @change="checkValidationsFromEvent"
-                                        @focus.once="onFormInteract"
                                     />
                                     <span class="text-sm text-on-surface-variant leading-relaxed">
                                         He leído y acepto la
@@ -716,7 +697,6 @@ watch(dataForm.value.message.value, async () => {
                                         class="mt-1 w-4 h-4 accent-primary shrink-0"
                                         required
                                         @change="checkValidationsFromEvent"
-                                        @focus.once="onFormInteract"
                                     />
                                     <span class="text-sm text-on-surface-variant leading-relaxed">
                                         Consiento expresamente el tratamiento de mis datos para la gestión y respuesta
@@ -734,6 +714,15 @@ watch(dataForm.value.message.value, async () => {
                                     >
                                 </template>
                             </div>
+                        </div>
+
+                        <!-- Verificación Cloudflare Turnstile -->
+                        <div class="my-4 flex justify-start">
+                            <NuxtTurnstile
+                                ref="turnstileRef"
+                                v-model="turnstileToken"
+                                :options="{ theme: 'dark', size: 'flexible' }"
+                            />
                         </div>
 
                         <!-- Botón enviar -->
@@ -805,7 +794,7 @@ watch(dataForm.value.message.value, async () => {
                             >
                         </div>
                         <p class="text-xs text-on-surface-variant leading-relaxed">
-                            Formulario protegido con Google reCAPTCHA v3 para evitar spam.
+                            Formulario protegido con Cloudflare Turnstile para evitar spam.
                         </p>
                     </div>
                 </div>

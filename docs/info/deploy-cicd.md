@@ -68,7 +68,7 @@ En el build, el hook `prerender:routes` de Nitro:
 
 - Sirve `.output/public/` estático; rutas inexistentes → `ErrorDocument 404 /404.html` (404 real, sin fallback SPA soft-404)
 - Redirección 80 → 443 y TLS endurecido (sin SSLv3/TLS1.0/1.1)
-- **Cabeceras de seguridad**: `Content-Security-Policy` (ajustada a reCAPTCHA en `www.recaptcha.net`, GA4 y API propia), `Strict-Transport-Security`, `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy`
+- **Cabeceras de seguridad**: `Content-Security-Policy` (ajustada a Cloudflare Turnstile en `challenges.cloudflare.com`, GA4 y API propia), `Strict-Transport-Security`, `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy`
 - **Caché**: `Cache-Control: public, max-age=31536000, immutable` para `/_nuxt/` y `/_fonts/` (assets con hash)
 - Requiere módulos: `mod_headers`, `mod_ssl`, `mod_rewrite`
 
@@ -106,8 +106,7 @@ APP_LOCALE_ALTERNATE=en_US
 API_DOMAIN_URL=http://localhost:8000
 API_BASE_URL=http://localhost:8000/api/v2
 API_PATH_CONTACT=contact-messages
-CAPTCHA_SITE_KEY=
-CAPTCHA_SITE_PRIVATE_KEY=
+TURNSTILE_SITE_KEY=
 GTAG_ID=
 ```
 

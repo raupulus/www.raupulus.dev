@@ -12,7 +12,6 @@ Lógica reutilizable del proyecto encapsulada en composables de Nuxt. Todos se a
 | `platformData.ts`          | `usePlatformData()`, `getPlatformData()`                                                            | Datos globales de la plataforma                                                   |
 | `states.ts`                | `useScrollDisabled()`                                                                               | Estado global para bloqueo de scroll                                              |
 | `useApiBase.ts`            | `useApiBase()`, `useApiDomain()`                                                                    | URL base / dominio de la API según contexto de ejecución                          |
-| `useGoogleRecaptcha.ts`    | `useGoogleRecaptcha()`, `RecaptchaAction`                                                           | Wrapper de Google reCAPTCHA v3                                                    |
 | `useModalAccessibility.ts` | `useModalAccessibility(isOpen, modalRef)`                                                           | Gestión de accesibilidad modal (bloqueo de scroll, trampa de foco y restauración) |
 
 Todos consumen la **API V2** (`/api/v2`). Las respuestas llegan en el envelope
@@ -131,21 +130,6 @@ Envía peticiones POST con CSRF token automático:
 
 ---
 
-## `useGoogleRecaptcha()` — reCAPTCHA v3
-
-Wrapper sobre `vue-recaptcha-v3`:
-
-```typescript
-class RecaptchaAction {
-    static readonly login = new RecaptchaAction('login');
-    static readonly contact = new RecaptchaAction('contact');
-}
-```
-
-**`executeRecaptcha(action)`**: espera a que reCAPTCHA cargue, ejecuta con la acción indicada y devuelve `{ token }`.
-
----
-
 ## `useModalAccessibility()` — Accesibilidad para diálogos y modales (WCAG 2.1 AA)
 
 Composable que asegura el cumplimiento de accesibilidad en elementos de diálogo:
@@ -161,6 +145,6 @@ Composable que asegura el cumplimiento de accesibilidad en elementos de diálogo
 - → [types.md](./types.md): `ApiResponseType`, `ApiMetaType`, `ContentType`, `ContentPageType`, `PlatformDataType`, `MetadataType`, `BlocksType`
 - → [utils.md](./utils.md): `ContentUtils.ts` (`PLATFORM_SLUG`, `imageUrl`, `hasNextPage`, `normalizePage`, `buildProjectMetatags`…)
 - → [pagina-proyectos.md](./pagina-proyectos.md): consumidor principal de `useProjectsData()`
-- → [pagina-contact.md](./pagina-contact.md): consumidor de `fetchPost()` y `useGoogleRecaptcha()`
+- → [pagina-contact.md](./pagina-contact.md): consumidor de `fetchPost()`
 - → [layout-navegacion.md](./layout-navegacion.md): `usePlatformData()` y `useScrollDisabled()` usados en app.vue
 - → [nuxt-config.md](./nuxt-config.md): `usefetchProjectsPaginated()` usado en hooks de prerender y sitemap

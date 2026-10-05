@@ -50,8 +50,8 @@ export default defineNuxtConfig({
                 base: process.env.API_BASE_URL,
                 contact: process.env.API_PATH_CONTACT || 'contact-messages',
             },
-            captcha: {
-                siteKey: process.env.CAPTCHA_SITE_KEY,
+            turnstile: {
+                siteKey: process.env.TURNSTILE_SITE_KEY,
             },
         },
     },
@@ -138,7 +138,12 @@ export default defineNuxtConfig({
         '@nuxtjs/tailwindcss',
         '@nuxt/eslint',
         '@nuxt/fonts',
+        '@nuxtjs/turnstile',
     ],
+
+    turnstile: {
+        siteKey: process.env.TURNSTILE_SITE_KEY,
+    },
 
     // Fuentes self-hosted (descargadas en build, servidas desde el propio dominio)
     fonts: {

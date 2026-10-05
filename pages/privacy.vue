@@ -63,13 +63,13 @@
                     </div>
                     <div class="border-l-2 border-secondary pl-4">
                         <h3 class="font-headline font-bold text-base text-on-surface">
-                            Seguridad y Prevención contra Spam (reCAPTCHA v3)
+                            Seguridad y Prevención contra Spam (Cloudflare Turnstile)
                         </h3>
                         <p class="text-sm mt-1">
-                            <strong>Datos tratados:</strong> Parámetros de interacción con el formulario (hardware,
-                            cabeceras del navegador, token de verificación generado por Google).<br />
+                            <strong>Datos tratados:</strong> Parámetros técnicos de interacción con el formulario y
+                            verificación del navegador (token de verificación generado por Cloudflare Turnstile).<br />
                             <strong>Finalidad:</strong> Verificar que el remitente es un usuario legítimo y no un robot
-                            o script automatizado.
+                            o script automatizado, preservando la privacidad del usuario sin emplear cookies invasivas.
                         </p>
                     </div>
                     <div class="border-l-2 border-tertiary pl-4">
@@ -119,9 +119,15 @@
                     </li>
                     <li>
                         <strong>Google Ireland Limited</strong> (Gordon House, Barrow Street, Dublin 4, Irlanda):
-                        Proveedor de los servicios Google reCAPTCHA v3 y Google Analytics. Las eventuales transferencias
+                        Proveedor del servicio Google Analytics (con Consent Mode v2). Las eventuales transferencias
                         internacionales fuera del EEE se fundamentan en las Cláusulas Contractuales Tipo (SCC) aprobadas
                         por la Comisión Europea.
+                    </li>
+                    <li>
+                        <strong>Cloudflare, Inc.</strong> (101 Townsend St, San Francisco, CA 94107, EE. UU.): Proveedor
+                        del servicio de seguridad y protección contra spam y bots Cloudflare Turnstile. Las
+                        transferencias internacionales se fundamentan en las Cláusulas Contractuales Tipo (SCC)
+                        aprobadas por la Comisión Europea.
                     </li>
                 </ul>
             </section>

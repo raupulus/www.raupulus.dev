@@ -32,12 +32,12 @@
 
 ### Lógica y Datos
 
-| Archivo                                          | Módulo               | Descripción                                                 |
-| ------------------------------------------------ | -------------------- | ----------------------------------------------------------- |
-| [composables.md](./composables.md)               | Composables          | Lógica reutilizable (proyectos, plataforma, API, recaptcha) |
-| [types.md](./types.md)                           | Sistema de Tipos     | Todos los tipos TypeScript del proyecto                     |
-| [utils.md](./utils.md)                           | Utilidades           | Cliente API, sanitización HTML, búsqueda de tecnologías     |
-| [plugins-middleware.md](./plugins-middleware.md) | Plugins y Middleware | reCAPTCHA plugin, scroll-to-top middleware                  |
+| Archivo                                          | Módulo               | Descripción                                                     |
+| ------------------------------------------------ | -------------------- | --------------------------------------------------------------- |
+| [composables.md](./composables.md)               | Composables          | Lógica reutilizable (proyectos, plataforma, API, accesibilidad) |
+| [types.md](./types.md)                           | Sistema de Tipos     | Todos los tipos TypeScript del proyecto                         |
+| [utils.md](./utils.md)                           | Utilidades           | Cliente API, sanitización HTML, búsqueda de tecnologías         |
+| [plugins-middleware.md](./plugins-middleware.md) | Plugins y Middleware | Middleware global scroll-to-top                                 |
 
 ### Componentes
 

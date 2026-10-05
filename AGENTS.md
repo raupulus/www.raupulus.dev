@@ -60,16 +60,15 @@ Ejecutar en este orden y dejar todo en verde:
 
 Copiar `env.example` (desarrollo) o `env.example.production` (producción) a `.env`. Variables clave:
 
-| Variable                   | Descripción                                                 |
-| -------------------------- | ----------------------------------------------------------- |
-| `APP_URL`                  | URL pública del sitio                                       |
-| `APP_DOMAIN`               | Dominio del sitio                                           |
-| `API_DOMAIN_URL`           | Dominio de la API Laravel                                   |
-| `API_BASE_URL`             | URL base completa de la API (`/api/v2`)                     |
-| `API_PATH_CONTACT`         | Ruta relativa del endpoint de contacto (`contact-messages`) |
-| `CAPTCHA_SITE_KEY`         | Clave pública reCAPTCHA v3                                  |
-| `CAPTCHA_SITE_PRIVATE_KEY` | Clave privada reCAPTCHA v3                                  |
-| `GTAG_ID`                  | ID de Google Analytics                                      |
+| Variable             | Descripción                                                 |
+| -------------------- | ----------------------------------------------------------- |
+| `APP_URL`            | URL pública del sitio                                       |
+| `APP_DOMAIN`         | Dominio del sitio                                           |
+| `API_DOMAIN_URL`     | Dominio de la API Laravel                                   |
+| `API_BASE_URL`       | URL base completa de la API (`/api/v2`)                     |
+| `API_PATH_CONTACT`   | Ruta relativa del endpoint de contacto (`contact-messages`) |
+| `TURNSTILE_SITE_KEY` | Clave del sitio Cloudflare Turnstile                        |
+| `GTAG_ID`            | ID de Google Analytics                                      |
 
 ## Convenciones de Código
 

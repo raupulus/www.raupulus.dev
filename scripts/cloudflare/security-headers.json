@@ -72,7 +72,7 @@
             "headers": {
                 "Content-Security-Policy": {
                     "operation": "set",
-                    "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.google.com https://www.gstatic.com https://www.recaptcha.net https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://api.raupulus.dev https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; font-src 'self' data:; connect-src 'self' https://api.raupulus.dev https://www.google.com https://www.recaptcha.net https://*.google-analytics.com https://*.analytics.google.com; frame-src https://www.google.com https://www.recaptcha.net https://www.youtube.com https://www.youtube-nocookie.com; base-uri 'self'; form-action 'self' https://api.raupulus.dev; frame-ancestors 'none';"
+                    "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://api.raupulus.dev https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; font-src 'self' data:; connect-src 'self' https://api.raupulus.dev https://challenges.cloudflare.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; frame-src https://challenges.cloudflare.com https://www.youtube.com https://www.youtube-nocookie.com; base-uri 'self'; form-action 'self' https://api.raupulus.dev; frame-ancestors 'none';"
                 }
             }
         }

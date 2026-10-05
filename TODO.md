@@ -2,21 +2,6 @@
 
 Ideas aprobadas pero pospuestas, con contexto para retomarlas.
 
-## Sustituir reCAPTCHA por Cloudflare Turnstile
-
-El sitio ya está detrás de Cloudflare. Turnstile es gratuito, no usa cookies de Google
-(simplifica el RGPD y el banner de cookies) y suele filtrar bots mejor en formularios.
-
-Requiere cambios coordinados:
-
-- **Frontend**: sustituir `vue-recaptcha-v3` + `plugins/google-recaptcha.ts` +
-  `composables/useGoogleRecaptcha.ts` por el widget de Turnstile, y enviar su token
-  en el campo `captcha_token` del payload de contacto.
-- **Backend (api.raupulus.dev)**: validar el token contra
-  `https://challenges.cloudflare.com/turnstile/v0/siteverify` en lugar de la API de reCAPTCHA.
-- **apache.conf**: actualizar la CSP (`script-src`/`frame-src`: `https://challenges.cloudflare.com`
-  en lugar de los dominios de Google/recaptcha).
-
 ## Analytics sin cookies (Plausible o Umami)
 
 Sustituir Google Analytics (`nuxt-gtag`) por una alternativa sin cookies permitiría

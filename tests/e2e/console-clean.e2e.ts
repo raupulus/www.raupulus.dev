@@ -11,10 +11,12 @@ test.describe('Consola Limpia de Errores JavaScript', () => {
         page.on('console', (msg) => {
             if (msg.type() === 'error') {
                 const text = msg.text();
-                // Ignorar advertencias benignas o fallos de red en modo test sin API/recaptcha local levantado
+                // Ignorar advertencias benignas o fallos de red en modo test sin API/turnstile local levantado
                 if (
                     text.includes('Failed to load resource') ||
                     text.includes('recaptcha') ||
+                    text.includes('turnstile') ||
+                    text.includes('challenges.cloudflare.com') ||
                     text.includes('favicon.ico') ||
                     text.includes('ERR_CONNECTION_REFUSED')
                 ) {

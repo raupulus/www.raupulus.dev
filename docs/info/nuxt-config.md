@@ -31,9 +31,7 @@ Configuración central del framework Nuxt 4 que define módulos, runtime config,
 | `api.domain`          | `API_DOMAIN_URL`       | Dominio de la API (ej. `https://api.raupulus.dev`)             |
 | `api.base`            | `API_BASE_URL`         | URL base de la API V2 (ej. `https://api.raupulus.dev/api/v2`)  |
 | `api.contact`         | `API_PATH_CONTACT`     | Path del endpoint de contacto (por defecto `contact-messages`) |
-| `captcha.siteKey`     | `CAPTCHA_SITE_KEY`     | Clave pública de Google reCAPTCHA v3                           |
-
-_Nota sobre seguridad (U-SEC-010)_: La clave secreta de reCAPTCHA (`CAPTCHA_SITE_PRIVATE_KEY`) ha sido excluida de `runtimeConfig` para evitar su empaquetado innecesario en un sitio generado de forma estática (SSG).
+| `turnstile.siteKey`   | `TURNSTILE_SITE_KEY`   | Clave del sitio de Cloudflare Turnstile                        |
 
 ## Módulos Nuxt configurados
 
@@ -46,6 +44,7 @@ _Nota sobre seguridad (U-SEC-010)_: La clave secreta de reCAPTCHA (`CAPTCHA_SITE
 | TailwindCSS    | `@nuxtjs/tailwindcss`             | Framework CSS utility-first (TailwindCSS 3)                                          |
 | ESLint         | `@nuxt/eslint`                    | Genera flat config con soporte para Nuxt                                             |
 | Fonts          | `@nuxt/fonts`                     | Self-hosting de Space Grotesk (`[400, 700]`) y Plus Jakarta Sans (`[400, 500, 700]`) |
+| Turnstile      | `@nuxtjs/turnstile`               | Protección contra spam con Cloudflare Turnstile (componente `<NuxtTurnstile>`)       |
 
 ## Reglas de Rutas y Cabeceras de Seguridad (`routeRules`)
 
