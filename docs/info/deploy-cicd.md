@@ -4,16 +4,16 @@ Scripts de despliegue, configuración de servidores web y pipeline de CI/CD con 
 
 ## Archivos principales
 
-| Archivo | Rol |
-|---------|-----|
-| `scripts/deploy.sh` | Script principal de despliegue |
-| `scripts/functions.sh` | Funciones auxiliares compartidas |
-| `scripts/generate_env.sh` | Generación de archivo `.env` desde plantilla |
-| `nginx.conf` | Configuración Nginx para producción |
-| `nginx_dev.conf` | Configuración Nginx para desarrollo |
-| `apache.conf` | Configuración Apache para producción |
-| `apache_dev.conf` | Configuración Apache para desarrollo |
-| `gocd.yaml` | Pipeline de GoCD para despliegue automatizado |
+| Archivo                   | Rol                                           |
+| ------------------------- | --------------------------------------------- |
+| `scripts/deploy.sh`       | Script principal de despliegue                |
+| `scripts/functions.sh`    | Funciones auxiliares compartidas              |
+| `scripts/generate_env.sh` | Generación de archivo `.env` desde plantilla  |
+| `nginx.conf`              | Configuración Nginx para producción           |
+| `nginx_dev.conf`          | Configuración Nginx para desarrollo           |
+| `apache.conf`             | Configuración Apache para producción          |
+| `apache_dev.conf`         | Configuración Apache para desarrollo          |
+| `gocd.yaml`               | Pipeline de GoCD para despliegue automatizado |
 
 ## Generación Estática
 
@@ -40,19 +40,20 @@ En el build, el hook `prerender:routes` de Nitro:
 
 ## Scripts relevantes (`pnpm <script>`)
 
-| Script | Comando | Uso |
-|--------|---------|-----|
-| `dev` | `nuxt dev -p 3020` | Desarrollo local |
-| `build` | `nuxt build` | Build para producción |
-| `generate` | `nuxt generate` | Generación estática (SSG) |
-| `preview` | `nuxt preview` | Preview del build |
-| `lint` | `eslint .` | Linting |
-| `lint:fix` | `eslint . --fix` | Linting con fix automático |
-| `format` | `prettier --write "**/*.{vue,ts,js,css,json,md}"` | Formateo |
-| `format:check` | `prettier --check "**/*.{vue,ts,js,css,json,md}"` | Verificación de formato |
-| `test` | `vitest` | Tests en modo watch |
-| `test:run` | `vitest run` | Tests ejecución única |
-| `test:coverage` | `vitest run --coverage` | Tests con cobertura |
+| Script          | Comando                                           | Uso                                                             |
+| --------------- | ------------------------------------------------- | --------------------------------------------------------------- |
+| `dev`           | `nuxt dev -p 3020`                                | Desarrollo local                                                |
+| `build`         | `nuxt build`                                      | Build para producción                                           |
+| `generate`      | `nuxt generate`                                   | Generación estática (SSG)                                       |
+| `preview`       | `nuxt preview`                                    | Preview del build                                               |
+| `lint`          | `eslint .`                                        | Linting                                                         |
+| `lint:fix`      | `eslint . --fix`                                  | Linting con fix automático                                      |
+| `format`        | `prettier --write "**/*.{vue,ts,js,css,json,md}"` | Formateo                                                        |
+| `format:check`  | `prettier --check "**/*.{vue,ts,js,css,json,md}"` | Verificación de formato                                         |
+| `test`          | `vitest`                                          | Tests en modo watch                                             |
+| `test:run`      | `vitest run`                                      | Tests ejecución única                                           |
+| `test:coverage` | `vitest run --coverage`                           | Tests con cobertura                                             |
+| `test:e2e`      | `playwright test`                                 | Tests E2E y accesibilidad WCAG 2.1 AA con Playwright y Axe-core |
 
 ## Configuración de Servidores Web
 
@@ -71,17 +72,25 @@ En el build, el hook `prerender:routes` de Nitro:
 - **Caché**: `Cache-Control: public, max-age=31536000, immutable` para `/_nuxt/` y `/_fonts/` (assets con hash)
 - Requiere módulos: `mod_headers`, `mod_ssl`, `mod_rewrite`
 
+## Tests End-to-End y Accesibilidad (Playwright + Axe-core)
+
+La suite E2E se ubica en `tests/e2e/` y corre sobre Chromium headless:
+
+- `routes.e2e.ts`: verifica que las 10 rutas canónicas respondan con HTTP 200, título correcto y layout completo (header, contentinfo, app-box-content).
+- `not-found.e2e.ts`: comprueba la página 404 personalizada ante rutas inexistentes y la redirección de vuelta al inicio.
+- `console-clean.e2e.ts`: monitorea la consola del navegador asegurando ausencia de excepciones no controladas en JavaScript durante la navegación.
+- `responsive-320px.e2e.ts`: valida que en viewport de 320 px no exista desbordamiento horizontal (`scrollWidth <= clientWidth`) y que el menú móvil funcione con atributos WCAG.
+- `accessibility.e2e.ts`: escanea las páginas con `@axe-core/playwright` bajo el estándar WCAG 2.1 AA.
+
 ## CI/CD con GoCD
 
-El archivo `gocd.yaml` define el pipeline de despliegue automatizado (`www-raupulus-dev`), lanzado desde la rama `main` del repositorio de GitLab. Usa **npm** (`npm ci`) como gestor de paquetes en todas las etapas:
+El archivo `gocd.yaml` define el pipeline de despliegue automatizado (`www-raupulus-dev`), lanzado desde la rama `main` del repositorio de GitLab. Usa exclusivamente **pnpm** (`pnpm install --frozen-lockfile`) en todas las etapas:
 
-| Etapa | Comando | Descripción |
-|-------|---------|-------------|
-| `lint` | `npm ci && npm run lint` | Verificación de ESLint |
-| `test` | `npm ci && npm run test:run` | Tests con Vitest |
-| `build` | `npm ci && npm run generate` | Genera el sitio estático; artefacto: `.output/public` → `dist` |
-
-> ⚠️ El gestor del proyecto es **pnpm**: `scripts/deploy.sh` usa `pnpm install --frozen-lockfile` y `pnpm generate` (requiere `pnpm-lock.yaml` actualizado). `gocd.yaml` todavía usa npm.
+| Etapa     | Comandos                                                                                                                           | Descripción                                                                                                                        |
+| --------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `quality` | `pnpm lint`, `pnpm exec vue-tsc --noEmit`, `pnpm test:run`, `pnpm exec playwright install chromium`, `pnpm test:e2e`, `pnpm audit` | Puertas de calidad estrictas: linting, tipado estricto, tests unitarios, tests E2E y auditoría de dependencias                     |
+| `build`   | `NODE_ENV=production pnpm generate`                                                                                                | Genera el sitio estático; valida que se hayan prerenderizado rutas de proyectos y empaqueta el artefacto `.output/public` → `dist` |
+| `deploy`  | Aprobación manual + rsync atómico + purga perimetral Cloudflare + smoke test HTTP 200                                              | Despliegue en producción con conmutación atómica de symlink                                                                        |
 
 ## Variables de Entorno
 

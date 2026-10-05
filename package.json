@@ -19,9 +19,11 @@
     "format:check": "prettier --check \"**/*.{vue,ts,js,css,json,md}\"",
     "test": "vitest",
     "test:run": "vitest run",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "test:e2e": "playwright test"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
     "@dargmuesli/nuxt-cookie-control": "^9.3.8",
     "@nuxt/devtools": "^2.7.0",
     "@nuxt/eslint": "^1.17.0",
@@ -30,6 +32,7 @@
     "@nuxt/test-utils": "^4.3.3",
     "@nuxtjs/sitemap": "^8.6.1",
     "@nuxtjs/tailwindcss": "^6.14.0",
+    "@playwright/test": "^1.63.0",
     "@types/node": "^22.20.5",
     "@vitest/coverage-v8": "^4.1.11",
     "@vue/test-utils": "^2.5.1",

@@ -21,6 +21,8 @@ dist
 # Logs y cobertura de tests
 *.log*
 coverage
+test-results/
+playwright-report/
 
 # Sistema operativo
 .DS_Store
