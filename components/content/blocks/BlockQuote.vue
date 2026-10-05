@@ -1,25 +1,31 @@
 <template>
-  <blockquote :id="quote.id" :class="'r-blockquote r-blockquote-alignment-' + quote.data.alignment">
-    <p class="r-blockquote-icon">
-      <svg viewBox="0 0 512 512" title="quote-left" class="quote-icon">
-        <path
-          d="M464 256h-80v-64c0-35.3 28.7-64 64-64h8c13.3 0 24-10.7 24-24V56c0-13.3-10.7-24-24-24h-8c-88.4 0-160 71.6-160 160v240c0 26.5 21.5 48 48 48h128c26.5 0 48-21.5 48-48V304c0-26.5-21.5-48-48-48zm-288 0H96v-64c0-35.3 28.7-64 64-64h8c13.3 0 24-10.7 24-24V56c0-13.3-10.7-24-24-24h-8C71.6 32 0 103.6 0 192v240c0 26.5 21.5 48 48 48h128c26.5 0 48-21.5 48-48V304c0-26.5-21.5-48-48-48z" />
-      </svg>
-    </p>
+  <figure :id="quote.id" class="my-6 max-w-2xl mx-auto">
+    <blockquote
+      class="relative p-6 sm:p-8 bg-surface-container-high/60 border-l-4 border-secondary rounded-r-xl shadow-sm"
+      :class="{
+        'text-left': quote.data.alignment === 'left',
+        'text-center': quote.data.alignment === 'center',
+        'text-right': quote.data.alignment === 'right',
+      }"
+    >
+      <div class="mb-3 text-secondary/30">
+        <svg viewBox="0 0 512 512" class="w-8 h-8 fill-current" aria-hidden="true">
+          <path d="M464 256h-80v-64c0-35.3 28.7-64 64-64h8c13.3 0 24-10.7 24-24V56c0-13.3-10.7-24-24-24h-8c-88.4 0-160 71.6-160 160v240c0 26.5 21.5 48 48 48h128c26.5 0 48-21.5 48-48V304c0-26.5-21.5-48-48-48zm-288 0H96v-64c0-35.3 28.7-64 64-64h8c13.3 0 24-10.7 24-24V56c0-13.3-10.7-24-24-24h-8C71.6 32 0 103.6 0 192v240c0 26.5 21.5 48 48 48h128c26.5 0 48-21.5 48-48V304c0-26.5-21.5-48-48-48z" />
+        </svg>
+      </div>
 
-    <!-- eslint-disable-next-line vue/no-v-html -->
-    <p class="r-blockquote-title" v-html="computedQuoteText"/>
+      <!-- eslint-disable-next-line vue/no-v-html -->
+      <p class="font-body text-base sm:text-lg italic text-on-surface leading-relaxed mb-3" v-html="computedQuoteText" />
 
-    <!-- eslint-disable-next-line vue/no-v-html -->
-    <p class="r-blockquote-caption" v-html="computedQuoteCaption"/>
-
-    <hr>
-  </blockquote>
+      <!-- eslint-disable-next-line vue/no-v-html -->
+      <figcaption v-if="quote.data.caption" class="font-label text-xs sm:text-sm font-bold tracking-wider text-secondary uppercase" v-html="computedQuoteCaption" />
+    </blockquote>
+  </figure>
 </template>
 
 <script lang="ts" setup>
 import { computed } from 'vue';
-import type { BlockQuoteType, BlockType  } from '@/types/BlocksType';
+import type { BlockQuoteType, BlockType } from '@/types/BlocksType';
 import { sanitizeHtml } from '~/utils/sanitize';
 
 const props = defineProps({
@@ -31,56 +37,6 @@ const props = defineProps({
 
 const quote = props.block as BlockQuoteType;
 
-// Computed properties to handle text and caption
 const computedQuoteText = computed(() => sanitizeHtml(quote.data.text || ''));
-const computedQuoteCaption = computed(() => sanitizeHtml(`&mdash;${quote.data.caption || ''}`));
-
+const computedQuoteCaption = computed(() => sanitizeHtml(`&mdash; ${quote.data.caption || ''}`));
 </script>
-
-<style scoped>
-.r-blockquote {
-  margin: auto;
-  padding: 1.3rem;
-  width: 100%;
-  max-width: 500px;
-  box-sizing: border-box;
-  font-size: 1.4rem;
-  line-height: 1.4;
-  font-style: italic;
-  overflow-wrap: break-word;
-  word-break: normal;
-  box-sizing: border-box;
-  background-color: #eaeaea;
-  border-radius: 0.3rem;
-}
-
-.r-blockquote {
-  margin-top: 1.2rem;
-}
-
-.r-blockquote-icon {}
-
-.r-blockquote-icon>svg {
-  width: 60px;
-}
-
-.r-blockquote.r-blockquote-alignment-left .r-blockquote-title {
-  text-align: left;
-}
-
-.r-blockquote.r-blockquote-alignment-center .r-blockquote-title {
-  text-align: center;
-}
-
-.r-blockquote.r-blockquote-alignment-right .r-blockquote-title {
-  text-align: right;
-}
-
-.r-blockquote-title {}
-
-.r-blockquote-caption {
-  text-align: right;
-  font-size: 1.2rem;
-  font-weight: bold;
-}
-</style>

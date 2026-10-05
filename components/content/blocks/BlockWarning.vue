@@ -1,69 +1,48 @@
 <template>
-  <div :id="warning.id" class="r-warning-container">
-    <div class="r-warning-wrapper">
-      <div class="r-warning-title">
-        {{ warning.data.title }}
+  <aside
+    :id="warning.id"
+    role="alert"
+    class="my-6 max-w-2xl mx-auto p-5 sm:p-6 rounded-xl border border-error/30 bg-error-container/15 text-on-surface shadow-sm"
+  >
+    <div class="flex items-start gap-4">
+      <div class="p-2 rounded-lg bg-error/15 text-error shrink-0 mt-0.5">
+        <UiMaterialIcon name="warning" class="text-xl" />
       </div>
 
-      <div class="r-warning-body">
-        {{ warning.data.message }}
+      <div class="flex-1 min-w-0">
+        <!-- eslint-disable-next-line vue/no-v-html -->
+        <h4 v-if="formattedTitle" class="font-headline text-base sm:text-lg font-bold text-on-surface mb-2" v-html="formattedTitle" />
+
+        <!-- eslint-disable-next-line vue/no-v-html -->
+        <div v-if="formattedMessage" class="font-body text-sm text-on-surface-variant leading-relaxed" v-html="formattedMessage" />
       </div>
     </div>
-  </div>
-
+  </aside>
 </template>
 
 <script lang="ts" setup>
-import type { BlockWarningType, BlockType  } from '@/types/BlocksType';
+import { computed } from 'vue';
+import type { BlockWarningType, BlockType } from '@/types/BlocksType';
+import { sanitizeHtml } from '~/utils/sanitize';
 
 const props = defineProps({
   block: {
     type: Object as PropType<BlockType>,
     required: true,
   },
-})
+});
 
-const warning = props.block as BlockWarningType
-warning.data.title = warning.data.title.replace(/\n|\r/g, '<br>').trim();
-warning.data.message = warning.data.message.replace(/\n|\r/g, '<br>').trim();
+const warning = computed(() => props.block as BlockWarningType);
 
+const formattedTitle = computed(() => {
+  const text = warning.value.data?.title;
+  if (!text) return '';
+  return sanitizeHtml(text.replace(/\n|\r/g, '<br>').trim());
+});
+
+const formattedMessage = computed(() => {
+  const text = warning.value.data?.message;
+  if (!text) return '';
+  return sanitizeHtml(text.replace(/\n|\r/g, '<br>').trim());
+});
 </script>
-
-<style scoped>
-.r-warning-container {
-  background-color: #f8d7da;
-  color: #721c24;
-  padding: 2rem 1rem;
-  border: 1px solid #f5c6cb;
-  border-radius: .25rem;
-  width: 80%;
-  margin: auto;
-}
-
-.r-warning-wrapper {
-  text-align: center;
-}
-
-.r-warning-title {
-  text-align: center;
-  font-size: 1.25rem;
-  font-weight: 700;
-}
-
-.r-warning-body {
-  font-size: 1rem;
-  font-weight: 400;
-}
-
-.r-warning-btn-close {
-  position: absolute;
-  top: 3px;
-  right: 3px;
-  padding: 3px;
-  cursor: pointer;
-  font-size: 1rem;
-  font-weight: 700;
-  background: rgba(0, 0, 0, 0.3);
-  border-radius: 3px;
-}
-</style>

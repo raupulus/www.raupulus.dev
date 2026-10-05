@@ -17,8 +17,11 @@
     <ContentBlocksBlockImage v-else-if="block.type === 'image'" :block="block" />
     <ContentBlocksBlockEmbed v-else-if="block.type === 'embed'" :block="block" />
 
-    <div v-else>
-      {{ block.type }}
+    <div
+      v-else
+      class="my-4 p-3 rounded-lg border border-dashed border-outline-variant/30 text-xs font-mono text-on-surface-variant/60"
+    >
+      [Bloque no soportado: {{ block.type }}]
     </div>
   </div>
 </template>

@@ -1,8 +1,9 @@
 <template>
+  <!-- eslint-disable vue/no-v-html -->
   <div class="my-6 w-full overflow-x-auto">
     <table class="w-full border-collapse bg-surface-container-high border border-outline-variant/30 rounded-xl overflow-hidden shadow-md">
-      <caption v-if="(table.data as any).caption" class="font-label text-xs uppercase tracking-widest text-outline text-left mb-2 px-2">
-        {{ (table.data as any).caption }}
+      <caption v-if="table.data.caption" class="font-label text-xs uppercase tracking-widest text-outline text-left mb-2 px-2">
+        {{ table.data.caption }}
       </caption>
       <thead v-if="table.data.withHeadings && table.data.content.length" class="bg-surface-container-highest border-b border-outline-variant/30">
         <tr>
@@ -11,9 +12,8 @@
             :key="idx"
             scope="col"
             class="px-5 py-3 text-left font-headline text-xs font-bold uppercase tracking-wider text-primary"
-          >
-            {{ cell }}
-          </th>
+            v-html="sanitizeHtml(cell)"
+          />
         </tr>
       </thead>
 
@@ -27,9 +27,8 @@
             v-for="(cell, idx) in row"
             :key="idx"
             class="px-5 py-3.5"
-          >
-            {{ cell }}
-          </td>
+            v-html="sanitizeHtml(cell)"
+          />
         </tr>
       </tbody>
     </table>
@@ -38,6 +37,7 @@
 
 <script lang="ts" setup>
 import type { BlockTableType, BlockType } from '@/types/BlocksType';
+import { sanitizeHtml } from '~/utils/sanitize';
 
 const props = defineProps({
   block: {

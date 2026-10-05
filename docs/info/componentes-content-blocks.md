@@ -6,22 +6,22 @@ Sistema de renderizado de bloques de contenido procedentes del editor EditorJS d
 
 | Componente | Tipo de bloque | Descripción |
 |-----------|---------------|-------------|
-| `Block.vue` | (dispatcher) | Componente dispatcher que renderiza el bloque correcto según `block.type` |
-| `BlockParagraph.vue` | `paragraph` | Párrafo con HTML sanitizado. Soporta variantes vía `tunes.textVariant`: `citation` (renderiza `<cite>`), `call-out` (bocadillo destacado) y `details` (renderiza `<details>/<summary>` plegable como elemento raíz, fuera del `<p>`, por validez HTML) |
-| `BlockHeader.vue` | `header` | Encabezado h1-h6 según `level` |
-| `BlockCode.vue` | `code` | Bloque de código con lenguaje, numeración de líneas, escape seguro de entidades y botón accesible de copiado al portapapeles con confirmación visual |
-| `BlockImage.vue` | `image` | Imagen con caption computada sin mutación de props, borde, background y stretched opcionales |
-| `BlockList.vue` | `list` | Lista ordenada, desordenada o checklist con salto de línea natural (`overflow-wrap: break-word`). Admite el formato antiguo (textos) y el de `@editorjs/list` 2.x (anidada, `meta.counterType`/`meta.start`); delega en `BlockListItems.vue` (recursivo) |
-| `BlockCheckList.vue` | `checklist` | Lista de verificación con checks y ajuste de palabras accesible |
-| `BlockQuote.vue` | `quote` | Cita con texto, caption y alineación, con texto fluido sin ruptura indiscriminada de palabras |
-| `BlockWarning.vue` | `warning` | Mensaje de aviso con título |
-| `BlockAlert.vue` | `alert` | Alerta con tipo (info/success/warning/danger), título, mensaje y alineación |
-| `BlockDelimiter.vue` | `delimiter` | Separador visual horizontal |
-| `BlockTable.vue` | `table` | Tabla con cabeceras opcionales. Con `withHeadings`, la primera fila de `content` se renderiza en `<thead>` y el resto (`bodyRows`) en `<tbody>`, prefijando cada celda con su cabecera para vista responsive |
-| `BlockEmbed.vue` | `embed` | Contenido embebido (YouTube, Vimeo, Twitter, etc.) con `title` accesible, `sandbox` restringido, `loading="lazy"` y `referrerpolicy="strict-origin-when-cross-origin"` |
-| `BlockLinkTool.vue` | `linkTool` | Preview de enlace externo con meta (título, descripción, imagen) |
-| `BlockAttaches.vue` | `attaches` | Archivo adjunto descargable con metadatos |
-| `BlockRaw.vue` | `raw` | HTML crudo (usa `sanitizeRawHtml` para XSS) |
+| `Block.vue` | (dispatcher) | Componente dispatcher que renderiza el bloque correcto según `block.type`. Incluye fallback seguro y estilizado con tokens de diseño para bloques no soportados |
+| `BlockParagraph.vue` | `paragraph` | Párrafo con HTML sanitizado y estilos scoped compatibles con tema oscuro. Soporta variantes vía `tunes.textVariant`: `citation` (renderiza `<cite>` estilizado), `call-out` (bloque destacado con acento) y `details` (renderiza `<details>/<summary>` plegable como elemento raíz accesible) |
+| `BlockHeader.vue` | `header` | Encabezado h1-h6 según `level` con soporte de formato HTML enriquecido sanitizado |
+| `BlockCode.vue` | `code` | Bloque de código con lenguaje, numeración de líneas, escape seguro de entidades, icono Material (`content_copy`/`check`) y botón accesible de copiado al portapapeles con confirmación visual |
+| `BlockImage.vue` | `image` | Imagen responsive sin saltos de layout (CLS), pie de foto permanente y tokens Silicon Architect |
+| `BlockList.vue` | `list` | Lista ordenada, desordenada o checklist con salto de línea natural (`overflow-wrap: break-word`). Admite el formato antiguo (textos) y el de `@editorjs/list` 2.x; delega en `BlockListItems.vue` (recursivo) con tokens Tailwind |
+| `BlockCheckList.vue` | `checklist` | Lista de verificación accesible con atributos ARIA (`role="checkbox"`, `aria-checked`), iconos Material y diseño Silicon Architect |
+| `BlockQuote.vue` | `quote` | Cita estilizada con tokens Silicon Architect, borde de acento secundario y tipografía fluida |
+| `BlockWarning.vue` | `warning` | Mensaje de advertencia con icono Material de alerta y tokens `bg-error-container/15 border-error/30 text-error` sin mutación de props |
+| `BlockAlert.vue` | `alert` | Alerta accesible con `role="alert"`, soporte tipográfico y tokens de diseño oscuros adaptativos para tipos `primary`, `secondary`, `info`, `success`, `warning`, `danger`, `light` y `dark` |
+| `BlockDelimiter.vue` | `delimiter` | Separador visual horizontal moderno y minimalista adaptado al design system |
+| `BlockTable.vue` | `table` | Tabla responsive con scroll horizontal suave, tokens de diseño oscuros, soporte de `caption` tipado y cabeceras opcionales |
+| `BlockEmbed.vue` | `embed` | Contenido embebido (YouTube, Vimeo, etc.) con contenedor responsivo `aspect-video`, `title` accesible, `sandbox` restringido, `loading="lazy"` y `referrerpolicy="strict-origin-when-cross-origin"` |
+| `BlockLinkTool.vue` | `linkTool` | Tarjeta de previsualización de enlace externo con tokens Silicon Architect, hover states y badges |
+| `BlockAttaches.vue` | `attaches` | Archivo adjunto descargable con metadatos tipográficos, icono Material `download` y botón accesible con `aria-label` |
+| `BlockRaw.vue` | `raw` | HTML crudo (usa `sanitizeRawHtml` para protección contra XSS) |
 
 ## Flujo de renderizado
 

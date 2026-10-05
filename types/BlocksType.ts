@@ -196,5 +196,6 @@ export type BlockTableType = BlockType & {
     data: {
         content: string[][], // Todas las filas/columnas
         withHeadings: boolean, // Fila 0 será la cabecera si es true
+        caption?: string,
     }
 }

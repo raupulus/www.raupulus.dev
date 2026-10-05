@@ -1,31 +1,48 @@
 <template>
-  <div :id="linkTool.id" class="r-web-preview-container">
-    <div class="r-web-preview-box">
-      <a
-        class="r-web-preview-link"
-        target="_blank"
-        rel="nofollow noindex noreferrer noopener"
-        :href="isSafeHttpUrl(linkTool.data.link) ? linkTool.data.link : '#'"
-      >
-        <div
-          v-if="linkTool.data.meta.image?.url && isSafeHttpUrl(linkTool.data.meta.image.url)"
-          class="r-web-preview-image"
-          :style="{ backgroundImage: `url(${linkTool.data.meta.image.url})` }"
+  <!-- eslint-disable vue/no-v-html -->
+  <div :id="linkTool.id" class="my-6 w-full max-w-2xl mx-auto">
+    <a
+      class="group flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-5 bg-surface-container-high hover:bg-surface-container-highest border border-outline-variant/30 hover:border-primary/50 rounded-xl transition-all duration-300 shadow-sm overflow-hidden"
+      target="_blank"
+      rel="nofollow noindex noreferrer noopener"
+      :href="isSafeHttpUrl(linkTool.data.link) ? linkTool.data.link : '#'"
+      :aria-label="'Enlace externo: ' + (linkTool.data.meta.title || linkTool.data.link)"
+    >
+      <div class="flex-1 min-w-0">
+        <h4
+          v-if="linkTool.data.meta.title"
+          class="font-headline text-base sm:text-lg font-bold text-on-surface group-hover:text-primary transition-colors line-clamp-2 mb-1"
+          v-html="sanitizeHtml(linkTool.data.meta.title)"
+        />
+        <p
+          v-if="linkTool.data.meta.description"
+          class="font-body text-xs sm:text-sm text-on-surface-variant line-clamp-2 mb-3 leading-relaxed"
+          v-html="sanitizeHtml(replaceBreakLine(linkTool.data.meta.description))"
         />
 
-        <!-- eslint-disable-next-line vue/no-v-html -->
-        <div v-if="linkTool.data.meta.title" class="r-web-preview-title" v-html="sanitizeHtml(linkTool.data.meta.title)"/>
-        <!-- eslint-disable-next-line vue/no-v-html -->
-        <div v-if="linkTool.data.meta.description" class="r-web-preview-description" v-html="sanitizeHtml(replaceBreakLine(linkTool.data.meta.description))" />
+        <div class="flex items-center gap-1.5 font-label text-xs text-tertiary">
+          <UiMaterialIcon name="link" class="text-sm shrink-0" />
+          <span class="truncate">{{ displayDomain }}</span>
+        </div>
+      </div>
 
-        <span class="r-web-preview-anchor">{{ linkTool.data.link.replace(/https*:\/\//, '') }}</span>
-      </a>
-    </div>
+      <div
+        v-if="linkTool.data.meta.image?.url && isSafeHttpUrl(linkTool.data.meta.image.url)"
+        class="w-full sm:w-20 h-28 sm:h-20 rounded-lg overflow-hidden shrink-0 border border-outline-variant/20 bg-surface-container-lowest"
+      >
+        <img
+          :src="linkTool.data.meta.image.url"
+          alt=""
+          loading="lazy"
+          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+        >
+      </div>
+    </a>
   </div>
-
 </template>
 
 <script lang="ts" setup>
+import { computed } from 'vue';
 import type { BlockLinkToolType, BlockType } from '@/types/BlocksType';
 import { sanitizeHtml, isSafeHttpUrl } from '~/utils/sanitize';
 
@@ -38,74 +55,12 @@ const props = defineProps({
 
 const linkTool = props.block as BlockLinkToolType
 const replaceBreakLine = (text: string) => text.replace(/\n|\r/g, '<br>').trim();
+const displayDomain = computed(() => {
+  try {
+    const url = new URL(linkTool.data.link);
+    return url.hostname;
+  } catch {
+    return linkTool.data.link.replace(/^https?:\/\//, '').split('/')[0];
+  }
+});
 </script>
-
-<style scoped>
-.r-web-preview-container {
-  margin: 1rem 0;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.r-web-preview-box {
-  margin: auto;
-  padding: 1rem 0.4rem;
-  width: 100%;
-  max-width: 650px;
-  box-sizing: border-box;
-}
-
-.r-web-preview-link {
-  cursor: pointer;
-  background: #fff;
-  border: 1px solid rgba(201, 201, 204, 0.48);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, .1);
-  border-radius: 6px;
-  will-change: filter;
-  animation: link-in 450ms 1 cubic-bezier(0.215, 0.61, 0.355, 1);
-  display: block;
-  padding: 25px;
-  color: initial !important;
-  text-decoration: none !important;
-}
-
-.r-web-preview-image {
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  margin: 0 0 0 30px;
-  width: 65px;
-  height: 65px;
-  border-radius: 3px;
-  float: right;
-}
-
-.r-web-preview-title {
-  text-align: left;
-  font-size: 17px;
-  font-weight: 600;
-  line-height: 1.5em;
-  margin: 0 0 10px 0;
-}
-
-.r-web-preview-description {
-  margin: 0 0 20px 0;
-  font-size: 15px;
-  text-align: left;
-  line-height: 1.55em;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.r-web-preview-anchor {
-  display: block;
-  font-size: 15px;
-  line-height: 1em;
-  color: #888 !important;
-  border: 0 !important;
-  padding: 0 !important;
-  text-align: left;
-}
-</style>
