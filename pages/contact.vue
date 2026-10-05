@@ -461,6 +461,7 @@ const showConfirmModal = async (e: Event): Promise<void> => {
                 <!-- Columna formulario -->
                 <div class="lg:col-span-2">
                     <form class="bg-surface-container-high rounded-xl border border-outline-variant/20 p-8 space-y-6" @submit.prevent="onSubmit">
+                        <h2 class="sr-only">Formulario de mensaje directo</h2>
 
                         <!-- Honeypot anti-bots: invisible para humanos, los bots lo rellenan -->
                         <div class="absolute -left-[9999px] top-auto w-px h-px overflow-hidden" aria-hidden="true">
@@ -690,7 +691,7 @@ const showConfirmModal = async (e: Event): Promise<void> => {
                 <!-- Columna info lateral -->
                 <div class="flex flex-col gap-6">
                     <div class="bg-surface-container-high rounded-xl border border-outline-variant/20 p-8">
-                        <h3 class="font-headline text-lg font-bold mb-6 tracking-tight">Información de Contacto</h3>
+                        <h2 class="font-headline text-lg font-bold mb-6 tracking-tight">Información de Contacto</h2>
                         <div class="space-y-4">
                             <div class="flex items-center gap-4">
                                 <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">

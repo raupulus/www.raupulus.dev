@@ -34,6 +34,7 @@ Slideshow modal para la galería de fotos de la página "Sobre Mí".
 - Navegación entre imágenes (anterior/siguiente) con botones accesibles (`aria-label`).
 - Cierre mediante clic en fondo o pulsación de tecla `Escape`.
 - Dimensiones controladas y `100dvh` para evitar overflow en pantallas móviles.
+- Integración con `useModalAccessibility`: bloqueo de scroll en el fondo, trampa de foco accesible y retorno del foco al elemento desencadenante al cerrar.
 
 ## `ModalsSubmitContact` — Confirmación de contacto
 
@@ -50,5 +51,6 @@ Modal multi-paso accesible para la confirmación previa, estado de carga y resul
 ### Accesibilidad y diseño
 
 - Diseñado íntegramente con tokens semánticos de "Silicon Architect" (`bg-surface-container`, `text-primary`, `border-outline-variant`).
+- Gestión de accesibilidad con `useModalAccessibility`: scroll lock en body, trampa de foco (focus trap) ciclando elementos interactivos, y restauración de foco al cerrar.
 - Gestión de teclado: cierre con tecla `Escape` (`cancel` en paso 1, `finished` en paso 3).
-- Atributos ARIA: `role="dialog"`, `aria-modal="true"`, `aria-label="Confirmación de envío de email"`.
+- Atributos ARIA: `role="dialog"`, `aria-modal="true"`, `aria-labelledby="submit-contact-title"`.

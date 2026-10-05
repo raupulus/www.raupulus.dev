@@ -294,7 +294,7 @@ const bentoRows = computed(() => {
                                     <UiMaterialIcon v-else class="text-primary-container" :name="network.icon" />
                                 </div>
                                 <div>
-                                    <h3 class="font-headline text-2xl font-bold">{{ network.title }}</h3>
+                                    <h2 class="font-headline text-2xl font-bold">{{ network.title }}</h2>
                                     <p class="font-label text-xs text-tertiary">{{ network.handle }}</p>
                                 </div>
                             </div>
@@ -340,7 +340,7 @@ const bentoRows = computed(() => {
                                 />
                                 <UiMaterialIcon v-else class="text-primary-container" :name="network.icon" />
                             </div>
-                            <h3 class="font-headline text-xl font-bold mb-2">{{ network.title }}</h3>
+                            <h2 class="font-headline text-xl font-bold mb-2">{{ network.title }}</h2>
                             <p v-if="network.badge" class="font-label text-xs text-secondary mb-4 uppercase tracking-widest">{{ network.badge }}</p>
                             <p class="text-sm text-on-surface-variant leading-relaxed">{{ network.description }}</p>
                         </div>
@@ -375,7 +375,7 @@ const bentoRows = computed(() => {
                             </div>
                             <UiMaterialIcon class="text-outline group-hover:text-primary transition-colors text-sm" name="north_east" />
                         </div>
-                        <h3 class="font-headline text-base font-bold mb-1">{{ network.title }}</h3>
+                        <h2 class="font-headline text-base font-bold mb-1">{{ network.title }}</h2>
                         <p class="font-label text-[10px] text-outline mb-2">{{ network.handle }}</p>
                         <p class="text-xs text-on-surface-variant leading-relaxed flex-1">{{ network.description }}</p>
                     </a>

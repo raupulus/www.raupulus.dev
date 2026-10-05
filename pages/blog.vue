@@ -55,9 +55,9 @@
                                     {{ article.readTime }}
                                 </span>
                             </div>
-                            <h3 class="font-headline text-xl font-bold mb-4 text-on-surface">
+                            <h4 class="font-headline text-xl font-bold mb-4 text-on-surface">
                                 {{ article.title }}
-                            </h3>
+                            </h4>
                             <p class="text-on-surface-variant text-sm mb-8 leading-relaxed">
                                 {{ article.description }}
                             </p>

@@ -217,7 +217,7 @@ const pastimes = [
                 <!-- Skills -->
                 <div class="bg-surface-container-high rounded-xl overflow-hidden border border-outline-variant/20">
                     <div class="px-8 py-4 bg-primary">
-                        <h3 class="font-headline text-xl font-bold text-on-primary tracking-tight">Skills</h3>
+                        <h2 class="font-headline text-xl font-bold text-on-primary tracking-tight">Skills</h2>
                     </div>
                     <ul class="p-8 space-y-3">
                         <li v-for="skill in skills" :key="skill" class="flex items-start gap-3 text-on-surface-variant">
@@ -230,7 +230,7 @@ const pastimes = [
                 <!-- Pasiones -->
                 <div class="bg-surface-container-high rounded-xl overflow-hidden border border-outline-variant/20">
                     <div class="px-8 py-4 bg-primary">
-                        <h3 class="font-headline text-xl font-bold text-on-primary tracking-tight">Pasiones</h3>
+                        <h2 class="font-headline text-xl font-bold text-on-primary tracking-tight">Pasiones</h2>
                     </div>
                     <ul class="p-8 space-y-3">
                         <li v-for="passion in passions" :key="passion" class="flex items-start gap-3 text-on-surface-variant">
@@ -278,7 +278,7 @@ const pastimes = [
                 <!-- Hobbies -->
                 <div class="bg-surface-container-high rounded-xl overflow-hidden border border-outline-variant/20">
                     <div class="px-8 py-4 bg-tertiary-container">
-                        <h3 class="font-headline text-xl font-bold text-on-tertiary-container tracking-tight">Hobbies</h3>
+                        <h2 class="font-headline text-xl font-bold text-on-tertiary-container tracking-tight">Hobbies</h2>
                     </div>
                     <ul class="p-8 space-y-3">
                         <li v-for="hobby in hobbies" :key="hobby" class="flex items-start gap-3 text-on-surface-variant">
@@ -291,7 +291,7 @@ const pastimes = [
                 <!-- Pasatiempos -->
                 <div class="bg-surface-container-high rounded-xl overflow-hidden border border-outline-variant/20">
                     <div class="px-8 py-4 bg-tertiary-container">
-                        <h3 class="font-headline text-xl font-bold text-on-tertiary-container tracking-tight">Pasatiempos</h3>
+                        <h2 class="font-headline text-xl font-bold text-on-tertiary-container tracking-tight">Pasatiempos</h2>
                     </div>
                     <ul class="p-8 space-y-3">
                         <li v-for="pastime in pastimes" :key="pastime" class="flex items-start gap-3 text-on-surface-variant">
@@ -305,6 +305,9 @@ const pastimes = [
 
         <!-- ===== GALERÍA ===== -->
         <section class="px-8 pb-24 max-w-7xl mx-auto">
+            <h2 class="font-headline text-2xl font-bold text-on-surface tracking-tight mb-6">
+                Galería Fotográfica
+            </h2>
             <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-1">
                 <button
                     v-for="(galleryPath, idx) in galleryPaths"

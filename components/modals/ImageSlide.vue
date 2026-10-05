@@ -1,6 +1,7 @@
 <template>
     <div
         v-if="show && galleryPaths.length > 0"
+        ref="modalRef"
         class="fixed inset-0 z-[1000] flex items-center justify-center bg-background/90 backdrop-blur-md p-4 md:p-8"
         role="dialog"
         aria-modal="true"
@@ -83,6 +84,7 @@
 </template>
 
 <script lang="ts" setup>
+import { toRef } from 'vue';
 import type { GalleryPathType } from '@/types/GalleryPathType';
 
 const props = defineProps({
@@ -101,6 +103,9 @@ const props = defineProps({
 });
 
 const emit = defineEmits(['update:show']);
+
+const modalRef = ref<HTMLElement | null>(null);
+useModalAccessibility(toRef(props, 'show'), modalRef);
 
 const currentIndex = ref<number>(props.selectedIndex);
 const currentImage = computed(() => props.galleryPaths[currentIndex.value]);

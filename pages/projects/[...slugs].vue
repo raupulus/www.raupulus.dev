@@ -427,6 +427,8 @@ useHead(() => ({
 
             <!-- Grid de proyectos -->
             <section class="px-8 pb-24 max-w-7xl mx-auto">
+                <h2 class="sr-only">Catálogo de Proyectos</h2>
+
                 <!-- Contador de resultados -->
                 <div v-if="datas.meta?.total" class="mb-8 flex items-center gap-3">
                     <span class="w-2 h-2 rounded-full bg-tertiary animate-pulse" />

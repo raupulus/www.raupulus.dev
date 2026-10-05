@@ -48,6 +48,9 @@ const handleKeydown = (e: KeyboardEvent) => {
     }
 }
 
+const modalRef = ref<HTMLElement | null>(null)
+useModalAccessibility(toRef(props, 'show'), modalRef)
+
 onMounted(() => {
     document.addEventListener('keydown', handleKeydown)
 })
@@ -60,17 +63,18 @@ onBeforeUnmount(() => {
 <template>
     <div
         v-if="show"
+        ref="modalRef"
         class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm overflow-y-auto"
         role="dialog"
         aria-modal="true"
-        aria-label="Confirmación de envío de email"
+        aria-labelledby="submit-contact-title"
     >
         <div
             class="relative w-full max-w-2xl bg-surface-container border border-outline-variant/30 rounded-xl shadow-2xl p-6 sm:p-8 text-on-surface"
         >
             <!-- Paso 1: Resumen antes de enviar -->
             <div v-if="step === 1" class="space-y-6">
-                <h3 class="font-headline text-xl sm:text-2xl font-bold tracking-tight text-primary text-center">
+                <h3 id="submit-contact-title" class="font-headline text-xl sm:text-2xl font-bold tracking-tight text-primary text-center">
                     Resumen de los datos introducidos
                 </h3>
 

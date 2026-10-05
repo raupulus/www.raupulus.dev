@@ -13,6 +13,7 @@ Lógica reutilizable del proyecto encapsulada en composables de Nuxt. Todos se a
 | `states.ts` | `useScrollDisabled()` | Estado global para bloqueo de scroll |
 | `useApiBase.ts` | `useApiBase()`, `useApiDomain()` | URL base / dominio de la API según contexto de ejecución |
 | `useGoogleRecaptcha.ts` | `useGoogleRecaptcha()`, `RecaptchaAction` | Wrapper de Google reCAPTCHA v3 |
+| `useModalAccessibility.ts` | `useModalAccessibility(isOpen, modalRef)` | Gestión de accesibilidad modal (bloqueo de scroll, trampa de foco y restauración) |
 
 Todos consumen la **API V2** (`/api/v2`). Las respuestas llegan en el envelope
 `{ success, message, data, meta?, errors? }` (`ApiResponseType<T>`); el slug de la
@@ -141,6 +142,17 @@ class RecaptchaAction {
 ```
 
 **`executeRecaptcha(action)`**: espera a que reCAPTCHA cargue, ejecuta con la acción indicada y devuelve `{ token }`.
+
+---
+
+## `useModalAccessibility()` — Accesibilidad para diálogos y modales (WCAG 2.1 AA)
+
+Composable que asegura el cumplimiento de accesibilidad en elementos de diálogo:
+1. **Bloqueo de scroll**: cuando `isOpen` es `true`, bloquea el desplazamiento del fondo (`document.body.style.overflow = 'hidden'`) y lo restaura al cerrarse.
+2. **Trampa de foco (Focus Trap)**: intercepta la navegación con tecla `Tab` / `Shift+Tab` para mantener el foco exclusivamente dentro de los elementos interactivos del modal.
+3. **Restauración de foco**: al abrir el modal guarda el elemento que tenía el foco activo y, tras cerrarse, devuelve el foco automáticamente a dicho elemento.
+
+---
 
 ## Relaciones con otros módulos
 
