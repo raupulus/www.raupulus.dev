@@ -4,12 +4,12 @@ Layout principal que envuelve todas las páginas con header fijo, contenido y fo
 
 ## Archivos principales
 
-| Archivo | Rol |
-|---------|-----|
-| `app.vue` | Root component: SEO global, canonicals dinámicos con barra final, datos de plataforma, cookies y analítica con Consent Mode v2 |
-| `layouts/default.vue` | Layout por defecto: enlace "Saltar al contenido" → Header → Main (`#app-box-content`) → Footer → CookieControl |
-| `components/app/Header.vue` | Barra de navegación fija con menú responsive accesible (Esc, focus return) |
-| `components/app/Footer.vue` | Pie de página con copyright hidratación-segura y enlaces legales completos |
+| Archivo                     | Rol                                                                                                                            |
+| --------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `app.vue`                   | Root component: SEO global, canonicals dinámicos con barra final, datos de plataforma, cookies y analítica con Consent Mode v2 |
+| `layouts/default.vue`       | Layout por defecto: enlace "Saltar al contenido" → Header → Main (`#app-box-content`) → Footer → CookieControl                 |
+| `components/app/Header.vue` | Barra de navegación fija con menú responsive accesible (Esc, focus return)                                                     |
+| `components/app/Footer.vue` | Pie de página con copyright hidratación-segura y enlaces legales completos                                                     |
 
 ## `app.vue` — Root Component
 
@@ -32,13 +32,10 @@ Layout principal que envuelve todas las páginas con header fijo, contenido y fo
 
 ```html
 <div id="app">
-  <a href="#app-box-content" class="sr-only focus:not-sr-only ...">Saltar al contenido principal</a>
-  <AppHeader />          ← Header fijo
-  <main id="app-box-content" class="flex-1 pt-20">
-    <slot />             ← Contenido de la página
-  </main>
-  <AppFooter />          ← Footer
-  <CookieControl />      ← Banner de cookies
+    <a href="#app-box-content" class="sr-only focus:not-sr-only ...">Saltar al contenido principal</a>
+    <AppHeader /> ← Header fijo
+    <main id="app-box-content" class="flex-1 pt-20"><slot /> ← Contenido de la página</main>
+    <AppFooter /> ← Footer <CookieControl /> ← Banner de cookies
 </div>
 ```
 
@@ -59,12 +56,12 @@ Layout principal que envuelve todas las páginas con header fijo, contenido y fo
 
 ```typescript
 const navLinks: NavLink[] = [
-  { to: '/', label: 'Inicio' },
-  { to: '/projects/', label: 'Proyectos' },
-  { to: '/about/', label: 'Sobre Mí' },
-  { to: '/webs/', label: 'Webs' },
-  { to: '/social/', label: 'Social' },
-]
+    { to: '/', label: 'Inicio' },
+    { to: '/projects/', label: 'Proyectos' },
+    { to: '/about/', label: 'Sobre Mí' },
+    { to: '/webs/', label: 'Webs' },
+    { to: '/social/', label: 'Social' },
+];
 ```
 
 ## `AppFooter` — Pie de Página
@@ -72,6 +69,11 @@ const navLinks: NavLink[] = [
 - Copyright con año fijado en compilación e hidratación cliente reactiva segura (`onMounted`) para evitar discrepancias SSR/SSG.
 - Enlaces legales: `/privacy/`, `/cookies/`, `/legal/`, `/contact/`.
 - Enlace al repositorio público de código fuente en GitLab.
+
+## Tests unitarios asociados
+
+- `tests/components/app/Header.test.ts`: verifica marca, navegación principal, enlaces canónicos y atributos WCAG del botón móvil.
+- `tests/components/app/Footer.test.ts`: verifica rol `contentinfo`, copyright y enlaces legales.
 
 ## Relaciones con otros módulos
 
