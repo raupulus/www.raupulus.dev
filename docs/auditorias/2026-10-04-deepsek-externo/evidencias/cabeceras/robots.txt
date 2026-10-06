@@ -1,4 +1,0 @@
-User-agent: *
-Disallow:
-
-Sitemap: https://raupulus.dev/sitemap.xml

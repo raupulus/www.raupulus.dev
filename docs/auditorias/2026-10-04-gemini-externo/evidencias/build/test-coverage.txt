@@ -1,8 +1,0 @@
-npm warn Unknown project config "shamefully-hoist". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
-
-> nuxt-app@1.1.0 test:coverage
-> vitest run --coverage
-
-[info] [@nuxtjs/sitemap] No dynamic sources detected. Consider enabling `zeroRuntime` to reduce server bundle size. See https://nuxtseo.com/sitemap/guides/zero-runtime
- MISSING DEPENDENCY  Cannot find dependency '@vitest/coverage-v8'
-
