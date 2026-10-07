@@ -277,12 +277,27 @@
 
     const projectSchema = computed(() => {
         if (!isDetail.value || !project.value) {
+            const itemList = (datas.value?.contents || []).slice(0, 20).map((item, index) => ({
+                '@type': 'ListItem',
+                position: index + 1,
+                name: item.title,
+                url: `${siteUrl}/projects/${item.slug}/`,
+            }));
+
             return {
                 '@context': 'https://schema.org',
                 '@type': 'CollectionPage',
                 name: catalogTitle,
                 url: `${siteUrl}/projects/`,
                 description: catalogDescription,
+                ...(itemList.length > 0
+                    ? {
+                          mainEntity: {
+                              '@type': 'ItemList',
+                              itemListElement: itemList,
+                          },
+                      }
+                    : {}),
             };
         }
 

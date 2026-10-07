@@ -17,12 +17,12 @@ useSeoMeta({
     description: webDescription,
     ogTitle: webTitle,
     ogDescription: webDescription,
-    ogImage: '/logo_512x512.png',
+    ogImage: '/social/home.webp',
     ogUrl: 'https://raupulus.dev',
     twitterTitle: webTitle,
     twitterDescription: webDescription,
-    twitterImage: '/logo_512x512.png',
-    twitterCard: 'summary',
+    twitterImage: '/social/home.webp',
+    twitterCard: 'summary_large_image',
 });
 
 useHead({
@@ -49,10 +49,10 @@ useHead({
 
 ## Datos estructurados JSON-LD
 
-Además del bloque global `@graph` en `app.vue` (`Person` y `WebSite`), cada página inyecta su propio esquema JSON-LD tipado para mejorar el SEO y los fragmentos enriquecidos:
+Además del bloque global `@graph` en `app.vue` (`Person` enriquecida con `knowsAbout`, `sameAs` y `WebSite`), cada página inyecta su propio esquema JSON-LD tipado para mejorar el SEO y los fragmentos enriquecidos:
 
 - **Home (`/`)**: `ProfilePage` con entidad principal `Person`, `jobTitle`, `sameAs` y contacto.
-- **Proyectos (`/projects/...`)**: `CollectionPage` en catálogo; `SoftwareSourceCode` o `CreativeWork` en vista de detalle con `BreadcrumbList`.
+- **Proyectos (`/projects/...`)**: `CollectionPage` con `ItemList` en catálogo; `SoftwareSourceCode` o `CreativeWork` en vista de detalle con `BreadcrumbList`.
 - **Sobre Mí (`/about/`)**: `ProfilePage` con metadatos profesionales del desarrollador.
 - **Contacto (`/contact/`)**: `ContactPage` con canal oficial de contacto.
 - **Redes Sociales (`/social/`)**: `CollectionPage` con perfiles y canales de comunicación.

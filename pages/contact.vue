@@ -451,7 +451,7 @@ watch(dataForm.value.message.value, async () => {
                     </p>
                     <p class="text-on-surface-variant text-sm leading-relaxed">
                         Puedes contactarme mediante alguna de las
-                        <NuxtLink to="/social" class="text-tertiary hover:underline">redes sociales</NuxtLink>
+                        <NuxtLink to="/social/" class="text-tertiary hover:underline">redes sociales</NuxtLink>
                         con una cuenta real y te contestaré en cuanto me sea posible.
                     </p>
                 </div>
@@ -485,7 +485,9 @@ watch(dataForm.value.message.value, async () => {
                         <!-- Nombre y Email -->
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="flex flex-col gap-2">
-                                <label for="name" class="font-label text-xs uppercase tracking-widest text-outline"
+                                <label
+                                    for="name"
+                                    class="font-label text-xs uppercase tracking-widest text-on-surface-variant"
                                     >Nombre</label
                                 >
                                 <input
@@ -496,6 +498,11 @@ watch(dataForm.value.message.value, async () => {
                                     maxlength="100"
                                     autocomplete="name"
                                     :aria-invalid="Boolean(isFormField(dataForm.name) && dataForm.name.errors?.length)"
+                                    :aria-describedby="
+                                        isFormField(dataForm.name) && dataForm.name.errors?.length
+                                            ? 'name-error'
+                                            : undefined
+                                    "
                                     :class="[
                                         'w-full bg-surface-container-lowest border-b-2 outline-none px-4 py-3 text-on-surface font-body placeholder:text-outline transition-colors',
                                         isFormField(dataForm.name) && dataForm.name.valid
@@ -507,19 +514,21 @@ watch(dataForm.value.message.value, async () => {
                                     placeholder="Tu nombre completo"
                                     @input="checkValidationsFromEvent"
                                 />
-                                <template v-if="isFormField(dataForm.name) && dataForm.name.errors?.length">
+                                <div v-if="isFormField(dataForm.name) && dataForm.name.errors?.length" id="name-error">
                                     <span
                                         v-for="error in dataForm.name.errors"
                                         :key="error"
-                                        class="text-error text-xs font-label"
+                                        class="text-error text-xs font-label block"
                                         role="alert"
                                         >{{ error }}</span
                                     >
-                                </template>
+                                </div>
                             </div>
 
                             <div class="flex flex-col gap-2">
-                                <label for="email" class="font-label text-xs uppercase tracking-widest text-outline"
+                                <label
+                                    for="email"
+                                    class="font-label text-xs uppercase tracking-widest text-on-surface-variant"
                                     >Email</label
                                 >
                                 <input
@@ -532,6 +541,11 @@ watch(dataForm.value.message.value, async () => {
                                     :aria-invalid="
                                         Boolean(isFormField(dataForm.email) && dataForm.email.errors?.length)
                                     "
+                                    :aria-describedby="
+                                        isFormField(dataForm.email) && dataForm.email.errors?.length
+                                            ? 'email-error'
+                                            : undefined
+                                    "
                                     :class="[
                                         'w-full bg-surface-container-lowest border-b-2 outline-none px-4 py-3 text-on-surface font-body placeholder:text-outline transition-colors',
                                         isFormField(dataForm.email) && dataForm.email.valid
@@ -543,21 +557,26 @@ watch(dataForm.value.message.value, async () => {
                                     placeholder="tu@email.com"
                                     @input="checkValidationsFromEvent"
                                 />
-                                <template v-if="isFormField(dataForm.email) && dataForm.email.errors?.length">
+                                <div
+                                    v-if="isFormField(dataForm.email) && dataForm.email.errors?.length"
+                                    id="email-error"
+                                >
                                     <span
                                         v-for="error in dataForm.email.errors"
                                         :key="error"
-                                        class="text-error text-xs font-label"
+                                        class="text-error text-xs font-label block"
                                         role="alert"
                                         >{{ error }}</span
                                     >
-                                </template>
+                                </div>
                             </div>
                         </div>
 
                         <!-- Asunto -->
                         <div class="flex flex-col gap-2">
-                            <label for="subject" class="font-label text-xs uppercase tracking-widest text-outline"
+                            <label
+                                for="subject"
+                                class="font-label text-xs uppercase tracking-widest text-on-surface-variant"
                                 >Asunto</label
                             >
                             <input
@@ -570,6 +589,11 @@ watch(dataForm.value.message.value, async () => {
                                 :aria-invalid="
                                     Boolean(isFormField(dataForm.subject) && dataForm.subject.errors?.length)
                                 "
+                                :aria-describedby="
+                                    isFormField(dataForm.subject) && dataForm.subject.errors?.length
+                                        ? 'subject-error'
+                                        : undefined
+                                "
                                 :class="[
                                     'w-full bg-surface-container-lowest border-b-2 outline-none px-4 py-3 text-on-surface font-body placeholder:text-outline transition-colors',
                                     isFormField(dataForm.subject) && dataForm.subject.valid
@@ -581,15 +605,18 @@ watch(dataForm.value.message.value, async () => {
                                 placeholder="Asunto del mensaje"
                                 @input="checkValidationsFromEvent"
                             />
-                            <template v-if="isFormField(dataForm.subject) && dataForm.subject.errors?.length">
+                            <div
+                                v-if="isFormField(dataForm.subject) && dataForm.subject.errors?.length"
+                                id="subject-error"
+                            >
                                 <span
                                     v-for="error in dataForm.subject.errors"
                                     :key="error"
-                                    class="text-error text-xs font-label"
+                                    class="text-error text-xs font-label block"
                                     role="alert"
                                     >{{ error }}</span
                                 >
-                            </template>
+                            </div>
                         </div>
 
                         <!-- Mensaje -->
@@ -597,11 +624,11 @@ watch(dataForm.value.message.value, async () => {
                             <div class="flex justify-between items-center">
                                 <label
                                     for="contact-message"
-                                    class="font-label text-xs uppercase tracking-widest text-outline"
+                                    class="font-label text-xs uppercase tracking-widest text-on-surface-variant"
                                 >
                                     Mensaje
                                 </label>
-                                <span class="font-label text-xs text-outline">
+                                <span class="font-label text-xs text-on-surface-variant">
                                     {{ String((dataForm.message as FormField).value || '').length }} / 2000
                                 </span>
                             </div>
@@ -615,6 +642,11 @@ watch(dataForm.value.message.value, async () => {
                                 :aria-invalid="
                                     Boolean(isFormField(dataForm.message) && dataForm.message.errors?.length)
                                 "
+                                :aria-describedby="
+                                    isFormField(dataForm.message) && dataForm.message.errors?.length
+                                        ? 'message-error'
+                                        : undefined
+                                "
                                 :class="[
                                     'w-full bg-surface-container-lowest border-b-2 outline-none px-4 py-3 text-on-surface font-body transition-colors resize-y',
                                     isFormField(dataForm.message) && dataForm.message.valid
@@ -626,32 +658,18 @@ watch(dataForm.value.message.value, async () => {
                                 placeholder="Escribe tu mensaje aquí..."
                                 @input="checkValidationsFromEvent"
                             />
-                            <template v-if="isFormField(dataForm.message) && dataForm.message.errors?.length">
+                            <div
+                                v-if="isFormField(dataForm.message) && dataForm.message.errors?.length"
+                                id="message-error"
+                            >
                                 <span
                                     v-for="error in dataForm.message.errors"
                                     :key="error"
-                                    class="text-error text-xs font-label"
+                                    class="text-error text-xs font-label block"
                                     role="alert"
                                     >{{ error }}</span
                                 >
-                            </template>
-                        </div>
-
-                        <!-- Primera capa informativa RGPD -->
-                        <div
-                            class="p-4 bg-surface-container-low rounded-lg border border-outline-variant/30 text-xs text-on-surface-variant space-y-1"
-                        >
-                            <p class="font-bold text-on-surface">Información básica sobre protección de datos:</p>
-                            <p><strong>Responsable:</strong> Raúl Caro Pastorino</p>
-                            <p><strong>Finalidad:</strong> Atender y responder a tu mensaje de contacto.</p>
-                            <p><strong>Legitimación:</strong> Consentimiento del interesado.</p>
-                            <p><strong>Destinatarios:</strong> No se ceden datos a terceros salvo obligación legal.</p>
-                            <p>
-                                <strong>Derechos:</strong> Acceso, rectificación y supresión escribiendo a
-                                <a href="mailto:public@raupulus.dev" class="text-tertiary hover:underline"
-                                    >public@raupulus.dev</a
-                                >.
-                            </p>
+                            </div>
                         </div>
 
                         <!-- Checkboxes legales separados -->
@@ -666,6 +684,11 @@ watch(dataForm.value.message.value, async () => {
                                         name="privacity"
                                         class="mt-1 w-4 h-4 accent-primary shrink-0"
                                         required
+                                        :aria-describedby="
+                                            isFormField(dataForm.privacity) && dataForm.privacity.errors?.length
+                                                ? 'privacity-error'
+                                                : undefined
+                                        "
                                         @change="checkValidationsFromEvent"
                                     />
                                     <span class="text-sm text-on-surface-variant leading-relaxed">
@@ -681,15 +704,18 @@ watch(dataForm.value.message.value, async () => {
                                         <span class="text-error">*</span>
                                     </span>
                                 </label>
-                                <template v-if="isFormField(dataForm.privacity) && dataForm.privacity.errors?.length">
+                                <div
+                                    v-if="isFormField(dataForm.privacity) && dataForm.privacity.errors?.length"
+                                    id="privacity-error"
+                                >
                                     <span
                                         v-for="error in dataForm.privacity.errors"
                                         :key="error"
-                                        class="text-error text-xs font-label"
+                                        class="text-error text-xs font-label block"
                                         role="alert"
                                         >{{ error }}</span
                                     >
-                                </template>
+                                </div>
                             </div>
 
                             <!-- Consentimiento de tratamiento -->
@@ -702,6 +728,11 @@ watch(dataForm.value.message.value, async () => {
                                         name="consent"
                                         class="mt-1 w-4 h-4 accent-primary shrink-0"
                                         required
+                                        :aria-describedby="
+                                            isFormField(dataForm.consent) && dataForm.consent.errors?.length
+                                                ? 'consent-error'
+                                                : undefined
+                                        "
                                         @change="checkValidationsFromEvent"
                                     />
                                     <span class="text-sm text-on-surface-variant leading-relaxed">
@@ -710,15 +741,18 @@ watch(dataForm.value.message.value, async () => {
                                         <span class="text-error">*</span>
                                     </span>
                                 </label>
-                                <template v-if="isFormField(dataForm.consent) && dataForm.consent.errors?.length">
+                                <div
+                                    v-if="isFormField(dataForm.consent) && dataForm.consent.errors?.length"
+                                    id="consent-error"
+                                >
                                     <span
                                         v-for="error in dataForm.consent.errors"
                                         :key="error"
-                                        class="text-error text-xs font-label"
+                                        class="text-error text-xs font-label block"
                                         role="alert"
                                         >{{ error }}</span
                                     >
-                                </template>
+                                </div>
                             </div>
 
                             <!-- Información básica de protección de datos (Primera capa - Art. 11 LOPDGDD) -->
@@ -793,7 +827,9 @@ watch(dataForm.value.message.value, async () => {
                                     <UiMaterialIcon class="text-primary text-sm" name="alternate_email" />
                                 </div>
                                 <div>
-                                    <p class="font-label text-[10px] text-outline uppercase tracking-widest">Email</p>
+                                    <p class="font-label text-[10px] text-on-surface-variant uppercase tracking-widest">
+                                        Email
+                                    </p>
                                     <a
                                         href="mailto:public@raupulus.dev"
                                         class="text-sm text-on-surface hover:text-primary transition-colors"
@@ -808,7 +844,7 @@ watch(dataForm.value.message.value, async () => {
                                     <UiMaterialIcon class="text-tertiary text-sm" name="location_on" />
                                 </div>
                                 <div>
-                                    <p class="font-label text-[10px] text-outline uppercase tracking-widest">
+                                    <p class="font-label text-[10px] text-on-surface-variant uppercase tracking-widest">
                                         Ubicación
                                     </p>
                                     <p class="text-sm text-on-surface">España</p>
@@ -821,7 +857,7 @@ watch(dataForm.value.message.value, async () => {
                                     <UiMaterialIcon class="text-secondary text-sm" name="schedule" />
                                 </div>
                                 <div>
-                                    <p class="font-label text-[10px] text-outline uppercase tracking-widest">
+                                    <p class="font-label text-[10px] text-on-surface-variant uppercase tracking-widest">
                                         Respuesta
                                     </p>
                                     <p class="text-sm text-on-surface">En cuanto sea posible</p>

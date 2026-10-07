@@ -1,8 +1,9 @@
 <script setup lang="ts">
     //import fetchCsrfToken from '@/composables/fetchPostData'
 
-    const webTitle = 'Portfolio de Raúl Caro Pastorino Web Developer (@raupulus)';
-    const webDescription = 'Portal como desarrollador web de Raúl Caro Pastorino (@raupulus) Developer & Maker';
+    const webTitle = 'Raúl Caro Pastorino · Full Stack Senior · Laravel & IA';
+    const webDescription =
+        'Portfolio de Raúl Caro Pastorino (@raupulus). Desarrollador Full Stack Senior especializado en backend PHP/Laravel, PostgreSQL, IA aplicada y proyectos Open Source/IoT.';
 
     // Canonical y og:url dinámicos según la ruta actual (con barra final según URLS=con-barra-final)
     const route = useRoute();
@@ -18,11 +19,11 @@
         description: webDescription,
         ogTitle: webTitle,
         ogDescription: webDescription,
-        ogImage: `${siteUrl}/logo_512x512.png`,
+        ogImage: `${siteUrl}/social/home.webp`,
         ogUrl: canonicalUrl,
         twitterTitle: webTitle,
         twitterDescription: webDescription,
-        twitterImage: `${siteUrl}/logo_512x512.png`,
+        twitterImage: `${siteUrl}/social/home.webp`,
         twitterCard: 'summary_large_image',
     });
 
@@ -81,16 +82,21 @@
                             alternateName: 'raupulus',
                             url: siteUrl,
                             image: siteUrl + '/logo_512x512.png',
-                            jobTitle: 'Desarrollador Web Backend',
+                            jobTitle: 'Desarrollador Full Stack Senior · Backend Laravel · IA aplicada',
                             description:
-                                'Desarrollador Web Backend especializado en PHP/Laravel, Python, IoT y sistemas distribuidos.',
+                                'Desarrollador Full Stack Senior con más de 15 años de experiencia, especializado en PHP/Laravel, IA aplicada en producción (RAG y agentes), bases de datos PostgreSQL, hardware propio y sistemas GNU/Linux.',
                             knowsAbout: [
                                 'PHP',
                                 'Laravel',
+                                'Inteligencia Artificial',
+                                'RAG (Retrieval-Augmented Generation)',
+                                'Agentes de IA',
                                 'Python',
                                 'Vue.js',
                                 'Nuxt',
                                 'IoT',
+                                'LoRa / Meshtastic',
+                                'Diseño de PCBs',
                                 'PostgreSQL',
                                 'GNU/Linux',
                             ],
@@ -99,16 +105,20 @@
                                 'https://gitlab.com/raupulus',
                                 'https://www.linkedin.com/in/raulcaropastorino/',
                                 'https://twitter.com/raupulus',
+                                'https://bsky.app/profile/raupulus.bsky.social',
                                 'https://mastodon.online/@raupulus',
                                 'https://www.youtube.com/@raupulus',
-                                'https://www.twitch.tv/raupulus',
+                                'https://t.me/raupulus_diffusion',
+                                'https://packagist.org/users/raupulus/',
+                                'https://www.printables.com/@raupulus_2109175',
                             ],
                         },
                         {
                             '@type': 'WebSite',
                             '@id': siteUrl + '/#website',
                             url: siteUrl,
-                            name: 'Portfolio de Raúl Caro Pastorino',
+                            name: 'Raúl Caro Pastorino · Portfolio',
+                            description: webDescription,
                             inLanguage: 'es',
                             publisher: { '@id': siteUrl + '/#person' },
                         },

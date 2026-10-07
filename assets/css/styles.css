@@ -17,6 +17,12 @@ html {
     scroll-padding-top: 5rem;
 }
 
+/* Accesibilidad: foco visible de alto contraste (WCAG 2.1 AA/AAA 2.4.7) */
+:focus-visible {
+    outline: 2px solid var(--color-primary, #a3c9ff) !important;
+    outline-offset: 3px !important;
+}
+
 /* Accesibilidad: respetar la preferencia de movimiento reducido */
 @media (prefers-reduced-motion: reduce) {
     html {

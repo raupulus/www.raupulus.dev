@@ -29,7 +29,7 @@
                         PostgreSQL e IA aplicada en producción. También administro sistemas GNU/Linux y desarrollo
                         proyectos de IoT y hardware libre.
                     </p>
-                    <div class="flex flex-wrap gap-6">
+                    <div class="flex flex-wrap gap-4 sm:gap-6 mb-12">
                         <NuxtLink
                             to="/projects/"
                             class="px-8 py-4 bg-primary text-on-primary font-headline font-bold rounded hover:bg-primary-container transition-colors tracking-widest uppercase text-sm"
@@ -42,6 +42,43 @@
                         >
                             Sobre Mí
                         </NuxtLink>
+                        <a
+                            href="https://curriculum.raupulus.dev"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="px-8 py-4 bg-surface-container-high border border-outline-variant/30 hover:border-primary text-on-surface font-headline font-bold text-sm tracking-widest uppercase rounded hover:scale-105 transition-all flex items-center gap-2"
+                        >
+                            <span>CV Online</span>
+                            <UiMaterialIcon name="open_in_new" class="text-primary text-base" />
+                        </a>
+                    </div>
+
+                    <!-- Banda de métricas de impacto clave (P-05) -->
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-outline-variant/20">
+                        <div>
+                            <div class="font-headline text-2xl lg:text-3xl font-bold text-primary">+15 Años</div>
+                            <div class="font-label text-xs uppercase tracking-wider text-on-surface-variant">
+                                Programando
+                            </div>
+                        </div>
+                        <div>
+                            <div class="font-headline text-2xl lg:text-3xl font-bold text-secondary">7 Años</div>
+                            <div class="font-label text-xs uppercase tracking-wider text-on-surface-variant">
+                                Laravel en empresa
+                            </div>
+                        </div>
+                        <div>
+                            <div class="font-headline text-2xl lg:text-3xl font-bold text-tertiary">IA en Prod</div>
+                            <div class="font-label text-xs uppercase tracking-wider text-on-surface-variant">
+                                RAG &amp; Agentes
+                            </div>
+                        </div>
+                        <div>
+                            <div class="font-headline text-2xl lg:text-3xl font-bold text-on-surface">100+</div>
+                            <div class="font-label text-xs uppercase tracking-wider text-on-surface-variant">
+                                Repositorios FOSS
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -408,27 +445,29 @@
             </div>
         </section>
 
-        <!-- ===== NÚCLEO TECNOLÓGICO ===== -->
+        <!-- ===== ÁREAS DE ESPECIALIDAD ===== -->
         <section class="py-32 px-8">
             <div class="max-w-7xl mx-auto">
                 <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
                     <div>
                         <span class="font-label text-secondary tracking-widest text-xs uppercase mb-4 block"
-                            >Con qué trabajo</span
+                            >Capacidades y solvencia técnica</span
                         >
                         <h2 class="text-4xl md:text-6xl font-headline font-black tracking-tighter">
-                            STACK TECNOLÓGICO
+                            ÁREAS DE ESPECIALIDAD
                         </h2>
                     </div>
                     <div class="text-right">
-                        <p class="text-outline text-sm font-label uppercase tracking-widest">Aprendiendo siempre</p>
-                        <p class="text-outline-variant text-xs font-label tracking-tighter uppercase">
+                        <p class="text-on-surface-variant text-sm font-label uppercase tracking-widest">
+                            Aprendiendo siempre
+                        </p>
+                        <p class="text-on-surface-variant/80 text-xs font-label tracking-tighter uppercase">
                             Curioso por naturaleza
                         </p>
                     </div>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <!-- PHP/Laravel principal -->
+                    <!-- Backend principal -->
                     <div
                         class="md:col-span-2 md:row-span-2 p-10 bg-surface-container-high rounded-xl border border-outline-variant/20 flex flex-col justify-between group hover:border-primary/50 transition-all duration-500 shadow-xl"
                     >
@@ -437,12 +476,12 @@
                                 <div
                                     class="w-16 h-16 rounded-lg bg-surface-container-lowest flex items-center justify-center border border-outline-variant/30 text-primary"
                                 >
-                                    <UiMaterialIcon class="text-4xl" name="terminal" />
+                                    <UiMaterialIcon class="text-4xl" name="hub" />
                                 </div>
-                                <h3 class="text-3xl font-headline font-bold">PHP &amp; Laravel</h3>
+                                <h3 class="text-3xl font-headline font-bold">Backend &amp; Arquitectura</h3>
                             </div>
                             <p class="text-on-surface-variant text-lg leading-relaxed">
-                                El corazón de mi trabajo: 7 años en empresa desarrollando con Laravel. APIs REST,
+                                El corazón de mi trabajo: 7 años en empresa desarrollando con Laravel y PHP. APIs REST,
                                 paneles a medida, pasarelas de pago, servicios de IA y optimización de bases de datos.
                             </p>
                         </div>
@@ -453,7 +492,7 @@
                             >
                             <span
                                 class="px-3 py-1 bg-surface-container-lowest text-primary text-[10px] font-label uppercase rounded border border-outline-variant/20"
-                                >Paneles de gestión</span
+                                >Paneles a medida</span
                             >
                             <span
                                 class="px-3 py-1 bg-surface-container-lowest text-primary text-[10px] font-label uppercase rounded border border-outline-variant/20"
@@ -461,20 +500,20 @@
                             >
                         </div>
                     </div>
-                    <!-- Python -->
+                    <!-- IA & Automatización -->
                     <div
                         class="p-8 bg-surface-container rounded-xl border border-outline-variant/10 hover:bg-surface-container-high transition-all group"
                     >
                         <UiMaterialIcon
                             class="text-tertiary mb-4 block group-hover:scale-110 transition-transform"
-                            name="integration_instructions"
+                            name="memory"
                         />
-                        <h4 class="font-headline font-bold text-xl mb-2">Python</h4>
+                        <h4 class="font-headline font-bold text-xl mb-2">IA &amp; Automatización</h4>
                         <p class="text-sm text-on-surface-variant leading-relaxed">
-                            Automatización, scripts, bots y el lenguaje de mis proyectos con Raspberry Pi.
+                            Integración de modelos en producción: agentes, RAG, procesamiento de datos y scripts Python.
                         </p>
                     </div>
-                    <!-- Vue.js -->
+                    <!-- Frontend Reactivo -->
                     <div
                         class="p-8 bg-surface-container rounded-xl border border-outline-variant/10 hover:bg-surface-container-high transition-all group"
                     >
@@ -482,9 +521,9 @@
                             class="text-secondary mb-4 block group-hover:scale-110 transition-transform"
                             name="layers"
                         />
-                        <h4 class="font-headline font-bold text-xl mb-2">Vue.js</h4>
+                        <h4 class="font-headline font-bold text-xl mb-2">Frontend Reactivo</h4>
                         <p class="text-sm text-on-surface-variant leading-relaxed">
-                            El frontend de mis proyectos, como este mismo portfolio hecho con Nuxt.
+                            Interfaces rápidas y accesibles con Vue 3, Nuxt y TypeScript, como este mismo portfolio.
                         </p>
                     </div>
                     <!-- PostgreSQL -->
@@ -495,22 +534,22 @@
                             class="text-primary mb-4 block group-hover:scale-110 transition-transform"
                             name="database"
                         />
-                        <h4 class="font-headline font-bold text-xl mb-2">PostgreSQL</h4>
+                        <h4 class="font-headline font-bold text-xl mb-2">Bases de Datos</h4>
                         <p class="text-sm text-on-surface-variant leading-relaxed">
-                            Mi base de datos preferida: diseño relacional, consultas y rendimiento.
+                            Diseño relacional eficiente, integridad, consultas complejas e indexación con PostgreSQL.
                         </p>
                     </div>
-                    <!-- Bash & Ops -->
+                    <!-- Sistemas & DevOps -->
                     <div
                         class="p-8 bg-surface-container rounded-xl border border-outline-variant/10 hover:bg-surface-container-high transition-all group"
                     >
                         <UiMaterialIcon
-                            class="text-outline mb-4 block group-hover:scale-110 transition-transform"
-                            name="settings_ethernet"
+                            class="text-on-surface-variant mb-4 block group-hover:scale-110 transition-transform"
+                            name="terminal"
                         />
-                        <h4 class="font-headline font-bold text-xl mb-2">Bash &amp; Ops</h4>
+                        <h4 class="font-headline font-bold text-xl mb-2">Sistemas &amp; DevOps</h4>
                         <p class="text-sm text-on-surface-variant leading-relaxed">
-                            Administración de servidores, despliegues automatizados y scripting.
+                            Administración de servidores Linux, redes, despliegues automatizados y scripting en Bash.
                         </p>
                     </div>
                 </div>

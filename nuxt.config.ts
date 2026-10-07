@@ -83,11 +83,11 @@ export default defineNuxtConfig({
                     name: 'twitter:description',
                     content: 'Desarrollador Full Stack Senior · Backend Laravel · IA aplicada (@raupulus)',
                 },
-                { name: 'twitter:image', content: 'https://raupulus.dev/logo_512x512.png' },
+                { name: 'twitter:image', content: 'https://raupulus.dev/social/home.webp' },
                 { property: 'og:title', content: 'Raúl Caro Pastorino' },
                 { property: 'og:type', content: 'website' },
                 { property: 'og:url', content: 'https://raupulus.dev/' },
-                { property: 'og:image', content: 'https://raupulus.dev/logo_512x512.png' },
+                { property: 'og:image', content: 'https://raupulus.dev/social/home.webp' },
                 {
                     property: 'og:description',
                     content: 'Desarrollador Full Stack Senior · Backend Laravel · IA aplicada (@raupulus)',
