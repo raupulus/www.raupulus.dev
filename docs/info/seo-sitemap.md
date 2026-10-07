@@ -57,12 +57,13 @@ Además del bloque global `@graph` en `app.vue` (`Person` enriquecida con `knows
 - **Contacto (`/contact/`)**: `ContactPage` con canal oficial de contacto.
 - **Redes Sociales (`/social/`)**: `CollectionPage` con perfiles y canales de comunicación.
 - **Sitios Web (`/webs/`)**: `CollectionPage` con la selección de plataformas y aplicaciones.
+- **Blog (`/blog/...`)**: `Blog` con `ItemList` en catálogo; `TechArticle` con `BreadcrumbList` en cada artículo y lectura.
 
 ## Robots.txt y Directivas de Indexación
 
 - `public/robots.txt` permite el rastreo general del sitio (`Allow: /`) e incluye directivas `Disallow` explícitas para artefactos técnicos no destinados a indexación (`/_proxy/`, `/200.html`, `/404.html`, `/_payload.json`, `/*_payload.json`).
 - `error.vue` (raíz del proyecto) renderiza el 404/500 con el design system, `robots: noindex` y CTAs a inicio/proyectos. En SSG genera `.output/public/404.html`, que Apache sirve con `ErrorDocument 404` (sin soft-404)
-- `/blog` está en `noindex, follow` **temporalmente** mientras no tenga contenido real; revertir a `index, follow` al publicar entradas
+- `/blog` y todas sus subpáginas (`/blog/:slug/:page`) tienen `robots: 'index, follow'` y están completamente indexadas al disponer de contenidos reales y estructura dinámica.
 
 ## Canonical y og:url dinámicos (`app.vue`)
 
@@ -72,28 +73,25 @@ Además del bloque global `@graph` en `app.vue` (`Person` enriquecida con `knows
 
 Cada página define `useHead()` con:
 
-| Página      | Title                                           | Imagen OG               |
-| ----------- | ----------------------------------------------- | ----------------------- |
-| `/`         | Raúl Caro Pastorino - Desarrollador Web Backend | (global)                |
-| `/projects` | Proyectos de Raúl Caro Pastorino                | `/social/projects.webp` |
-| `/about`    | Sobre mí - Raúl Caro Pastorino                  | `/social/about.webp`    |
-| `/blog`     | Blog Técnico \| Raúl Caro Pastorino             | (global)                |
-| `/contact`  | Contacto - Raúl Caro Pastorino                  | `/social/contact.webp`  |
-| `/social`   | Redes Sociales de Raúl Caro Pastorino           | `/social/social.webp`   |
-| `/webs`     | Sitios webs creados por Raúl Caro Pastorino     | `/social/webs.webp`     |
-| `/privacy`  | Política de Privacidad - Raúl Caro Pastorino    | `/social/privacy.webp`  |
+| Página      | Title                                            | Imagen OG               |
+| ----------- | ------------------------------------------------ | ----------------------- |
+| `/`         | Raúl Caro Pastorino - Desarrollador Web Backend  | (global)                |
+| `/projects` | Proyectos de Raúl Caro Pastorino                 | `/social/projects.webp` |
+| `/about`    | Sobre mí - Raúl Caro Pastorino                   | `/social/about.webp`    |
+| `/blog`     | Blog Técnico y Tutoriales \| Raúl Caro Pastorino | (global)                |
+| `/contact`  | Contacto - Raúl Caro Pastorino                   | `/social/contact.webp`  |
+| `/social`   | Redes Sociales de Raúl Caro Pastorino            | `/social/social.webp`   |
+| `/webs`     | Sitios webs creados por Raúl Caro Pastorino      | `/social/webs.webp`     |
+| `/privacy`  | Política de Privacidad - Raúl Caro Pastorino     | `/social/privacy.webp`  |
 
-## SEO Dinámico (Proyectos)
+## SEO Dinámico (Proyectos y Blog)
 
-La página de proyectos actualiza metatags dinámicamente al abrir un proyecto:
+Tanto en proyectos como en blog, las páginas actualizan metatags dinámicamente al abrir un contenido o página específica:
 
-```typescript
-const handleChangeMetatags = (newTitle, newDescription, newKeywords, newUrl, newImage) => {
-  metadatas.title = newTitle || defaultTitle;
-  // ...
-  useHead({ title: metadatas.title, meta: [...] });
-};
-```
+- Título enriquecido: `"{Título página} - {Título artículo} | Raúl Caro Pastorino"`
+- Descripción, keywords y URLs canónicas específicas
+- Open Graph y Twitter Cards enriquecidas con la imagen de portada y fecha de publicación
+- Esquema Schema.org estructurado (`SoftwareSourceCode` o `TechArticle`)
 
 ## Sitemap XML (`@nuxtjs/sitemap`)
 
@@ -104,12 +102,22 @@ sitemap: {
   exclude: ['/admin/**', '/login'],
   urls: async () => {
     const projects = await usefetchProjectsPaginated();
-    return projects.flatMap(project => [
+    const blogPosts = await useFetchBlogPaginated();
+
+    const projectUrls = projects.flatMap(project => [
       { loc: `/projects/${project.slug}`, changefreq: 'weekly', priority: 0.9, lastmod: project.updated_at },
       ...project.pages?.map(page => ({
         loc: `/projects/${project.slug}/${page.slug}`, changefreq: 'weekly', priority: 0.7, lastmod: project.updated_at
       })) ?? []
     ]);
+
+    const blogUrls = blogPosts.flatMap(post => [
+      ...post.pages?.map(page => ({
+        loc: `/blog/${post.slug}/${page.slug}`, changefreq: 'weekly', priority: 0.8, lastmod: post.updated_at
+      })) ?? []
+    ]);
+
+    return [...projectUrls, ...blogUrls];
   },
   defaults: { changefreq: 'weekly', priority: 0.5, lastmod: new Date() }
 }
@@ -122,6 +130,7 @@ sitemap: {
 | Páginas estáticas   | 0.5       | weekly     |
 | Proyectos           | 0.9       | weekly     |
 | Páginas de proyecto | 0.7       | weekly     |
+| Artículos de blog   | 0.8       | weekly     |
 
 ## Imágenes OG
 
@@ -139,5 +148,6 @@ Ubicados en `public/favicons/`:
 ## Relaciones con otros módulos
 
 - → [nuxt-config.md](./nuxt-config.md): configuración de sitemap y metatags globales
-- → [composables.md](./composables.md): `usefetchProjectsPaginated()` para URLs del sitemap
+- → [composables.md](./composables.md): `usefetchProjectsPaginated()` y `useFetchBlogPaginated()` para URLs del sitemap
 - → [pagina-proyectos.md](./pagina-proyectos.md): SEO dinámico por proyecto
+- → [pagina-blog.md](./pagina-blog.md): SEO dinámico por artículo de blog

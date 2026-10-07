@@ -4,14 +4,15 @@ Componentes de interfaz compartidos entre páginas: tarjetas, badges, formulario
 
 ## Índice
 
-| Componente              | Archivo                                 | Descripción                                             |
-| ----------------------- | --------------------------------------- | ------------------------------------------------------- |
-| `StackBadgeHexagon`     | `components/StackBadgeHexagon.vue`      | Badge hexagonal SVG con slot para imagen/icono          |
-| `CardProjectHorizontal` | `components/card/ProjectHorizontal.vue` | Tarjeta de proyecto horizontal                          |
-| `CardProjectVertical`   | `components/card/ProjectVertical.vue`   | Tarjeta de proyecto vertical                            |
-| `GridProjects`          | `components/grid/Projects.vue`          | Grid de tarjetas de proyectos con eventos de navegación |
-| `GridTechnologies`      | `components/grid/Technologies.vue`      | Grid de tecnologías para filtrado                       |
-| `UiMaterialIcon`        | `components/ui/MaterialIcon.vue`        | Icono Material Symbols SVG inline self-hosted           |
+| Componente              | Archivo                                 | Descripción                                                |
+| ----------------------- | --------------------------------------- | ---------------------------------------------------------- |
+| `StackBadgeHexagon`     | `components/StackBadgeHexagon.vue`      | Badge hexagonal SVG con slot para imagen/icono             |
+| `CardProjectHorizontal` | `components/card/ProjectHorizontal.vue` | Tarjeta de proyecto horizontal                             |
+| `CardProjectVertical`   | `components/card/ProjectVertical.vue`   | Tarjeta de proyecto vertical                               |
+| `CardBlogCard`          | `components/card/BlogCard.vue`          | Tarjeta de artículo de blog con imagen, categorías y stats |
+| `GridProjects`          | `components/grid/Projects.vue`          | Grid de tarjetas de proyectos con eventos de navegación    |
+| `GridTechnologies`      | `components/grid/Technologies.vue`      | Grid de tecnologías para filtrado                          |
+| `UiMaterialIcon`        | `components/ui/MaterialIcon.vue`        | Icono Material Symbols SVG inline self-hosted              |
 
 ## Componentes clave
 

@@ -91,10 +91,10 @@
 
     // Rutas de navegación principal con barra final (U-SEO-002)
     // El enlace a /contact/ va como botón CTA propio en el header
-    // Blog se excluye del menú principal hasta que cuente con contenido real publicado (U-UX-001)
     const navLinks: NavLink[] = [
         { to: '/', label: 'Inicio' },
         { to: '/projects/', label: 'Proyectos' },
+        { to: '/blog/', label: 'Blog' },
         { to: '/about/', label: 'Sobre Mí' },
         { to: '/webs/', label: 'Webs' },
         { to: '/social/', label: 'Social' },

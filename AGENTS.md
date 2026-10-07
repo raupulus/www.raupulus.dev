@@ -123,18 +123,19 @@ components/
 
 ## Estructura de Navegación
 
-| Ruta                    | Archivo                         | Descripción                |
-| ----------------------- | ------------------------------- | -------------------------- |
-| `/`                     | `pages/index.vue`               | Página principal / Landing |
-| `/projects`             | `pages/projects/[...slugs].vue` | Listado de proyectos       |
-| `/projects/:slug`       | (misma página, catch-all)       | Detalle de proyecto        |
-| `/projects/:slug/:page` | (misma página, catch-all)       | Página de un proyecto      |
-| `/blog`                 | `pages/blog.vue`                | Blog (en construcción)     |
-| `/about`                | `pages/about.vue`               | Sobre mí + galería         |
-| `/webs`                 | `pages/webs.vue`                | Sitios web creados         |
-| `/social`               | `pages/social.vue`              | Redes sociales             |
-| `/contact`              | `pages/contact.vue`             | Formulario de contacto     |
-| `/privacy`              | `pages/privacy.vue`             | Política de privacidad     |
+| Ruta                    | Archivo                         | Descripción                      |
+| ----------------------- | ------------------------------- | -------------------------------- |
+| `/`                     | `pages/index.vue`               | Página principal / Landing       |
+| `/projects`             | `pages/projects/[...slugs].vue` | Listado de proyectos             |
+| `/projects/:slug`       | (misma página, catch-all)       | Detalle de proyecto              |
+| `/projects/:slug/:page` | (misma página, catch-all)       | Página de un proyecto            |
+| `/blog`                 | `pages/blog/[...slugs].vue`     | Listado de entradas del blog     |
+| `/blog/:slug/:page`     | (misma página, catch-all)       | Artículo y subpáginas de lectura |
+| `/about`                | `pages/about.vue`               | Sobre mí + galería               |
+| `/webs`                 | `pages/webs.vue`                | Sitios web creados               |
+| `/social`               | `pages/social.vue`              | Redes sociales                   |
+| `/contact`              | `pages/contact.vue`             | Formulario de contacto           |
+| `/privacy`              | `pages/privacy.vue`             | Política de privacidad           |
 
 ## Endpoints API Consumidos
 
@@ -146,8 +147,10 @@ components/
 | ------------------------------------------------------------------ | ------ | ------------------------------------------------------------ |
 | `/platforms/portfolio`                                             | GET    | Ficha de la plataforma (tecnologías, redes, autor)           |
 | `/platforms/portfolio/contents?type=project`                       | GET    | Listado paginado / búsqueda (`q`, `technology`) de proyectos |
-| `/platforms/portfolio/contents/:slug?include=…&format=editorjs`    | GET    | Detalle de un proyecto (suma una visita: sólo en cliente)    |
-| `/platforms/portfolio/contents/:slug/pages/:order?format=editorjs` | GET    | Página individual de un proyecto                             |
+| `/platforms/portfolio/contents?type=blog`                          | GET    | Listado paginado / búsqueda (`q`, `category`) de blog        |
+| `/platforms/portfolio/contents/:slug?include=…&format=editorjs`    | GET    | Detalle de un proyecto o artículo                            |
+| `/platforms/portfolio/contents/:slug/related?limit=3`              | GET    | Artículos/proyectos relacionados para retención al pie       |
+| `/platforms/portfolio/contents/:slug/pages/:order?format=editorjs` | GET    | Página individual de un proyecto o artículo                  |
 | `/platforms/portfolio/contents/:slug/pages`                        | GET    | Índice de páginas (prerender/sitemap, no suma visitas)       |
 | `/sanctum/csrf-cookie` (fuera de `/api/v2`)                        | GET    | Obtener CSRF token                                           |
 | `/{API_PATH_CONTACT}` → `/contact-messages`                        | POST   | Envío del formulario de contacto                             |

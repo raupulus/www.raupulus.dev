@@ -1,6 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import type { ContentType } from '@/types/ContentType';
 import { usefetchProjectsPaginated } from './composables/projectsData';
+import { useFetchBlogPaginated } from './composables/blogData';
 import fs from 'fs';
 import path from 'path';
 
@@ -185,11 +186,20 @@ export default defineNuxtConfig({
                     );
                 }
 
-                const urls = projects.flatMap((project) => {
+                const projectUrls = projects.flatMap((project) => {
                     const mainProjectUrl = `/projects/${project.slug}/`;
                     const pageUrls = project.pages?.map((page) => `/projects/${project.slug}/${page.slug}/`) ?? [];
                     return [mainProjectUrl, ...pageUrls];
                 });
+
+                // Obtener las entradas de blog paginadas
+                const blogPosts = await useFetchBlogPaginated(configuredApiBase);
+                const blogUrls = blogPosts.flatMap((post) => {
+                    const pageUrls = post.pages?.map((page) => `/blog/${post.slug}/${page.slug}/`) ?? [];
+                    return pageUrls;
+                });
+
+                const allDynamicUrls = ['/blog/', ...projectUrls, ...blogUrls];
 
                 // Si el archivo ya existe, se eliminará antes de generar uno nuevo
                 if (fs.existsSync(cachedRoutesPath)) {
@@ -197,12 +207,14 @@ export default defineNuxtConfig({
                 }
 
                 // Escribir las rutas generadas en el archivo JSON
-                fs.writeFileSync(cachedRoutesPath, JSON.stringify(['/', ...urls], null, 2));
+                fs.writeFileSync(cachedRoutesPath, JSON.stringify(['/', ...allDynamicUrls], null, 2));
 
                 // Añadir cada URL generada a las rutas de prerender
-                urls.forEach((url) => routes.add(url));
+                allDynamicUrls.forEach((url) => routes.add(url));
 
-                console.warn(`[prerender] ${urls.length} rutas de proyectos añadidas al prerender.`);
+                console.warn(
+                    `[prerender] ${projectUrls.length} rutas de proyectos y ${blogUrls.length} rutas de blog añadidas al prerender.`,
+                );
             },
         },
     },
@@ -220,6 +232,7 @@ export default defineNuxtConfig({
         exclude: ['/admin/**', '/login'],
         urls: async () => {
             const projects: ContentType[] = await usefetchProjectsPaginated(configuredApiBase);
+            const blogPosts: ContentType[] = await useFetchBlogPaginated(configuredApiBase);
 
             type SitemapItem = {
                 loc: string;
@@ -228,8 +241,7 @@ export default defineNuxtConfig({
                 lastmod?: string;
             };
 
-            const urls: SitemapItem[] = projects.flatMap((project: ContentType) => {
-                // URL para el proyecto principal con barra final
+            const projectUrls: SitemapItem[] = projects.flatMap((project: ContentType) => {
                 const mainProjectUrl: SitemapItem = {
                     loc: `/projects/${project.slug}/`,
                     changefreq: 'weekly',
@@ -237,7 +249,6 @@ export default defineNuxtConfig({
                     lastmod: project.updated_at,
                 };
 
-                // URLs para las páginas del proyecto con barra final
                 const pageUrls: SitemapItem[] =
                     project.pages?.map((page) => ({
                         loc: `/projects/${project.slug}/${page.slug}/`,
@@ -249,7 +260,19 @@ export default defineNuxtConfig({
                 return [mainProjectUrl, ...pageUrls];
             });
 
-            return urls;
+            const blogUrls: SitemapItem[] = blogPosts.flatMap((post: ContentType) => {
+                const pageUrls: SitemapItem[] =
+                    post.pages?.map((page) => ({
+                        loc: `/blog/${post.slug}/${page.slug}/`,
+                        changefreq: 'weekly',
+                        priority: 0.8,
+                        lastmod: post.updated_at,
+                    })) ?? [];
+
+                return pageUrls;
+            });
+
+            return [...projectUrls, ...blogUrls];
         },
         defaults: {
             changefreq: 'weekly',

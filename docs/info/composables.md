@@ -4,14 +4,15 @@ Lógica reutilizable del proyecto encapsulada en composables de Nuxt. Todos se a
 
 ## Índice
 
-| Archivo                    | Exporta                                                                                             | Descripción                                                                       |
-| -------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
-| `projectsData.ts`          | `useProjectsData()`, `projectsDataSearch()`, `useGetProjectBySlug()`, `usefetchProjectsPaginated()` | Gestión completa de datos de proyectos                                            |
-| `fetchPostData.ts`         | `fetchPost()`, `fetchCsrfToken()`                                                                   | Peticiones POST con CSRF token                                                    |
-| `platformData.ts`          | `usePlatformData()`, `getPlatformData()`                                                            | Datos globales de la plataforma                                                   |
-| `states.ts`                | `useScrollDisabled()`                                                                               | Estado global para bloqueo de scroll                                              |
-| `useApiBase.ts`            | `useApiBase()`, `useApiDomain()`                                                                    | URL base / dominio de la API según contexto de ejecución                          |
-| `useModalAccessibility.ts` | `useModalAccessibility(isOpen, modalRef)`                                                           | Gestión de accesibilidad modal (bloqueo de scroll, trampa de foco y restauración) |
+| Archivo                    | Exporta                                                                                                              | Descripción                                                                       |
+| -------------------------- | -------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| `projectsData.ts`          | `useProjectsData()`, `projectsDataSearch()`, `useGetProjectBySlug()`, `usefetchProjectsPaginated()`                  | Gestión completa de datos de proyectos                                            |
+| `blogData.ts`              | `useBlogData()`, `blogDataSearch()`, `useGetBlogPostBySlug()`, `useGetRelatedBlogPosts()`, `useFetchBlogPaginated()` | Gestión completa de datos del blog y artículos dinámicos                          |
+| `fetchPostData.ts`         | `fetchPost()`, `fetchCsrfToken()`                                                                                    | Peticiones POST con CSRF token                                                    |
+| `platformData.ts`          | `usePlatformData()`, `getPlatformData()`                                                                             | Datos globales de la plataforma                                                   |
+| `states.ts`                | `useScrollDisabled()`                                                                                                | Estado global para bloqueo de scroll                                              |
+| `useApiBase.ts`            | `useApiBase()`, `useApiDomain()`                                                                                     | URL base / dominio de la API según contexto de ejecución                          |
+| `useModalAccessibility.ts` | `useModalAccessibility(isOpen, modalRef)`                                                                            | Gestión de accesibilidad modal (bloqueo de scroll, trampa de foco y restauración) |
 
 Todos consumen la **API V2** (`/api/v2`). Las respuestas llegan en el envelope
 `{ success, message, data, meta?, errors? }` (`ApiResponseType<T>`); el slug de la
@@ -93,6 +94,30 @@ Obtiene **todos** los proyectos paginando hasta el final (`per_page=100`) y, par
 
 ---
 
+## `useBlogData()` — Datos del blog
+
+Composable para el catálogo y detalle de artículos de blog con paginación y búsqueda reactiva.
+Endpoint: `GET /platforms/portfolio/contents?type=blog&page=&per_page=`.
+
+### Estado (useState)
+
+| Key                 | Tipo                                               | Descripción                                         |
+| ------------------- | -------------------------------------------------- | --------------------------------------------------- |
+| `'blogData'`        | `{ contents?: ContentType[], meta?: ApiMetaType }` | Artículos cargados y paginación devuelta por la API |
+| `'blogCurrentPage'` | `number`                                           | Página actual del catálogo                          |
+| `'blogHasMore'`     | `boolean`                                          | Si existen más páginas en la paginación de la API   |
+| `'blogLoading'`     | `boolean`                                          | Si hay una petición en curso                        |
+
+### Funciones Principales
+
+- `fetchNextPage(perPage = 12)`: carga incremental del catálogo paginado de artículos.
+- `blogDataSearch({ search, category, tag })`: búsqueda con cancelación vía `AbortController` si se solapan peticiones consecutivas.
+- `useGetBlogPostBySlug(slug)`: detalle de un artículo con `format=editorjs&include=categories,tags,metadata,pages,first_page`. Suma visita en API (solo en cliente).
+- `useGetRelatedBlogPosts(slug, limit = 3)`: artículos relacionados desde `GET /platforms/portfolio/contents/:slug/related?limit=3` para retención de lectura.
+- `useFetchBlogPaginated(apiBaseUrl)`: rastreo de todos los artículos y páginas de blog para generación SSG y sitemap XML en build time (Node.js).
+
+---
+
 ## `fetchPost()` — Peticiones POST
 
 Envía peticiones POST con CSRF token automático:
@@ -125,7 +150,8 @@ Composable que asegura el cumplimiento de accesibilidad en elementos de diálogo
 
 - → [types.md](./types.md): `ApiResponseType`, `ApiMetaType`, `ContentType`, `ContentPageType`, `PlatformDataType`, `MetadataType`, `BlocksType`
 - → [utils.md](./utils.md): `ContentUtils.ts` (`PLATFORM_SLUG`, `imageUrl`, `hasNextPage`, `normalizePage`, `buildProjectMetatags`…)
-- → [pagina-proyectos.md](./pagina-proyectos.md): consumidor principal de `useProjectsData()`
+- → [pagina-proyectos.md](./pagina-proyectos.md): consumidor de `useProjectsData()`
+- → [pagina-blog.md](./pagina-blog.md): consumidor de `useBlogData()`, `useGetBlogPostBySlug()` y `useGetRelatedBlogPosts()`
 - → [pagina-contact.md](./pagina-contact.md): consumidor de `fetchPost()`
 - → [layout-navegacion.md](./layout-navegacion.md): `usePlatformData()` y `useScrollDisabled()` usados en app.vue
-- → [nuxt-config.md](./nuxt-config.md): `usefetchProjectsPaginated()` usado en hooks de prerender y sitemap
+- → [nuxt-config.md](./nuxt-config.md): `usefetchProjectsPaginated()` y `useFetchBlogPaginated()` usados en hooks de prerender y sitemap

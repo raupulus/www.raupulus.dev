@@ -14,6 +14,7 @@ describe('Header', () => {
         expect(wrapper.text()).toContain('RAÚL CARO PASTORINO');
         expect(wrapper.text()).toContain('Inicio');
         expect(wrapper.text()).toContain('Proyectos');
+        expect(wrapper.text()).toContain('Blog');
         expect(wrapper.text()).toContain('Sobre Mí');
         expect(wrapper.text()).toContain('Webs');
         expect(wrapper.text()).toContain('Social');

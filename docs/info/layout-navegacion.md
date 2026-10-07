@@ -50,7 +50,7 @@ Layout principal que envuelve todas las páginas con header fijo, contenido y fo
 - **Efecto glass**: `backdrop-blur-xl` con opacidad variable según scroll
 - **Accesibilidad**: botón móvil con `aria-expanded` y `aria-controls`; cierre con tecla `Escape` y retorno de foco automático al botón.
 - **Rutas con barra final**: coinciden con la configuración canónica del sitio.
-- **Blog excluido de la barra principal**: reservado hasta publicación de artículos reales.
+- **Navegación completa**: incluye Inicio, Proyectos, Blog, Sobre Mí, Webs, Social y botón CTA a Contacto.
 
 ### Rutas de navegación
 
@@ -58,6 +58,7 @@ Layout principal que envuelve todas las páginas con header fijo, contenido y fo
 const navLinks: NavLink[] = [
     { to: '/', label: 'Inicio' },
     { to: '/projects/', label: 'Proyectos' },
+    { to: '/blog/', label: 'Blog' },
     { to: '/about/', label: 'Sobre Mí' },
     { to: '/webs/', label: 'Webs' },
     { to: '/social/', label: 'Social' },
