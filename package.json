@@ -12,6 +12,7 @@
         "build": "nuxt build",
         "dev": "nuxt dev -p 3020",
         "generate": "nuxt generate",
+        "postgenerate": "node scripts/assemble-static.mjs",
         "preview": "nuxt preview",
         "postinstall": "nuxt prepare",
         "lint": "eslint .",

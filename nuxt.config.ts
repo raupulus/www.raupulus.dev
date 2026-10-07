@@ -14,6 +14,7 @@ const configuredApiBase =
     (process.env.API_DOMAIN_URL ? `${process.env.API_DOMAIN_URL}/api/v2` : 'http://127.0.0.1:8000/api/v2');
 
 export default defineNuxtConfig({
+    buildDir: '.nuxt',
     ssr: true,
     devtools: { enabled: process.env.NODE_ENV !== 'production' },
 
@@ -166,8 +167,21 @@ export default defineNuxtConfig({
     },
     nitro: {
         prerender: {
+            crawlLinks: true,
             failOnError: true,
-            routes: ['/sitemap.xml'],
+            routes: [
+                '/',
+                '/about/',
+                '/contact/',
+                '/cookies/',
+                '/legal/',
+                '/privacy/',
+                '/social/',
+                '/webs/',
+                '/200.html',
+                '/404.html',
+                '/sitemap.xml',
+            ],
         },
         hooks: {
             async 'prerender:routes'(routes: Set<string>) {
