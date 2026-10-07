@@ -73,6 +73,7 @@ check_status() {
 check_status "https://raupulus.dev/" "200"
 check_status "https://raupulus.dev/about/" "200"
 check_status "https://raupulus.dev/projects/" "200"
+check_status "https://raupulus.dev/sitemap.xml" "200"
 check_status "https://raupulus.dev/non-existent-probe-route-404" "404"
 
 if [ "$FAILED_TESTS" -eq 0 ]; then
