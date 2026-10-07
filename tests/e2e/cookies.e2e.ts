@@ -9,7 +9,7 @@ test.describe('Cookies y Consentimiento (E2E)', () => {
     test('muestra el banner de cookies en la primera visita con las 3 opciones conformes a la AEPD', async ({
         page,
     }) => {
-        await page.goto('/', { waitUntil: 'domcontentloaded' });
+        await page.goto('/', { waitUntil: 'networkidle' });
 
         const cookieBar = page.locator('.cookieControl__Bar');
         await expect(cookieBar).toBeVisible();
@@ -29,7 +29,7 @@ test.describe('Cookies y Consentimiento (E2E)', () => {
         page,
         context,
     }) => {
-        await page.goto('/', { waitUntil: 'domcontentloaded' });
+        await page.goto('/', { waitUntil: 'networkidle' });
 
         const cookieBar = page.locator('.cookieControl__Bar');
         await expect(cookieBar).toBeVisible();
@@ -47,7 +47,7 @@ test.describe('Cookies y Consentimiento (E2E)', () => {
         expect(consentCookie).toBeDefined();
 
         // Recargar la página: el banner no debe reaparecer (evita cookie fatigue)
-        await page.reload({ waitUntil: 'domcontentloaded' });
+        await page.reload({ waitUntil: 'networkidle' });
         await expect(page.locator('.cookieControl__Bar')).not.toBeVisible();
     });
 
@@ -55,7 +55,7 @@ test.describe('Cookies y Consentimiento (E2E)', () => {
         page,
         context,
     }) => {
-        await page.goto('/', { waitUntil: 'domcontentloaded' });
+        await page.goto('/', { waitUntil: 'networkidle' });
 
         const cookieBar = page.locator('.cookieControl__Bar');
         await expect(cookieBar).toBeVisible();
@@ -80,7 +80,7 @@ test.describe('Cookies y Consentimiento (E2E)', () => {
     });
 
     test('el enlace de "Preferencias de Cookies" del Footer abre el modal de configuración', async ({ page }) => {
-        await page.goto('/', { waitUntil: 'domcontentloaded' });
+        await page.goto('/', { waitUntil: 'networkidle' });
 
         // Enlace en el footer
         const footerPrefBtn = page.locator('footer button', { hasText: 'Preferencias de Cookies' });
@@ -103,7 +103,7 @@ test.describe('Cookies y Consentimiento (E2E)', () => {
     });
 
     test('en la página /cookies/ el botón "Gestionar Consentimiento" abre el modal', async ({ page }) => {
-        await page.goto('/cookies/', { waitUntil: 'domcontentloaded' });
+        await page.goto('/cookies/', { waitUntil: 'networkidle' });
 
         const manageBtn = page.locator('button', { hasText: 'Gestionar Consentimiento' });
         await expect(manageBtn).toBeVisible();
