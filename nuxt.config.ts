@@ -139,7 +139,6 @@ export default defineNuxtConfig({
 
     modules: [
         '@nuxt/image',
-        '@nuxtjs/sitemap',
         'nuxt-gtag',
         '@dargmuesli/nuxt-cookie-control',
         '@nuxtjs/tailwindcss',
@@ -166,10 +165,9 @@ export default defineNuxtConfig({
         domains: ['localhost', 'raupulus.dev', 'api.raupulus.dev'],
     },
     nitro: {
-        preset: 'static',
         prerender: {
             failOnError: true,
-            routes: [],
+            routes: ['/sitemap.xml'],
         },
         hooks: {
             async 'prerender:routes'(routes: Set<string>) {
@@ -199,7 +197,7 @@ export default defineNuxtConfig({
                     return pageUrls;
                 });
 
-                const feedUrls = ['/blog/feed.xml', '/blog/rss.xml'];
+                const feedUrls = ['/blog/feed.xml', '/blog/rss.xml', '/sitemap.xml'];
                 const allDynamicUrls = ['/blog/', ...feedUrls, ...projectUrls, ...blogUrls];
 
                 // Si el archivo ya existe, se eliminará antes de generar uno nuevo
@@ -228,73 +226,6 @@ export default defineNuxtConfig({
         url: process.env.APP_URL || 'https://raupulus.dev',
         name: process.env.APP_NAME || 'Raúl Caro Pastorino',
         trailingSlash: true,
-    },
-    sitemap: {
-        exclude: ['/admin/**', '/login'],
-        urls: async () => {
-            const projects: ContentType[] = await usefetchProjectsPaginated(configuredApiBase);
-            const blogPosts: ContentType[] = await useFetchBlogPaginated(configuredApiBase);
-
-            type SitemapItem = {
-                loc: string;
-                changefreq?: 'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'never';
-                priority?: 0 | 1 | 0.1 | 0.2 | 0.3 | 0.4 | 0.5 | 0.6 | 0.7 | 0.8 | 0.9;
-                lastmod?: string;
-            };
-
-            const projectUrls: SitemapItem[] = projects.flatMap((project: ContentType) => {
-                const mainProjectUrl: SitemapItem = {
-                    loc: `/projects/${project.slug}/`,
-                    changefreq: 'weekly',
-                    priority: 0.9,
-                    lastmod: project.updated_at,
-                };
-
-                const pageUrls: SitemapItem[] =
-                    project.pages?.map((page) => ({
-                        loc: `/projects/${project.slug}/${page.slug}/`,
-                        changefreq: 'weekly',
-                        priority: 0.7,
-                        lastmod: project.updated_at,
-                    })) ?? [];
-
-                return [mainProjectUrl, ...pageUrls];
-            });
-
-            const blogUrls: SitemapItem[] = blogPosts.flatMap((post: ContentType) => {
-                const pageUrls: SitemapItem[] =
-                    post.pages?.map((page) => ({
-                        loc: `/blog/${post.slug}/${page.slug}/`,
-                        changefreq: 'weekly',
-                        priority: 0.8,
-                        lastmod: post.updated_at,
-                    })) ?? [];
-
-                return pageUrls;
-            });
-
-            const catalogUrls: SitemapItem[] = [
-                {
-                    loc: '/projects/',
-                    changefreq: 'daily',
-                    priority: 0.9,
-                    lastmod: new Date().toISOString(),
-                },
-                {
-                    loc: '/blog/',
-                    changefreq: 'daily',
-                    priority: 0.9,
-                    lastmod: new Date().toISOString(),
-                },
-            ];
-
-            return [...catalogUrls, ...projectUrls, ...blogUrls];
-        },
-        defaults: {
-            changefreq: 'weekly',
-            priority: 0.5,
-            lastmod: new Date(),
-        },
     },
 
     // https://github.com/johannschopplich/nuxt-gtag#readme
