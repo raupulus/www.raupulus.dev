@@ -43,7 +43,10 @@ function getPriorityAndFreq(route: string): { priority: string; changefreq: Site
 
 export async function generateSitemapXml(): Promise<string> {
     const config = useRuntimeConfig();
-    const siteUrl = ((config.public?.app?.url as string) || process.env.APP_URL || 'https://raupulus.dev').replace(/\/$/, '');
+    const siteUrl = ((config.public?.app?.url as string) || process.env.APP_URL || 'https://raupulus.dev').replace(
+        /\/$/,
+        '',
+    );
     const today = new Date().toISOString().split('T')[0];
 
     const staticPages = [

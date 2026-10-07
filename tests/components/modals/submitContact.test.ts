@@ -31,6 +31,31 @@ describe('Modal submitContact Component', () => {
         expect(wrapper.text()).toContain('Hola, me gustaría información sobre un proyecto.');
     });
 
+    it('paso 1: extrae el valor cuando los campos son objetos reactivos con .value y no vuelca JSON', async () => {
+        const nestedDataForm = {
+            name: { value: 'Raúl Caro', valid: true, validations: { minLength: { value: 2 } } },
+            email: { value: 'public@raupulus.dev', valid: true },
+            subject: { value: 'Colaboración Open Source', valid: true },
+            message: { value: 'Mensaje de prueba con salto de línea\ny detalles.', valid: true },
+        };
+
+        const wrapper = await mountSuspended(SubmitContact, {
+            props: {
+                show: true,
+                step: 1,
+                dataForm: nestedDataForm,
+            },
+        });
+
+        expect(wrapper.text()).toContain('Raúl Caro');
+        expect(wrapper.text()).toContain('public@raupulus.dev');
+        expect(wrapper.text()).toContain('Colaboración Open Source');
+        expect(wrapper.text()).toContain('Mensaje de prueba con salto de línea\ny detalles.');
+        // Debe evitarse estrictamente el volcado de JSON de validaciones internas
+        expect(wrapper.text()).not.toContain('"valid": true');
+        expect(wrapper.text()).not.toContain('minLength');
+    });
+
     it('paso 1: emite cancel y submit al pulsar sus respectivos botones', async () => {
         const wrapper = await mountSuspended(SubmitContact, {
             props: {

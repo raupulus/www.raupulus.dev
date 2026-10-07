@@ -12,7 +12,7 @@ if (!fs.existsSync(outPublic)) {
 const publicDir = path.join(rootDir, 'public');
 if (fs.existsSync(publicDir)) {
     fs.cpSync(publicDir, outPublic, { recursive: true });
-    console.log('✅ Copiado public/ a .output/public/');
+    console.warn('✅ Copiado public/ a .output/public/');
 }
 
 // 2. Copiar bundle cliente de Vite (_nuxt)
@@ -23,7 +23,7 @@ const targetNuxtDir = path.join(outPublic, '_nuxt');
 const sourceNuxtDir = fs.existsSync(clientNuxtDir) ? clientNuxtDir : (fs.existsSync(fallbackNuxtDir) ? fallbackNuxtDir : null);
 if (sourceNuxtDir) {
     fs.cpSync(sourceNuxtDir, targetNuxtDir, { recursive: true });
-    console.log(`✅ Copiado ${sourceNuxtDir} a .output/public/_nuxt/`);
+    console.warn(`✅ Copiado ${sourceNuxtDir} a .output/public/_nuxt/`);
 } else {
     console.error('❌ Error: No se encontró el directorio del build cliente _nuxt');
     process.exit(1);
@@ -38,5 +38,5 @@ if (fs.existsSync(fontsCacheDir)) {
     for (const f of fontFiles) {
         fs.copyFileSync(path.join(fontsCacheDir, f), path.join(targetFontsDir, f));
     }
-    console.log(`✅ Copiadas ${fontFiles.length} fuentes a .output/public/_fonts/`);
+    console.warn(`✅ Copiadas ${fontFiles.length} fuentes a .output/public/_fonts/`);
 }

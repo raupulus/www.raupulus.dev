@@ -1,5 +1,4 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-import type { ContentType } from '@/types/ContentType';
 import { usefetchProjectsPaginated } from './composables/projectsData';
 import { useFetchBlogPaginated } from './composables/blogData';
 import fs from 'fs';
@@ -235,11 +234,6 @@ export default defineNuxtConfig({
         options: {
             strict: false,
         },
-    },
-    site: {
-        url: process.env.APP_URL || 'https://raupulus.dev',
-        name: process.env.APP_NAME || 'Raúl Caro Pastorino',
-        trailingSlash: true,
     },
 
     // https://github.com/johannschopplich/nuxt-gtag#readme
