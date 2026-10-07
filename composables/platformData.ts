@@ -1,23 +1,27 @@
-import type { PlatformDataType } from "@/types/Platform/PlatformDataType";
+import type { ApiResponseType } from '@/types/ApiResponse';
+import type { PlatformDataType } from '@/types/Platform/PlatformDataType';
 
-const platformData = ref<PlatformDataType>();
+export const usePlatformData = async () => {
+    const platformData = useState<PlatformDataType | undefined>('platformData', () => undefined);
 
-async function getPlatformInfo() {
-  const runtimeConfig = useRuntimeConfig()
-  const API_BASE = runtimeConfig.public.api.base
+    // Si ya hay datos cacheados, no volver a cargar
+    if (platformData.value) {
+        return platformData;
+    }
 
-  fetch(API_BASE + '/platform/portfolio/info')
-    .then(res => res.json())
-    .then(all => platformData.value = all.data)
-    .catch(err => console.log('FETCH 1', err));
-}
+    const API_BASE = useApiBase();
 
-export const usePlatformData = () => {
-  getPlatformInfo()
+    try {
+        // Ficha de la plataforma: tecnologías, redes, autor, recuentos y páginas
+        const response = await $fetch<ApiResponseType<PlatformDataType>>(`${API_BASE}/platforms/${PLATFORM_SLUG}`);
+        platformData.value = response.data;
+    } catch (error) {
+        console.error('Error fetching platform data:', error);
+    }
 
-  return platformData
-}
+    return platformData;
+};
 
 export function getPlatformData() {
-  return platformData
+    return useState<PlatformDataType | undefined>('platformData', () => undefined);
 }

@@ -1,0 +1,16 @@
+allowBuilds:
+  '@parcel/watcher': true
+  esbuild: true
+  sharp: true
+  unrs-resolver: true
+onlyBuiltDependencies:
+  - '@parcel/watcher'
+  - esbuild
+  - sharp
+  - unrs-resolver
+overrides:
+  vite: ^7.3.6
+  postcss: ^8.5.28
+  devalue: ^5.9.4
+  esbuild: ^0.28.1
+  source-map-js: ^1.2.2

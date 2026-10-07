@@ -1,0 +1,79 @@
+# Bloques de Contenido (EditorJS)
+
+Sistema de renderizado de bloques de contenido procedentes del editor EditorJS del backend. Cada tipo de bloque tiene su componente Vue correspondiente y un dispatcher central.
+
+## Archivos (`components/content/blocks/`)
+
+| Componente           | Tipo de bloque | Descripción                                                                                                                                                                                                                                                                                   |
+| -------------------- | -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Block.vue`          | (dispatcher)   | Componente dispatcher que renderiza el bloque correcto según `block.type`. Incluye fallback seguro y estilizado con tokens de diseño para bloques no soportados                                                                                                                               |
+| `BlockParagraph.vue` | `paragraph`    | Párrafo con HTML sanitizado y estilos scoped compatibles con tema oscuro. Soporta variantes vía `tunes.textVariant`: `citation` (renderiza `<cite>` estilizado), `call-out` (bloque destacado con acento) y `details` (renderiza `<details>/<summary>` plegable como elemento raíz accesible) |
+| `BlockHeader.vue`    | `header`       | Encabezado h1-h6 según `level` con soporte de formato HTML enriquecido sanitizado                                                                                                                                                                                                             |
+| `BlockCode.vue`      | `code`         | Bloque de código con lenguaje, numeración de líneas, escape seguro de entidades, icono Material (`content_copy`/`check`) y botón accesible de copiado al portapapeles con confirmación visual                                                                                                 |
+| `BlockImage.vue`     | `image`        | Imagen responsive que consume miniaturas WebP de la API (`url_large`/`url_thumbnail`) mediante `<img>` nativo con atributos `width` y `height` explícitos (reserva de aspect-ratio contra CLS) para evitar fallos del proxy IPX en SSG estático, con pie de foto permanente y `alt` accesible |
+| `BlockList.vue`      | `list`         | Lista ordenada, desordenada o checklist con salto de línea natural (`overflow-wrap: break-word`). Admite el formato antiguo (textos) y el de `@editorjs/list` 2.x; delega en `BlockListItems.vue` (recursivo) con tokens Tailwind                                                             |
+| `BlockCheckList.vue` | `checklist`    | Lista de verificación accesible con atributos ARIA (`role="checkbox"`, `aria-checked`), iconos Material y diseño Silicon Architect                                                                                                                                                            |
+| `BlockQuote.vue`     | `quote`        | Cita estilizada con tokens Silicon Architect, borde de acento secundario y tipografía fluida                                                                                                                                                                                                  |
+| `BlockWarning.vue`   | `warning`      | Mensaje de advertencia con icono Material de alerta y tokens `bg-error-container/15 border-error/30 text-error` sin mutación de props                                                                                                                                                         |
+| `BlockAlert.vue`     | `alert`        | Alerta accesible con `role="alert"`, soporte tipográfico y tokens de diseño oscuros adaptativos para tipos `primary`, `secondary`, `info`, `success`, `warning`, `danger`, `light` y `dark`                                                                                                   |
+| `BlockDelimiter.vue` | `delimiter`    | Separador visual horizontal moderno y minimalista adaptado al design system                                                                                                                                                                                                                   |
+| `BlockTable.vue`     | `table`        | Tabla responsive con scroll horizontal suave, tokens de diseño oscuros, soporte de `caption` tipado y cabeceras opcionales                                                                                                                                                                    |
+| `BlockEmbed.vue`     | `embed`        | Contenido embebido (YouTube, Vimeo, etc.) con contenedor responsivo `aspect-video`, `title` accesible, `sandbox` restringido, `loading="lazy"` y `referrerpolicy="strict-origin-when-cross-origin"`                                                                                           |
+| `BlockLinkTool.vue`  | `linkTool`     | Tarjeta de previsualización de enlace externo con tokens Silicon Architect, hover states y badges                                                                                                                                                                                             |
+| `BlockAttaches.vue`  | `attaches`     | Archivo adjunto descargable con metadatos tipográficos, miniatura WebP en `<img>` nativo, icono Material `download` y botón accesible con `aria-label`                                                                                                                                        |
+| `BlockRaw.vue`       | `raw`          | HTML crudo (usa `sanitizeRawHtml` para protección contra XSS)                                                                                                                                                                                                                                 |
+
+## Flujo de renderizado
+
+```
+ContentPageType.content (BlocksType)
+  └─ blocks[] (BlockType[])
+      └─ Block.vue (dispatcher)
+          ├─ type === 'paragraph' → BlockParagraph.vue
+          ├─ type === 'header'    → BlockHeader.vue
+          ├─ type === 'code'      → BlockCode.vue
+          ├─ type === 'image'     → BlockImage.vue
+          ├─ type === 'list'      → BlockList.vue
+          ├─ type === 'embed'     → BlockEmbed.vue
+          ├─ type === 'raw'       → BlockRaw.vue
+          └─ ... (otros 9 tipos)
+```
+
+## Sanitización de HTML
+
+- **`BlockParagraph`**, **`BlockHeader`**, **`BlockQuote`** y otros con texto → `sanitizeHtml()` (tags seguros)
+- **`BlockRaw`** → `sanitizeRawHtml()` (permite iframe, video, audio, source)
+- Ambas funciones están en `utils/sanitize.ts` y usan `isomorphic-dompurify`
+
+## Tipos asociados
+
+Todos definidos en `types/BlocksType.ts`. Ver → [types.md](./types.md) para detalle completo de cada `Block*Type`.
+
+## Tests unitarios asociados
+
+La suite de pruebas en `tests/components/content/blocks/` cubre el 100% de los bloques EditorJS:
+
+- `Block.test.ts`: enrutador principal de bloques y fallback visual ante tipos desconocidos.
+- `BlockAlert.test.ts`: renderizado de alertas informativas y sanitización.
+- `BlockAttaches.test.ts`: adjuntos con enlace de descarga, tamaño y extensión accesible.
+- `BlockCheckList.test.ts`: listas de tareas interactivas/accesibles.
+- `BlockCode.test.ts`: visualización de código con numeración y botón de copiado.
+- `BlockDelimiter.test.ts`: separador ornamental con icono centrado.
+- `BlockEmbed.test.ts`: incrustación segura de videos e iframes.
+- `BlockHeader.test.ts`: jerarquía semántica h2-h6 y sanitización.
+- `BlockImage.test.ts`: carga diferida de imágenes y pies de foto accesibles.
+- `BlockLinkTool.test.ts`: tarjetas de enlaces externos con metadatos.
+- `BlockList.test.ts`: listas ordenadas y desordenadas.
+- `BlockParagraph.test.ts`: párrafos con tipografía Silicon Architect y sanitización.
+- `BlockQuote.test.ts`: citas destacadas con autor.
+- `BlockRaw.test.ts`: HTML enriquecido sanitizado con permisos específicos.
+- `BlockTable.test.ts`: tablas accesibles con celdas sanitizadas.
+- `BlockWarning.test.ts`: avisos de advertencia con rol `alert`.
+
+## Relaciones con otros módulos
+
+- → [types.md](./types.md): todos los `Block*Type` desde `BlocksType.ts`
+- → [utils.md](./utils.md): `sanitizeHtml()`, `sanitizeRawHtml()`
+- → [composables.md](./composables.md): `usePageData()` carga las páginas con `BlocksType`
+- → [pagina-proyectos.md](./pagina-proyectos.md): la página de detalle `/projects/:slug/` renderiza las páginas con estos bloques
+- → [componentes-modals.md](./componentes-modals.md): `ModalsProjectShow` para vistas modales si procede

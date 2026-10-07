@@ -1,58 +1,67 @@
 <template>
-  <h1 class="r-header" v-if="header.data.level === 1">
-    {{ header.data.text }}
-  </h1>
+    <!-- eslint-disable-next-line vue/no-v-html -->
+    <h2
+        v-if="header.data.level === 1"
+        :id="headerId"
+        class="font-headline text-2xl md:text-3xl font-bold tracking-tight text-primary mt-8 mb-4 scroll-mt-24"
+        v-html="sanitizeHtml(header.data.text)"
+    />
 
-  <h2 class="r-header" v-else-if="header.data.level === 2">
-    {{ header.data.text }}
-  </h2>
+    <!-- eslint-disable-next-line vue/no-v-html -->
+    <h3
+        v-else-if="header.data.level === 2"
+        :id="headerId"
+        class="font-headline text-xl md:text-2xl font-bold tracking-tight text-on-surface mt-6 mb-3 scroll-mt-24"
+        v-html="sanitizeHtml(header.data.text)"
+    />
 
-  <h3 class="r-header" v-else-if="header.data.level === 3">
-    {{ header.data.text }}
-  </h3>
+    <!-- eslint-disable-next-line vue/no-v-html -->
+    <h4
+        v-else-if="header.data.level === 3"
+        :id="headerId"
+        class="font-headline text-lg md:text-xl font-bold text-on-surface mt-4 mb-2 scroll-mt-24"
+        v-html="sanitizeHtml(header.data.text)"
+    />
 
-  <h4 class="r-header" v-else-if="header.data.level === 4">
-    {{ header.data.text }}
-  </h4>
+    <!-- eslint-disable-next-line vue/no-v-html -->
+    <h5
+        v-else-if="header.data.level === 4"
+        :id="headerId"
+        class="font-headline text-base md:text-lg font-bold text-on-surface mt-3 mb-2 scroll-mt-24"
+        v-html="sanitizeHtml(header.data.text)"
+    />
 
-  <h5 class="r-header" v-else-if="header.data.level === 5">
-    {{ header.data.text }}
-  </h5>
-
-  <h6 class="r-header" v-else-if="header.data.level === 6">
-    {{ header.data.text }}
-  </h6>
+    <!-- eslint-disable-next-line vue/no-v-html -->
+    <h6
+        v-else-if="header.data.level === 5 || header.data.level === 6"
+        :id="headerId"
+        class="font-headline text-sm md:text-base font-bold text-on-surface mt-2 mb-1 scroll-mt-24"
+        v-html="sanitizeHtml(header.data.text)"
+    />
 </template>
 
 <script lang="ts" setup>
-import type { BlockHeaderType } from '@/types/BlocksType';
-import type { BlockType } from '@/types/BlocksType';
+    import type { BlockHeaderType, BlockType } from '@/types/BlocksType';
+    import { sanitizeHtml } from '~/utils/sanitize';
 
-const props = defineProps({
-  block: {
-    type: Object as PropType<BlockType>,
-    required: true,
-  },
-})
+    const props = defineProps({
+        block: {
+            type: Object as PropType<BlockType>,
+            required: true,
+        },
+    });
 
-const header = props.block as BlockHeaderType
+    const header = props.block as BlockHeaderType;
 
+    const headerId = computed(() => {
+        if (header.id) return `h-${header.id}`;
+        return (
+            header.data?.text
+                ?.toLowerCase()
+                .replace(/<[^>]*>/g, '')
+                .replace(/[^\w\s-]/g, '')
+                .trim()
+                .replace(/\s+/g, '-') || undefined
+        );
+    });
 </script>
-
-<style scoped>
-.r-header {
-  text-align: center;
-}
-
-h1.r-header {}
-
-h2.r-header {}
-
-h3.r-header {}
-
-h4.r-header {}
-
-h5.r-header {}
-
-h6.r-header {}
-</style>

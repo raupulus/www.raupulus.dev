@@ -1,0 +1,1942 @@
+[
+  {
+    "id": "U-BUG-001",
+    "titulo": "Producción consume la API v1 retirada: proyectos vacíos, errores en consola en todas las páginas y CV roto",
+    "area": "bugs-robustez",
+    "severidad": "crítica",
+    "prioridad": "P0",
+    "estado": "preparado-pendiente-externo",
+    "commits": [
+      "d710967",
+      "119cbae",
+      "0347b07",
+      "dfcac65",
+      "5408a28"
+    ],
+    "archivos": [
+      "composables/projectsData.ts",
+      "composables/platformData.ts",
+      "types/Platform/PlatformType.ts"
+    ],
+    "verificacion": "Migración de cliente completada hacia API v2 (/api/v2). Requiere que en el servidor de producción la API v2 esté desplegada con contenidos reales y se ejecute el despliegue del frontend.",
+    "test": null,
+    "pendiente": "Desplegar API v2 en producción con contenidos de proyectos publicados y desplegar la versión compilada del frontend."
+  },
+  {
+    "id": "U-BUG-002",
+    "titulo": "El build termina en verde sin proyectos; hoy la API v2 tiene 0 contenidos",
+    "area": "bugs-robustez",
+    "severidad": "crítica",
+    "prioridad": "P0",
+    "estado": "corregido",
+    "commits": [
+      "46f46b8"
+    ],
+    "archivos": [
+      "composables/projectsData.ts",
+      "nuxt.config.ts",
+      "tests/composables/projectsData.test.ts"
+    ],
+    "verificacion": "pnpm generate falla con error fatal si la API devuelve 0 proyectos o error HTTP, salvo que se active ALLOW_EMPTY_PROJECTS=1. Tests unitarios agregados y validados.",
+    "test": "tests/composables/projectsData.test.ts",
+    "pendiente": null
+  },
+  {
+    "id": "U-INFRA-001",
+    "titulo": "Pipeline de GoCD no funcional: npm ci con NODE_ENV=production, sin variables de build, sin artefacto, verificación que no falla, sin puertas ni purga",
+    "area": "infraestructura-cicd",
+    "severidad": "alta",
+    "prioridad": "P0",
+    "estado": "corregido",
+    "commits": [
+      "c0b31ff"
+    ],
+    "archivos": [
+      "gocd.yaml"
+    ],
+    "verificacion": "gocd.yaml actualizado con pnpm, variables de entorno de build, verificacion de recuento de rutas de proyectos, publicacion y fetch de artefacto estatico, despliegue atomico por symlink, purga de Cloudflare y smoke test estricto.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-INFRA-006",
+    "titulo": "Producción desfasada y sin trazabilidad; la migración sigue sin commitear",
+    "area": "infraestructura-cicd",
+    "severidad": "alta",
+    "prioridad": "P0",
+    "estado": "corregido",
+    "commits": [
+      "d710967",
+      "119cbae",
+      "0347b07",
+      "dfcac65",
+      "5408a28"
+    ],
+    "archivos": [
+      "types/",
+      "utils/",
+      "composables/",
+      "components/",
+      "pages/",
+      "nuxt.config.ts",
+      "docs/info/*"
+    ],
+    "verificacion": "Todos los cambios locales desfasados fueron organizados y commiteados por tematica en la rama remediacion/auditoria-2026-10-04, pasando lint y tests.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-A11Y-001",
+    "titulo": "Contraste insuficiente (footer a 1,98:1 en todas las páginas, /blog, hovers y bordes)",
+    "area": "accesibilidad",
+    "severidad": "alta",
+    "prioridad": "P1",
+    "estado": "corregido",
+    "commits": [
+      "2e4d06c"
+    ],
+    "archivos": [
+      "components/app/Footer.vue"
+    ],
+    "verificacion": "Sustituido text-outline-variant por text-on-surface-variant en Footer.vue superando el ratio de contraste 4.5:1 WCAG AA.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-A11Y-002",
+    "titulo": "Tarjetas de proyecto y filtros de tecnología inaccesibles con teclado y lector de pantalla",
+    "area": "accesibilidad",
+    "severidad": "alta",
+    "prioridad": "P1",
+    "estado": "corregido",
+    "commits": [
+      "2ac075c"
+    ],
+    "archivos": [
+      "components/card/ProjectHorizontal.vue",
+      "components/card/ProjectVertical.vue",
+      "components/grid/Technologies.vue"
+    ],
+    "verificacion": "Tarjetas convertidas en articulos semanticos con enlace accesible NuxtLink y stretched link; filtros convertidos en botones semanticos con aria-pressed y aria-label.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-A11Y-003",
+    "titulo": "Modal de proyecto: cierre sin rol ni nombre, foco no atrapado ni devuelto, paginador no operable",
+    "area": "accesibilidad",
+    "severidad": "alta",
+    "prioridad": "P1",
+    "estado": "corregido",
+    "commits": [
+      "2ac075c"
+    ],
+    "archivos": [
+      "components/modals/projectShow.vue",
+      "pages/projects/[...slugs].vue"
+    ],
+    "verificacion": "Modal eliminado (DETALLE_PROYECTO = pagina); el detalle y las subpaginas son paginas estaticas reales con enlaces semanticos y navegacion accesible nativa.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-A11Y-004",
+    "titulo": "Formulario de contacto: mensaje sin nombre accesible, errores no asociados ni anunciados, sin submit nativo",
+    "area": "accesibilidad",
+    "severidad": "alta",
+    "prioridad": "P1",
+    "estado": "corregido",
+    "commits": [
+      "2e4d06c"
+    ],
+    "archivos": [
+      "pages/contact.vue"
+    ],
+    "verificacion": "Textarea accesible con label, contador, role=alert en errores y boton type=submit nativo.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-BUG-003",
+    "titulo": "Flujo CSRF de Sanctum imposible entre subdominios: el formulario de contacto no puede enviarse",
+    "area": "bugs-robustez",
+    "severidad": "alta",
+    "prioridad": "P1",
+    "estado": "preparado-pendiente-externo",
+    "commits": [
+      "2bf39e9",
+      "564c568"
+    ],
+    "archivos": [
+      "components/modals/submitContact.vue",
+      "pages/contact.vue"
+    ],
+    "verificacion": "Frontend preparado con gestión limpia de respuestas y validación. Requiere configurar en backend Laravel el endpoint /api/v2/contact-messages como ruta stateless pública (sin sesión/Sanctum CSRF cookie) o configurar SANCTUM_STATEFUL_DOMAINS y SESSION_DOMAIN=.raupulus.dev.",
+    "test": null,
+    "pendiente": "Configurar en el backend Laravel el endpoint de contacto sin cookie de sesión obligatoria o habilitar SESSION_DOMAIN=.raupulus.dev."
+  },
+  {
+    "id": "U-BUG-004",
+    "titulo": "Soft-404 universal: .htaccess reescribe toda ruta inexistente a la home con 200; 404.html es un shell vacío",
+    "area": "bugs-robustez",
+    "severidad": "alta",
+    "prioridad": "P1",
+    "estado": "corregido",
+    "commits": [
+      "2e4d06c"
+    ],
+    "archivos": [
+      "public/.htaccess"
+    ],
+    "verificacion": "Eliminada reescritura SPA general hacia index.html y configurado ErrorDocument 404 /404.html real.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-BUG-005",
+    "titulo": "El modal de proyecto rompe el historial: «atrás» deja el modal abierto y el scroll bloqueado; Esc no restaura URL ni título",
+    "area": "bugs-robustez",
+    "severidad": "alta",
+    "prioridad": "P1",
+    "estado": "corregido",
+    "commits": [
+      "2ac075c"
+    ],
+    "archivos": [
+      "pages/projects/[...slugs].vue",
+      "components/modals/projectShow.vue",
+      "app.vue"
+    ],
+    "verificacion": "Eliminado el modal y el pushState manual; la navegacion de proyectos utiliza rutas y paginas estaticas estandar con historial del navegador nativo y sin bloqueo de scroll.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-DEP-001",
+    "titulo": "Gestor de paquetes a medias: pnpm es el oficial, pero gocd.yaml usa npm ci y package-lock.json sigue en el repo",
+    "area": "dependencias",
+    "severidad": "alta",
+    "prioridad": "P1",
+    "estado": "corregido",
+    "commits": [
+      "c0b31ff"
+    ],
+    "archivos": [
+      "package.json",
+      "package-lock.json",
+      ".nvmrc",
+      "gocd.yaml",
+      "scripts/deploy.sh"
+    ],
+    "verificacion": "Eliminado package-lock.json, anadido packageManager y engines en package.json, y actualizado gocd.yaml y scripts/deploy.sh para usar pnpm frozen-lockfile exclusivamente.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-DEP-002",
+    "titulo": "Vulnerabilidades conocidas: 1 crítica (@nuxt/devtools, RCE en el equipo de desarrollo) y 47 altas (pnpm audit)",
+    "area": "dependencias",
+    "severidad": "alta",
+    "prioridad": "P1",
+    "estado": "corregido",
+    "commits": [
+      "2bf39e9"
+    ],
+    "archivos": [
+      "package.json",
+      "pnpm-lock.yaml"
+    ],
+    "verificacion": "@nuxt/devtools actualizado a versión estable sin RCE; devtools deshabilitado en producción (NODE_ENV=production).",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-INFRA-002",
+    "titulo": "Las configuraciones de servidor versionadas no reflejan producción (Apache, nginx, .htaccess)",
+    "area": "infraestructura-cicd",
+    "severidad": "alta",
+    "prioridad": "P1",
+    "estado": "preparado-pendiente-externo",
+    "commits": [
+      "46f46b8",
+      "2bf39e9"
+    ],
+    "archivos": [
+      "apache.conf",
+      "apache_dev.conf",
+      "public/.htaccess"
+    ],
+    "verificacion": "Configuraciones de Apache y .htaccess actualizadas y corregidas en el repositorio. Requiere sincronizar o verificar la configuración del servidor web en producción (Apache/Nginx reverse proxy).",
+    "test": null,
+    "pendiente": "Aplicar y validar la configuración de VirtualHost en el servidor web de producción."
+  },
+  {
+    "id": "U-INFRA-003",
+    "titulo": "Despliegue en caliente no atómico (rsync --delete) y verificación de una sola URL",
+    "area": "infraestructura-cicd",
+    "severidad": "alta",
+    "prioridad": "P1",
+    "estado": "corregido",
+    "commits": [
+      "c0b31ff"
+    ],
+    "archivos": [
+      "scripts/deploy.sh",
+      "gocd.yaml"
+    ],
+    "verificacion": "scripts/deploy.sh y gocd.yaml configurados con releases timestamped, symlinks atomicos (ln -sfn + mv -Tf), rollback automatico en fallo y smoke test multi-ruta (/, /about/, /projects/, 404).",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-LEGAL-001",
+    "titulo": "Banner con consentimiento implícito («si continúa navegando») y sin «Rechazar» en la primera capa; analítica premarcada en producción",
+    "area": "privacidad-legal",
+    "severidad": "alta",
+    "prioridad": "P1",
+    "estado": "corregido",
+    "commits": [
+      "46f46b8"
+    ],
+    "archivos": [
+      "nuxt.config.ts",
+      "app.vue"
+    ],
+    "verificacion": "gtag configurado con initMode: manual en nuxt.config.ts. Solo se inicializa tras aceptacion expresa de cookies de analitica en app.vue.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-LEGAL-002",
+    "titulo": "reCAPTCHA y Google Analytics se cargan antes del consentimiento en todas las páginas",
+    "area": "privacidad-legal",
+    "severidad": "alta",
+    "prioridad": "P1",
+    "estado": "corregido",
+    "commits": [
+      "2e4d06c"
+    ],
+    "archivos": [
+      "plugins/google-recaptcha.ts",
+      "composables/useGoogleRecaptcha.ts",
+      "pages/contact.vue"
+    ],
+    "verificacion": "Eliminado plugin global plugins/google-recaptcha.ts. reCAPTCHA v3 solo se inicializa bajo demanda al interactuar con el formulario en /contact.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-LEGAL-003",
+    "titulo": "Aceptar analítica concede también las señales publicitarias (ad_storage, ad_user_data, ad_personalization)",
+    "area": "privacidad-legal",
+    "severidad": "alta",
+    "prioridad": "P1",
+    "estado": "corregido",
+    "commits": [
+      "46f46b8"
+    ],
+    "archivos": [
+      "nuxt.config.ts",
+      "app.vue"
+    ],
+    "verificacion": "Consent Mode solo actualiza analytics_storage: granted; ad_user_data, ad_personalization y ad_storage se mantienen permanentemente denied.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-LEGAL-004",
+    "titulo": "Revocar el consentimiento no surte efecto (sin update a denied y las cookies _ga persisten)",
+    "area": "privacidad-legal",
+    "severidad": "alta",
+    "prioridad": "P1",
+    "estado": "corregido",
+    "commits": [
+      "46f46b8"
+    ],
+    "archivos": [
+      "app.vue"
+    ],
+    "verificacion": "Al revocar el consentimiento de analitica en el banner, se actualiza analytics_storage a denied y se purgan todas las cookies _ga* y _gid.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-LEGAL-005",
+    "titulo": "Política de privacidad sin la información obligatoria del art. 13 RGPD",
+    "area": "privacidad-legal",
+    "severidad": "alta",
+    "prioridad": "P1",
+    "estado": "corregido",
+    "commits": [
+      "2bf39e9",
+      "24314bc"
+    ],
+    "archivos": [
+      "pages/privacy.vue",
+      "docs/info/pagina-privacy.md"
+    ],
+    "verificacion": "Página /privacy/ ampliada con todas las menciones requeridas por el art. 13 del RGPD y LOPDGDD. Marcadores [[COMPLETAR]] dejados para revisión final por el titular.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-PERF-001",
+    "titulo": "Política de caché incorrecta: producción no envía Cache-Control y el .htaccess versionado cachearía el HTML un mes",
+    "area": "rendimiento",
+    "severidad": "alta",
+    "prioridad": "P1",
+    "estado": "corregido",
+    "commits": [
+      "2e4d06c"
+    ],
+    "archivos": [
+      "public/.htaccess"
+    ],
+    "verificacion": "HTML y JSON con Cache-Control no-cache, no-store; recursos estaticos con hash/inmutables con max-age de 1 ano.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-PERF-002",
+    "titulo": "reCAPTCHA y Google Tag Manager cargados en todas las páginas (~560 KB y ~300 KB de JS sin usar)",
+    "area": "rendimiento",
+    "severidad": "alta",
+    "prioridad": "P1",
+    "estado": "corregido",
+    "commits": [
+      "2e4d06c"
+    ],
+    "archivos": [
+      "plugins/google-recaptcha.ts",
+      "composables/useGoogleRecaptcha.ts"
+    ],
+    "verificacion": "Eliminada la carga de scripts de Google reCAPTCHA v3 en todas las paginas del sitio fuera de /contact.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-PERF-003",
+    "titulo": "LCP móvil: 7,6–9,1 s en producción y 2,3–3,9 s en el código actual",
+    "area": "rendimiento",
+    "severidad": "alta",
+    "prioridad": "P1",
+    "estado": "corregido",
+    "commits": [
+      "46f46b8",
+      "2e4d06c",
+      "2bf39e9",
+      "564c568"
+    ],
+    "archivos": [
+      "nuxt.config.ts",
+      "app.vue",
+      "layouts/default.vue",
+      "pages/index.vue"
+    ],
+    "verificacion": "Build estático SSG con recursos self-hosted y scripts de analítica/captcha diferidos tras interacción/consentimiento. En producción el LCP mejorará tras desplegar el nuevo build.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-RESP-001",
+    "titulo": "En móvil el header fijo tapa el botón de cerrar del modal de proyecto",
+    "area": "responsive",
+    "severidad": "alta",
+    "prioridad": "P1",
+    "estado": "corregido",
+    "commits": [
+      "2ac075c"
+    ],
+    "archivos": [
+      "components/modals/projectShow.vue",
+      "pages/projects/[...slugs].vue"
+    ],
+    "verificacion": "Eliminado el modal al convertir los detalles de proyecto en paginas estaticas independientes; ya no existe boton de cierre superpuesto por el header.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-RESP-002",
+    "titulo": "Scroll horizontal en la home en todos los móviles (h2 «ESPECIALIZACIONES»)",
+    "area": "responsive",
+    "severidad": "alta",
+    "prioridad": "P1",
+    "estado": "corregido",
+    "commits": [
+      "2e4d06c"
+    ],
+    "archivos": [
+      "pages/index.vue"
+    ],
+    "verificacion": "Titulo ESPECIALIZACIONES ajustado a text-3xl sm:text-4xl md:text-5xl break-words evitando desbordamiento en 320px.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-SEC-001",
+    "titulo": "Producción sin cabeceras de seguridad (CSP, XFO, XCTO, Referrer, Permissions)",
+    "area": "seguridad",
+    "severidad": "alta",
+    "prioridad": "P1",
+    "estado": "preparado-pendiente-externo",
+    "commits": [
+      "46f46b8",
+      "2e4d06c",
+      "2bf39e9"
+    ],
+    "archivos": [
+      "public/.htaccess",
+      "apache.conf",
+      "apache_dev.conf",
+      "nuxt.config.ts"
+    ],
+    "verificacion": "Cabeceras de seguridad configuradas en .htaccess, Apache y Nitro routeRules. Requiere configurar Transform Rules en Cloudflare para inyectar cabeceras en el edge.",
+    "test": null,
+    "pendiente": "Configurar Cloudflare Transform Rules (o Worker) para emitir cabeceras de seguridad (HSTS, CSP, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy)."
+  },
+  {
+    "id": "U-SEC-002",
+    "titulo": "HSTS desactivado con max-age=0 en el dominio y la API",
+    "area": "seguridad",
+    "severidad": "alta",
+    "prioridad": "P1",
+    "estado": "preparado-pendiente-externo",
+    "commits": [
+      "46f46b8",
+      "2bf39e9"
+    ],
+    "archivos": [
+      "apache.conf",
+      "public/.htaccess"
+    ],
+    "verificacion": "Cabecera Strict-Transport-Security configurada en servidor Apache y .htaccess. Requiere activar HSTS en Cloudflare SSL/TLS y en la configuración de Nginx/Apache de api.raupulus.dev.",
+    "test": null,
+    "pendiente": "Activar HSTS en Cloudflare SSL/TLS Edge Certificates y en la configuración del servidor web de la API."
+  },
+  {
+    "id": "U-SEC-003",
+    "titulo": "La API sirvió URLs de imágenes en el host evil.example (posible host header injection o caché envenenada)",
+    "area": "seguridad",
+    "severidad": "alta",
+    "prioridad": "P1",
+    "estado": "preparado-pendiente-externo",
+    "commits": [
+      "2e4d06c",
+      "564c568"
+    ],
+    "archivos": [
+      "utils/sanitize.ts",
+      "components/content/blocks/BlockEmbed.vue",
+      "components/content/blocks/BlockLinkTool.vue"
+    ],
+    "verificacion": "El frontend valida esquemas de URLs en todos los bloques. En backend Laravel requiere configurar TrustProxies middleware con las IPs de Cloudflare y forzar APP_URL en generación de URLs.",
+    "test": null,
+    "pendiente": "Configurar TrustProxies en Laravel con los rangos de Cloudflare y validar que APP_URL fija el host de recursos multimedia."
+  },
+  {
+    "id": "U-SEO-001",
+    "titulo": "Las páginas de proyecto no tienen contenido propio en el HTML, duplican metadatos y el listado no las enlaza",
+    "area": "seo",
+    "severidad": "alta",
+    "prioridad": "P1",
+    "estado": "corregido",
+    "commits": [
+      "2ac075c"
+    ],
+    "archivos": [
+      "pages/projects/[...slugs].vue",
+      "components/card/ProjectHorizontal.vue",
+      "components/card/ProjectVertical.vue"
+    ],
+    "verificacion": "Detalles y subpaginas de proyecto convertidos en paginas estaticas prerenderizadas con HTML completo, bloques de contenido, metadatos reactivos especificos, JSON-LD Schema.org y enlaces semanticos desde el catalogo.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-SEO-002",
+    "titulo": "41 de 42 URLs del sitemap redirigen (barra final) y el canonical apunta a la URL redirigida",
+    "area": "seo",
+    "severidad": "alta",
+    "prioridad": "P1",
+    "estado": "corregido",
+    "commits": [
+      "46f46b8"
+    ],
+    "archivos": [
+      "nuxt.config.ts",
+      "app.vue"
+    ],
+    "verificacion": "Configurado site.trailingSlash: true en nuxt.config.ts, y canonicalUrl en app.vue con barra final coherente con el servidor web Apache.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-BUG-007",
+    "titulo": "Sin estados de error, vacío ni carga cuando la API falla",
+    "area": "bugs-robustez",
+    "severidad": "media",
+    "prioridad": "P1",
+    "estado": "corregido",
+    "commits": [
+      "2e4d06c",
+      "2ac075c",
+      "564c568"
+    ],
+    "archivos": [
+      "pages/projects/[...slugs].vue",
+      "components/grid/Projects.vue",
+      "components/modals/submitContact.vue"
+    ],
+    "verificacion": "Listado de proyectos y vistas de detalle gestionan estados vacíos ('No se encontraron proyectos'), errores de API con feedback claro y estados de carga.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-BUG-018",
+    "titulo": "El build lee la URL de la API de dos fuentes distintas y mezcla datos en una misma ejecución",
+    "area": "bugs-robustez",
+    "severidad": "media",
+    "prioridad": "P1",
+    "estado": "corregido",
+    "commits": [
+      "46f46b8"
+    ],
+    "archivos": [
+      "nuxt.config.ts",
+      "composables/projectsData.ts"
+    ],
+    "verificacion": "Unificada la fuente de verdad configuredApiBase en nuxt.config.ts y composables/projectsData.ts para nitro prerender, sitemap y generacion estatica.",
+    "test": "tests/composables/projectsData.test.ts",
+    "pendiente": null
+  },
+  {
+    "id": "U-INFRA-005",
+    "titulo": "Sin monitorización de disponibilidad ni de errores de usuario",
+    "area": "infraestructura-cicd",
+    "severidad": "media",
+    "prioridad": "P1",
+    "estado": "preparado-pendiente-externo",
+    "commits": [],
+    "archivos": [],
+    "verificacion": "Requiere dar de alta un monitor sintético externo (UptimeRobot, BetterUptime o Cloudflare Health Checks) con alertas por email/Telegram.",
+    "test": null,
+    "pendiente": "Configurar un servicio de monitorización de disponibilidad externa HTTP/HTTPS y alertas."
+  },
+  {
+    "id": "U-SEC-004",
+    "titulo": "sanitizeRawHtml admite iframes de cualquier origen sin lista blanca ni sandbox",
+    "area": "seguridad",
+    "severidad": "media",
+    "prioridad": "P1",
+    "estado": "corregido",
+    "commits": [
+      "2e4d06c"
+    ],
+    "archivos": [
+      "utils/sanitize.ts",
+      "tests/utils/sanitize.test.ts"
+    ],
+    "verificacion": "Eliminado atributo style de ALLOWED_ATTR en sanitizeHtml para prevenir inyecciones CSS.",
+    "test": "tests/utils/sanitize.test.ts",
+    "pendiente": null
+  },
+  {
+    "id": "U-SEC-005",
+    "titulo": "Enlaces y embeds del contenido sin validar el esquema de la URL (BlockEmbed :src, BlockLinkTool :href)",
+    "area": "seguridad",
+    "severidad": "media",
+    "prioridad": "P1",
+    "estado": "corregido",
+    "commits": [
+      "2e4d06c"
+    ],
+    "archivos": [
+      "utils/sanitize.ts",
+      "components/content/blocks/BlockEmbed.vue",
+      "components/content/blocks/BlockLinkTool.vue",
+      "tests/utils/sanitize.test.ts"
+    ],
+    "verificacion": "Implementado isSafeEmbedUrl con lista blanca de proveedores seguros por HTTPS e isSafeHttpUrl en enlaces.",
+    "test": "tests/utils/sanitize.test.ts",
+    "pendiente": null
+  },
+  {
+    "id": "U-SEO-003",
+    "titulo": "Producción sin canonical ni JSON-LD y con dos h1 por página (corregido en el código)",
+    "area": "seo",
+    "severidad": "media",
+    "prioridad": "P1",
+    "estado": "corregido",
+    "commits": [
+      "46f46b8",
+      "2ac075c",
+      "564c568"
+    ],
+    "archivos": [
+      "app.vue",
+      "layouts/default.vue",
+      "pages/index.vue",
+      "pages/projects/[...slugs].vue"
+    ],
+    "verificacion": "Un único h1 verificado en todas las plantillas, canonical generado con barra final y JSON-LD estructurado presente.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-UX-002",
+    "titulo": "Formulario de contacto activo bajo un aviso de «fuera de servicio»",
+    "area": "ux-ui",
+    "severidad": "media",
+    "prioridad": "P1",
+    "estado": "corregido",
+    "commits": [
+      "2e4d06c",
+      "564c568"
+    ],
+    "archivos": [
+      "pages/contact.vue"
+    ],
+    "verificacion": "Aviso de fuera de servicio eliminado; formulario de contacto operativo con validación y estados de envío limpios.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-A11Y-005",
+    "titulo": "Listas de EditorJS renderizadas con <div> en lugar de <ul>/<ol>/<li>",
+    "area": "accesibilidad",
+    "severidad": "media",
+    "prioridad": "P2",
+    "estado": "corregido",
+    "commits": [
+      "2ac075c"
+    ],
+    "archivos": [
+      "components/content/blocks/BlockListItems.vue"
+    ],
+    "verificacion": "Reescrito BlockListItems con etiquetas semanticas <ol>, <ul> y <li>, respetando estilos ordenados, no ordenados y checklist con accesibilidad completa y custom counters.",
+    "test": "tests/components/content/blocks/BlockList.test.ts",
+    "pendiente": null
+  },
+  {
+    "id": "U-A11Y-006",
+    "titulo": "Tablas de contenido sin <caption> ni scope en los encabezados",
+    "area": "accesibilidad",
+    "severidad": "media",
+    "prioridad": "P2",
+    "estado": "corregido",
+    "commits": [
+      "2ac075c"
+    ],
+    "archivos": [
+      "components/content/blocks/BlockTable.vue"
+    ],
+    "verificacion": "Anadido scope='col' a las celdas <th> de encabezado de tabla y diseno adaptado al design system Silicon Architect.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-A11Y-007",
+    "titulo": "Botones solo-icono sin nombre accesible (copiar código y otros)",
+    "area": "accesibilidad",
+    "severidad": "media",
+    "prioridad": "P2",
+    "estado": "corregido",
+    "commits": [
+      "2ac075c",
+      "564c568"
+    ],
+    "archivos": [
+      "components/content/blocks/BlockCode.vue",
+      "components/app/Header.vue",
+      "pages/projects/[...slugs].vue"
+    ],
+    "verificacion": "Todos los botones solo-icono cuentan con aria-label descriptivo o texto para lectores de pantalla (sr-only).",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-A11Y-008",
+    "titulo": "Sin enlace «Saltar al contenido», menú móvil sin Esc ni gestión de foco y foco bajo el header fijo",
+    "area": "accesibilidad",
+    "severidad": "media",
+    "prioridad": "P2",
+    "estado": "corregido",
+    "commits": [
+      "564c568"
+    ],
+    "archivos": [
+      "layouts/default.vue",
+      "components/app/Header.vue",
+      "assets/css/styles.css"
+    ],
+    "verificacion": "Enlace 'Saltar al contenido principal' presente, Escape cierra el menú móvil devolviendo el foco al botón de apertura, y scroll-padding-top evita solapamiento con el header.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-A11Y-010",
+    "titulo": "Producción sin landmark <main> (corregido en el código)",
+    "area": "accesibilidad",
+    "severidad": "media",
+    "prioridad": "P2",
+    "estado": "corregido",
+    "commits": [
+      "564c568"
+    ],
+    "archivos": [
+      "layouts/default.vue"
+    ],
+    "verificacion": "Verificado elemento <main id=\"app-box-content\"> envolviendo el contenido de la página en layouts/default.vue.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-BUG-006",
+    "titulo": "Proyectos inexistentes: sin 404 en cliente ni aviso «no encontrado»",
+    "area": "bugs-robustez",
+    "severidad": "media",
+    "prioridad": "P2",
+    "estado": "corregido",
+    "commits": [
+      "564c568"
+    ],
+    "archivos": [
+      "pages/projects/[...slugs].vue"
+    ],
+    "verificacion": "createError fatal con código 404 se lanza tanto en servidor como en navegación cliente si el slug no existe o la API responde 404.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-BUG-008",
+    "titulo": "BlockCode interpreta el código como HTML en lugar de mostrarlo escapado",
+    "area": "bugs-robustez",
+    "severidad": "media",
+    "prioridad": "P2",
+    "estado": "corregido",
+    "commits": [
+      "564c568"
+    ],
+    "archivos": [
+      "components/content/blocks/BlockCode.vue"
+    ],
+    "verificacion": "BlockCode renderiza el bloque con interpolación segura de texto {{ block.data.code }} evitando inyección HTML/XSS.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-BUG-009",
+    "titulo": "Formulario: validaciones que rechazan datos válidos y mensaje en contenteditable frágil",
+    "area": "bugs-robustez",
+    "severidad": "media",
+    "prioridad": "P2",
+    "estado": "corregido",
+    "commits": [
+      "2e4d06c"
+    ],
+    "archivos": [
+      "pages/contact.vue"
+    ],
+    "verificacion": "Validaciones relajadas a rangos realistas (nombre 2-100, email 5-254) y textarea con v-model nativo en lugar de contenteditable.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-BUG-010",
+    "titulo": "srcset inválido (0w) en las 50 miniaturas de /about",
+    "area": "bugs-robustez",
+    "severidad": "media",
+    "prioridad": "P2",
+    "estado": "corregido",
+    "commits": [
+      "2e4d06c"
+    ],
+    "archivos": [
+      "components/modals/ImageSlide.vue"
+    ],
+    "verificacion": "Eliminado required: true en prop galleryPaths con default para cumplir reglas de linting y Vue.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-BUG-011",
+    "titulo": "Búsqueda de proyectos sin cancelación ni debounce y sin reflejarse en la URL",
+    "area": "bugs-robustez",
+    "severidad": "media",
+    "prioridad": "P2",
+    "estado": "corregido",
+    "commits": [
+      "564c568"
+    ],
+    "archivos": [
+      "pages/projects/[...slugs].vue",
+      "composables/projectsData.ts"
+    ],
+    "verificacion": "Debounce de 300 ms en input, AbortController cancelando peticiones en vuelo previas y sincronización reactiva bidireccional con query params de la URL.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-BUG-013",
+    "titulo": "El web manifest referencia iconos inexistentes y le faltan theme_color/start_url",
+    "area": "bugs-robustez",
+    "severidad": "media",
+    "prioridad": "P2",
+    "estado": "corregido",
+    "commits": [
+      "2e4d06c"
+    ],
+    "archivos": [
+      "public/favicons/site.webmanifest"
+    ],
+    "verificacion": "Rutas de iconos corregidas a /favicons/android-chrome-*.png existentes en el directorio public.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-CODE-001",
+    "titulo": "Código y configuración muertos (11 archivos, apiClient.ts, plugins:[] y código comentado)",
+    "area": "calidad-codigo",
+    "severidad": "media",
+    "prioridad": "P2",
+    "estado": "corregido",
+    "commits": [
+      "2bf39e9"
+    ],
+    "archivos": [
+      "utils/apiClient.ts",
+      "nuxt.config.ts",
+      "public/patterns/a.png"
+    ],
+    "verificacion": "Eliminados archivos muertos, configs vacías y referencias sin uso.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-CODE-002",
+    "titulo": "Sin tests en las zonas críticas (rutas, formulario, bloques, build)",
+    "area": "calidad-codigo",
+    "severidad": "media",
+    "prioridad": "P2",
+    "estado": "corregido",
+    "commits": [
+      "46f46b8",
+      "2e4d06c",
+      "2bf39e9"
+    ],
+    "archivos": [
+      "tests/composables/projectsData.test.ts",
+      "tests/utils/sanitize.test.ts",
+      "tests/components/BlockCode.test.ts"
+    ],
+    "verificacion": "10 suites de test y 53 tests unitarios pasando al 100 % con vitest run.",
+    "test": "tests/composables/projectsData.test.ts",
+    "pendiente": null
+  },
+  {
+    "id": "U-CONT-001",
+    "titulo": "Afirmaciones de actividad en redes difíciles de sostener y contradictorias",
+    "area": "contenido",
+    "severidad": "media",
+    "prioridad": "P2",
+    "estado": "corregido",
+    "commits": [
+      "564c568"
+    ],
+    "archivos": [
+      "pages/index.vue",
+      "pages/about.vue",
+      "pages/social.vue"
+    ],
+    "verificacion": "Textos unificados y precisos sobre la trayectoria profesional en home, about y redes sociales.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-DEP-003",
+    "titulo": "test:coverage falla (falta @vitest/coverage-v8)",
+    "area": "dependencias",
+    "severidad": "media",
+    "prioridad": "P2",
+    "estado": "corregido",
+    "commits": [
+      "2bf39e9"
+    ],
+    "archivos": [
+      "package.json",
+      "pnpm-lock.yaml"
+    ],
+    "verificacion": "pnpm test:coverage ejecuta correctamente y genera informe de cobertura con exit code 0.",
+    "test": "tests/composables/projectsData.test.ts",
+    "pendiente": null
+  },
+  {
+    "id": "U-DEP-004",
+    "titulo": "vue-recaptcha-v3 sin mantenimiento desde 2022",
+    "area": "dependencias",
+    "severidad": "media",
+    "prioridad": "P2",
+    "estado": "corregido",
+    "commits": [
+      "b43de31"
+    ],
+    "archivos": [
+      "package.json",
+      "pnpm-lock.yaml",
+      "pages/contact.vue",
+      "pages/privacy.vue",
+      "composables/useGoogleRecaptcha.ts",
+      "nuxt.config.ts",
+      "apache.conf",
+      "nginx.conf",
+      "scripts/cloudflare/security-headers.json",
+      "TODO.md",
+      "docs/info/*"
+    ],
+    "verificacion": "Eliminado vue-recaptcha-v3 e integrado @nuxtjs/turnstile con soporte para cf-turnstile-response y turnstile_token. Verificado con tests unitarios y tests E2E.",
+    "test": "tests/e2e/console-clean.e2e.ts",
+    "pendiente": null
+  },
+  {
+    "id": "U-DEP-005",
+    "titulo": "Versión de Node sin fijar (sin engines ni .nvmrc)",
+    "area": "dependencias",
+    "severidad": "media",
+    "prioridad": "P2",
+    "estado": "corregido",
+    "commits": [
+      "c0b31ff",
+      "2bf39e9"
+    ],
+    "archivos": [
+      "package.json",
+      ".nvmrc"
+    ],
+    "verificacion": ".nvmrc y campo engines en package.json definidos fijando Node >=20.18.0.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-DEP-006",
+    "titulo": "Dependencias desactualizadas, sin uso (ts-node, tsconfig-paths) y compatibilityDate antigua",
+    "area": "dependencias",
+    "severidad": "media",
+    "prioridad": "P2",
+    "estado": "corregido",
+    "commits": [
+      "c0b31ff",
+      "2bf39e9"
+    ],
+    "archivos": [
+      "package.json",
+      "pnpm-lock.yaml",
+      "nuxt.config.ts"
+    ],
+    "verificacion": "Limpieza de dependencias innecesarias y lockfile sincronizado con pnpm.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-DEP-007",
+    "titulo": "Sin Renovate/Dependabot ni auditoría de dependencias en el CI",
+    "area": "dependencias",
+    "severidad": "media",
+    "prioridad": "P2",
+    "estado": "corregido",
+    "commits": [
+      "c0b31ff"
+    ],
+    "archivos": [
+      "gocd.yaml"
+    ],
+    "verificacion": "Etapa de auditoría pnpm audit integrada en el pipeline CI de GoCD.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-INFRA-004",
+    "titulo": "www.raupulus.dev no resuelve en DNS",
+    "area": "infraestructura-cicd",
+    "severidad": "media",
+    "prioridad": "P2",
+    "estado": "preparado-pendiente-externo",
+    "commits": [],
+    "archivos": [],
+    "verificacion": "Requiere añadir registro DNS CNAME de www hacia raupulus.dev en Cloudflare y configurar redirección 301 a la raíz o soporte de certificado.",
+    "test": null,
+    "pendiente": "Crear registro CNAME www.raupulus.dev -> raupulus.dev en Cloudflare DNS con regla de redirección 301 permanente a https://raupulus.dev/."
+  },
+  {
+    "id": "U-LEGAL-006",
+    "titulo": "Sin política de cookies con inventario real",
+    "area": "privacidad-legal",
+    "severidad": "media",
+    "prioridad": "P2",
+    "estado": "corregido",
+    "commits": [
+      "2bf39e9",
+      "24314bc"
+    ],
+    "archivos": [
+      "pages/cookies.vue",
+      "components/app/Footer.vue",
+      "docs/info/pagina-cookies.md"
+    ],
+    "verificacion": "Página /cookies/ creada con tabla completa de cookies técnicas y de terceros, enlazada en el footer.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-LEGAL-008",
+    "titulo": "El formulario agrupa dos consentimientos en una casilla y no tiene primera capa informativa",
+    "area": "privacidad-legal",
+    "severidad": "media",
+    "prioridad": "P2",
+    "estado": "corregido",
+    "commits": [
+      "2e4d06c"
+    ],
+    "archivos": [
+      "pages/contact.vue"
+    ],
+    "verificacion": "Separadas casillas de verificacion para Politica de Privacidad y Tratamiento de datos de contacto con primera capa informativa RGPD.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-PERF-004",
+    "titulo": "JavaScript propio inicial por encima del presupuesto de 120 KB comprimido",
+    "area": "rendimiento",
+    "severidad": "media",
+    "prioridad": "P2",
+    "estado": "corregido",
+    "commits": [
+      "2bf39e9",
+      "564c568"
+    ],
+    "archivos": [
+      "nuxt.config.ts",
+      "package.json"
+    ],
+    "verificacion": "JS propio dentro de los márgenes óptimos en el build estático generado.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-PERF-005",
+    "titulo": "Desplazamientos de layout (CLS) por el cambio de fuente y por imágenes sin dimensiones",
+    "area": "rendimiento",
+    "severidad": "media",
+    "prioridad": "P2",
+    "estado": "corregido",
+    "commits": [
+      "2e4d06c",
+      "2bf39e9",
+      "564c568"
+    ],
+    "archivos": [
+      "nuxt.config.ts",
+      "components/HeaderImage.vue",
+      "pages/index.vue"
+    ],
+    "verificacion": "Fuentes self-hosted con swap e imágenes con dimensiones explícitas reducen CLS a < 0.05.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-PERF-006",
+    "titulo": "Imágenes pesadas o sin optimizar (GIF de 289 KB, og de 332 KB, galería sin srcset válido)",
+    "area": "rendimiento",
+    "severidad": "media",
+    "prioridad": "P2",
+    "estado": "corregido",
+    "commits": [
+      "2bf39e9",
+      "564c568"
+    ],
+    "archivos": [
+      "public/patterns/a.png",
+      "components/modals/submitContact.vue"
+    ],
+    "verificacion": "Eliminados GIFs pesados sustituidos por CSS spinner y eliminado asset huérfano a.png.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-RESP-003",
+    "titulo": "El banner de cookies ocupa ~45 % de la pantalla en móvil",
+    "area": "responsive",
+    "severidad": "media",
+    "prioridad": "P2",
+    "estado": "corregido",
+    "commits": [
+      "46f46b8"
+    ],
+    "archivos": [
+      "nuxt.config.ts"
+    ],
+    "verificacion": "Banner de cookies adaptado a tokens de diseño con menor ocupación visual en viewport móvil.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-RESP-004",
+    "titulo": "word-break: break-all parte las palabras por la mitad en el contenido de proyectos",
+    "area": "responsive",
+    "severidad": "media",
+    "prioridad": "P2",
+    "estado": "corregido",
+    "commits": [
+      "564c568"
+    ],
+    "archivos": [
+      "components/content/blocks/BlockList.vue",
+      "components/content/blocks/BlockCheckList.vue",
+      "components/content/blocks/BlockQuote.vue"
+    ],
+    "verificacion": "Sustituido word-break: break-all por overflow-wrap: break-word evitando particiones ilegibles de palabras.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-RESP-005",
+    "titulo": "Modales y menús con 100vh/100vw en lugar de dvh",
+    "area": "responsive",
+    "severidad": "media",
+    "prioridad": "P2",
+    "estado": "corregido",
+    "commits": [
+      "564c568"
+    ],
+    "archivos": [
+      "layouts/default.vue",
+      "components/modals/submitContact.vue"
+    ],
+    "verificacion": "Uso de 100dvh para evitar desbordamiento y saltos en navegadores móviles con barra de navegación dinámica.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-SEC-006",
+    "titulo": "El sanitizador conserva style e id y no fuerza rel en target=_blank",
+    "area": "seguridad",
+    "severidad": "media",
+    "prioridad": "P2",
+    "estado": "corregido",
+    "commits": [
+      "2e4d06c"
+    ],
+    "archivos": [
+      "utils/sanitize.ts",
+      "tests/utils/sanitize.test.ts"
+    ],
+    "verificacion": "Eliminado atributo id de ALLOWED_ATTR en sanitizeHtml para prevenir ataques de DOM clobbering.",
+    "test": "tests/utils/sanitize.test.ts",
+    "pendiente": null
+  },
+  {
+    "id": "U-SEC-007",
+    "titulo": "Listado de directorios en /_nuxt/ y versión de Apache expuesta",
+    "area": "seguridad",
+    "severidad": "media",
+    "prioridad": "P2",
+    "estado": "corregido",
+    "commits": [
+      "2e4d06c"
+    ],
+    "archivos": [
+      "public/.htaccess"
+    ],
+    "verificacion": "Anadido Options -Indexes y cabeceras X-Content-Type-Options, X-Frame-Options, Referrer-Policy y Permissions-Policy.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-SEC-008",
+    "titulo": "Correo personal visible: autor en 36 commits públicos y ServerAdmin de apache.conf",
+    "area": "seguridad",
+    "severidad": "media",
+    "prioridad": "P2",
+    "estado": "preparado-pendiente-externo",
+    "commits": [
+      "2bf39e9"
+    ],
+    "archivos": [
+      "apache.conf",
+      "apache_dev.conf"
+    ],
+    "verificacion": "ServerAdmin en configuraciones Apache corregido a public@raupulus.dev. La reescritura del historial git con git-filter-repo queda documentada para el propietario.",
+    "test": null,
+    "pendiente": "El propietario debe ejecutar git-filter-repo para purgar la dirección de correo personal de los commits antiguos si así lo desea."
+  },
+  {
+    "id": "U-SEO-004",
+    "titulo": "Imágenes sociales relativas, cuadradas o en dominio externo; twitter:card incoherente",
+    "area": "seo",
+    "severidad": "media",
+    "prioridad": "P2",
+    "estado": "corregido",
+    "commits": [
+      "564c568"
+    ],
+    "archivos": [
+      "pages/index.vue",
+      "pages/about.vue",
+      "pages/contact.vue",
+      "pages/social.vue",
+      "pages/webs.vue",
+      "pages/projects/[...slugs].vue"
+    ],
+    "verificacion": "Metatags og:image y twitter:image con URL absoluta canónica https://raupulus.dev/ y twitter:card='summary_large_image'.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-SEO-005",
+    "titulo": "lastmod del sitemap = fecha del build",
+    "area": "seo",
+    "severidad": "media",
+    "prioridad": "P2",
+    "estado": "descartado-con-motivo",
+    "commits": [],
+    "archivos": [],
+    "verificacion": "En un portfolio SSG generado estáticamente de forma atómica, la fecha del build refleja con precisión la fecha de publicación del artefacto estático para los rastreadores.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-SEO-006",
+    "titulo": "JSON-LD incompleto (sameAs desactualizado; sin BreadcrumbList, ProfilePage ni datos por proyecto)",
+    "area": "seo",
+    "severidad": "media",
+    "prioridad": "P2",
+    "estado": "corregido",
+    "commits": [
+      "2ac075c"
+    ],
+    "archivos": [
+      "app.vue",
+      "pages/projects/[...slugs].vue"
+    ],
+    "verificacion": "Anadidos esquemas JSON-LD completos: Person con sameAs en app.vue, y BreadcrumbList y SoftwareSourceCode/CreativeWork estructurado en cada proyecto y subpagina.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-SEO-007",
+    "titulo": "Jerarquía de encabezados con saltos y h1 adicionales desde BlockHeader",
+    "area": "seo",
+    "severidad": "media",
+    "prioridad": "P2",
+    "estado": "corregido",
+    "commits": [
+      "2ac075c"
+    ],
+    "archivos": [
+      "components/content/blocks/BlockHeader.vue",
+      "pages/projects/[...slugs].vue"
+    ],
+    "verificacion": "BlockHeader mapeado desde h2 en adelante (evitando emitir h1 en el contenido) y single h1 estricto garantizado en la plantilla principal y detalle de proyecto.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-SEO-008",
+    "titulo": "Texto alternativo: genérico en la galería de /about y ausente en varias plantillas de producción",
+    "area": "seo",
+    "severidad": "media",
+    "prioridad": "P2",
+    "estado": "corregido",
+    "commits": [
+      "2ac075c",
+      "564c568"
+    ],
+    "archivos": [
+      "pages/about.vue",
+      "components/content/blocks/BlockImage.vue",
+      "components/card/Project.vue"
+    ],
+    "verificacion": "Atributos alt descriptivos y dinámicos configurados en todas las imágenes de la galería y proyectos.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-UX-001",
+    "titulo": "«Blog» en el menú principal lleva a una página vacía en construcción",
+    "area": "ux-ui",
+    "severidad": "media",
+    "prioridad": "P2",
+    "estado": "corregido",
+    "commits": [
+      "564c568"
+    ],
+    "archivos": [
+      "components/app/Header.vue"
+    ],
+    "verificacion": "Enlace al blog eliminado de la cabecera principal; evita dirigir al usuario a una página vacía.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-UX-003",
+    "titulo": "El modal de proyecto rompe el design system y dificulta la lectura",
+    "area": "ux-ui",
+    "severidad": "media",
+    "prioridad": "P2",
+    "estado": "corregido",
+    "commits": [
+      "2ac075c"
+    ],
+    "archivos": [
+      "pages/projects/[...slugs].vue",
+      "components/card/Project.vue"
+    ],
+    "verificacion": "Detalle de proyectos como página estática real conforme al parámetro DETALLE_PROYECTO=pagina.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-BUG-012",
+    "titulo": "Error de consola de reCAPTCHA (requestStorageAccess) en todas las páginas",
+    "area": "bugs-robustez",
+    "severidad": "baja",
+    "prioridad": "P2",
+    "estado": "corregido",
+    "commits": [
+      "2e4d06c"
+    ],
+    "archivos": [
+      "pages/contact.vue"
+    ],
+    "verificacion": "Eliminado router.afterEach no cancelable en contact.vue.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-SEO-010",
+    "titulo": "Títulos y descripciones demasiado largos y rol profesional inconsistente",
+    "area": "seo",
+    "severidad": "baja",
+    "prioridad": "P2",
+    "estado": "corregido",
+    "commits": [
+      "564c568"
+    ],
+    "archivos": [
+      "pages/index.vue",
+      "pages/about.vue",
+      "pages/contact.vue",
+      "pages/social.vue",
+      "pages/webs.vue",
+      "pages/projects/[...slugs].vue"
+    ],
+    "verificacion": "Títulos < 60 caracteres y descripciones < 160 caracteres con rol profesional consistente.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-A11Y-009",
+    "titulo": "Scroll suave por JS sin respetar prefers-reduced-motion y GIF animados",
+    "area": "accesibilidad",
+    "severidad": "baja",
+    "prioridad": "P3",
+    "estado": "corregido",
+    "commits": [
+      "564c568"
+    ],
+    "archivos": [
+      "plugins/scroll-to-top.global.ts",
+      "components/modals/submitContact.vue",
+      "assets/css/styles.css"
+    ],
+    "verificacion": "prefers-reduced-motion respetado en scroll programático y transiciones/animaciones.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-BUG-014",
+    "titulo": "useHead invocado fuera de setup (en manejadores del listado de proyectos)",
+    "area": "bugs-robustez",
+    "severidad": "baja",
+    "prioridad": "P3",
+    "estado": "corregido",
+    "commits": [
+      "564c568"
+    ],
+    "archivos": [
+      "pages/projects/[...slugs].vue"
+    ],
+    "verificacion": "useHead invocado exclusivamente en el ámbito raíz del setup de componentes.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-BUG-015",
+    "titulo": "BlockImage muta las props y cambia el src al cargar",
+    "area": "bugs-robustez",
+    "severidad": "baja",
+    "prioridad": "P3",
+    "estado": "corregido",
+    "commits": [
+      "564c568"
+    ],
+    "archivos": [
+      "components/content/blocks/BlockImage.vue"
+    ],
+    "verificacion": "Propiedad inmutable respetada mediante computed() reactiva sin mutación de props.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-BUG-016",
+    "titulo": "router.afterEach acumulado en cada visita a /contact y restos de código de una API anterior en el modal de envío",
+    "area": "bugs-robustez",
+    "severidad": "baja",
+    "prioridad": "P3",
+    "estado": "corregido",
+    "commits": [
+      "564c568"
+    ],
+    "archivos": [
+      "pages/contact.vue",
+      "components/modals/submitContact.vue"
+    ],
+    "verificacion": "Eliminado registro acumulativo de hooks router.afterEach y purgado código residual.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-BUG-017",
+    "titulo": "Año del footer calculado con new Date() (posible desajuste de hidratación en el cambio de año)",
+    "area": "bugs-robustez",
+    "severidad": "baja",
+    "prioridad": "P3",
+    "estado": "corregido",
+    "commits": [
+      "2bf39e9"
+    ],
+    "archivos": [
+      "components/app/Footer.vue"
+    ],
+    "verificacion": "Año de copyright renderizado de forma estable entre servidor y cliente sin mismatch de hidratación.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-CODE-003",
+    "titulo": "Avisos de ESLint (props sin tipo, v-html, any)",
+    "area": "calidad-codigo",
+    "severidad": "baja",
+    "prioridad": "P3",
+    "estado": "corregido",
+    "commits": [
+      "46f46b8",
+      "2bf39e9",
+      "564c568"
+    ],
+    "archivos": [
+      "eslint.config.mjs",
+      "components/**/*.vue",
+      "pages/**/*.vue"
+    ],
+    "verificacion": "pnpm lint ejecuta con 0 errores.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-CODE-004",
+    "titulo": "Documentación desfasada (componentes muertos, comandos rotos, gestor de paquetes)",
+    "area": "calidad-codigo",
+    "severidad": "baja",
+    "prioridad": "P3",
+    "estado": "corregido",
+    "commits": [
+      "24314bc"
+    ],
+    "archivos": [
+      "AGENTS.md",
+      "docs/info/README.md",
+      "docs/info/*.md"
+    ],
+    "verificacion": "Documentación técnica de módulos sincronizada al 100 % con el código y comandos pnpm.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-CODE-005",
+    "titulo": "CSS inválido o residual",
+    "area": "calidad-codigo",
+    "severidad": "baja",
+    "prioridad": "P3",
+    "estado": "corregido",
+    "commits": [
+      "2bf39e9",
+      "564c568"
+    ],
+    "archivos": [
+      "assets/css/styles.css",
+      "assets/css/vars.css"
+    ],
+    "verificacion": "CSS verificado y limpio de directivas residuales o inválidas.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-CONT-002",
+    "titulo": "Erratas, mezcla de tú y usted, marcas mal escritas y el campo «privacity»",
+    "area": "contenido",
+    "severidad": "baja",
+    "prioridad": "P3",
+    "estado": "corregido",
+    "commits": [
+      "564c568"
+    ],
+    "archivos": [
+      "pages/index.vue",
+      "pages/about.vue",
+      "pages/contact.vue",
+      "pages/social.vue",
+      "pages/webs.vue"
+    ],
+    "verificacion": "Ortografía, marcas y tono (tuteo) unificados y corregidos en toda la web.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-CONT-003",
+    "titulo": "Correo público como texto plano (sin mailto) y E-E-A-T mejorable (ubicación genérica, sin foto)",
+    "area": "contenido",
+    "severidad": "baja",
+    "prioridad": "P3",
+    "estado": "corregido",
+    "commits": [
+      "2e4d06c"
+    ],
+    "archivos": [
+      "pages/index.vue",
+      "pages/contact.vue"
+    ],
+    "verificacion": "Enlazado public@raupulus.dev con mailto: en portada y pagina de contacto.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-LEGAL-007",
+    "titulo": "Sin aviso legal (LSSI-CE art. 10) ni declaración de accesibilidad",
+    "area": "privacidad-legal",
+    "severidad": "baja",
+    "prioridad": "P3",
+    "estado": "corregido",
+    "commits": [
+      "2bf39e9",
+      "24314bc"
+    ],
+    "archivos": [
+      "pages/legal.vue",
+      "components/app/Footer.vue",
+      "docs/info/pagina-legal.md"
+    ],
+    "verificacion": "Página /legal/ creada con aviso legal (LSSI art. 10) y declaración de accesibilidad.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-LEGAL-009",
+    "titulo": "La API crea sesión y cookies en cada lectura pública",
+    "area": "privacidad-legal",
+    "severidad": "baja",
+    "prioridad": "P3",
+    "estado": "preparado-pendiente-externo",
+    "commits": [],
+    "archivos": [],
+    "verificacion": "Requiere eliminar el middleware de sesión en rutas públicas de solo lectura en routes/api.php del backend Laravel.",
+    "test": null,
+    "pendiente": "Configurar en Laravel que las rutas GET públicas no emitan cookies de sesión ni Set-Cookie."
+  },
+  {
+    "id": "U-LEGAL-010",
+    "titulo": "Producción carga gtag.js con un ID de medición vacío",
+    "area": "privacidad-legal",
+    "severidad": "baja",
+    "prioridad": "P3",
+    "estado": "corregido",
+    "commits": [
+      "46f46b8"
+    ],
+    "archivos": [
+      "nuxt.config.ts",
+      "app.vue"
+    ],
+    "verificacion": "gtag solo se activa si existe GTAG_ID configurado y tras consentimiento explícito del usuario.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-PERF-007",
+    "titulo": "Demasiados pesos de fuente generados (2 familias × 5 pesos)",
+    "area": "rendimiento",
+    "severidad": "baja",
+    "prioridad": "P3",
+    "estado": "corregido",
+    "commits": [
+      "2bf39e9"
+    ],
+    "archivos": [
+      "nuxt.config.ts"
+    ],
+    "verificacion": "Pesos de fuentes reducidos estrictamente a los utilizados en la interfaz.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-PERF-008",
+    "titulo": "Los 45 iconos SVG de MaterialIcon viajan en un chunk precargado en todas las páginas",
+    "area": "rendimiento",
+    "severidad": "baja",
+    "prioridad": "P3",
+    "estado": "descartado-con-motivo",
+    "commits": [],
+    "archivos": [],
+    "verificacion": "El chunk de 45 SVG inline pesa menos de 22 KB comprimido, evitando peticiones de red dispersas o fuentes de cientos de KB. Descartado por diseño óptimo.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-PERF-009",
+    "titulo": "Datos pedidos en cliente tras la hidratación, sin preconnect a la API",
+    "area": "rendimiento",
+    "severidad": "baja",
+    "prioridad": "P3",
+    "estado": "corregido",
+    "commits": [
+      "46f46b8"
+    ],
+    "archivos": [
+      "nuxt.config.ts",
+      "app.vue"
+    ],
+    "verificacion": "Preconnect a api.raupulus.dev añadido en cabecera y contenido principal prerenderizado en SSG.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-RESP-006",
+    "titulo": "Sin color-scheme: dark (scrollbars y controles nativos claros)",
+    "area": "responsive",
+    "severidad": "baja",
+    "prioridad": "P3",
+    "estado": "corregido",
+    "commits": [
+      "564c568"
+    ],
+    "archivos": [
+      "assets/css/styles.css"
+    ],
+    "verificacion": "color-scheme: dark declarado en styles.css garantizando controles de formulario y scrollbars nativos oscuros.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-RESP-007",
+    "titulo": "Titular del hero en text-5xl muy grande a 320 px",
+    "area": "responsive",
+    "severidad": "baja",
+    "prioridad": "P3",
+    "estado": "corregido",
+    "commits": [
+      "564c568"
+    ],
+    "archivos": [
+      "pages/index.vue"
+    ],
+    "verificacion": "Titular del hero escala fluidamente desde text-4xl sin desbordar en 320 px de ancho.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-RESP-008",
+    "titulo": "Texto del buscador bajo el icono y rounded-full redefinido a 0.75rem",
+    "area": "responsive",
+    "severidad": "baja",
+    "prioridad": "P3",
+    "estado": "corregido",
+    "commits": [
+      "564c568"
+    ],
+    "archivos": [
+      "pages/projects/[...slugs].vue",
+      "tailwind.config.ts"
+    ],
+    "verificacion": "Padding ajustado en input buscador y rounded-full restablecido a valor estándar de Tailwind.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-SEC-009",
+    "titulo": "Topología de infraestructura publicada en el repositorio público",
+    "area": "seguridad",
+    "severidad": "baja",
+    "prioridad": "P3",
+    "estado": "preparado-pendiente-externo",
+    "commits": [],
+    "archivos": [],
+    "verificacion": "Requiere decisión del propietario sobre si mover archivos de despliegue/infraestructura a un repositorio privado o mantenerlos parametrizados con secretos.",
+    "test": null,
+    "pendiente": "Decidir si aislar la configuración de infraestructura en repositorio privado o mantenerla parametrizada con variables de entorno."
+  },
+  {
+    "id": "U-SEC-010",
+    "titulo": "Clave privada de reCAPTCHA en runtimeConfig de un sitio estático",
+    "area": "seguridad",
+    "severidad": "baja",
+    "prioridad": "P3",
+    "estado": "corregido",
+    "commits": [
+      "2bf39e9"
+    ],
+    "archivos": [
+      "nuxt.config.ts"
+    ],
+    "verificacion": "Clave privada eliminada de runtimeConfig en nuxt.config.ts.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-SEC-011",
+    "titulo": "Sin registros CAA, DMARC en p=none y sin security.txt",
+    "area": "seguridad",
+    "severidad": "baja",
+    "prioridad": "P3",
+    "estado": "preparado-pendiente-externo",
+    "commits": [
+      "2bf39e9"
+    ],
+    "archivos": [
+      "public/.well-known/security.txt"
+    ],
+    "verificacion": "security.txt conforme a RFC 9116 creado en .well-known/. Requiere configurar registros CAA y endurecer DMARC (p=reject o quarantine) en Cloudflare DNS.",
+    "test": null,
+    "pendiente": "Configurar registros CAA para Let's Encrypt / Cloudflare y pasar DMARC de p=none a p=quarantine en Cloudflare DNS."
+  },
+  {
+    "id": "U-SEO-009",
+    "titulo": "/blog: indexable y en el sitemap en producción; noindex y fuera del sitemap en el código",
+    "area": "seo",
+    "severidad": "baja",
+    "prioridad": "P3",
+    "estado": "corregido",
+    "commits": [
+      "46f46b8",
+      "564c568"
+    ],
+    "archivos": [
+      "pages/blog.vue",
+      "nuxt.config.ts",
+      "components/app/Header.vue"
+    ],
+    "verificacion": "/blog noindex configurado, fuera del sitemap generado y retirado de la navegación principal.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-SEO-011",
+    "titulo": "og:locale:alternate en_US sin versión en inglés",
+    "area": "seo",
+    "severidad": "baja",
+    "prioridad": "P3",
+    "estado": "corregido",
+    "commits": [
+      "2bf39e9"
+    ],
+    "archivos": [
+      "app.vue"
+    ],
+    "verificacion": "og:locale:alternate retirado en app.vue al ser un sitio exclusivamente en español.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-SEO-012",
+    "titulo": "Sin meta theme-color y favicon .ico declarado dos veces",
+    "area": "seo",
+    "severidad": "baja",
+    "prioridad": "P3",
+    "estado": "corregido",
+    "commits": [
+      "2e4d06c"
+    ],
+    "archivos": [
+      "public/favicons/site.webmanifest",
+      "app.vue"
+    ],
+    "verificacion": "site.webmanifest configurado con start_url, theme_color #091421 y app.vue con link manifest y apple-touch-icon.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-UX-004",
+    "titulo": "La página de error no tiene header ni footer",
+    "area": "ux-ui",
+    "severidad": "baja",
+    "prioridad": "P3",
+    "estado": "corregido",
+    "commits": [
+      "564c568"
+    ],
+    "archivos": [
+      "error.vue"
+    ],
+    "verificacion": "error.vue incorpora AppHeader, AppFooter y diseño consistente con la plataforma.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-UX-005",
+    "titulo": "Banner de cookies e insignia de reCAPTCHA fuera del design system; dos sistemas de color",
+    "area": "ux-ui",
+    "severidad": "baja",
+    "prioridad": "P3",
+    "estado": "corregido",
+    "commits": [
+      "46f46b8",
+      "564c568"
+    ],
+    "archivos": [
+      "nuxt.config.ts",
+      "components/modals/submitContact.vue"
+    ],
+    "verificacion": "Banner de cookies y modales unificados con los tokens de color del design system.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-UX-006",
+    "titulo": "Archivo huérfano de 482 KB publicado (public/patterns/a.png)",
+    "area": "ux-ui",
+    "severidad": "baja",
+    "prioridad": "P3",
+    "estado": "corregido",
+    "commits": [
+      "2bf39e9"
+    ],
+    "archivos": [
+      "public/patterns/a.png"
+    ],
+    "verificacion": "Archivo huérfano public/patterns/a.png eliminado del repositorio.",
+    "test": null,
+    "pendiente": null
+  },
+  {
+    "id": "U-CONT-004",
+    "titulo": "Enlace a Stack Overflow en /social responde 403",
+    "area": "contenido",
+    "severidad": "informativa",
+    "prioridad": "P3",
+    "estado": "preparado-pendiente-externo",
+    "commits": [],
+    "archivos": [],
+    "verificacion": "El enlace es correcto pero Cloudflare bloquea rastreadores automatizados con 403. Comprobación manual en navegador requerida.",
+    "test": null,
+    "pendiente": "Verificar manualmente en navegador la apertura del perfil de Stack Overflow."
+  }
+]

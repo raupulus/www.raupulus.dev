@@ -1,14 +1,14 @@
 :root {
-    --primary: #3272B8;
-    --secondary: #F5F5F5;
+    --primary: #3272b8;
+    --secondary: #f5f5f5;
     /*--warning: #E29244;*/
-    --warning: #F2711C;
-    --danger: #E23D3D;
-    --white: #F5F5F5;
+    --warning: #f2711c;
+    --danger: #e23d3d;
+    --white: #f5f5f5;
     --black: #141414;
-    --blue: #3272B8;
-    --gray: #DEDEDE;
-    --grey: #DEDEDE;
+    --blue: #3272b8;
+    --gray: #dedede;
+    --grey: #dedede;
     --darkgrey: rgba(0, 0, 0, 0.16);
-    --yellow: #FFE350;
+    --yellow: #ffe350;
 }

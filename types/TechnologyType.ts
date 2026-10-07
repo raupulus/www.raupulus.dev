@@ -1,6 +1,7 @@
-
 export type TechnologyType = {
-    name: string,
-    slug: string,
-    urlImageSmall: string,
-}
+    id?: number;
+    name: string;
+    slug: string;
+    color?: string | null;
+    image: string | null; // Miniatura pequeña de la tecnología
+};

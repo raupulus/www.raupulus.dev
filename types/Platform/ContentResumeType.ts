@@ -1,11 +1,11 @@
-
 export type ContentResumeType = {
-    total?: number
+    total: number;
     types: {
-        slug: string
-        name: string
-        plural_name: string
-        description: string
-        quantity: number
-    }
-}
+        id: number;
+        slug: string;
+        name: string;
+        plural_name: string;
+        description: string | null;
+        total: number;
+    }[];
+};

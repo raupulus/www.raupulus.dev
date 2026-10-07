@@ -1,33 +1,62 @@
-<IfModule mod_negotiation.c>
-  Options -MultiViews
-</IfModule>
+# Desactivar listado de directorios (U-SEC-007)
+Options -Indexes -MultiViews
+
+# Pagina de error 404 real para sitio estatico (U-BUG-004)
+ErrorDocument 404 /404.html
 
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
-  RewriteRule ^index\.html$ - [L]
-  RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteCond %{REQUEST_FILENAME} !-l
-  RewriteRule . /index.html [L]
+
+  # Forzar HTTPS si se accede por HTTP directo
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP_HOST} ^raupulus\.dev$ [NC]
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # No reescribir rutas inexistentes a index.html (evitar Soft-404)
 </IfModule>
 
+# Seguridad y cabeceras HTTP (U-SEC-007)
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "DENY"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+
+  # HTML y JSON: no almacenar en cache prolongada (U-PERF-001)
+  <FilesMatch "\.(html|json)$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+    Header set Pragma "no-cache"
+    Header set Expires 0
+  </FilesMatch>
+
+  # Activos inmutables con hash / estaticos (U-PERF-001)
+  <FilesMatch "\.(js|css|woff2?|webp|png|jpe?g|gif|svg|ico)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+</IfModule>
+
+# Expiraciones mod_expires (U-PERF-001)
 <IfModule mod_expires.c>
-    ExpiresActive On
+  ExpiresActive On
 
-    # Archivos estáticos (ajusta según tus tipos de archivos)
-    ExpiresByType image/jpeg "access plus 1 month"
-    ExpiresByType image/png "access plus 1 month"
-    ExpiresByType image/gif "access plus 1 month"
-    ExpiresByType image/webp "access plus 1 month"
-    ExpiresByType image/svg+xml "access plus 1 month"
-    ExpiresByType text/css "access plus 1 month"
-    ExpiresByType application/javascript "access plus 1 month"
-    ExpiresByType font/woff "access plus 1 month"
-    ExpiresByType font/woff2 "access plus 1 month"
-    ExpiresByType application/font-woff "access plus 1 month"
-    ExpiresByType application/font-woff2 "access plus 1 month"
+  # El HTML no se cachea prolongadamente
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType application/json "access plus 0 seconds"
 
-    # Otros tipos de archivos
-    ExpiresDefault "access plus 1 month"
+  # Archivos estaticos inmutables: 1 ano
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/gif "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/x-icon "access plus 1 year"
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType font/woff "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType application/font-woff "access plus 1 year"
+  ExpiresByType application/font-woff2 "access plus 1 year"
+
+  ExpiresDefault "access plus 0 seconds"
 </IfModule>

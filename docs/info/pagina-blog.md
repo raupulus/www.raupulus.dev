@@ -1,0 +1,67 @@
+# Página del Blog (Catálogo y Artículos)
+
+Sección de blog técnico que consume contenidos de la API REST V2 (`type=blog`), con soporte de páginas múltiples por artículo (Opción B de enrutado), barra horizontal superior de páginas, navegación lateral sticky con tarjetitas de lectura, paginador secuencial y bloque de artículos relacionados al pie.
+
+## Archivos principales
+
+| Archivo                        | Rol                                                                                                    |
+| ------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| `pages/blog/[...slugs].vue`    | Catch-all: gestiona catálogo (`/blog/`), redirección (`/blog/:slug/`) y lectura (`/blog/:slug/:page/`) |
+| `composables/blogData.ts`      | Composable de datos: listado, búsqueda, detalle, artículos relacionados y prerender de sitemap         |
+| `components/card/BlogCard.vue` | Tarjeta visual de artículo para el catálogo y carrusel inferior de relacionados                        |
+
+## Estructura de Rutas (Opción B)
+
+- **Catálogo / Listado**: `/blog/` (`slugs = []`)
+- **Redirección de conveniencia**: `/blog/:contentSlug/` (`slugs.length === 1`) → redirige 301 a `/blog/:contentSlug/:firstPageSlug/`
+- **Lectura de artículo**: `/blog/:contentSlug/:pageSlug/` (`slugs.length === 2`)
+
+## Secciones del template
+
+### Modo Catálogo (`/blog/`)
+
+- **Cabecera**: Título "Mi Blog Personal", subtítulo y descripción.
+- **Buscador con debounce**: Input de búsqueda reactivo sincronizado con query string (`?q=`).
+- **Contador de resultados y Canal RSS**: Muestra el total de artículos publicados devueltos por la API junto con un botón de acceso directo al feed RSS (`/blog/feed.xml`).
+- **Grid de tarjetas**: Grid responsive con `CardBlogCard` (miniatura, categoría, fecha, tiempo de lectura, total de páginas y lecturas).
+- **Carga bajo demanda**: Botón "Cargar más artículos" paginado.
+
+## Feed RSS / Atom (`/blog/feed.xml` y `/blog/rss.xml`)
+
+El blog dispone de un endpoint estático RSS 2.0 generado mediante Nitro (`server/routes/blog/feed.xml.ts` y `server/routes/blog/rss.xml.ts`) que indexa automáticamente todos los artículos publicados consumidos desde la API V2:
+
+- Genera metadatos XML completos: título, enlace permanente a la primera subpágina, fecha RFC-822 / UTC, resumen (`excerpt`) en bloque `CDATA` y logotipo del feed (`/social/blog.webp`).
+- Descubrimiento automático: todas las páginas del blog incorporan `<link rel="alternate" type="application/rss+xml" title="Blog de Raúl Caro Pastorino (RSS)" href="/blog/feed.xml">` en el `<head>`.
+- Pre-renderizado estático garantizado en el build (`nuxt generate`).
+
+### Modo Detalle (`/blog/:contentSlug/:pageSlug/`)
+
+- **Breadcrumbs**: Migas de pan estructuradas con enlaces jerárquicos.
+- **Cabecera del artículo**: Fondo difuminado con imagen del post, categoría, fecha de publicación, tiempo estimado de lectura, contador de vistas, H1 de la sección, extracto y badges tecnológicos.
+- **Pestañas superiores de páginas**: Navegación horizontal rápida visible antes de comenzar la lectura (idéntica a Proyectos).
+- **Layout de lectura**:
+    - **Columna principal (8 cols)**: Bloques estructurados de EditorJS (`ContentBlocksBlock`: párrafos, encabezados, bloques de código con syntax highlighting, citas, tablas, imágenes, etc.).
+    - **Paginador secuencial al pie**: Botones `← Anterior: [Título]` y `Siguiente: [Título] →`.
+    - **Sidebar lateral sticky (4 cols)**:
+        - **Tarjetero de páginas**: Pequeñas tarjetas numeradas de cada subpágina con indicador "Leyendo ahora".
+        - **Tabla de Contenidos interactiva (TOC)**: Detección automática de encabezados (`H2`, `H3`) para salto directo con scroll suave.
+        - **Ficha Técnica / Metadatos**: Tiempo de lectura, fecha, tecnologías clave e hipervínculos a recursos externos (GitHub, Web, GitLab, Vídeo).
+        - **Compartir artículo**: Botón de copiado al portapapeles con feedback instantáneo y accesos a redes sociales (X/Twitter, LinkedIn, Telegram, WhatsApp).
+        - **Ficha de autor enriquecida**: Foto/avatar, rol "Backend & Maker", bio técnica, enlaces a perfiles sociales y acceso a `/about/`.
+        - **Interacción / Feedback (CTA)**: Caja de contacto para consultas técnicas o colaboraciones con enlace a `/contact/`.
+- **Artículos relacionados**: Consulta a `/contents/:slug/related?limit=3` y renderizado de un grid de 3 tarjetas compactas al pie de la lectura para retención del usuario.
+
+## SEO y Datos Estructurados
+
+- Directiva de indexación: `index, follow` activa.
+- Canónicas dinámicas con trailing slash (`/blog/:contentSlug/:pageSlug/`).
+- **Schema.org**:
+    - Catálogo: `Blog` con `ItemList`.
+    - Detalle: `TechArticle` con autor `Raúl Caro Pastorino`, fecha de publicación, fecha de modificación, headline e imagen OpenGraph.
+
+## Relaciones con otros módulos
+
+- → [composables.md](./composables.md): `useBlogData()`, `useGetBlogPostBySlug()`, `useGetRelatedBlogPosts()`, `useFetchBlogPaginated()`.
+- → [componentes-content-blocks.md](./componentes-content-blocks.md): renderizado de bloques EditorJS.
+- → [layout-navegacion.md](./layout-navegacion.md): enlace a `/blog/` en `Header.vue`.
+- → [seo-sitemap.md](./seo-sitemap.md): generación estática y sitemap dinámico.

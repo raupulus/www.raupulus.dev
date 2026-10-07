@@ -1,0 +1,80 @@
+[
+    {
+        "description": "Security Headers - Strict-Transport-Security",
+        "expression": "(http.host eq \"raupulus.dev\" or http.host eq \"www.raupulus.dev\")",
+        "action": "rewrite",
+        "action_parameters": {
+            "headers": {
+                "Strict-Transport-Security": {
+                    "operation": "set",
+                    "value": "max-age=63072000; includeSubDomains; preload"
+                }
+            }
+        }
+    },
+    {
+        "description": "Security Headers - X-Content-Type-Options",
+        "expression": "(http.host eq \"raupulus.dev\" or http.host eq \"www.raupulus.dev\")",
+        "action": "rewrite",
+        "action_parameters": {
+            "headers": {
+                "X-Content-Type-Options": {
+                    "operation": "set",
+                    "value": "nosniff"
+                }
+            }
+        }
+    },
+    {
+        "description": "Security Headers - X-Frame-Options",
+        "expression": "(http.host eq \"raupulus.dev\" or http.host eq \"www.raupulus.dev\")",
+        "action": "rewrite",
+        "action_parameters": {
+            "headers": {
+                "X-Frame-Options": {
+                    "operation": "set",
+                    "value": "DENY"
+                }
+            }
+        }
+    },
+    {
+        "description": "Security Headers - Referrer-Policy",
+        "expression": "(http.host eq \"raupulus.dev\" or http.host eq \"www.raupulus.dev\")",
+        "action": "rewrite",
+        "action_parameters": {
+            "headers": {
+                "Referrer-Policy": {
+                    "operation": "set",
+                    "value": "strict-origin-when-cross-origin"
+                }
+            }
+        }
+    },
+    {
+        "description": "Security Headers - Permissions-Policy",
+        "expression": "(http.host eq \"raupulus.dev\" or http.host eq \"www.raupulus.dev\")",
+        "action": "rewrite",
+        "action_parameters": {
+            "headers": {
+                "Permissions-Policy": {
+                    "operation": "set",
+                    "value": "camera=(), microphone=(), geolocation=(), payment=()"
+                }
+            }
+        }
+    },
+    {
+        "description": "Security Headers - Content-Security-Policy",
+        "expression": "(http.host eq \"raupulus.dev\" or http.host eq \"www.raupulus.dev\")",
+        "action": "rewrite",
+        "action_parameters": {
+            "headers": {
+                "Content-Security-Policy": {
+                    "operation": "set",
+                    "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://api.raupulus.dev https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; font-src 'self' data:; connect-src 'self' https://api.raupulus.dev https://challenges.cloudflare.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; frame-src https://challenges.cloudflare.com https://www.youtube.com https://www.youtube-nocookie.com; base-uri 'self'; form-action 'self' https://api.raupulus.dev; frame-ancestors 'none';"
+                }
+            }
+        }
+    }
+]

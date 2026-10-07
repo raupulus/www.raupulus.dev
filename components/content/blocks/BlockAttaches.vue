@@ -1,121 +1,95 @@
 <template>
-  <div :id="attaches.id" class="r-attaches-container" :data-content_id="attaches.data.file.content_id"
-    :data-content_file_id="attaches.data.file.content_file_id" :data-file_id="attaches.data.file.file_id">
+    <div
+        :id="attaches.id"
+        class="my-4 w-full max-w-xl mx-auto"
+        :data-content_id="attaches.data.file.content_id"
+        :data-content_file_id="attaches.data.file.content_file_id"
+        :data-file_id="attaches.data.file.file_id"
+    >
+        <div
+            class="flex items-center gap-4 p-4 rounded-xl border border-outline-variant/30 bg-surface-container-high hover:border-primary/40 transition-colors shadow-sm"
+        >
+            <div
+                v-if="attaches.data.file.url_thumbnail"
+                class="w-12 h-12 rounded-lg overflow-hidden shrink-0 bg-surface-container-low flex items-center justify-center"
+            >
+                <img
+                    :src="attaches.data.file.url_thumbnail"
+                    :alt="'Miniatura del archivo adjunto: ' + (attaches.data.title || attaches.data.file.name)"
+                    class="w-full h-full object-cover"
+                    loading="lazy"
+                    decoding="async"
+                />
+            </div>
 
-    <div class="r-attaches-box">
+            <div
+                v-else-if="attaches.data.file.file_type_image"
+                class="w-12 h-12 rounded-lg overflow-hidden shrink-0 bg-surface-container-low flex items-center justify-center"
+            >
+                <img
+                    :src="attaches.data.file.file_type_image"
+                    :alt="'Icono de tipo de archivo: ' + (attaches.data.file.extension || 'adjunto')"
+                    class="w-full h-full object-cover"
+                    loading="lazy"
+                    decoding="async"
+                />
+            </div>
 
-      <div v-if="attaches.data.file.url_thumbnail" class="r-attaches-img">
-        <img :src="attaches.data.file.url_thumbnail" :alt="attaches.data.title">
-      </div>
+            <div class="flex-1 min-w-0">
+                <div class="text-sm font-semibold text-on-surface truncate font-headline">
+                    {{ attaches.data.title || attaches.data.file.name }}
+                </div>
+                <div class="flex items-center gap-2 mt-0.5 text-xs text-on-surface-variant font-mono">
+                    <span v-if="attaches.data.file.extension" class="uppercase font-bold text-secondary">
+                        {{ attaches.data.file.extension }}
+                    </span>
+                    <span v-if="attaches.data.file.size">
+                        {{ formatBytes(attaches.data.file.size) }}
+                    </span>
+                </div>
+            </div>
 
-      <div v-else-if="attaches.data.file.file_type_image" class="r-attaches-img">
-        <img :src="attaches.data.file.file_type_image" :alt="attaches.data.title">
-      </div>
-
-      <div class="r-attaches-info">
-        <div>
-          {{ attaches.data.title }}
-          <span class="r-attaches-info-originalname"> ({{ attaches.data.file.name }})</span>
+            <div class="shrink-0" :data-url_download="attaches.data.file.url">
+                <a
+                    :href="attaches.data.file.url"
+                    download
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    :aria-label="'Descargar archivo ' + (attaches.data.title || attaches.data.file.name || 'adjunto')"
+                    class="p-2.5 rounded-lg text-primary hover:text-on-primary hover:bg-primary/90 transition-colors inline-flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                >
+                    <UiMaterialIcon name="download" class="text-xl" />
+                </a>
+            </div>
         </div>
-
-        <div v-if="attaches.data.file.size" class="r-attaches-info-size">
-          {{ formatBytes(attaches.data.file.size) }}
-        </div>
-      </div>
-
-      <div class="r-attaches-download" :data-url_download="attaches.data.file.url">
-        <a :href="attaches.data.file.url" download target="_blank" class="r-attaches-download-link">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-            <path stroke="currentColor" stroke-linecap="round" stroke-width="2"
-              d="M7 10L11.8586 14.8586C11.9367 14.9367 12.0633 14.9367 12.1414 14.8586L17 10"></path>
-          </svg>
-        </a>
-      </div>
     </div>
-  </div>
 </template>
 
 <script lang="ts" setup>
-import type { BlockAttachesType } from '@/types/BlocksType';
-import type { BlockType } from '@/types/BlocksType';
+    import type { BlockAttachesType, BlockType } from '@/types/BlocksType';
 
-const props = defineProps({
-  block: {
-    type: Object as PropType<BlockType>,
-    required: true,
-  },
-})
+    const props = defineProps({
+        block: {
+            type: Object as PropType<BlockType>,
+            required: true,
+        },
+    });
 
-const attaches = props.block as BlockAttachesType
+    const attaches = props.block as BlockAttachesType;
 
-const formatBytes = (bytes: number, precision: number = 2) => {
-  var units = ['B', 'KB', 'MB', 'GB', 'TB'];
+    const formatBytes = (bytes: number, precision: number = 2) => {
+        const units = ['B', 'KB', 'MB', 'GB', 'TB'];
 
-  bytes = Math.max(bytes, 0);
-  var pow = Math.floor((bytes ? Math.log(bytes) : 0) / Math.log(1024));
-  pow = Math.min(pow, units.length - 1);
+        bytes = Math.max(bytes, 0);
+        let pow = Math.floor((bytes ? Math.log(bytes) : 0) / Math.log(1024));
+        pow = Math.min(pow, units.length - 1);
 
-  bytes /= Math.pow(1024, pow);
+        bytes /= Math.pow(1024, pow);
 
-  return (Math.round(bytes * Math.pow(10, precision)) / Math.pow(10, precision)).toFixed(precision) + ' ' + units[pow];
-}
+        return (
+            (Math.round(bytes * Math.pow(10, precision)) / Math.pow(10, precision)).toFixed(precision) +
+            ' ' +
+            units[pow]
+        );
+    };
 </script>
-
-<style scoped>
-.r-attaches-container {
-  max-width: 650px;
-  margin: 0 auto;
-  padding: 1rem;
-  box-sizing: border-box;
-}
-
-.r-attaches-box {
-  display: flex;
-  align-items: center;
-  padding: 10px 12px;
-  border: 1px solid #EFF0F1;
-  ;
-  border-radius: 7px;
-  background: #fff;
-}
-
-.r-attaches-img {
-  height: 80px;
-}
-
-.r-attaches-img img {
-  height: 100%;
-}
-
-.r-attaches-info {
-  display: grid;
-  grid-gap: 4px;
-  max-width: calc(100% - 80px);
-  margin: auto 0;
-  flex-grow: 2;
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #2d3748;
-}
-
-.r-attaches-info .r-attaches-info-size {
-  font-size: 0.9rem;
-  font-weight: normal;
-  color: #707684;
-}
-
-.r-attaches-info .r-attaches-info-originalname {
-  display: none;
-  font-size: 0.7rem;
-  font-weight: normal;
-}
-
-.r-attaches-download {}
-
-.r-attaches-download svg {
-  color: rgba(63, 131, 248, 0.9);
-  width: 3rem;
-}
-
-.r-attaches-download .r-attaches-download-link {}
-</style>

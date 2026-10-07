@@ -60,6 +60,11 @@ replace_or_add_var_in_file "${WORKSCRIPT}/.env" 'API_DOMAIN_URL' "${API_DOMAIN_U
 replace_or_add_var_in_file "${WORKSCRIPT}/.env" 'API_BASE_URL' "${API_BASE_URL}"
 replace_or_add_var_in_file "${WORKSCRIPT}/.env" 'API_PATH_CONTACT' "${API_PATH_CONTACT}"
 
+## Turnstile Captcha
+if [[ -n "${TURNSTILE_SITE_KEY:-}" ]]; then
+    replace_or_add_var_in_file "${WORKSCRIPT}/.env" 'TURNSTILE_SITE_KEY' "${TURNSTILE_SITE_KEY}"
+fi
+
 ## Google Captcha
 replace_or_add_var_in_file "${WORKSCRIPT}/.env" 'CAPTCHA_SITE_KEY' "${CAPTCHA_SITE_KEY}"
 replace_or_add_var_in_file "${WORKSCRIPT}/.env" 'CAPTCHA_SITE_PRIVATE_KEY' "${CAPTCHA_SITE_PRIVATE_KEY}"

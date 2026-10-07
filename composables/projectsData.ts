@@ -1,59 +1,65 @@
-import { ref, onMounted } from 'vue';
-import { type ContentType } from '@/types/ContentType';
-import { type MetadataType } from '@/types/MetadataType';
-import { type PaginationType } from '@/types/PaginationType';
-import { type SearchParamsType } from '@/types/SearchParamsType';
+import { onMounted } from 'vue';
+import type { ApiMetaType, ApiResponseType } from '@/types/ApiResponse';
+import type { ContentType } from '@/types/ContentType';
+import type { ContentPageIndexType, ContentPageType } from '@/types/ContentPageType';
+import type { MetadataType } from '@/types/MetadataType';
+// Import relativo y explícito: este archivo también se carga desde nuxt.config.ts
+// (sitemap/prerender), donde no hay auto-imports ni alias.
+import { PLATFORM_SLUG, hasNextPage } from '../utils/ContentUtils';
 
-type ResponseContentType = {
-    pagination?: PaginationType,
-    search_params?: SearchParamsType,
-    contents?: ContentType[],
+type ProjectsStateType = {
+    contents?: ContentType[];
+    meta?: ApiMetaType;
+};
+
+export type ProjectsSearchParamsType = {
+    search?: string;
+    technology?: string;
+};
+
+/**
+ * Partes del detalle que necesita el modal de proyecto.
+ */
+const PROJECT_DETAIL_INCLUDE = 'technologies,metadata,taxonomies';
+
+// datas se define dentro de cada composable usando useState para evitar state leak en SSR
+
+function contentsUrl(apiBase: string): string {
+    return `${apiBase}/platforms/${PLATFORM_SLUG}/contents`;
 }
 
-type ResponseProjectType = {
-    ok?: boolean,
-    content?: ContentType,
-}
-
-const datas = ref<ResponseContentType>({});
-
-function prepareData(res: ResponseContentType) {
-    if (res.contents) {
-        res.contents.forEach(ele => {
-            ele = prepareDataContent(ele);
-        });
-    }
-    return res;
-}
-
-function prepareDataProjectResponse(res: ResponseProjectType) {
-    if (res.content) {
-        res.content = prepareDataContent(res.content);
-    }
-
-    return res;
-}
-
-function prepareDataContent(content: ContentType) {
+function prepareDataContent(content: ContentType): ContentType {
     if (content.metadata) {
         content.metadata = prepareDataMetadata(content.metadata);
     }
     return content;
 }
 
+/**
+ * Se queda con los 4 enlaces más relevantes de los metadatos, unificando
+ * canal y vídeo de YouTube en `youtube`.
+ */
 function prepareDataMetadata(metadata: MetadataType) {
     const priority: (keyof MetadataType)[] = [
-        'web', 'youtube_channel', 'youtube_video', 'youtube', 'gitlab', 'github',
-        'twitter', 'linkedin', 'mastodon', 'twitch',
+        'web',
+        'youtube_channel',
+        'youtube_video',
+        'youtube',
+        'gitlab',
+        'github',
+        'twitter',
+        'linkedin',
+        'mastodon',
+        'twitch',
         'telegram_channel',
     ];
 
-    let results: MetadataType = {};
+    const results: MetadataType = {};
     let counter = 0;
 
     if (metadata) {
-        priority.forEach(p => {
-            if ((p === 'youtube_channel') || (p === 'youtube_video')) {
+        priority.forEach((p) => {
+            if (p === 'youtube_channel' || p === 'youtube_video') {
                 if (metadata[p] && counter < 4) {
                     if (!results.youtube) {
                         counter++;
@@ -70,164 +76,243 @@ function prepareDataMetadata(metadata: MetadataType) {
     return results;
 }
 
+/**
+ * Construye la query del listado de proyectos (`GET /platforms/{p}/contents`).
+ * Los filtros vacíos no se envían.
+ */
+function projectsQuery(page: number, perPage: number, params: ProjectsSearchParamsType | null = null): string {
+    const query = new URLSearchParams({
+        type: 'project',
+        page: page.toString(),
+        per_page: perPage.toString(),
+    });
+
+    if (params?.search?.trim()) {
+        query.append('q', params.search.trim());
+    }
+
+    if (params?.technology) {
+        query.append('technology', params.technology);
+    }
+
+    return query.toString();
+}
+
 export function useProjectsData() {
-    const runtimeConfig = useRuntimeConfig();
-    const API_BASE = runtimeConfig.public.api.base;
-    const API_URL = `${API_BASE}/platform/portfolio/content/type/project`;
+    const datas = useState<ProjectsStateType>('projectsData', () => ({}));
+    const currentPage = useState<number>('projectsCurrentPage', () => 1);
+    const hasMorePages = useState<boolean>('projectsHasMore', () => true);
+    const isLoading = useState<boolean>('projectsLoading', () => false);
 
-    const fetchData = async (page = 1, quantity = 10) => {
-        //console.log(`Fetching data for page: ${page}`);  // Log for debugging
-        const params = new URLSearchParams({ page: page.toString(), quantity: quantity.toString() });
-        const response = await fetch(`${API_URL}?${params}`);
+    /**
+     * Carga la siguiente página de proyectos (carga bajo demanda).
+     */
+    const fetchNextPage = async (perPage = 20) => {
+        if (!hasMorePages.value || isLoading.value) return;
 
-        if (response.ok) {
-            const res = await response.json();
-            const newData = prepareData(res);
+        // Se calcula en cada llamada para usar proxy en cliente y URL directa en servidor
+        const API_URL = contentsUrl(useApiBase());
 
-            if (page === 1) {
-                datas.value = newData;
-            } else {
-                if (newData.contents) {
-                    datas.value.contents = [...(datas.value.contents ?? []), ...newData.contents];
-                }
-                if (newData.pagination) {
-                    datas.value.pagination = newData.pagination;
-                }
+        isLoading.value = true;
+
+        try {
+            const res = await $fetch<ApiResponseType<ContentType[]>>(
+                `${API_URL}?${projectsQuery(currentPage.value, perPage)}`,
+            );
+            const contents = (res.data ?? []).map(prepareDataContent);
+
+            datas.value = {
+                contents: currentPage.value === 1 ? contents : [...(datas.value.contents ?? []), ...contents],
+                meta: res.meta,
+            };
+
+            hasMorePages.value = hasNextPage(res.meta);
+
+            if (hasMorePages.value) {
+                currentPage.value++;
             }
-            return newData.pagination?.hasNextPage ?? false;
-        } else {
-            console.error('FETCH projectsData ERROR', response);
-            return false;
+        } catch (error) {
+            console.error('Error fetching projects:', error);
+            hasMorePages.value = false;
+        } finally {
+            isLoading.value = false;
         }
     };
 
+    // Carga inicial en el cliente (usa proxy para evitar CORS)
     onMounted(async () => {
-        await fetchData();
-
-        setTimeout(async () => {
-            let hasMore = datas.value.pagination?.hasNextPage;
-            let currentPage = 1;
-
-            while (hasMore) {
-                currentPage += 1;  // Increment page number
-                //console.log(`Requesting page: ${currentPage}`);  // Log for debugging
-                hasMore = await fetchData(currentPage);
-            }
-        }, 50);
-
+        if (!datas.value.contents?.length) {
+            await fetchNextPage();
+        }
     });
 
     return {
         datas,
-        fetchData,
+        hasMorePages,
+        isLoading,
+        fetchNextPage,
     };
 }
 
-export async function projectsDataSearch(params: {} | null = null) {
-    const runtimeConfig = useRuntimeConfig();
-    const API_BASE = runtimeConfig.public.api.base;
-    const API_URL = `${API_BASE}/platform/portfolio/content/type/project`;
+/**
+ * Busca proyectos por texto y/o tecnología y carga todos los resultados.
+ * Sin parámetros, vuelve a cargar el listado completo.
+ */
+let activeSearchAbortController: AbortController | null = null;
 
-    datas.value.contents = [];  // Limpiar los datos existentes
-    datas.value.pagination = undefined;  // Reiniciar la paginación
+export async function projectsDataSearch(params: ProjectsSearchParamsType | null = null) {
+    if (activeSearchAbortController) {
+        activeSearchAbortController.abort();
+    }
+    const abortController = new AbortController();
+    activeSearchAbortController = abortController;
+
+    const datas = useState<ProjectsStateType>('projectsData', () => ({}));
+    const hasMorePages = useState<boolean>('projectsHasMore', () => true);
+
+    // Se calcula en cada llamada para usar proxy en cliente
+    const API_URL = contentsUrl(useApiBase());
+
+    // Limpiar los datos existentes y la paginación
+    datas.value = { contents: [], meta: undefined };
+
+    // La búsqueda carga todos los resultados: no hay botón de "cargar más"
+    hasMorePages.value = false;
 
     let hasMore = true;
     let page = 1;
-    const quantity = 15;  // Cantidad de proyectos por página
+    const perPage = 25;
 
     while (hasMore) {
-        const searchParams = new URLSearchParams(params as Record<string, string> || []);
-        searchParams.append('page', page.toString());
-        searchParams.append('quantity', quantity.toString());
-        const requestURL = `${API_URL}?${searchParams.toString()}`;
+        if (abortController.signal.aborted) return;
+        try {
+            const res = await $fetch<ApiResponseType<ContentType[]>>(
+                `${API_URL}?${projectsQuery(page, perPage, params)}`,
+                {
+                    headers: { Accept: 'application/json' },
+                    signal: abortController.signal,
+                },
+            );
+            if (abortController.signal.aborted) return;
+            const contents = (res.data ?? []).map(prepareDataContent);
 
-        //console.log(`Fetching search data for page: ${page}`);  // Log para depuración
-        const response = await fetch(requestURL, {
-            mode: 'cors',
-            cache: 'no-cache',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-            },
-        });
+            datas.value = {
+                contents: [...(datas.value.contents ?? []), ...contents],
+                meta: res.meta,
+            };
 
-        if (response.ok) {
-            const res: ResponseContentType = await response.json();
-            const newData = prepareData(res);
-
-            if (page === 1) {
-                datas.value = newData;
-            } else {
-                if (newData.contents) {
-                    datas.value.contents = [...(datas.value.contents ?? []), ...newData.contents];
-                }
-                if (newData.pagination) {
-                    datas.value.pagination = newData.pagination;
-                }
-            }
-
-            hasMore = newData.pagination?.hasNextPage ?? false;
+            hasMore = hasNextPage(res.meta);
             page++;
-        } else {
-            console.error('FETCH projectsDataSearch ERROR', response);
+        } catch (error: unknown) {
+            const err = error as { name?: string };
+            if (err?.name === 'AbortError' || abortController.signal.aborted) {
+                return;
+            }
+            console.error('FETCH projectsDataSearch ERROR', error);
             hasMore = false;
         }
     }
 }
 
 /**
- * Busca un contenido de por el slug
+ * Busca un proyecto por su slug: datos, índice de páginas, primera página
+ * (en Editor.js) y las partes de PROJECT_DETAIL_INCLUDE.
+ *
+ * Cada llamada suma una visita al contenido en la API.
  *
  * @param slug
  * @returns
  */
 export async function useGetProjectBySlug(slug: string): Promise<ContentType | null> {
-    const runtimeConfig = useRuntimeConfig();
-    const API_BASE = runtimeConfig.public.api.base;
-    const API_URL = `${API_BASE}/content/portfolio/${slug}/get`;
+    const query = new URLSearchParams({ include: PROJECT_DETAIL_INCLUDE, format: 'editorjs' });
+    const API_URL = `${contentsUrl(useApiBase())}/${encodeURIComponent(slug)}?${query}`;
 
-    let project: ContentType | null = null;
-
-    const response = await fetch(API_URL);
-    if (response.ok) {
-        const res = await response.json();
-        project = prepareDataProjectResponse(res).content ?? null;
-    } else {
-        console.error('FETCH projectBySlug ERROR', response);
+    try {
+        const res = await $fetch<ApiResponseType<ContentType>>(API_URL);
+        return res.data ? prepareDataContent(res.data) : null;
+    } catch (error) {
+        console.error('FETCH projectBySlug ERROR', error);
+        return null;
     }
-
-    return project;
 }
 
 /**
+ * Devuelve todos los proyectos paginando hasta obtenerlos todos, cada uno con
+ * su índice de páginas (`pages`) para generar las rutas `/projects/:slug/:page`.
  *
- * Devuelve todos los proyectos paginando hasta obtenerlos todos.
- * Usado principalmente para el sitemap
+ * Usado para el sitemap y el prerender (se ejecuta en Node.js, no necesita
+ * proxy). Las páginas se piden a `/pages`, que a diferencia del detalle no
+ * suma visitas al contenido.
  *
- * @param apiBaseUrl
- * @returns
+ * @returns Lista completa de proyectos
  */
-export async function usefetchProjectsPaginated(): Promise<ContentType[]> {
-    const apiBaseUrl = process.env.API_BASE_URL; // Asegúrate de sustituir esta línea por la URL correcta
-
-    let page = 1;
-    const quantity = 15; // Cantidad de proyectos por página
-    let totalProjects: ContentType[] = [];
+export async function usefetchProjectsPaginated(apiBaseUrl?: string): Promise<ContentType[]> {
+    const API_BASE =
+        apiBaseUrl ||
+        process.env.API_BASE_URL ||
+        (process.env.API_DOMAIN_URL ? `${process.env.API_DOMAIN_URL}/api/v2` : 'http://127.0.0.1:8000/api/v2');
+    const API_URL = contentsUrl(API_BASE);
+    let allProjects: ContentType[] = [];
+    let currentPage = 1;
     let hasMorePages = true;
 
-    interface ProjectResponseType {
-        pagination: PaginationType;
-        contents: ContentType[];
+    try {
+        while (hasMorePages) {
+            const response = await fetch(`${API_URL}?${projectsQuery(currentPage, 100)}`, {
+                headers: { Accept: 'application/json' },
+            });
+
+            if (!response.ok) {
+                const errorMsg = `Error fetching projects page ${currentPage}: HTTP ${response.status} from ${API_URL}`;
+                console.error(errorMsg);
+                if (!process.env.ALLOW_EMPTY_PROJECTS) {
+                    throw new Error(errorMsg);
+                }
+                break;
+            }
+
+            const json = (await response.json()) as ApiResponseType<ContentType[]>;
+
+            if (Array.isArray(json?.data)) {
+                allProjects = [...allProjects, ...json.data];
+            }
+
+            hasMorePages = hasNextPage(json?.meta);
+            currentPage++;
+        }
+
+        for (const project of allProjects) {
+            if (project.pages_count) {
+                project.pages = await fetchProjectPagesIndex(API_URL, project.slug);
+            }
+        }
+    } catch (err) {
+        if (!process.env.ALLOW_EMPTY_PROJECTS) {
+            throw err;
+        }
+        console.warn(
+            `[proyectos] No se pudo conectar con la API (${API_BASE}). ` +
+                'ALLOW_EMPTY_PROJECTS activo: se continúa sin las rutas dinámicas de proyectos.',
+        );
     }
 
-    while (hasMorePages) {
-        const response = await fetch(`${apiBaseUrl}/platform/portfolio/content/type/project?page=${page}&quantity=${quantity}`);
-        const data: ProjectResponseType = await response.json();
-        totalProjects = [...totalProjects, ...data.contents];
+    return allProjects;
+}
 
-        hasMorePages = data.pagination.hasNextPage;
-        page++;
+/**
+ * Índice de páginas de un proyecto (sin el texto) a partir de `/pages`.
+ */
+async function fetchProjectPagesIndex(contentsApiUrl: string, slug: string): Promise<ContentPageIndexType[]> {
+    const response = await fetch(`${contentsApiUrl}/${encodeURIComponent(slug)}/pages?limit=100`, {
+        headers: { Accept: 'application/json' },
+    });
+
+    if (!response.ok) {
+        console.error(`Error fetching pages of project ${slug}: HTTP ${response.status}`);
+        return [];
     }
 
-    return totalProjects;
+    const json = (await response.json()) as ApiResponseType<ContentPageType[]>;
+
+    return (json?.data ?? []).map(({ id, order, title, slug, format }) => ({ id, order, title, slug, format }));
 }
