@@ -61,7 +61,7 @@ check_status() {
     local url="$1"
     local expected="$2"
     local code
-    code=$(curl -fsS -o /dev/null -w "%{http_code}" "$url" || echo "000")
+    code=$(curl -s -o /dev/null -w "%{http_code}" "$url" || echo "000")
     if [ "$code" = "$expected" ]; then
         echo "  [OK] $url -> HTTP $code"
     else
