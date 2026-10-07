@@ -7,12 +7,13 @@
 
 ### Configuración y Arquitectura
 
-| Archivo                                | Módulo             | Descripción                                           |
-| -------------------------------------- | ------------------ | ----------------------------------------------------- |
-| [nuxt-config.md](./nuxt-config.md)     | Configuración Nuxt | Runtime config, módulos, SSG, proxy, prerender        |
-| [design-system.md](./design-system.md) | Design System      | TailwindCSS, tokens de color, tipografías, CSS        |
-| [seo-sitemap.md](./seo-sitemap.md)     | SEO y Sitemap      | Metatags, Open Graph, Twitter Cards, sitemap dinámico |
-| [deploy-cicd.md](./deploy-cicd.md)     | Despliegue         | Scripts de deploy, GoCD pipeline                      |
+| Archivo                                                              | Módulo               | Descripción                                                    |
+| -------------------------------------------------------------------- | -------------------- | -------------------------------------------------------------- |
+| [nuxt-config.md](./nuxt-config.md)                                   | Configuración Nuxt   | Runtime config, módulos, SSG, proxy, prerender                 |
+| [design-system.md](./design-system.md)                               | Design System        | TailwindCSS, tokens de color, tipografías, CSS                 |
+| [seo-sitemap.md](./seo-sitemap.md)                                   | SEO y Sitemap        | Metatags, Open Graph, Twitter Cards, sitemap dinámico          |
+| [deploy-cicd.md](./deploy-cicd.md)                                   | Despliegue           | Scripts de deploy, GoCD pipeline                               |
+| [historico-errores-soluciones.md](./historico-errores-soluciones.md) | Histórico de Errores | Registro de causas raíz, fallos de build y soluciones técnicas |
 
 ### Páginas
 

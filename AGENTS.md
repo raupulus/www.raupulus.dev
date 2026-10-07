@@ -13,7 +13,7 @@
 - **API Backend**: Laravel REST API V2 en `api.raupulus.dev/api/v2`
 - **Testing**: Vitest + Vue Test Utils + happy-dom
 - **Linting**: ESLint (flat config generado por el módulo `@nuxt/eslint`) + Prettier
-- **Módulos Nuxt**: `@nuxt/image` (IPX), `@nuxtjs/sitemap`, `nuxt-gtag`, `@dargmuesli/nuxt-cookie-control`, `@nuxtjs/tailwindcss`, `@nuxt/eslint`, `@nuxt/fonts`
+- **Módulos Nuxt**: `@nuxt/image` (`provider: 'none'`), `@nuxtjs/sitemap`, `nuxt-gtag`, `@dargmuesli/nuxt-cookie-control`, `@nuxtjs/tailwindcss`, `@nuxt/eslint`, `@nuxt/fonts`
 - **Analytics**: Google Analytics vía `nuxt-gtag` con consent mode y control de cookies
 - **Fuentes**: Space Grotesk + Plus Jakarta Sans, self-hosted con `@nuxt/fonts` (sin peticiones a Google Fonts)
 - **Iconos**: SVG inline con `<UiMaterialIcon name="..." />` (`components/ui/MaterialIcon.vue` + `assets/icons/material/`); no usar la fuente Material Symbols
@@ -55,6 +55,8 @@ Ejecutar en este orden y dejar todo en verde:
 
 - **En desarrollo se prueba SIEMPRE contra el backend local** (`API_DOMAIN_URL=http://127.0.0.1:8000`, `API_BASE_URL=http://127.0.0.1:8000/api/v2`), a no ser que el usuario indique puntualmente lo contrario de forma explícita.
 - **Si el backend local está apagado o no responde**: **AVISA AL USUARIO INMEDIATAMENTE**, pero **NUNCA TIRES CONTRA PRODUCCIÓN** (`api.raupulus.dev`). Queda terminantemente prohibido hacer fallback o consultar la API de producción por iniciativa propia.
+- **AISLAMIENTO ABSOLUTO DE BASE DE DATOS (REGLA DE ORO)**: La base de datos local contiene datos falsos de prueba y testeo. **ESTÁ TERMINANTEMENTE PROHIBIDO** volcar, transferir, sincronizar o inyectar datos de la base de datos local en la base de datos de producción (`raupulus_api` en Odin). En producción solo deben existir y mostrarse los datos legítimos creados en el servidor.
+- **CONSULTA OBLIGATORIA DEL HISTÓRICO DE ERRORES**: Antes de tocar configuración, build SSG, manejo de imágenes o ciclo de vida Vue/Nuxt, consultar [docs/info/historico-errores-soluciones.md](docs/info/historico-errores-soluciones.md) y anotar allí cualquier fallo de desarrollo o aprendizaje técnico del proyecto.
 
 ## Variables de Entorno
 
@@ -85,7 +87,7 @@ Copiar `env.example` (desarrollo) o `env.example.production` (producción) a `.e
 - Sanitización HTML: usar `sanitizeHtml()` / `sanitizeRawHtml()` de `utils/sanitize.ts`
 - API base: usar `useApiBase()` para resolver URL correcta según contexto (SSR/cliente/dev). En desarrollo, usa proxy `/_proxy/api/**` para evitar CORS
 - Estado global: usar `useState()` de Nuxt (nunca variables globales mutables). Ver `composables/states.ts` como ejemplo
-- Imágenes: usar `<NuxtImg>` con formatos webp, lazy loading y dimensiones explícitas. Excepción: imágenes remotas de la API que se cargan en cliente con dimensiones (tarjetas de proyecto) → `<img>` con la miniatura webp de la API (`imageUrl()`), porque en el build estático IPX reescribe la URL remota contra el dominio de la web
+- Imágenes: usar `<NuxtImg>` con `provider: 'none'` (en SSG sobre Apache sin Node runtime, IPX está PROHIBIDO porque genera rutas `/_ipx/...` que devuelven 404). Para imágenes remotas de la API Laravel (`imageUrl()`), usar directamente `<img>` con la miniatura webp de la API ya optimizada. Consulte [docs/info/historico-errores-soluciones.md](docs/info/historico-errores-soluciones.md).
 - Diseño: usar siempre los tokens Tailwind del design system (ver [docs/info/design-system.md](docs/info/design-system.md)). **Nunca** definir clases CSS globales con nombres de utilidades Tailwind (`.p-1`, `.text-primary`, ...) — sobreescriben el design system
 - Responsive: todo elemento nuevo debe funcionar desde 320px; los `h1` de página escalan `text-4xl/5xl → sm:text-6xl → md:text-8xl`
 - Accesibilidad: botones solo-icono con `aria-label`, `v-for` de elementos clicables como `<button>`/`<a>` reales, respetar `prefers-reduced-motion` (ya cubierto globalmente en `styles.css`)
