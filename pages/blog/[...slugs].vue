@@ -3,6 +3,7 @@
     import { useBlogData, blogDataSearch, useGetBlogPostBySlug, useGetRelatedBlogPosts } from '@/composables/blogData';
     import type { ApiResponseType } from '@/types/ApiResponse';
     import type { ContentPageType } from '@/types/ContentPageType';
+    import type { BlockHeaderType } from '@/types/BlocksType';
 
     const config = useRuntimeConfig();
     const route = useRoute();
@@ -350,6 +351,96 @@
             },
         ],
     }));
+
+    // ==========================================
+    // TABLA DE CONTENIDOS (TOC) DE LA PÁGINA ACTIVA
+    // ==========================================
+    interface TocItem {
+        id: string;
+        text: string;
+        level: number;
+    }
+
+    const tocItems = computed<TocItem[]>(() => {
+        if (!activePage.value?.body?.blocks?.length) return [];
+        const items: TocItem[] = [];
+        for (const block of activePage.value.body.blocks) {
+            if (block.type === 'header') {
+                const headerBlock = block as BlockHeaderType;
+                const rawText = headerBlock.data?.text ? headerBlock.data.text.replace(/<[^>]*>/g, '').trim() : '';
+                if (!rawText) continue;
+                const id = headerBlock.id
+                    ? `h-${headerBlock.id}`
+                    : rawText
+                          .toLowerCase()
+                          .replace(/[^\w\s-]/g, '')
+                          .trim()
+                          .replace(/\s+/g, '-');
+                items.push({
+                    id,
+                    text: rawText,
+                    level: Number(headerBlock.data?.level) || 2,
+                });
+            }
+        }
+        return items;
+    });
+
+    function scrollToHeading(id: string) {
+        if (import.meta.client) {
+            const el = document.getElementById(id);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                history.pushState(null, '', `#${id}`);
+            }
+        }
+    }
+
+    // ==========================================
+    // COMPARTIR ARTÍCULO
+    // ==========================================
+    const linkCopied = ref(false);
+    let copyTimeout: ReturnType<typeof setTimeout> | null = null;
+
+    const currentShareUrl = computed(() => {
+        if (import.meta.client) {
+            return window.location.href;
+        }
+        return `${siteUrl}${route.fullPath}`;
+    });
+
+    async function copyShareLink() {
+        if (!import.meta.client) return;
+        try {
+            await navigator.clipboard.writeText(currentShareUrl.value);
+            linkCopied.value = true;
+            if (copyTimeout) clearTimeout(copyTimeout);
+            copyTimeout = setTimeout(() => {
+                linkCopied.value = false;
+            }, 2500);
+        } catch {
+            linkCopied.value = false;
+        }
+    }
+
+    const twitterShareUrl = computed(() => {
+        const title = article.value?.title || '';
+        return `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(currentShareUrl.value)}`;
+    });
+
+    const linkedinShareUrl = computed(() => {
+        return `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(currentShareUrl.value)}`;
+    });
+
+    const telegramShareUrl = computed(() => {
+        const title = article.value?.title || '';
+        return `https://t.me/share/url?url=${encodeURIComponent(currentShareUrl.value)}&text=${encodeURIComponent(title)}`;
+    });
+
+    const whatsappShareUrl = computed(() => {
+        const title = article.value?.title || '';
+        return `https://api.whatsapp.com/send?text=${encodeURIComponent(`${title} ${currentShareUrl.value}`)}`;
+    });
 </script>
 
 <template>
@@ -390,7 +481,7 @@
                             type="search"
                             placeholder="Buscar artículos por título, concepto o tecnología..."
                             class="w-full pl-12 pr-4 py-3 bg-surface-container-high rounded-lg border border-outline-variant/30 text-on-surface placeholder:text-outline-variant text-sm focus:outline-none focus:border-secondary transition-colors"
-                        >
+                        />
                     </div>
                 </div>
 
@@ -721,9 +812,11 @@
                         </div>
                     </main>
 
-                    <!-- Columna lateral: Tarjetitas pequeñas de páginas (Sticky) -->
-                    <aside class="lg:col-span-4 sticky top-24 space-y-6">
-                        <!-- Tarjetero de páginas -->
+                    <!-- Columna lateral: Panel de control, índice y herramientas (Sticky) -->
+                    <aside
+                        class="lg:col-span-4 sticky top-24 space-y-6 max-h-[calc(100vh-7rem)] overflow-y-auto pr-1 pb-6"
+                    >
+                        <!-- 1. Tarjetero de páginas del artículo (si tiene más de 1 página) -->
                         <div
                             v-if="allPages.length > 1"
                             class="bg-surface-container-high/60 backdrop-blur rounded-xl border border-outline-variant/30 p-5 shadow-sm"
@@ -782,33 +875,341 @@
                             </div>
                         </div>
 
-                        <!-- Ficha rápida de autor -->
+                        <!-- 2. Tabla de Contenidos interactiva (TOC) -->
                         <div
-                            class="bg-surface-container-low rounded-xl border border-outline-variant/20 p-5 text-xs text-on-surface-variant space-y-3"
+                            v-if="tocItems.length > 0"
+                            class="bg-surface-container-high/60 backdrop-blur rounded-xl border border-outline-variant/30 p-5 shadow-sm"
+                        >
+                            <div class="flex items-center gap-2 mb-4 pb-3 border-b border-outline-variant/20">
+                                <UiMaterialIcon name="code_blocks" class="text-secondary text-lg" />
+                                <h3 class="font-headline font-bold text-xs tracking-wider text-on-surface uppercase">
+                                    En esta página
+                                </h3>
+                                <span class="ml-auto text-[10px] font-label text-on-surface-variant">
+                                    {{ tocItems.length }} secciones
+                                </span>
+                            </div>
+
+                            <nav aria-label="Índice de la página actual" class="flex flex-col gap-1.5">
+                                <a
+                                    v-for="item in tocItems"
+                                    :key="item.id"
+                                    :href="`#${item.id}`"
+                                    class="text-xs leading-relaxed text-on-surface-variant hover:text-primary transition-colors flex items-start gap-2 py-1 group"
+                                    :class="item.level > 2 ? 'pl-4 text-[11px]' : ''"
+                                    @click.prevent="scrollToHeading(item.id)"
+                                >
+                                    <span class="text-secondary opacity-60 group-hover:opacity-100 transition-opacity"
+                                        >›</span
+                                    >
+                                    <span class="group-hover:translate-x-0.5 transition-transform">{{
+                                        item.text
+                                    }}</span>
+                                </a>
+                            </nav>
+                        </div>
+
+                        <!-- 3. Ficha Técnica / Metadatos de lectura -->
+                        <div
+                            class="bg-surface-container-low rounded-xl border border-outline-variant/20 p-5 shadow-sm text-xs space-y-4"
+                        >
+                            <div class="flex items-center gap-2 pb-3 border-b border-outline-variant/20">
+                                <UiMaterialIcon name="bolt" class="text-secondary text-lg" />
+                                <h3 class="font-headline font-bold text-xs tracking-wider text-on-surface uppercase">
+                                    Ficha Técnica
+                                </h3>
+                            </div>
+
+                            <!-- Métricas clave -->
+                            <div class="grid grid-cols-2 gap-3">
+                                <div
+                                    class="bg-surface-container-high/40 p-2.5 rounded-lg border border-outline-variant/10"
+                                >
+                                    <span
+                                        class="block text-[10px] uppercase font-label text-on-surface-variant tracking-wider"
+                                        >Lectura</span
+                                    >
+                                    <span class="font-bold text-on-surface flex items-center gap-1 mt-0.5">
+                                        <UiMaterialIcon name="schedule" class="text-xs text-secondary" />
+                                        ~{{ readingTimeMinutes }} min
+                                    </span>
+                                </div>
+                                <div
+                                    class="bg-surface-container-high/40 p-2.5 rounded-lg border border-outline-variant/10"
+                                >
+                                    <span
+                                        class="block text-[10px] uppercase font-label text-on-surface-variant tracking-wider"
+                                        >Publicación</span
+                                    >
+                                    <span class="font-bold text-on-surface truncate block mt-0.5">
+                                        {{ formatDate(article.published_at ?? article.created_at) }}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Tecnologías utilizadas -->
+                            <div v-if="article.technologies?.length" class="pt-2">
+                                <span
+                                    class="block text-[10px] uppercase font-label text-on-surface-variant tracking-wider mb-2"
+                                >
+                                    Tecnologías clave
+                                </span>
+                                <div class="flex flex-wrap gap-1.5">
+                                    <div
+                                        v-for="tech in article.technologies"
+                                        :key="tech.slug"
+                                        class="flex items-center gap-1.5 px-2.5 py-1 bg-surface-container-high rounded-md border border-outline-variant/20 text-[11px] text-on-surface"
+                                    >
+                                        <NuxtImg
+                                            v-if="tech.image"
+                                            :src="tech.image"
+                                            :alt="tech.name"
+                                            width="14"
+                                            height="14"
+                                            class="w-3.5 h-3.5 object-contain"
+                                        />
+                                        <span>{{ tech.name }}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Enlaces directos de interés -->
+                            <div
+                                v-if="article.metadata && Object.keys(article.metadata).length"
+                                class="pt-2 border-t border-outline-variant/20"
+                            >
+                                <span
+                                    class="block text-[10px] uppercase font-label text-on-surface-variant tracking-wider mb-2"
+                                >
+                                    Recursos del artículo
+                                </span>
+                                <div class="flex flex-col gap-2">
+                                    <a
+                                        v-if="article.metadata.github"
+                                        :href="article.metadata.github"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="flex items-center justify-between p-2 rounded-lg bg-surface-container-high hover:border-primary/50 border border-outline-variant/20 text-on-surface hover:text-primary transition-all group"
+                                    >
+                                        <span class="flex items-center gap-2">
+                                            <IconsGithub :margin="0" :legacy="true" :size="16" />
+                                            <span class="text-xs font-bold">Repositorio GitHub</span>
+                                        </span>
+                                        <UiMaterialIcon
+                                            name="open_in_new"
+                                            class="text-xs text-on-surface-variant group-hover:text-primary"
+                                        />
+                                    </a>
+                                    <a
+                                        v-if="article.metadata.web"
+                                        :href="article.metadata.web"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="flex items-center justify-between p-2 rounded-lg bg-surface-container-high hover:border-primary/50 border border-outline-variant/20 text-on-surface hover:text-primary transition-all group"
+                                    >
+                                        <span class="flex items-center gap-2">
+                                            <IconsEarth :margin="0" :legacy="true" :size="16" />
+                                            <span class="text-xs font-bold">Sitio Web / Demo</span>
+                                        </span>
+                                        <UiMaterialIcon
+                                            name="open_in_new"
+                                            class="text-xs text-on-surface-variant group-hover:text-primary"
+                                        />
+                                    </a>
+                                    <a
+                                        v-if="article.metadata.gitlab"
+                                        :href="article.metadata.gitlab"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="flex items-center justify-between p-2 rounded-lg bg-surface-container-high hover:border-primary/50 border border-outline-variant/20 text-on-surface hover:text-primary transition-all group"
+                                    >
+                                        <span class="flex items-center gap-2">
+                                            <IconsGitlab :margin="0" :legacy="true" :size="16" />
+                                            <span class="text-xs font-bold">Repositorio GitLab</span>
+                                        </span>
+                                        <UiMaterialIcon
+                                            name="open_in_new"
+                                            class="text-xs text-on-surface-variant group-hover:text-primary"
+                                        />
+                                    </a>
+                                    <a
+                                        v-if="article.metadata.youtube"
+                                        :href="article.metadata.youtube"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="flex items-center justify-between p-2 rounded-lg bg-surface-container-high hover:border-error/50 border border-outline-variant/20 text-on-surface hover:text-error transition-all group"
+                                    >
+                                        <span class="flex items-center gap-2">
+                                            <IconsYoutube :margin="0" :legacy="true" :size="16" />
+                                            <span class="text-xs font-bold">Vídeo Tutorial</span>
+                                        </span>
+                                        <UiMaterialIcon
+                                            name="open_in_new"
+                                            class="text-xs text-on-surface-variant group-hover:text-error"
+                                        />
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 4. Compartir artículo -->
+                        <div
+                            class="bg-surface-container-low rounded-xl border border-outline-variant/20 p-5 shadow-sm text-xs space-y-3"
+                        >
+                            <div class="flex items-center gap-2 pb-2 border-b border-outline-variant/20">
+                                <UiMaterialIcon name="share" class="text-secondary text-lg" />
+                                <h3 class="font-headline font-bold text-xs tracking-wider text-on-surface uppercase">
+                                    Compartir
+                                </h3>
+                            </div>
+
+                            <!-- Botón copiar enlace -->
+                            <button
+                                type="button"
+                                class="w-full py-2.5 px-3 rounded-lg border text-xs font-label uppercase tracking-wider font-bold flex items-center justify-center gap-2 transition-all cursor-pointer"
+                                :class="
+                                    linkCopied
+                                        ? 'bg-secondary/20 border-secondary text-secondary'
+                                        : 'bg-surface-container-high border-outline-variant/30 text-on-surface hover:border-primary hover:text-primary'
+                                "
+                                @click="copyShareLink"
+                            >
+                                <UiMaterialIcon :name="linkCopied ? 'check' : 'content_copy'" class="text-sm" />
+                                <span>{{ linkCopied ? '¡Enlace copiado!' : 'Copiar enlace directo' }}</span>
+                            </button>
+
+                            <!-- Redes sociales para compartir -->
+                            <div class="flex items-center justify-center gap-3 pt-2">
+                                <a
+                                    :href="twitterShareUrl"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label="Compartir en X / Twitter"
+                                    class="w-9 h-9 rounded-lg bg-surface-container-high border border-outline-variant/30 flex items-center justify-center hover:border-primary transition-all group"
+                                >
+                                    <IconsTwitter :legacy="true" :size="16" />
+                                </a>
+                                <a
+                                    :href="linkedinShareUrl"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label="Compartir en LinkedIn"
+                                    class="w-9 h-9 rounded-lg bg-surface-container-high border border-outline-variant/30 flex items-center justify-center hover:border-primary transition-all group"
+                                >
+                                    <IconsLinkedin :legacy="true" :size="16" />
+                                </a>
+                                <a
+                                    :href="telegramShareUrl"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label="Compartir en Telegram"
+                                    class="w-9 h-9 rounded-lg bg-surface-container-high border border-outline-variant/30 flex items-center justify-center hover:border-primary transition-all group"
+                                >
+                                    <IconsTelegram :legacy="true" :size="16" />
+                                </a>
+                                <a
+                                    :href="whatsappShareUrl"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label="Compartir en WhatsApp"
+                                    class="w-9 h-9 rounded-lg bg-surface-container-high border border-outline-variant/30 flex items-center justify-center hover:border-secondary transition-all group text-secondary"
+                                >
+                                    <UiMaterialIcon name="send" class="text-sm" />
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- 5. Ficha de autor enriquecida -->
+                        <div
+                            class="bg-surface-container-low rounded-xl border border-outline-variant/20 p-5 text-xs text-on-surface-variant space-y-4 shadow-sm"
                         >
                             <div class="flex items-center gap-3">
                                 <div
-                                    class="w-10 h-10 rounded-full bg-surface-container-highest border border-outline-variant/40 flex items-center justify-center text-primary font-bold text-sm shrink-0"
+                                    class="w-11 h-11 rounded-full bg-surface-container-highest border-2 border-secondary/40 flex items-center justify-center text-primary font-bold text-base shrink-0 shadow-inner"
                                 >
                                     RC
                                 </div>
-                                <div>
-                                    <p class="font-bold text-on-surface">Raúl Caro Pastorino</p>
-                                    <p class="text-[11px] text-on-surface-variant">
-                                        Desarrollador Web Backend &amp; Maker
+                                <div class="min-w-0">
+                                    <p class="font-bold text-on-surface text-sm truncate">Raúl Caro Pastorino</p>
+                                    <p class="text-[11px] text-secondary font-label tracking-wide uppercase">
+                                        Backend &amp; Maker
                                     </p>
                                 </div>
                             </div>
-                            <p class="text-[11px] leading-relaxed">
-                                Artículos prácticos basados en experiencia real con Laravel, APIs, microcontroladores y
-                                software libre.
+                            <p class="text-xs leading-relaxed text-on-surface-variant">
+                                Ingeniero y desarrollador web backend especializado en Laravel, APIs REST,
+                                microcontroladores y software libre. Publico tutoriales basados en proyectos y
+                                experimentación real.
+                            </p>
+
+                            <!-- Redes del autor -->
+                            <div class="flex items-center gap-2 pt-1 border-t border-outline-variant/20">
+                                <a
+                                    href="https://github.com/raupulus"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label="GitHub de Raúl"
+                                    class="p-2 rounded bg-surface-container-high hover:border-primary border border-outline-variant/20 transition-colors"
+                                >
+                                    <IconsGithub :margin="0" :legacy="true" :size="16" />
+                                </a>
+                                <a
+                                    href="https://gitlab.com/raupulus"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label="GitLab de Raúl"
+                                    class="p-2 rounded bg-surface-container-high hover:border-primary border border-outline-variant/20 transition-colors"
+                                >
+                                    <IconsGitlab :margin="0" :legacy="true" :size="16" />
+                                </a>
+                                <a
+                                    href="https://www.linkedin.com/in/raupulus"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label="LinkedIn de Raúl"
+                                    class="p-2 rounded bg-surface-container-high hover:border-primary border border-outline-variant/20 transition-colors"
+                                >
+                                    <IconsLinkedin :margin="0" :legacy="true" :size="16" />
+                                </a>
+                                <a
+                                    href="https://twitter.com/raupulus"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label="Twitter / X de Raúl"
+                                    class="p-2 rounded bg-surface-container-high hover:border-primary border border-outline-variant/20 transition-colors"
+                                >
+                                    <IconsTwitter :margin="0" :legacy="true" :size="16" />
+                                </a>
+
+                                <NuxtLink
+                                    to="/about/"
+                                    class="ml-auto inline-flex items-center gap-1 text-secondary hover:text-primary text-[11px] font-bold uppercase tracking-wider transition-colors"
+                                >
+                                    Bio
+                                    <UiMaterialIcon name="arrow_forward" class="text-xs" />
+                                </NuxtLink>
+                            </div>
+                        </div>
+
+                        <!-- 6. Interacción / Contacto técnico (CTA) -->
+                        <div
+                            class="bg-gradient-to-br from-surface-container-low to-surface-container-high rounded-xl border border-secondary/20 p-5 text-xs space-y-3 shadow-sm"
+                        >
+                            <div class="flex items-center gap-2">
+                                <UiMaterialIcon name="send" class="text-secondary text-base" />
+                                <h4 class="font-headline font-bold text-xs uppercase tracking-wider text-on-surface">
+                                    ¿Dudas o Sugerencias?
+                                </h4>
+                            </div>
+                            <p class="text-[11px] text-on-surface-variant leading-relaxed">
+                                ¿Tienes alguna pregunta sobre esta guía o quieres colaborar en un desarrollo similar?
                             </p>
                             <NuxtLink
-                                to="/about/"
-                                class="inline-flex items-center gap-1 text-tertiary hover:underline text-[11px] font-bold uppercase tracking-wider"
+                                to="/contact/"
+                                class="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 bg-primary text-on-primary rounded-lg text-xs font-label uppercase tracking-widest font-bold hover:bg-primary-container transition-colors shadow-sm"
                             >
-                                Conoce más sobre mí
-                                <UiMaterialIcon name="arrow_forward" class="text-xs" />
+                                <UiMaterialIcon name="send" class="text-xs" />
+                                Enviar mensaje
                             </NuxtLink>
                         </div>
                     </aside>

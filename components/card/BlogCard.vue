@@ -41,7 +41,7 @@
                 :title="data.title"
                 class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 @load="onImageLoaded"
-            >
+            />
             <div
                 v-else
                 class="w-full h-full flex items-center justify-center bg-surface-container-lowest text-outline-variant"

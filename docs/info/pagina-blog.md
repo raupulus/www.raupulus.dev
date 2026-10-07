@@ -35,8 +35,12 @@ Sección de blog técnico que consume contenidos de la API REST V2 (`type=blog`)
     - **Columna principal (8 cols)**: Bloques estructurados de EditorJS (`ContentBlocksBlock`: párrafos, encabezados, bloques de código con syntax highlighting, citas, tablas, imágenes, etc.).
     - **Paginador secuencial al pie**: Botones `← Anterior: [Título]` y `Siguiente: [Título] →`.
     - **Sidebar lateral sticky (4 cols)**:
-        - Tarjetero con pequeñas tarjetas numeradas de cada página del artículo, resaltando la página activa con indicador de lectura y enlace directo a cada una.
-        - Ficha de autor compacta con acceso al perfil.
+        - **Tarjetero de páginas**: Pequeñas tarjetas numeradas de cada subpágina con indicador "Leyendo ahora".
+        - **Tabla de Contenidos interactiva (TOC)**: Detección automática de encabezados (`H2`, `H3`) para salto directo con scroll suave.
+        - **Ficha Técnica / Metadatos**: Tiempo de lectura, fecha, tecnologías clave e hipervínculos a recursos externos (GitHub, Web, GitLab, Vídeo).
+        - **Compartir artículo**: Botón de copiado al portapapeles con feedback instantáneo y accesos a redes sociales (X/Twitter, LinkedIn, Telegram, WhatsApp).
+        - **Ficha de autor enriquecida**: Foto/avatar, rol "Backend & Maker", bio técnica, enlaces a perfiles sociales y acceso a `/about/`.
+        - **Interacción / Feedback (CTA)**: Caja de contacto para consultas técnicas o colaboraciones con enlace a `/contact/`.
 - **Artículos relacionados**: Consulta a `/contents/:slug/related?limit=3` y renderizado de un grid de 3 tarjetas compactas al pie de la lectura para retención del usuario.
 
 ## SEO y Datos Estructurados
