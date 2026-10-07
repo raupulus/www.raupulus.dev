@@ -103,10 +103,10 @@ check_status "https://raupulus.dev/images/technologies/php_60x60.webp" "200"
 check_status "https://raupulus.dev/images/icons/social/github.svg" "200"
 check_status "https://raupulus.dev/images/pages/about/gallery/1_250px.webp" "200"
 
-if curl -fsSL "https://raupulus.dev/blog/" | grep -q "Portada del artículo"; then
-    echo "  [OK] https://raupulus.dev/blog/ contiene artículos prerenderizados"
+if curl -fsSL "https://raupulus.dev/projects/" | grep -q "Portada del proyecto"; then
+    echo "  [OK] https://raupulus.dev/projects/ contiene proyectos prerenderizados"
 else
-    echo "  [FALLO] https://raupulus.dev/blog/ no contiene artículos prerenderizados" >&2
+    echo "  [FALLO] https://raupulus.dev/projects/ no contiene proyectos prerenderizados" >&2
     FAILED_TESTS=$((FAILED_TESTS + 1))
 fi
 
