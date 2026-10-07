@@ -813,16 +813,14 @@
                     </main>
 
                     <!-- Columna lateral: Panel de control, índice y herramientas (Sticky) -->
-                    <aside
-                        class="lg:col-span-4 sticky top-24 space-y-6 max-h-[calc(100vh-7rem)] overflow-y-auto pr-1 pb-6"
-                    >
+                    <aside class="lg:col-span-4 sticky top-24 space-y-5">
                         <!-- 1. Tarjetero de páginas del artículo (si tiene más de 1 página) -->
                         <div
                             v-if="allPages.length > 1"
-                            class="bg-surface-container-high/60 backdrop-blur rounded-xl border border-outline-variant/30 p-5 shadow-sm"
+                            class="bg-surface-container-high/60 backdrop-blur rounded-xl border border-outline-variant/30 p-4 shadow-sm"
                         >
-                            <div class="flex items-center gap-2 mb-4 pb-3 border-b border-outline-variant/20">
-                                <UiMaterialIcon name="layers" class="text-secondary text-lg" />
+                            <div class="flex items-center gap-2 mb-3 pb-2.5 border-b border-outline-variant/20">
+                                <UiMaterialIcon name="layers" class="text-secondary text-base" />
                                 <h3 class="font-headline font-bold text-xs tracking-wider text-on-surface uppercase">
                                     Páginas del artículo
                                 </h3>
@@ -878,10 +876,10 @@
                         <!-- 2. Tabla de Contenidos interactiva (TOC) -->
                         <div
                             v-if="tocItems.length > 0"
-                            class="bg-surface-container-high/60 backdrop-blur rounded-xl border border-outline-variant/30 p-5 shadow-sm"
+                            class="bg-surface-container-high/60 backdrop-blur rounded-xl border border-outline-variant/30 p-4 shadow-sm"
                         >
-                            <div class="flex items-center gap-2 mb-4 pb-3 border-b border-outline-variant/20">
-                                <UiMaterialIcon name="code_blocks" class="text-secondary text-lg" />
+                            <div class="flex items-center gap-2 mb-3 pb-2.5 border-b border-outline-variant/20">
+                                <UiMaterialIcon name="code_blocks" class="text-secondary text-base" />
                                 <h3 class="font-headline font-bold text-xs tracking-wider text-on-surface uppercase">
                                     En esta página
                                 </h3>
@@ -895,7 +893,7 @@
                                     v-for="item in tocItems"
                                     :key="item.id"
                                     :href="`#${item.id}`"
-                                    class="text-xs leading-relaxed text-on-surface-variant hover:text-primary transition-colors flex items-start gap-2 py-1 group"
+                                    class="text-xs leading-relaxed text-on-surface-variant hover:text-primary transition-colors flex items-start gap-2 py-0.5 group"
                                     :class="item.level > 2 ? 'pl-4 text-[11px]' : ''"
                                     @click.prevent="scrollToHeading(item.id)"
                                 >
@@ -911,19 +909,19 @@
 
                         <!-- 3. Ficha Técnica / Metadatos de lectura -->
                         <div
-                            class="bg-surface-container-low rounded-xl border border-outline-variant/20 p-5 shadow-sm text-xs space-y-4"
+                            class="bg-surface-container-low rounded-xl border border-outline-variant/20 p-4 shadow-sm text-xs space-y-3"
                         >
-                            <div class="flex items-center gap-2 pb-3 border-b border-outline-variant/20">
-                                <UiMaterialIcon name="bolt" class="text-secondary text-lg" />
+                            <div class="flex items-center gap-2 pb-2.5 border-b border-outline-variant/20">
+                                <UiMaterialIcon name="bolt" class="text-secondary text-base" />
                                 <h3 class="font-headline font-bold text-xs tracking-wider text-on-surface uppercase">
                                     Ficha Técnica
                                 </h3>
                             </div>
 
                             <!-- Métricas clave -->
-                            <div class="grid grid-cols-2 gap-3">
+                            <div class="grid grid-cols-2 gap-2.5">
                                 <div
-                                    class="bg-surface-container-high/40 p-2.5 rounded-lg border border-outline-variant/10"
+                                    class="bg-surface-container-high/40 p-2 rounded-lg border border-outline-variant/10"
                                 >
                                     <span
                                         class="block text-[10px] uppercase font-label text-on-surface-variant tracking-wider"
@@ -935,7 +933,7 @@
                                     </span>
                                 </div>
                                 <div
-                                    class="bg-surface-container-high/40 p-2.5 rounded-lg border border-outline-variant/10"
+                                    class="bg-surface-container-high/40 p-2 rounded-lg border border-outline-variant/10"
                                 >
                                     <span
                                         class="block text-[10px] uppercase font-label text-on-surface-variant tracking-wider"
@@ -1054,10 +1052,10 @@
 
                         <!-- 4. Compartir artículo -->
                         <div
-                            class="bg-surface-container-low rounded-xl border border-outline-variant/20 p-5 shadow-sm text-xs space-y-3"
+                            class="bg-surface-container-low rounded-xl border border-outline-variant/20 p-4 shadow-sm text-xs space-y-2.5"
                         >
                             <div class="flex items-center gap-2 pb-2 border-b border-outline-variant/20">
-                                <UiMaterialIcon name="share" class="text-secondary text-lg" />
+                                <UiMaterialIcon name="share" class="text-secondary text-base" />
                                 <h3 class="font-headline font-bold text-xs tracking-wider text-on-surface uppercase">
                                     Compartir
                                 </h3>
@@ -1066,7 +1064,7 @@
                             <!-- Botón copiar enlace -->
                             <button
                                 type="button"
-                                class="w-full py-2.5 px-3 rounded-lg border text-xs font-label uppercase tracking-wider font-bold flex items-center justify-center gap-2 transition-all cursor-pointer"
+                                class="w-full py-2 px-3 rounded-lg border text-xs font-label uppercase tracking-wider font-bold flex items-center justify-center gap-2 transition-all cursor-pointer"
                                 :class="
                                     linkCopied
                                         ? 'bg-secondary/20 border-secondary text-secondary'
@@ -1079,53 +1077,53 @@
                             </button>
 
                             <!-- Redes sociales para compartir -->
-                            <div class="flex items-center justify-center gap-3 pt-2">
+                            <div class="flex items-center justify-center gap-2.5 pt-1">
                                 <a
                                     :href="twitterShareUrl"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     aria-label="Compartir en X / Twitter"
-                                    class="w-9 h-9 rounded-lg bg-surface-container-high border border-outline-variant/30 flex items-center justify-center hover:border-primary transition-all group"
+                                    class="w-8 h-8 rounded-lg bg-surface-container-high border border-outline-variant/30 flex items-center justify-center hover:border-primary transition-all group"
                                 >
-                                    <IconsTwitter :legacy="true" :size="16" />
+                                    <IconsTwitter :legacy="true" :size="15" />
                                 </a>
                                 <a
                                     :href="linkedinShareUrl"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     aria-label="Compartir en LinkedIn"
-                                    class="w-9 h-9 rounded-lg bg-surface-container-high border border-outline-variant/30 flex items-center justify-center hover:border-primary transition-all group"
+                                    class="w-8 h-8 rounded-lg bg-surface-container-high border border-outline-variant/30 flex items-center justify-center hover:border-primary transition-all group"
                                 >
-                                    <IconsLinkedin :legacy="true" :size="16" />
+                                    <IconsLinkedin :legacy="true" :size="15" />
                                 </a>
                                 <a
                                     :href="telegramShareUrl"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     aria-label="Compartir en Telegram"
-                                    class="w-9 h-9 rounded-lg bg-surface-container-high border border-outline-variant/30 flex items-center justify-center hover:border-primary transition-all group"
+                                    class="w-8 h-8 rounded-lg bg-surface-container-high border border-outline-variant/30 flex items-center justify-center hover:border-primary transition-all group"
                                 >
-                                    <IconsTelegram :legacy="true" :size="16" />
+                                    <IconsTelegram :legacy="true" :size="15" />
                                 </a>
                                 <a
                                     :href="whatsappShareUrl"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     aria-label="Compartir en WhatsApp"
-                                    class="w-9 h-9 rounded-lg bg-surface-container-high border border-outline-variant/30 flex items-center justify-center hover:border-secondary transition-all group text-secondary"
+                                    class="w-8 h-8 rounded-lg bg-surface-container-high border border-outline-variant/30 flex items-center justify-center hover:border-secondary transition-all group text-secondary"
                                 >
-                                    <UiMaterialIcon name="send" class="text-sm" />
+                                    <UiMaterialIcon name="send" class="text-xs" />
                                 </a>
                             </div>
                         </div>
 
                         <!-- 5. Ficha de autor enriquecida -->
                         <div
-                            class="bg-surface-container-low rounded-xl border border-outline-variant/20 p-5 text-xs text-on-surface-variant space-y-4 shadow-sm"
+                            class="bg-surface-container-low rounded-xl border border-outline-variant/20 p-4 text-xs text-on-surface-variant space-y-3 shadow-sm"
                         >
                             <div class="flex items-center gap-3">
                                 <div
-                                    class="w-11 h-11 rounded-full bg-surface-container-highest border-2 border-secondary/40 flex items-center justify-center text-primary font-bold text-base shrink-0 shadow-inner"
+                                    class="w-10 h-10 rounded-full bg-surface-container-highest border-2 border-secondary/40 flex items-center justify-center text-primary font-bold text-sm shrink-0 shadow-inner"
                                 >
                                     RC
                                 </div>
@@ -1149,36 +1147,36 @@
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     aria-label="GitHub de Raúl"
-                                    class="p-2 rounded bg-surface-container-high hover:border-primary border border-outline-variant/20 transition-colors"
+                                    class="p-1.5 rounded bg-surface-container-high hover:border-primary border border-outline-variant/20 transition-colors"
                                 >
-                                    <IconsGithub :margin="0" :legacy="true" :size="16" />
+                                    <IconsGithub :margin="0" :legacy="true" :size="15" />
                                 </a>
                                 <a
                                     href="https://gitlab.com/raupulus"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     aria-label="GitLab de Raúl"
-                                    class="p-2 rounded bg-surface-container-high hover:border-primary border border-outline-variant/20 transition-colors"
+                                    class="p-1.5 rounded bg-surface-container-high hover:border-primary border border-outline-variant/20 transition-colors"
                                 >
-                                    <IconsGitlab :margin="0" :legacy="true" :size="16" />
+                                    <IconsGitlab :margin="0" :legacy="true" :size="15" />
                                 </a>
                                 <a
                                     href="https://www.linkedin.com/in/raupulus"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     aria-label="LinkedIn de Raúl"
-                                    class="p-2 rounded bg-surface-container-high hover:border-primary border border-outline-variant/20 transition-colors"
+                                    class="p-1.5 rounded bg-surface-container-high hover:border-primary border border-outline-variant/20 transition-colors"
                                 >
-                                    <IconsLinkedin :margin="0" :legacy="true" :size="16" />
+                                    <IconsLinkedin :margin="0" :legacy="true" :size="15" />
                                 </a>
                                 <a
                                     href="https://twitter.com/raupulus"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     aria-label="Twitter / X de Raúl"
-                                    class="p-2 rounded bg-surface-container-high hover:border-primary border border-outline-variant/20 transition-colors"
+                                    class="p-1.5 rounded bg-surface-container-high hover:border-primary border border-outline-variant/20 transition-colors"
                                 >
-                                    <IconsTwitter :margin="0" :legacy="true" :size="16" />
+                                    <IconsTwitter :margin="0" :legacy="true" :size="15" />
                                 </a>
 
                                 <NuxtLink
@@ -1193,7 +1191,7 @@
 
                         <!-- 6. Interacción / Contacto técnico (CTA) -->
                         <div
-                            class="bg-gradient-to-br from-surface-container-low to-surface-container-high rounded-xl border border-secondary/20 p-5 text-xs space-y-3 shadow-sm"
+                            class="bg-gradient-to-br from-surface-container-low to-surface-container-high rounded-xl border border-secondary/20 p-4 text-xs space-y-2.5 shadow-sm"
                         >
                             <div class="flex items-center gap-2">
                                 <UiMaterialIcon name="send" class="text-secondary text-base" />
@@ -1206,7 +1204,7 @@
                             </p>
                             <NuxtLink
                                 to="/contact/"
-                                class="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 bg-primary text-on-primary rounded-lg text-xs font-label uppercase tracking-widest font-bold hover:bg-primary-container transition-colors shadow-sm"
+                                class="inline-flex items-center justify-center gap-2 w-full py-2 px-3 bg-primary text-on-primary rounded-lg text-xs font-label uppercase tracking-widest font-bold hover:bg-primary-container transition-colors shadow-sm"
                             >
                                 <UiMaterialIcon name="send" class="text-xs" />
                                 Enviar mensaje
