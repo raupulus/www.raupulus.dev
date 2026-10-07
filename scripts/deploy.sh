@@ -103,7 +103,8 @@ check_status "https://raupulus.dev/images/technologies/php_60x60.webp" "200"
 check_status "https://raupulus.dev/images/icons/social/github.svg" "200"
 check_status "https://raupulus.dev/images/pages/about/gallery/1_250px.webp" "200"
 
-if curl -fsSL "https://raupulus.dev/projects/" | grep -q "Portada del proyecto"; then
+PROJECTS_HTML=$(curl -fsSL "https://raupulus.dev/projects/" 2>/dev/null || true)
+if echo "$PROJECTS_HTML" | grep -q "Portada del proyecto"; then
     echo "  [OK] https://raupulus.dev/projects/ contiene proyectos prerenderizados"
 else
     echo "  [FALLO] https://raupulus.dev/projects/ no contiene proyectos prerenderizados" >&2
