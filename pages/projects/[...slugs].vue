@@ -118,6 +118,9 @@
     const router = useRouter();
     const platformData = getPlatformData();
     const { datas, hasMorePages, isLoading, fetchNextPage } = useProjectsData();
+    if (!isDetail.value && (!datas.value.contents || datas.value.contents.length === 0)) {
+        await fetchNextPage();
+    }
 
     const searchInput = ref((route.query.q as string) || '');
     const technologySelect = ref((route.query.tech as string) || '');

@@ -158,6 +158,9 @@
     // MODO CATÁLOGO: Búsqueda y listado /blog/
     // ==========================================
     const { datas, hasMorePages, isLoading, fetchNextPage } = useBlogData();
+    if (!isDetail.value && (!datas.value.contents || datas.value.contents.length === 0)) {
+        await fetchNextPage();
+    }
     const searchInput = ref((route.query.q as string) || '');
 
     const syncQuery = () => {

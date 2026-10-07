@@ -103,6 +103,13 @@ check_status "https://raupulus.dev/images/technologies/php_60x60.webp" "200"
 check_status "https://raupulus.dev/images/icons/social/github.svg" "200"
 check_status "https://raupulus.dev/images/pages/about/gallery/1_250px.webp" "200"
 
+if curl -fsSL "https://raupulus.dev/blog/" | grep -q "Portada del artículo"; then
+    echo "  [OK] https://raupulus.dev/blog/ contiene artículos prerenderizados"
+else
+    echo "  [FALLO] https://raupulus.dev/blog/ no contiene artículos prerenderizados" >&2
+    FAILED_TESTS=$((FAILED_TESTS + 1))
+fi
+
 SAMPLE_CSS=$(find "$RELEASE_PATH/_nuxt" -name "*.css" 2>/dev/null | head -n 1 | xargs -n 1 basename || true)
 if [ -n "$SAMPLE_CSS" ]; then
     check_status "https://raupulus.dev/_nuxt/$SAMPLE_CSS" "200"
