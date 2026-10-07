@@ -160,7 +160,7 @@ export default defineNuxtConfig({
     },
 
     image: {
-        provider: 'ipx',
+        provider: 'none',
         dir: 'public', // Directorio base donde se guardan las imágenes
         domains: ['localhost', 'raupulus.dev', 'api.raupulus.dev'],
     },

@@ -38,11 +38,12 @@ if [ "$FONTS_COUNT" -eq 0 ]; then
 fi
 
 ROUTES_COUNT=$(find .output/public/projects -name "index.html" 2>/dev/null | wc -l || echo 0)
+BLOG_COUNT=$(find .output/public/blog -name "index.html" 2>/dev/null | wc -l || echo 0)
 if [ "$ROUTES_COUNT" -le 1 ] && [ -z "${ALLOW_EMPTY_PROJECTS:-}" ]; then
     echo "❌ Error fatal: El build estático no contiene rutas de proyectos ($ROUTES_COUNT encontradas)." >&2
     exit 1
 fi
-echo "✅ Build verificado: $ROUTES_COUNT páginas de proyectos, $CSS_COUNT bundles CSS, $JS_COUNT bundles JS y $FONTS_COUNT fuentes."
+echo "✅ Build verificado: $ROUTES_COUNT páginas de proyectos, $BLOG_COUNT páginas de blog, $CSS_COUNT bundles CSS, $JS_COUNT bundles JS y $FONTS_COUNT fuentes."
 
 # Crear directorio de release
 echo "Creando release en $RELEASE_PATH..."
@@ -92,8 +93,15 @@ check_status() {
 check_status "https://raupulus.dev/" "200"
 check_status "https://raupulus.dev/about/" "200"
 check_status "https://raupulus.dev/projects/" "200"
+check_status "https://raupulus.dev/blog/" "200"
+check_status "https://raupulus.dev/social/" "200"
+check_status "https://raupulus.dev/webs/" "200"
 check_status "https://raupulus.dev/sitemap.xml" "200"
 check_status "https://raupulus.dev/favicon.ico" "200"
+check_status "https://raupulus.dev/logo_128x128.webp" "200"
+check_status "https://raupulus.dev/images/technologies/php_60x60.webp" "200"
+check_status "https://raupulus.dev/images/icons/social/github.svg" "200"
+check_status "https://raupulus.dev/images/pages/about/gallery/1_250px.webp" "200"
 
 SAMPLE_CSS=$(find "$RELEASE_PATH/_nuxt" -name "*.css" 2>/dev/null | head -n 1 | xargs -n 1 basename || true)
 if [ -n "$SAMPLE_CSS" ]; then
