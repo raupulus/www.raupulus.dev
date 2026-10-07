@@ -50,6 +50,8 @@
                     href="https://gitlab.com/raupulus/www.raupulus.dev"
                     target="_blank"
                     rel="noopener noreferrer"
+                    title="Ver código fuente en GitLab (abre en nueva pestaña)"
+                    aria-label="Ver código fuente de este portfolio en GitLab (abre en nueva pestaña)"
                     class="font-body text-xs tracking-widest uppercase text-on-surface-variant hover:text-tertiary transition-colors"
                 >
                     Código de esta web

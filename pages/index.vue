@@ -46,6 +46,8 @@
                             href="https://curriculum.raupulus.dev"
                             target="_blank"
                             rel="noopener noreferrer"
+                            title="Ver Currículum Vitae Online de Raúl Caro Pastorino (abre en nueva pestaña)"
+                            aria-label="Ver Currículum Vitae Online de Raúl Caro Pastorino (abre en nueva pestaña)"
                             class="px-8 py-4 bg-surface-container-high border border-outline-variant/30 hover:border-primary text-on-surface font-headline font-bold text-sm tracking-widest uppercase rounded hover:scale-105 transition-all flex items-center gap-2"
                         >
                             <span>CV Online</span>
