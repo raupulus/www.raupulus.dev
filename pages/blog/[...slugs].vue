@@ -222,9 +222,9 @@
 
     const pageImage = computed(() => {
         if (isDetail.value && article.value?.image) {
-            return imageUrl(article.value.image, 'large') || `${siteUrl}/social/home.webp`;
+            return imageUrl(article.value.image, 'large') || `${siteUrl}/social/blog.webp`;
         }
-        return `${siteUrl}/social/home.webp`;
+        return `${siteUrl}/social/blog.webp`;
     });
 
     const breadcrumbSchema = computed(() => {
@@ -339,7 +339,15 @@
             { name: 'twitter:description', content: pageDescription.value },
             { name: 'twitter:image', content: pageImage.value },
         ],
-        link: [{ rel: 'canonical', href: currentUrl.value }],
+        link: [
+            { rel: 'canonical', href: currentUrl.value },
+            {
+                rel: 'alternate',
+                type: 'application/rss+xml',
+                title: 'Blog de Raúl Caro Pastorino (RSS)',
+                href: `${siteUrl}/blog/feed.xml`,
+            },
+        ],
         script: [
             {
                 type: 'application/ld+json',
@@ -485,12 +493,25 @@
                     </div>
                 </div>
 
-                <!-- Contador de resultados -->
-                <div v-if="datas.meta?.total" class="mb-8 flex items-center gap-3">
-                    <span class="w-2 h-2 rounded-full bg-secondary animate-pulse" />
-                    <span class="font-label text-xs text-on-surface-variant uppercase tracking-widest">
-                        {{ datas.meta.total }} artículos publicados
-                    </span>
+                <!-- Barra de estado y enlace RSS -->
+                <div class="mb-8 flex items-center justify-between gap-3 flex-wrap">
+                    <div v-if="datas.meta?.total" class="flex items-center gap-3">
+                        <span class="w-2 h-2 rounded-full bg-secondary animate-pulse" />
+                        <span class="font-label text-xs text-on-surface-variant uppercase tracking-widest">
+                            {{ datas.meta.total }} artículos publicados
+                        </span>
+                    </div>
+                    <div v-else />
+                    <a
+                        href="/blog/feed.xml"
+                        target="_blank"
+                        rel="noopener"
+                        class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-surface-container-high border border-outline-variant/30 text-on-surface-variant hover:text-secondary hover:border-secondary/40 text-xs font-label uppercase tracking-wider transition-colors ml-auto"
+                        title="Subscribirse al canal RSS de artículos"
+                    >
+                        <UiMaterialIcon name="rss_feed" class="text-sm text-secondary" />
+                        <span>Canal RSS</span>
+                    </a>
                 </div>
 
                 <!-- Grid de artículos -->
@@ -527,7 +548,7 @@
                         <UiMaterialIcon
                             class="text-secondary transition-transform duration-500"
                             :class="isLoading ? 'animate-spin' : 'group-hover:rotate-180'"
-                            name="refresh"
+                            name="sync"
                         />
                     </button>
                 </div>

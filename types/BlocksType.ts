@@ -142,6 +142,8 @@ export type BlockImageType = BlockType & {
             mime: string;
             size: number;
             file_type_image: string;
+            width?: number;
+            height?: number;
         };
         caption: string;
         withBorder: boolean;

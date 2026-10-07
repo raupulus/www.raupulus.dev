@@ -22,9 +22,17 @@ Sección de blog técnico que consume contenidos de la API REST V2 (`type=blog`)
 
 - **Cabecera**: Título "Mi Blog Personal", subtítulo y descripción.
 - **Buscador con debounce**: Input de búsqueda reactivo sincronizado con query string (`?q=`).
-- **Contador de resultados**: Total de artículos publicados devueltos por la API.
+- **Contador de resultados y Canal RSS**: Muestra el total de artículos publicados devueltos por la API junto con un botón de acceso directo al feed RSS (`/blog/feed.xml`).
 - **Grid de tarjetas**: Grid responsive con `CardBlogCard` (miniatura, categoría, fecha, tiempo de lectura, total de páginas y lecturas).
 - **Carga bajo demanda**: Botón "Cargar más artículos" paginado.
+
+## Feed RSS / Atom (`/blog/feed.xml` y `/blog/rss.xml`)
+
+El blog dispone de un endpoint estático RSS 2.0 generado mediante Nitro (`server/routes/blog/feed.xml.ts` y `server/routes/blog/rss.xml.ts`) que indexa automáticamente todos los artículos publicados consumidos desde la API V2:
+
+- Genera metadatos XML completos: título, enlace permanente a la primera subpágina, fecha RFC-822 / UTC, resumen (`excerpt`) en bloque `CDATA` y logotipo del feed (`/social/blog.webp`).
+- Descubrimiento automático: todas las páginas del blog incorporan `<link rel="alternate" type="application/rss+xml" title="Blog de Raúl Caro Pastorino (RSS)" href="/blog/feed.xml">` en el `<head>`.
+- Pre-renderizado estático garantizado en el build (`nuxt generate`).
 
 ### Modo Detalle (`/blog/:contentSlug/:pageSlug/`)
 

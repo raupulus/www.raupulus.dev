@@ -199,7 +199,8 @@ export default defineNuxtConfig({
                     return pageUrls;
                 });
 
-                const allDynamicUrls = ['/blog/', ...projectUrls, ...blogUrls];
+                const feedUrls = ['/blog/feed.xml', '/blog/rss.xml'];
+                const allDynamicUrls = ['/blog/', ...feedUrls, ...projectUrls, ...blogUrls];
 
                 // Si el archivo ya existe, se eliminará antes de generar uno nuevo
                 if (fs.existsSync(cachedRoutesPath)) {

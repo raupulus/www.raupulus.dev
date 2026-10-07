@@ -73,16 +73,16 @@ Además del bloque global `@graph` en `app.vue` (`Person` enriquecida con `knows
 
 Cada página define `useHead()` con:
 
-| Página      | Title                                            | Imagen OG               |
-| ----------- | ------------------------------------------------ | ----------------------- |
-| `/`         | Raúl Caro Pastorino - Desarrollador Web Backend  | (global)                |
-| `/projects` | Proyectos de Raúl Caro Pastorino                 | `/social/projects.webp` |
-| `/about`    | Sobre mí - Raúl Caro Pastorino                   | `/social/about.webp`    |
-| `/blog`     | Blog Técnico y Tutoriales \| Raúl Caro Pastorino | (global)                |
-| `/contact`  | Contacto - Raúl Caro Pastorino                   | `/social/contact.webp`  |
-| `/social`   | Redes Sociales de Raúl Caro Pastorino            | `/social/social.webp`   |
-| `/webs`     | Sitios webs creados por Raúl Caro Pastorino      | `/social/webs.webp`     |
-| `/privacy`  | Política de Privacidad - Raúl Caro Pastorino     | `/social/privacy.webp`  |
+| Página      | Title                                           | Imagen OG               |
+| ----------- | ----------------------------------------------- | ----------------------- |
+| `/`         | Raúl Caro Pastorino - Desarrollador Web Backend | (global)                |
+| `/projects` | Proyectos de Raúl Caro Pastorino                | `/social/projects.webp` |
+| `/about`    | Sobre mí - Raúl Caro Pastorino                  | `/social/about.webp`    |
+| `/blog`     | Blog Técnico \| Raúl Caro Pastorino             | `/social/blog.webp`     |
+| `/contact`  | Contacto - Raúl Caro Pastorino                  | `/social/contact.webp`  |
+| `/social`   | Redes Sociales de Raúl Caro Pastorino           | `/social/social.webp`   |
+| `/webs`     | Sitios webs creados por Raúl Caro Pastorino     | `/social/webs.webp`     |
+| `/privacy`  | Política de Privacidad - Raúl Caro Pastorino    | `/social/privacy.webp`  |
 
 ## SEO Dinámico (Proyectos y Blog)
 
@@ -92,6 +92,11 @@ Tanto en proyectos como en blog, las páginas actualizan metatags dinámicamente
 - Descripción, keywords y URLs canónicas específicas
 - Open Graph y Twitter Cards enriquecidas con la imagen de portada y fecha de publicación
 - Esquema Schema.org estructurado (`SoftwareSourceCode` o `TechArticle`)
+- Descubrimiento automático de RSS: etiqueta `<link rel="alternate" type="application/rss+xml" title="Blog de Raúl Caro Pastorino (RSS)" href="/blog/feed.xml">` en todas las páginas del blog
+
+## Feed RSS 2.0 (`/blog/feed.xml` y `/blog/rss.xml`)
+
+El blog ofrece un feed RSS 2.0 estándar generado por Nitro que sindica todas las publicaciones con título, enlace permanente, fecha UTC, resumen y carátula social (`/social/blog.webp`), optimizado para lectores de feeds (Feedly, Thunderbird, Newsboat, etc.).
 
 ## Sitemap XML (`@nuxtjs/sitemap`)
 

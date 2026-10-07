@@ -16,6 +16,8 @@
         >
             <img
                 :src="image.data.file?.url_large || image.data.file?.url_thumbnail || image.data.file?.url || ''"
+                :width="image.data.file?.width || undefined"
+                :height="image.data.file?.height || undefined"
                 class="w-full max-h-[550px] object-contain rounded-t-xl"
                 :data-url_medium="image.data.file?.url_thumbnail || image.data.file?.url"
                 :data-url_full="image.data.file?.url_large || image.data.file?.url"
