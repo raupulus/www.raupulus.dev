@@ -17,7 +17,6 @@ Iconos SVG como componentes Vue para redes sociales e iconos genéricos. Ubicado
 | `IconsTwitch`        | `components/icons/Twitch.vue`        | Logo Twitch                       |
 | `IconsMastodon`      | `components/icons/Mastodon.vue`      | Logo Mastodon                     |
 | `IconsTelegram`      | `components/icons/Telegram.vue`      | Logo Telegram                     |
-| `IconsInfo`          | `components/icons/Info.vue`          | Icono de información              |
 
 ## Props comunes
 

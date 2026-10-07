@@ -1,11 +1,12 @@
 <script setup lang="ts">
     const config = useRuntimeConfig();
     const url = config.public.app.url;
-    const title = 'Redes Sociales de Raúl Caro Pastorino | Desarrollador Web Backend';
+    const title =
+        'Redes Sociales de Raúl Caro Pastorino | Desarrollador Full Stack Senior · Backend Laravel · IA aplicada';
     const description =
         'Conecta con Raúl Caro Pastorino en redes sociales y plataformas de desarrollo. Sígueme en LinkedIn, GitLab, GitHub, Telegram y más.';
     const keywords =
-        'redes sociales, Raúl Caro Pastorino, desarrollador web, backend, LinkedIn, GitLab, GitHub, Telegram';
+        'redes sociales, Raúl Caro Pastorino, desarrollador full stack, backend, laravel, inteligencia artificial, IoT, LinkedIn, GitLab, GitHub, Telegram';
 
     useHead({
         title: title,

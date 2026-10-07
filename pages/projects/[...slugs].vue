@@ -189,7 +189,7 @@
     // ==========================================
     const catalogTitle = 'Proyectos de Raúl Caro Pastorino';
     const catalogDescription =
-        'Aquí encontrarás mis proyectos personales: desarrollo web, IoT con Raspberry Pi y ESP32, herramientas y experimentos. La mayoría publicados como software libre con su código y documentación.';
+        'Catálogo de proyectos personales y de código abierto: plataformas web, integraciones con IA, hardware propio, nodos LoRa/Meshtastic y experimentos IoT documentados paso a paso.';
     const catalogKeywords = 'proyectos, Raúl Caro Pastorino, desarrollo, tecnología, innovaciones';
     const catalogImage = `${siteUrl}/social/projects.webp`;
 

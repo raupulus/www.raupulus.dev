@@ -121,7 +121,7 @@ type ContentPageType = {
 type ContentPageIndexType = { id; order; title; slug; format }; // sin texto
 ```
 
-**Relaciones**: contiene `BlocksType`. Usado en `fetchPageData.ts`, `projectsData.ts` y modal de proyecto.
+**Relaciones**: contiene `BlocksType`. Usado en `projectsData.ts` y páginas de proyecto (`pages/projects/[...slugs].vue`).
 
 ### `BlocksType` y subtipos (16 tipos)
 

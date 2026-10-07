@@ -22,7 +22,10 @@ Formulario de contacto multi-paso con validación en tiempo real, protección Cl
 | `email`     | `string`  | minLength: 8, maxLength: 50, regexp: email válido |
 | `subject`   | `string`  | minLength: 10, maxLength: 100                     |
 | `message`   | `string`  | minLength: 30, maxLength: 1000                    |
-| `privacity` | `boolean` | required: true                                    |
+| `privacity` | `boolean` | required: true (Aceptación de Política)           |
+| `consent`   | `boolean` | required: true (Consentimiento de tratamiento)    |
+
+Bajo los checkboxes se incluye la **primera capa informativa de protección de datos (Art. 11 LOPDGDD)**: responsable, finalidad, legitimación, destinatarios, derechos y enlace a la política completa.
 
 ## Interfaces TypeScript locales
 

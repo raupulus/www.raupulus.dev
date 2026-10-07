@@ -17,7 +17,9 @@ Cumple con la obligación legal de identificar al titular responsable del sitio 
     - Titular: Raúl Caro Pastorino
     - Correo electrónico público de contacto: `public@raupulus.dev`
     - Dominio web: `raupulus.dev`
-    - Marcadores `[[COMPLETAR]]` para datos adicionales requeridos según régimen fiscal/actividad.
+    - Identificación fiscal comunicada a autoridades o partes con legitimación legal previa solicitud motivada.
+    - Domicilio de referencia: Chipiona (Cádiz), España.
+    - Sede judicial: Juzgados y Tribunales de Sanlúcar de Barrameda / Cádiz.
 2. **Objeto y condiciones de uso**:
     - Acceso gratuito al portfolio y presentación de servicios profesionales.
     - Obligaciones de uso lícito y prohibición de ataques o extracción no autorizada.

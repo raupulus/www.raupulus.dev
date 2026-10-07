@@ -26,6 +26,7 @@ describe('Footer', () => {
         // Enlaces legales
         expect(wrapper.text()).toContain('Política de Privacidad');
         expect(wrapper.text()).toContain('Cookies');
+        expect(wrapper.text()).toContain('Preferencias de Cookies');
         expect(wrapper.text()).toContain('Aviso Legal');
         expect(wrapper.text()).toContain('Contacto');
         expect(wrapper.text()).toContain('Código de esta web');
@@ -34,5 +35,13 @@ describe('Footer', () => {
         expect(repoLink.exists()).toBe(true);
         expect(repoLink.attributes('target')).toBe('_blank');
         expect(repoLink.attributes('rel')).toContain('noopener');
+
+        // Botón de preferencias de cookies
+        const cookiePrefBtn = wrapper.findAll('button').find((btn) => btn.text().includes('Preferencias de Cookies'));
+        expect(cookiePrefBtn).toBeDefined();
+        await cookiePrefBtn!.trigger('click');
+
+        const cookieControl = useCookieControl();
+        expect(cookieControl.isModalActive.value).toBe(true);
     });
 });

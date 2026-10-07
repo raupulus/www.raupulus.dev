@@ -1,39 +1,25 @@
 /**
- * Prefijo de las rutas proxy de desarrollo (ver `routeRules` en nuxt.config.ts).
- */
-const DEV_PROXY_PREFIX = '/_proxy';
-
-/**
- * Devuelve la URL base correcta de la API (`/api/v2`) según el contexto de ejecución.
+ * Devuelve la URL base de la API (`/api/v2`).
  *
- * - Server-side (SSR/SSG): Usa la URL completa de la API (sin problemas de CORS)
- * - Client-side en desarrollo: Usa una ruta proxy para evitar CORS
- * - Client-side en producción: Usa la URL completa (la API tiene CORS configurado)
+ * Devuelve directamente la URL configurada en `API_BASE_URL` (o su valor en
+ * `runtimeConfig.public.api.base`). No se usa proxy en desarrollo porque el
+ * backend Laravel ya tiene CORS configurado para admitir orígenes en localhost,
+ * y pasar por un proxy enviaba la cabecera `X-Forwarded-Host: localhost:3020`,
+ * haciendo que Laravel generase las URLs de las imágenes con el puerto del
+ * frontend en vez del puerto de la API.
  */
 export function useApiBase(): string {
     const config = useRuntimeConfig();
 
-    // Client-side en desarrollo: usar proxy para evitar CORS.
-    // Se conserva la ruta de API_BASE_URL (ej. /api/v2) para no fijar la versión aquí.
-    if (import.meta.client && import.meta.dev) {
-        return DEV_PROXY_PREFIX + new URL(config.public.api.base).pathname.replace(/\/$/, '');
-    }
-
-    // Server-side o cliente en producción: acceso directo
     return config.public.api.base;
 }
 
 /**
  * Devuelve el dominio de la API (sin `/api/v2`), para rutas fuera del grupo
- * `api` como `/sanctum/csrf-cookie` o `/cv/pdf`, con el mismo criterio que
- * `useApiBase()`.
+ * `api` como `/sanctum/csrf-cookie` o `/cv/pdf`.
  */
 export function useApiDomain(): string {
     const config = useRuntimeConfig();
-
-    if (import.meta.client && import.meta.dev) {
-        return DEV_PROXY_PREFIX;
-    }
 
     return config.public.api.domain;
 }

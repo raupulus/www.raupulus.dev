@@ -8,11 +8,9 @@ Página con listado paginado de proyectos consumidos desde la API, con búsqueda
 | --------------------------------------- | -------------------------------------------------------------------- |
 | `pages/projects/[...slugs].vue`         | Página principal (catch-all route: catálogo y páginas de detalle)    |
 | `composables/projectsData.ts`           | Lógica de datos: carga, paginación, búsqueda y obtención de proyecto |
-| `composables/fetchPageData.ts`          | Normalización y carga de páginas individuales                        |
 | `composables/platformData.ts`           | Datos de plataforma (tecnologías para filtros)                       |
 | `components/grid/Projects.vue`          | Grid semántico de tarjetas de proyectos                              |
 | `components/grid/Technologies.vue`      | Botones de tecnologías para filtrado accesible con `aria-pressed`    |
-| `components/card/Project.vue`           | Tarjeta de proyecto                                                  |
 | `components/card/ProjectHorizontal.vue` | Tarjeta horizontal semántica con stretched link `NuxtLink`           |
 | `components/card/ProjectVertical.vue`   | Tarjeta vertical semántica con stretched link `NuxtLink`             |
 | `components/content/blocks/*.vue`       | Bloques de contenido EditorJS renderizados en el detalle estático    |

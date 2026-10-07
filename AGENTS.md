@@ -103,17 +103,15 @@ Las reglas personalizadas están en `eslint.config.mjs` (flat config con Nuxt):
 
 ```
 components/
-├── Alert.vue, HeaderImage.vue, SpecializationBadge.vue, StackBadge.vue, StackBadgeHexagon.vue, Trajectory.vue
+├── StackBadgeHexagon.vue
 ├── app/             # Header.vue, Footer.vue (layout principal)
-├── btn/             # Generic.vue (botones reutilizables)
-├── card/            # Project.vue, ProjectHorizontal.vue, ProjectVertical.vue, Skill.vue, Vertical.vue
+├── card/            # ProjectHorizontal.vue, ProjectVertical.vue
 ├── content/
-│   ├── contentPaginator.vue
 │   └── blocks/      # Block*.vue — Bloques EditorJS (Paragraph, Header, Image, Code, List, Table, etc.)
-├── form/            # Select.vue
 ├── grid/            # Projects.vue, Technologies.vue
-├── icons/           # Iconos SVG: Earth, Github, Gitlab, Linkedin, Mastodon, Telegram, Twitch, Twitter, Youtube, etc.
-└── modals/          # ImageSlide.vue, projectShow.vue, submitContact.vue
+├── icons/           # Iconos SVG: Earth, Generic, GenericSocial, Github, Gitlab, Linkedin, Mastodon, Telegram, Twitch, Twitter, Youtube
+├── modals/          # ImageSlide.vue, submitContact.vue
+└── ui/              # MaterialIcon.vue (iconos SVG inline Material Symbols)
 ```
 
 ## Tests

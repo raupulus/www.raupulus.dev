@@ -4,10 +4,11 @@
     const runtimeConfig = useRuntimeConfig();
 
     const url = runtimeConfig.public.app.url;
-    const title = 'Contacto - Raúl Caro Pastorino | Desarrollador Web Backend';
+    const title = 'Contacto - Raúl Caro Pastorino | Desarrollador Full Stack Senior · Backend Laravel · IA aplicada';
     const description =
-        'Ponte en contacto con Raúl Caro Pastorino, desarrollador web especializado en backend (PHP, Laravel, IoT y Python).';
-    const keywords = 'contacto, Raúl Caro Pastorino, desarrollador web, backend, PHP, Laravel, IoT, Python';
+        'Ponte en contacto con Raúl Caro Pastorino, desarrollador full stack senior especializado en backend (PHP, Laravel), IA aplicada e IoT.';
+    const keywords =
+        'contacto, Raúl Caro Pastorino, desarrollador full stack, backend, PHP, Laravel, inteligencia artificial, IoT, Python';
 
     useHead({
         title: title,
@@ -445,8 +446,8 @@ watch(dataForm.value.message.value, async () => {
                 <UiMaterialIcon class="text-secondary shrink-0 mt-0.5" name="info" />
                 <div>
                     <p class="text-on-surface-variant text-sm leading-relaxed mb-1">
-                        Fuera de servicio temporalmente mientras termino de implementar medidas de seguridad anti bots y
-                        anti spam usando mi propia AI para ello.
+                        Fuera de servicio temporalmente mientras termino de implementar medidas de seguridad antibots y
+                        antispam usando IA propia para ello.
                     </p>
                     <p class="text-on-surface-variant text-sm leading-relaxed">
                         Puedes contactarme mediante alguna de las
@@ -669,7 +670,12 @@ watch(dataForm.value.message.value, async () => {
                                     />
                                     <span class="text-sm text-on-surface-variant leading-relaxed">
                                         He leído y acepto la
-                                        <NuxtLink to="/privacy/" target="_blank" class="text-tertiary hover:underline">
+                                        <NuxtLink
+                                            to="/privacy/"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            class="text-tertiary hover:underline"
+                                        >
                                             Política de Privacidad
                                         </NuxtLink>
                                         <span class="text-error">*</span>
@@ -713,6 +719,44 @@ watch(dataForm.value.message.value, async () => {
                                         >{{ error }}</span
                                     >
                                 </template>
+                            </div>
+
+                            <!-- Información básica de protección de datos (Primera capa - Art. 11 LOPDGDD) -->
+                            <div
+                                class="p-4 rounded-lg bg-surface-container-low border border-outline-variant/30 text-xs text-on-surface-variant space-y-1.5 leading-relaxed"
+                            >
+                                <div class="font-bold text-on-surface uppercase tracking-wider text-[11px] mb-1">
+                                    Información básica sobre protección de datos
+                                </div>
+                                <p><strong>Responsable:</strong> Raúl Caro Pastorino.</p>
+                                <p>
+                                    <strong>Finalidad:</strong> Tramitar, gestionar y responder a la consulta remitida.
+                                </p>
+                                <p>
+                                    <strong>Legitimación:</strong> Consentimiento inequívoco del interesado (Art. 6.1.a
+                                    RGPD).
+                                </p>
+                                <p>
+                                    <strong>Destinatarios:</strong> No se ceden datos a terceros. Infraestructura
+                                    técnica conforme al RGPD (Cloudflare Turnstile y servidores UE).
+                                </p>
+                                <p>
+                                    <strong>Derechos:</strong> Acceso, rectificación, supresión y demás derechos
+                                    mediante
+                                    <a href="mailto:public@raupulus.dev" class="text-primary hover:underline"
+                                        >public@raupulus.dev</a
+                                    >.
+                                </p>
+                                <p>
+                                    <strong>Información adicional:</strong> Consulte la información detallada en nuestra
+                                    <NuxtLink
+                                        to="/privacy/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="text-primary hover:underline"
+                                        >Política de Privacidad</NuxtLink
+                                    >.
+                                </p>
                             </div>
                         </div>
 

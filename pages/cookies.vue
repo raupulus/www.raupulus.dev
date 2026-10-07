@@ -10,7 +10,7 @@
                     Política de <span class="text-on-surface font-light">Cookies</span>
                 </h1>
                 <p class="mt-4 text-sm font-label uppercase tracking-widest text-outline">
-                    Última actualización: 5 de octubre de 2026 · Conforme al art. 22.2 de la LSSI-CE y directrices del
+                    Última actualización: 6 de octubre de 2026 · Conforme al art. 22.2 de la LSSI-CE y directrices del
                     CEPD/AEPD
                 </p>
             </header>
@@ -86,8 +86,8 @@
                                     <td class="p-3 font-mono text-xs font-bold text-primary">ncc_c</td>
                                     <td class="p-3">raupulus.dev</td>
                                     <td class="p-3">
-                                        Guarda el registro de si el usuario ha aceptado o configurado las cookies en el
-                                        banner.
+                                        Guarda el registro de si el usuario ha interactuado con el banner de cookies y
+                                        ha tomado una decisión.
                                     </td>
                                     <td class="p-3">1 año</td>
                                 </tr>
@@ -121,8 +121,8 @@
                     <p class="text-sm">
                         Permiten cuantificar el número de usuarios y realizar la medición y análisis estadístico de la
                         utilización del sitio web. Se configuran con <strong>Google Consent Mode v2</strong>,
-                        manteniéndose bloqueadas por defecto hasta que el usuario hace clic en «Aceptar Todas» o las
-                        activa en la configuración.
+                        manteniéndose bloqueadas por defecto hasta que el usuario hace clic en «Aceptar todas» o las
+                        activa voluntariamente en el panel de configuración.
                     </p>
                     <div class="overflow-x-auto">
                         <table
@@ -175,17 +175,34 @@
             <!-- 2. Cómo revocar el consentimiento -->
             <section class="space-y-4 text-on-surface-variant leading-relaxed">
                 <h2 class="font-headline text-2xl font-bold text-on-surface">
-                    2. Cómo revocar o modificar su consentimiento
+                    2. Opciones de consentimiento, revocación y persistencia
                 </h2>
                 <p class="text-sm">
-                    Puede modificar o revocar su consentimiento en cualquier momento pulsando el botón flotante de
-                    control de cookies situado en la esquina inferior del sitio web o utilizando el botón superior
-                    «Gestionar Consentimiento».
+                    En su primera visita a este sitio web se muestra un banner de información con tres opciones claras y
+                    visibles al mismo nivel:
                 </p>
+                <ul class="list-disc pl-6 space-y-1.5 text-sm">
+                    <li>
+                        <strong>Aceptar todas:</strong> Concede autorización para la instalación y uso de las cookies
+                        técnicas y analíticas.
+                    </li>
+                    <li>
+                        <strong>Rechazar todas:</strong> Deniega expresamente el uso de cualquier cookie analítica u
+                        opcional. Se almacena únicamente la cookie técnica necesaria (<code class="font-mono text-xs"
+                            >ncc_c</code
+                        >) para recordar su decisión, sin reiterar el aviso en futuras visitas.
+                    </li>
+                    <li>
+                        <strong>Configurar:</strong> Abre un panel modal donde puede habilitar o inhabilitar
+                        individualmente cada categoría de cookies.
+                    </li>
+                </ul>
                 <p class="text-sm">
-                    Al rechazar o desactivar las cookies analíticas, el sistema actualiza automáticamente el
-                    consentimiento a estado denegado (Consent Mode v2) y elimina del navegador las cookies `_ga` y
-                    `_gid`.
+                    Puede revisar, modificar o revocar su consentimiento en cualquier momento mediante el botón flotante
+                    permanente situado en la esquina inferior del sitio web o utilizando el botón «Gestionar
+                    Consentimiento» de esta página. Al revocar el consentimiento, el sistema actualiza automáticamente
+                    su estado a denegado (Google Consent Mode v2) y elimina del navegador las cookies de analítica
+                    asociadas.
                 </p>
             </section>
 

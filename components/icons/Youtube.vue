@@ -1,30 +1,18 @@
-<script setup>
-    defineProps({
-        url: {
-            type: String,
-            required: false,
-            default: 'https://www.youtube.com/@raupulus',
-        },
-        size: {
-            type: String,
-            required: false,
-            default: '24px',
-        },
-        title: {
-            type: String,
-            required: false,
-            default: 'Enlace a Youtube',
-        },
-        legacy: {
-            type: Boolean,
-            required: false,
-            default: false,
-        },
-        decored: {
-            type: Boolean,
-            required: false,
-            default: false,
-        },
+<script setup lang="ts">
+    interface Props {
+        url?: string;
+        size?: string | number;
+        title?: string;
+        legacy?: boolean;
+        decored?: boolean;
+    }
+
+    withDefaults(defineProps<Props>(), {
+        url: 'https://www.youtube.com/@raupulus',
+        size: '24px',
+        title: 'Enlace a Youtube',
+        legacy: false,
+        decored: false,
     });
 </script>
 

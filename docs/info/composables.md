@@ -7,7 +7,6 @@ Lógica reutilizable del proyecto encapsulada en composables de Nuxt. Todos se a
 | Archivo                    | Exporta                                                                                             | Descripción                                                                       |
 | -------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
 | `projectsData.ts`          | `useProjectsData()`, `projectsDataSearch()`, `useGetProjectBySlug()`, `usefetchProjectsPaginated()` | Gestión completa de datos de proyectos                                            |
-| `fetchPageData.ts`         | `usePageData()`, `getPageData()`, `setCurrentPage()`                                                | Página actual del proyecto abierto en el modal                                    |
 | `fetchPostData.ts`         | `fetchPost()`, `fetchCsrfToken()`                                                                   | Peticiones POST con CSRF token                                                    |
 | `platformData.ts`          | `usePlatformData()`, `getPlatformData()`                                                            | Datos globales de la plataforma                                                   |
 | `states.ts`                | `useScrollDisabled()`                                                                               | Estado global para bloqueo de scroll                                              |
@@ -22,17 +21,9 @@ plataforma es la constante `PLATFORM_SLUG = 'portfolio'` (`utils/ContentUtils.ts
 
 ## `useApiBase()` / `useApiDomain()` — Resolución de URL
 
-`useApiBase()` devuelve la URL base (`.../api/v2`) según el contexto:
+`useApiBase()` devuelve la URL base directa (`.../api/v2`) a partir de `runtimeConfig.public.api.base` tanto en servidor como en cliente. No requiere proxy en desarrollo porque el backend Laravel ya autoriza los orígenes de localhost vía CORS.
 
-| Contexto                   | URL devuelta                                                                            |
-| -------------------------- | --------------------------------------------------------------------------------------- |
-| **Server-side** (SSR/SSG)  | `runtimeConfig.public.api.base` (URL directa, sin CORS)                                 |
-| **Client-side desarrollo** | `/_proxy` + ruta de `API_BASE_URL` (ej. `/_proxy/api/v2`), proxy local para evitar CORS |
-| **Client-side producción** | `runtimeConfig.public.api.base` (API tiene CORS configurado)                            |
-
-`useApiDomain()` devuelve el dominio de la API (sin `/api/v2`) con el mismo criterio
-(`/_proxy` en cliente de desarrollo), para rutas fuera del grupo `api` como
-`/sanctum/csrf-cookie`.
+`useApiDomain()` devuelve el dominio de la API (sin `/api/v2`) a partir de `runtimeConfig.public.api.domain`, para rutas fuera del grupo `api` como `/sanctum/csrf-cookie`.
 
 ---
 
@@ -99,16 +90,6 @@ Obtiene **todos** los proyectos paginando hasta el final (`per_page=100`) y, par
 
 - `prepareDataMetadata()`: prioriza y limita a 4 enlaces de metadata con orden: `web`, `youtube_channel`, `youtube_video`, `youtube`, `gitlab`, `github`, `twitter`, `linkedin`, `mastodon`, `twitch`, `telegram_channel`
 - Las entradas `youtube_channel` y `youtube_video` se unifican bajo la key `youtube`
-
----
-
-## `usePageData()` — Página actual del modal
-
-Carga una página de un proyecto por su número desde `GET /platforms/portfolio/contents/:slug/pages/:order?format=editorjs` y la deja en el estado compartido `useState('projectCurrentPage')`, que lee el modal `ModalsProjectShow`.
-
-- `body` llega como objeto Editor.js `{ time, blocks, version }`; `normalizePage()` garantiza que `body.blocks` sea siempre un array.
-- **`setCurrentPage(page)`**: fija la página actual sin petición (se usa con `first_page` del detalle). `undefined` la limpia.
-- **`getPageData()`**: getter síncrono del estado.
 
 ---
 

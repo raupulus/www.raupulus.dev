@@ -10,7 +10,7 @@
                     Aviso <span class="text-on-surface font-light">Legal</span>
                 </h1>
                 <p class="mt-4 text-sm font-label uppercase tracking-widest text-outline">
-                    Última actualización: 5 de octubre de 2026 · En cumplimiento del art. 10 de la Ley 34/2002 (LSSI-CE)
+                    Última actualización: 6 de octubre de 2026 · En cumplimiento del art. 10 de la Ley 34/2002 (LSSI-CE)
                 </p>
             </header>
 
@@ -26,10 +26,14 @@
                 </p>
                 <ul class="space-y-1.5 text-sm text-on-surface-variant">
                     <li><strong>Titular del sitio web:</strong> Raúl Caro Pastorino</li>
-                    <li><strong>Documento de identidad:</strong> [[COMPLETAR: NIF/CIF del titular]]</li>
                     <li>
-                        <strong>Domicilio de residencia:</strong> [[COMPLETAR: Domicilio, localidad y código postal]]
+                        <strong>Documento de identidad:</strong> Persona física titular del portfolio profesional y
+                        divulgativo. Información de identificación comunicada a autoridades u organismos competentes
+                        previa solicitud formal debidamente motivada en
+                        <a href="mailto:public@raupulus.dev" class="text-primary hover:underline">public@raupulus.dev</a
+                        >.
                     </li>
+                    <li><strong>Domicilio de residencia:</strong> Chipiona (Cádiz), España</li>
                     <li>
                         <strong>Correo electrónico de contacto:</strong>
                         <a href="mailto:public@raupulus.dev" class="text-primary hover:underline"
@@ -122,10 +126,8 @@
                     Las relaciones entre el prestador del servicio y el usuario se regirán por la normativa española
                     vigente. Para la resolución de cualquier controversia o discrepancia, las partes se someten, con
                     renuncia expresa a cualquier otro fuero que pudiera corresponderles, a los juzgados y tribunales de
-                    <strong
-                        >[[COMPLETAR: Localidad o partido judicial competente, ej. Sanlúcar de Barrameda /
-                        Cádiz]]</strong
-                    >, salvo que la legislación en materia de consumidores disponga imperativamente lo contrario.
+                    <strong>Sanlúcar de Barrameda / Cádiz (España)</strong>, salvo que la legislación en materia de
+                    consumidores disponga imperativamente lo contrario.
                 </p>
             </section>
 

@@ -26,18 +26,19 @@ Página del blog actualmente en estado "En Construcción". Muestra un aviso WIP 
 
 Array `upcomingArticles` con 3 artículos de ejemplo:
 
-| Artículo                              | Tipo                | Lectura |
-| ------------------------------------- | ------------------- | ------- |
-| El Futuro del Edge Computing          | Guía en Profundidad | 12 min  |
-| Lecciones de un Refactoring de 2 Años | Caso de Estudio     | 20 min  |
-| MQTT con Laravel y Vue.js             | Tutorial            | 8 min   |
+| Artículo                         | Tipo           | Lectura                   |
+| -------------------------------- | -------------- | ------------------------- |
+| Backend con Laravel y PostgreSQL | Desarrollo Web | Laravel · PostgreSQL      |
+| Hardware propio y redes malladas | IoT y Hardware | ESP32 · LoRa · Meshtastic |
+| Automatización y servidores      | GNU/Linux      | Debian · Bash             |
 
 Cada artículo tiene: `type`, `readTime`, `title`, `description`, `tags[]` (con `icon` y `label`).
 
 ## SEO
 
 - Title: `'Blog Técnico | Raúl Caro Pastorino'`
-- Description enfocada en artículos técnicos sobre backend, IoT y arquitectura
+- Description enfocada en artículos técnicos sobre backend con Laravel, IA aplicada, nodos LoRa/Meshtastic y GNU/Linux
+- `robots: 'noindex, follow'` mientras la página continúe en construcción sin contenido real
 
 ## Notas para desarrollo futuro
 

@@ -22,10 +22,10 @@
 
 <template>
     <article
-        class="group relative flex flex-col bg-surface-container-high rounded-xl border border-outline-variant/20 overflow-hidden hover:border-primary/40 transition-all duration-300"
+        class="h-full group relative flex flex-col bg-surface-container-high rounded-xl border border-outline-variant/20 overflow-hidden hover:border-primary/40 transition-all duration-300"
     >
         <!-- Imagen del proyecto -->
-        <div class="relative h-48 overflow-hidden bg-surface-container-lowest">
+        <div class="relative h-48 shrink-0 overflow-hidden bg-surface-container-lowest">
             <img
                 v-if="currentImgSrc"
                 :src="currentImgSrc"
@@ -80,7 +80,7 @@
             </p>
 
             <!-- Botón ver proyecto -->
-            <div class="pt-4 border-t border-outline-variant/10 flex items-center justify-between">
+            <div class="mt-auto pt-4 border-t border-outline-variant/10 flex items-center justify-between">
                 <span
                     class="font-label text-xs font-bold text-primary uppercase tracking-widest flex items-center gap-2 group-hover:gap-3 transition-all pointer-events-none"
                 >

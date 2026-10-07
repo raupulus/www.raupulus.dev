@@ -1,30 +1,25 @@
-<script setup>
-    defineProps({
-        url: {
-            type: String,
-            required: false,
-            default: null,
-        },
-        display: {
-            type: String,
-            required: false,
-            default: 'inline-block',
-        },
-        title: {
-            type: String,
-            required: false,
-            default: 'Enlace',
-        },
-        grayscale: {
-            type: Boolean,
-            required: false,
-            default: false,
-        },
-        size: {
-            type: String,
-            required: false,
-            default: '24px',
-        },
+<script setup lang="ts">
+    interface Props {
+        url?: string | null;
+        display?: string;
+        title?: string;
+        grayscale?: boolean;
+        size?: string | number;
+    }
+
+    const props = withDefaults(defineProps<Props>(), {
+        url: null,
+        display: 'inline-block',
+        title: 'Enlace',
+        grayscale: false,
+        size: '24px',
+    });
+
+    const computedSize = computed(() => {
+        if (typeof props.size === 'number') {
+            return `${props.size}px`;
+        }
+        return props.size || '24px';
     });
 </script>
 
@@ -37,7 +32,7 @@
             target="_blank"
             rel="noopener noreferrer"
             :aria-label="title"
-            :class="grayscale ? 'icon-grayscale' : ''"
+            :class="{ 'icon-grayscale': grayscale }"
         >
             <slot />
         </a>
@@ -50,7 +45,7 @@
     .box-icon {
         display: v-bind(display);
         margin: auto;
-        width: v-bind(size);
+        width: v-bind(computedSize);
     }
 
     .icon-grayscale {

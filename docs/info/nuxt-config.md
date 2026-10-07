@@ -63,7 +63,7 @@ routeRules: {
 }
 ```
 
-Las cabeceras de seguridad se inyectan a nivel de Nitro en todas las rutas servidas. En desarrollo, las peticiones del cliente van a `/_proxy/api/v2` (la ruta sale de `API_BASE_URL`) para evitar CORS. En producción y en SSR se usa la URL directa. Ver → [composables.md](./composables.md) (`useApiBase`).
+Las cabeceras de seguridad se inyectan a nivel de Nitro en todas las rutas servidas. Las peticiones a la API usan la URL directa configurada en `API_BASE_URL` tanto en servidor como en cliente. Ver → [composables.md](./composables.md) (`useApiBase`).
 
 ## Generación Estática (SSG)
 

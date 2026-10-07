@@ -10,7 +10,7 @@
                     Política de <span class="text-on-surface font-light">Privacidad</span>
                 </h1>
                 <p class="mt-4 text-sm font-label uppercase tracking-widest text-outline">
-                    Última actualización: 5 de octubre de 2026 · Conforme al Reglamento General de Protección de Datos
+                    Última actualización: 6 de octubre de 2026 · Conforme al Reglamento General de Protección de Datos
                     (RGPD) y LOPDGDD
                 </p>
             </header>
@@ -30,8 +30,14 @@
                 <h2 class="font-headline text-xl font-bold text-on-surface">1. Responsable del tratamiento</h2>
                 <ul class="space-y-1.5 text-sm text-on-surface-variant">
                     <li><strong>Titular:</strong> Raúl Caro Pastorino</li>
-                    <li><strong>Identificación fiscal:</strong> [[COMPLETAR: NIF/CIF del responsable]]</li>
-                    <li><strong>Domicilio postal:</strong> [[COMPLETAR: Domicilio o localidad del responsable]]</li>
+                    <li>
+                        <strong>Identificación fiscal:</strong> Persona física titular del portfolio personal y
+                        divulgativo. Información de identificación facilitada a autoridades competentes o interesados
+                        con legitimación legal previa solicitud motivada en
+                        <a href="mailto:public@raupulus.dev" class="text-primary hover:underline">public@raupulus.dev</a
+                        >.
+                    </li>
+                    <li><strong>Domicilio postal de referencia:</strong> Chipiona (Cádiz), España</li>
                     <li>
                         <strong>Correo electrónico de contacto y privacidad:</strong>
                         <a href="mailto:public@raupulus.dev" class="text-primary hover:underline"
@@ -114,8 +120,9 @@
                 </p>
                 <ul class="list-disc pl-6 space-y-2 text-sm">
                     <li>
-                        <strong>Alojamiento e infraestructura:</strong> [[COMPLETAR: Nombre del proveedor del
-                        servidor/hosting]].
+                        <strong>Alojamiento e infraestructura:</strong> Servidores cloud en centros de datos ubicados en
+                        la Unión Europea y red perimetral de seguridad Cloudflare (conforme a las directrices de
+                        seguridad y Cláusulas Contractuales Tipo del RGPD).
                     </li>
                     <li>
                         <strong>Google Ireland Limited</strong> (Gordon House, Barrow Street, Dublin 4, Irlanda):
@@ -139,9 +146,8 @@
                     Los datos recabados mediante el formulario de contacto se conservarán durante el tiempo
                     estrictamente necesario para resolver la consulta planteada o mantener la relación profesional, y
                     como máximo durante un plazo de
-                    <strong>[[COMPLETAR: Plazo máximo de conservación, ej. 2 años]]</strong> desde el último contacto,
-                    tras lo cual se procederá a su supresión segura, salvo que existan responsabilidades legales o
-                    contractuales exigibles.
+                    <strong>2 años</strong> desde el último contacto, tras lo cual se procederá a su supresión segura,
+                    salvo que existan responsabilidades legales o contractuales exigibles.
                 </p>
             </section>
 

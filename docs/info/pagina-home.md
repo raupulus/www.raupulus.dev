@@ -15,15 +15,15 @@ Landing page estática del portfolio con hero, ecosistema tecnológico, especial
 
 ## Secciones del template
 
-| Sección                      | Descripción                                                                      | Componentes usados                                                                                            |
-| ---------------------------- | -------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| **Hero**                     | Presentación con nombre, título, descripción y CTAs (`/projects`, `/about`)      | —                                                                                                             |
-| **Ecosistema Principal**     | Badges hexagonales de tecnologías core (PHP, Laravel, Vue, JS, PostgreSQL)       | `StackBadgeHexagon`, `NuxtImg`                                                                                |
-| **Pasión Open Source & IoT** | Texto + tarjetas de Hardware Agnóstico y Estándares Abiertos                     | —                                                                                                             |
-| **Especializaciones**        | Grid 3 columnas: Sistemas Distribuidos IoT, Arquitectura Backend, Automatización | —                                                                                                             |
-| **Núcleo Tecnológico**       | Grid bento: PHP/Laravel (grande), Python, Vue.js, PostgreSQL, Bash & Ops         | —                                                                                                             |
-| **CTA**                      | Call-to-action con enlace a contacto y email                                     | —                                                                                                             |
-| **Redes Sociales**           | Iconos de redes sociales con decoraciones                                        | `IconsYoutube`, `IconsLinkedin`, `IconsTwitch`, `IconsGitlab`, `IconsGithub`, `IconsMastodon`, `IconsTwitter` |
+| Sección                      | Descripción                                                                                                                                     | Componentes usados                                                                                                             |
+| ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| **Hero**                     | Presentación con nombre, título, descripción y CTAs (`/projects`, `/about`)                                                                     | —                                                                                                                              |
+| **Ecosistema Principal**     | Badges hexagonales de tecnologías core (PHP, Laravel, Vue, JS, PostgreSQL)                                                                      | `StackBadgeHexagon`, `NuxtImg`                                                                                                 |
+| **Pasión Open Source & IoT** | Storytelling FOSS & Maker con CTAs + mosaico 2x2 de hitos y hardware (+20 años open source, +100 repos, microcontroladores ESP32/Pi, diseño 3D) | `UiMaterialIcon`, `NuxtLink`                                                                                                   |
+| **Especializaciones**        | Grid 3 columnas: Sistemas Distribuidos IoT, Arquitectura Backend, Automatización                                                                | —                                                                                                                              |
+| **Núcleo Tecnológico**       | Grid bento: PHP/Laravel (grande), Python, Vue.js, PostgreSQL, Bash & Ops                                                                        | —                                                                                                                              |
+| **CTA**                      | Call-to-action con enlace a contacto y email                                                                                                    | —                                                                                                                              |
+| **Redes Sociales**           | Iconos de redes sociales con decoraciones y enlace a `/social/`                                                                                 | `IconsYoutube`, `IconsLinkedin`, `IconsTwitch`, `IconsGitlab`, `IconsGithub`, `IconsMastodon`, `IconsTwitter`, `IconsTelegram` |
 
 ## SEO
 

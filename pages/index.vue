@@ -12,7 +12,7 @@
                 <div class="lg:col-span-8 flex flex-col justify-center">
                     <span class="font-label text-tertiary tracking-[0.3em] uppercase mb-6 flex items-center gap-3">
                         <span class="w-12 h-[1px] bg-tertiary" />
-                        Desarrollador Web Backend &amp; IoT
+                        Desarrollador Full Stack Senior · Backend Laravel · IA aplicada
                     </span>
                     <h1
                         class="font-headline text-4xl sm:text-6xl md:text-8xl font-bold tracking-tighter leading-[0.95] text-on-surface mb-8"
@@ -25,10 +25,9 @@
                         </span>
                     </h1>
                     <p class="text-lg md:text-xl text-on-surface-variant max-w-2xl leading-relaxed mb-12">
-                        Soy desarrollador web especializado en backend con PHP/Laravel y PostgreSQL. También me muevo
-                        por Python, Vue y la administración de sistemas GNU/Linux. Este es mi portal personal: aquí
-                        comparto mis proyectos, experimentos IoT y todo lo que voy publicando como software libre desde
-                        2001.
+                        Desarrollador web con más de 15 años de experiencia, especializado en backend PHP/Laravel,
+                        PostgreSQL e IA aplicada en producción. También administro sistemas GNU/Linux y desarrollo
+                        proyectos de IoT y hardware libre.
                     </p>
                     <div class="flex flex-wrap gap-6">
                         <NuxtLink
@@ -171,52 +170,164 @@
 
         <!-- ===== PASIÓN OPEN SOURCE & IoT ===== -->
         <section class="py-32 px-8 overflow-hidden">
-            <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                 <div>
-                    <h2 class="text-4xl md:text-5xl font-headline font-bold mb-8 text-on-background">
+                    <span
+                        class="font-label text-tertiary tracking-[0.25em] uppercase text-xs mb-3 flex items-center gap-2"
+                    >
+                        <span class="w-8 h-[1px] bg-tertiary" />
+                        Ecosistema Maker &amp; FOSS
+                    </span>
+                    <h2 class="text-4xl md:text-5xl font-headline font-bold mb-6 text-on-background leading-tight">
                         Pasión por el <span class="text-tertiary">Código Abierto</span> &amp; IoT
                     </h2>
                     <p class="text-on-surface-variant text-lg leading-relaxed mb-6">
                         Publico mis proyectos como software libre desde 2001. Me encanta el mundo maker: estaciones
                         meteorológicas, monitores de energía, sensores... casi siempre con Raspberry Pi o ESP32,
-                        conectados a mis propias APIs para recoger y consultar los datos.
+                        conectados a mis propias APIs para recoger y consultar los datos en tiempo real.
                     </p>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-10">
-                        <div
-                            class="p-6 bg-surface-container-high rounded-lg border-l-2 border-secondary hover:bg-surface-container-highest transition-colors group"
+                    <p class="text-on-surface-variant text-base leading-relaxed mb-8">
+                        Todo el código, esquemas de conexión y diseños 3D están documentados y publicados en abierto
+                        para que cualquiera pueda consultarlos, replicarlos o aprender del proceso.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <NuxtLink
+                            to="/projects/"
+                            class="inline-flex items-center gap-2 px-6 py-3 bg-surface-container-high hover:bg-surface-container-highest border border-outline-variant/30 rounded font-headline font-bold text-xs uppercase tracking-wider text-on-surface transition-all group"
                         >
+                            <span>Ver Proyectos IoT</span>
                             <UiMaterialIcon
-                                class="text-secondary mb-2 block group-hover:scale-110 transition-transform"
-                                name="memory"
+                                name="arrow_forward"
+                                class="text-tertiary text-base group-hover:translate-x-1 transition-transform"
                             />
-                            <div class="font-headline font-bold text-lg mb-1">Electrónica y Maker</div>
-                            <p class="text-sm text-outline">
-                                Microcontroladores, sensores y diseño 3D para darles una carcasa a mis inventos.
-                            </p>
-                        </div>
-                        <div
-                            class="p-6 bg-surface-container-high rounded-lg border-l-2 border-tertiary hover:bg-surface-container-highest transition-colors group"
+                        </NuxtLink>
+                        <a
+                            href="https://github.com/raupulus"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="inline-flex items-center gap-2 px-6 py-3 bg-surface-container-high hover:bg-surface-container-highest border border-outline-variant/30 rounded font-headline font-bold text-xs uppercase tracking-wider text-on-surface transition-all group"
                         >
+                            <span>GitHub / GitLab</span>
                             <UiMaterialIcon
-                                class="text-tertiary mb-2 block group-hover:scale-110 transition-transform"
-                                name="hub"
+                                name="open_in_new"
+                                class="text-secondary text-base group-hover:scale-110 transition-transform"
                             />
-                            <div class="font-headline font-bold text-lg mb-1">Todo Publicado</div>
-                            <p class="text-sm text-outline">
-                                Código y documentación en mis repositorios de GitLab y GitHub, por si a alguien le
-                                sirve.
-                            </p>
-                        </div>
+                        </a>
                     </div>
                 </div>
-                <div class="relative group">
+
+                <!-- Mosaico de tarjetas de hitos y hardware -->
+                <div class="relative">
                     <div
-                        class="absolute -inset-4 bg-tertiary/10 rounded-xl blur-2xl group-hover:bg-tertiary/20 transition-all"
+                        class="absolute -inset-4 bg-gradient-to-tr from-tertiary/10 via-primary/5 to-secondary/10 rounded-2xl blur-2xl -z-10 pointer-events-none"
                     />
-                    <div
-                        class="relative rounded-xl border border-outline-variant/30 shadow-2xl w-full aspect-[4/3] bg-surface-container-high flex items-center justify-center overflow-hidden"
-                    >
-                        <UiMaterialIcon class="text-9xl text-primary/20" name="developer_board" />
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <!-- Card 1: 20+ Años Open Source -->
+                        <div
+                            class="p-6 bg-surface-container-high rounded-xl border border-outline-variant/30 hover:border-secondary/50 hover:bg-surface-container-highest transition-all group flex flex-col justify-between"
+                        >
+                            <div>
+                                <div class="flex items-center justify-between mb-4">
+                                    <span
+                                        class="font-label text-[11px] tracking-widest uppercase text-secondary font-bold"
+                                        >Desde 2001</span
+                                    >
+                                    <div
+                                        class="w-10 h-10 rounded-lg bg-secondary/10 flex items-center justify-center group-hover:scale-110 transition-transform"
+                                    >
+                                        <UiMaterialIcon name="schedule" class="text-secondary text-xl" />
+                                    </div>
+                                </div>
+                                <div class="font-headline text-3xl font-extrabold text-on-surface mb-1">
+                                    +20 <span class="text-base font-normal text-on-surface-variant">Años</span>
+                                </div>
+                                <div class="font-headline font-bold text-sm text-secondary mb-2">Software Libre</div>
+                                <p class="text-xs text-on-surface-variant leading-relaxed">
+                                    Más de dos décadas publicando código abierto, divulgando y colaborando con la
+                                    comunidad.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Card 2: 100+ Repositorios Públicos -->
+                        <div
+                            class="p-6 bg-surface-container-high rounded-xl border border-outline-variant/30 hover:border-tertiary/50 hover:bg-surface-container-highest transition-all group flex flex-col justify-between"
+                        >
+                            <div>
+                                <div class="flex items-center justify-between mb-4">
+                                    <span
+                                        class="font-label text-[11px] tracking-widest uppercase text-tertiary font-bold"
+                                        >GitLab &amp; GitHub</span
+                                    >
+                                    <div
+                                        class="w-10 h-10 rounded-lg bg-tertiary/10 flex items-center justify-center group-hover:scale-110 transition-transform"
+                                    >
+                                        <UiMaterialIcon name="code_blocks" class="text-tertiary text-xl" />
+                                    </div>
+                                </div>
+                                <div class="font-headline text-3xl font-extrabold text-on-surface mb-1">
+                                    +100 <span class="text-base font-normal text-on-surface-variant">Repos</span>
+                                </div>
+                                <div class="font-headline font-bold text-sm text-tertiary mb-2">Código Público</div>
+                                <p class="text-xs text-on-surface-variant leading-relaxed">
+                                    APIs, scripts de sistema, firmware IoT y herramientas documentadas y mantenidas.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Card 3: ESP32 & Raspberry Pi -->
+                        <div
+                            class="p-6 bg-surface-container-high rounded-xl border border-outline-variant/30 hover:border-primary/50 hover:bg-surface-container-highest transition-all group flex flex-col justify-between"
+                        >
+                            <div>
+                                <div class="flex items-center justify-between mb-4">
+                                    <span
+                                        class="font-label text-[11px] tracking-widest uppercase text-primary font-bold"
+                                        >Microcontroladores</span
+                                    >
+                                    <div
+                                        class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform"
+                                    >
+                                        <UiMaterialIcon name="memory" class="text-primary text-xl" />
+                                    </div>
+                                </div>
+                                <div class="font-headline text-2xl font-extrabold text-on-surface mb-1">
+                                    ESP32 &amp; Pi
+                                </div>
+                                <div class="font-headline font-bold text-sm text-primary mb-2">Hardware &amp; IoT</div>
+                                <p class="text-xs text-on-surface-variant leading-relaxed">
+                                    Estaciones meteorológicas, sensores y monitores conectados por WiFi/LoRa a mis
+                                    propias APIs.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Card 4: Electrónica & PCBs -->
+                        <div
+                            class="p-6 bg-surface-container-high rounded-xl border border-outline-variant/30 hover:border-secondary/50 hover:bg-surface-container-highest transition-all group flex flex-col justify-between"
+                        >
+                            <div>
+                                <div class="flex items-center justify-between mb-4">
+                                    <span
+                                        class="font-label text-[11px] tracking-widest uppercase text-secondary font-bold"
+                                        >Hardware propio</span
+                                    >
+                                    <div
+                                        class="w-10 h-10 rounded-lg bg-secondary/10 flex items-center justify-center group-hover:scale-110 transition-transform"
+                                    >
+                                        <UiMaterialIcon name="view_in_ar" class="text-secondary text-xl" />
+                                    </div>
+                                </div>
+                                <div class="font-headline text-2xl font-extrabold text-on-surface mb-1">
+                                    Electrónica &amp; PCBs
+                                </div>
+                                <div class="font-headline font-bold text-sm text-secondary mb-2">Hardware propio</div>
+                                <p class="text-xs text-on-surface-variant leading-relaxed">
+                                    Diseño de placas PCB, integración de microcontroladores y nodos LoRa/Meshtastic con
+                                    carcasas 3D a medida.
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -246,8 +357,8 @@
                         </div>
                         <h3 class="font-headline text-xl font-bold mb-4 tracking-tight">Backend con Laravel</h3>
                         <p class="text-on-surface-variant text-sm leading-relaxed mb-8">
-                            Mi especialidad: APIs REST, paneles de administración, integración de servicios y bases de
-                            datos. Desde pequeños sitios web hasta aplicaciones empresariales.
+                            Mi especialidad: APIs REST, paneles de gestión, pasarelas de pago e integración de servicios
+                            e IA (RAG y agentes). De pequeños proyectos a nivel empresarial.
                         </p>
                         <div
                             class="mt-auto px-4 py-1.5 border border-primary/30 rounded-full font-label text-xs tracking-widest text-primary uppercase"
@@ -271,7 +382,7 @@
                         <div
                             class="mt-auto px-4 py-1.5 border border-tertiary/30 rounded-full font-label text-xs tracking-widest text-tertiary uppercase"
                         >
-                            Python · Micropython
+                            Python · MicroPython
                         </div>
                     </div>
                     <div
@@ -331,9 +442,8 @@
                                 <h3 class="text-3xl font-headline font-bold">PHP &amp; Laravel</h3>
                             </div>
                             <p class="text-on-surface-variant text-lg leading-relaxed">
-                                El corazón de mi trabajo: APIs REST, paneles de gestión, tiendas y webs empresariales,
-                                integración de servicios (pagos, streaming, IA...) y optimización de consultas y caché.
-                                Con años de rodaje en producción.
+                                El corazón de mi trabajo: 7 años en empresa desarrollando con Laravel. APIs REST,
+                                paneles a medida, pasarelas de pago, servicios de IA y optimización de bases de datos.
                             </p>
                         </div>
                         <div class="mt-8 flex flex-wrap gap-3">
@@ -450,7 +560,7 @@
                         <div class="w-24 h-1 bg-tertiary mx-auto" />
                     </div>
 
-                    <div class="flex flex-wrap justify-center gap-6 md:gap-8">
+                    <div class="flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-8">
                         <IconsYoutube size="80px" :decored="true" />
                         <IconsLinkedin size="80px" :decored="true" />
                         <IconsTwitch size="80px" :decored="true" />
@@ -458,6 +568,20 @@
                         <IconsGithub size="80px" :decored="true" />
                         <IconsMastodon size="80px" :decored="true" />
                         <IconsTwitter size="80px" :decored="true" />
+                        <IconsTelegram size="80px" :decored="true" />
+                    </div>
+
+                    <div class="mt-12 text-center">
+                        <NuxtLink
+                            to="/social/"
+                            class="inline-flex items-center gap-2 px-6 py-3 border border-outline-variant/40 hover:border-primary hover:bg-primary/10 transition-all rounded font-headline font-bold text-sm text-on-surface tracking-widest uppercase group"
+                        >
+                            <span>Ver todos los perfiles</span>
+                            <UiMaterialIcon
+                                name="arrow_forward"
+                                class="text-primary group-hover:translate-x-1 transition-transform"
+                            />
+                        </NuxtLink>
                     </div>
                 </div>
             </div>
@@ -471,24 +595,28 @@
 
     // SEO de la página principal
     useHead({
-        title: 'Raúl Caro Pastorino - Desarrollador Web Backend',
+        title: 'Raúl Caro Pastorino | Desarrollador Full Stack Senior · Backend Laravel · IA aplicada',
         meta: [
             {
                 name: 'description',
                 content:
-                    'Portfolio de Raúl Caro Pastorino (@raupulus), Desarrollador Web Backend especializado en PHP/Laravel, IoT, Python y sistemas distribuidos.',
+                    'Portfolio de Raúl Caro Pastorino (@raupulus), Desarrollador Full Stack Senior especializado en backend PHP/Laravel, PostgreSQL, IA aplicada y proyectos Open Source/IoT.',
             },
             {
                 name: 'keywords',
-                content: 'Raúl Caro Pastorino, raupulus, desarrollador web, backend, PHP, Laravel, IoT, Python, Vue.js',
+                content:
+                    'Raúl Caro Pastorino, raupulus, desarrollador full stack, backend, laravel, php, postgresql, inteligencia artificial, IA aplicada, IoT, Python, Vue.js',
             },
             { name: 'robots', content: 'index, follow' },
             { property: 'og:type', content: 'website' },
-            { property: 'og:title', content: 'Raúl Caro Pastorino - Desarrollador Web Backend' },
+            {
+                property: 'og:title',
+                content: 'Raúl Caro Pastorino | Desarrollador Full Stack Senior · Backend Laravel · IA aplicada',
+            },
             {
                 property: 'og:description',
                 content:
-                    'Portfolio de Raúl Caro Pastorino (@raupulus), Desarrollador Web Backend especializado en PHP/Laravel, IoT, Python y sistemas distribuidos.',
+                    'Portfolio de Raúl Caro Pastorino (@raupulus), Desarrollador Full Stack Senior especializado en backend PHP/Laravel, PostgreSQL, IA aplicada y proyectos Open Source/IoT.',
             },
         ],
         link: [{ rel: 'canonical', href: `${url}/` }],
@@ -498,13 +626,13 @@
                 innerHTML: JSON.stringify({
                     '@context': 'https://schema.org',
                     '@type': 'ProfilePage',
-                    name: 'Raúl Caro Pastorino - Desarrollador Web Backend',
+                    name: 'Raúl Caro Pastorino | Desarrollador Full Stack Senior · Backend Laravel · IA aplicada',
                     url: `${url}/`,
                     mainEntity: {
                         '@type': 'Person',
                         name: 'Raúl Caro Pastorino',
                         alternateName: 'raupulus',
-                        jobTitle: 'Desarrollador Web Backend & IoT',
+                        jobTitle: 'Desarrollador Full Stack Senior · Backend Laravel · IA aplicada',
                         url: `${url}/`,
                         email: 'public@raupulus.dev',
                         sameAs: [

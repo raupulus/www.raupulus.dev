@@ -7,11 +7,11 @@
     // PDF del currículum por defecto (ruta web de la API, fuera de /api/v2)
     const urlToPdfCv = domainApi + '/cv/pdf';
 
-    const title = 'Sobre mí - Raúl Caro Pastorino | Desarrollador Web Backend';
+    const title = 'Sobre mí - Raúl Caro Pastorino | Desarrollador Full Stack Senior · Backend Laravel · IA aplicada';
     const description =
-        'Conoce a Raúl Caro Pastorino, desarrollador web especializado en backend (PHP, Laravel, IoT y Python). Descubre mi trayectoria, habilidades y proyectos.';
+        'Conoce a Raúl Caro Pastorino, desarrollador full stack senior especializado en backend (PHP, Laravel), IA aplicada e IoT. Descubre mi trayectoria, habilidades y proyectos.';
     const keywords =
-        'sobre mí, Raúl Caro Pastorino, desarrollador web, backend, PHP, Laravel, IoT, Python, proyectos, experiencia';
+        'sobre mí, Raúl Caro Pastorino, desarrollador full stack, backend, PHP, Laravel, inteligencia artificial, IoT, Python, proyectos, experiencia';
 
     useHead({
         title: title,
@@ -43,7 +43,7 @@
                         '@type': 'Person',
                         name: 'Raúl Caro Pastorino',
                         alternateName: 'raupulus',
-                        jobTitle: 'Desarrollador Web Backend',
+                        jobTitle: 'Desarrollador Full Stack Senior · Backend Laravel · IA aplicada',
                         url: `${url}/`,
                         email: 'public@raupulus.dev',
                         sameAs: [
@@ -82,13 +82,13 @@
 
     // Datos estáticos de skills, pasiones, hobbies y pasatiempos
     const skills = [
-        'Desarrollo backend principalmente con PHP, Laravel, javascript, vuejs',
-        'Creación de APIs',
-        'Gestión de bases de datos MySQL y PostgreSQL',
-        'Optimización del rendimiento',
-        'Implementación de prácticas de seguridad',
-        'Trabajo en equipo y comunicación',
-        'He trabajado antes con otros stacks y me adapto rápido',
+        'Desarrollo Full Stack senior con PHP, Laravel, JavaScript y Vue',
+        'Diseño y desarrollo de APIs REST robustas y WebSockets',
+        'Modelado y optimización de bases de datos PostgreSQL y MySQL',
+        'Integración de IA en producción: agentes, RAG y visión',
+        'Administración de servidores Linux, VPS, Nginx, Docker y redes',
+        'Integración de pasarelas de pago (Redsys, Stripe, PayComet, PayPal)',
+        'Hardware e IoT: diseño de PCBs, ESP32/Pico y redes LoRa/Meshtastic',
     ];
 
     const passions = [
@@ -103,23 +103,22 @@
     ];
 
     const hobbies = [
-        'Electrónica',
-        'Raspberry Pi',
-        'Inteligencia Artificial',
-        'Planificar nuevos proyectos',
-        'IOT con microcontroladores y sensores',
-        'Automatizar tareas en Linux y MacOS con scripts',
-        'Probar nuevas tecnologías software/hardware (nuevos microcontroladores, frameworks...)',
+        'Diseño de PCBs y electrónica libre',
+        'Nodos y redes en malla LoRa / Meshtastic',
+        'Modelos de IA locales y edge computing (Whisper, Hailo-8, LLM offline)',
+        'Raspberry Pi y microcontroladores (Pico, ESP32, MicroPython)',
+        'Automatización con Bash y scripts de administración de sistemas',
+        'Divulgación de software libre (La Guía Linux y YouTube)',
     ];
 
     const pastimes = [
         'Fotografía',
         'Diseño gráfico 2D',
-        'Correr por la Playa',
+        'Correr por la playa',
         'Libros de fantasía, terror, historia...',
         'Diseño y modelado 3D para proyectos',
-        'Ver Streamings de otros programadores y makers',
-        'Creación de contenido (Entradas en blogs/foros y vídeos)',
+        'Ver directos y streamings de otros programadores y makers',
+        'Creación de contenido (entradas en blogs/foros y vídeos)',
     ];
 </script>
 
@@ -142,21 +141,20 @@
                 <!-- Descripción -->
                 <div class="lg:col-span-2 p-10 bg-surface-container-high rounded-xl border border-outline-variant/20">
                     <p class="text-on-surface-variant text-lg leading-relaxed mb-4">
-                        Soy un desarrollador backend con amplia experiencia en PHP,
-                        <strong class="text-on-surface">Laravel</strong>, Javascript y PostgreSQL.
+                        Soy un desarrollador web full stack senior con más de 15 años de experiencia programando,
+                        especializado en backend con PHP, <strong class="text-on-surface">Laravel</strong>, PostgreSQL e
+                        inteligencia artificial aplicada en producción.
                     </p>
                     <p class="text-on-surface-variant text-lg leading-relaxed mb-4">
-                        A lo largo de mi carrera he trabajado en una variedad de proyectos, desde pequeños sitios web
-                        hasta grandes aplicaciones empresariales.
+                        Cuento con 7 años de experiencia continuada en empresa desarrollando plataformas web, tiendas
+                        online y paneles de gestión a medida, llevando los proyectos de punta a punta.
                     </p>
                     <p class="text-on-surface-variant text-lg leading-relaxed">
-                        Tengo un profundo conocimiento con el stack sobre
-                        <strong class="text-on-surface">Linux</strong> desde
-                        <strong class="text-on-surface">terminal</strong> y con paneles de gestión, almacenamiento de
-                        productos, tiendas, webs empresariales, <strong class="text-on-surface">APIs</strong>, bases de
-                        datos, optimización de rendimiento, servidores VPS,
-                        <strong class="text-on-surface">consumo de servicios</strong> (streaming, pasarelas de pago,
-                        IA...), sistemas de caché...
+                        Administro sistemas <strong class="text-on-surface">Linux</strong>, servidores VPS y redes desde
+                        2005. Domino el modelado de bases de datos, arquitecturas
+                        <strong class="text-on-surface">APIs REST</strong>, pasarelas de pago (Redsys, Stripe, PayPal),
+                        integración de modelos de <strong class="text-on-surface">IA</strong> (agentes y RAG) y
+                        despliegues en producción.
                     </p>
                 </div>
 
@@ -236,8 +234,8 @@
                     publicar.
                 </p>
                 <p class="text-on-surface-variant text-lg leading-relaxed mb-4">
-                    Muchos trabajos elaborados para empresas privadas o junto a otros freelances no puedo publicarlos o
-                    adjuntarlos por confidencialidad.
+                    Muchos de los proyectos realizados para empresas o clientes privados no pueden publicarse por
+                    acuerdos de confidencialidad.
                 </p>
                 <p class="text-on-surface-variant text-lg leading-relaxed">
                     Te invito a explorar mi trabajo y a ponerte en contacto conmigo si tienes alguna pregunta o consulta

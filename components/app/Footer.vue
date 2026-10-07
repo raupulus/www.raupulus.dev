@@ -26,6 +26,14 @@
                 >
                     Cookies
                 </NuxtLink>
+                <button
+                    type="button"
+                    class="font-body text-xs tracking-widest uppercase text-on-surface-variant hover:text-tertiary transition-colors cursor-pointer bg-transparent border-none p-0"
+                    aria-label="Abrir panel de configuración de cookies"
+                    @click="openCookiePreferences"
+                >
+                    Preferencias de Cookies
+                </button>
                 <NuxtLink
                     to="/legal/"
                     class="font-body text-xs tracking-widest uppercase text-on-surface-variant hover:text-tertiary transition-colors"
@@ -53,6 +61,12 @@
 </template>
 
 <script setup lang="ts">
+    const cookieControl = useCookieControl();
+
+    const openCookiePreferences = () => {
+        cookieControl.isModalActive.value = true;
+    };
+
     // Año actual para el copyright: fijado con base de compilación e hidratación cliente segura
     const currentYear = ref(2026);
     onMounted(() => {

@@ -31,3 +31,166 @@ html {
         transition-duration: 0.01ms !important;
     }
 }
+
+/* ==========================================================================
+   Integración visual y accesibilidad del módulo de cookies (Silicon Architect)
+   ========================================================================== */
+
+/* Banner flotante de cookies */
+.cookieControl__Bar {
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    border: 1px solid rgba(65, 71, 81, 0.45) !important;
+    border-radius: 1rem !important;
+    box-shadow:
+        0 10px 30px -5px rgba(0, 0, 0, 0.6),
+        0 4px 6px -2px rgba(0, 0, 0, 0.3) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    max-width: 440px !important;
+    z-index: 9999 !important;
+}
+
+.cookieControl__Bar h2 {
+    font-family: 'Space Grotesk', sans-serif !important;
+    font-weight: 700 !important;
+    font-size: 1.125rem !important;
+    letter-spacing: -0.01em !important;
+    color: var(--color-primary) !important;
+}
+
+.cookieControl__Bar p {
+    font-size: 0.8125rem !important;
+    line-height: 1.5 !important;
+    color: var(--color-on-surface-variant) !important;
+    margin-top: 0.5rem !important;
+}
+
+/* Botones del banner y del modal */
+.cookieControl__BarButtons button,
+.cookieControl__ModalButtons button,
+.cookieControl__ModalClose {
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    font-size: 0.75rem !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    border-radius: 0.5rem !important;
+    padding: 0.625rem 1rem !important;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* Banner: Botón 1 («Aceptar todas») - Estilo primario */
+.cookieControl__BarButtons button:nth-child(1),
+.cookieControl__ModalButtons button:nth-child(2) {
+    background-color: var(--color-primary) !important;
+    color: var(--color-on-primary) !important;
+    border: 1px solid var(--color-primary) !important;
+}
+
+.cookieControl__BarButtons button:nth-child(1):hover,
+.cookieControl__ModalButtons button:nth-child(2):hover {
+    background-color: var(--color-primary-container) !important;
+    color: #ffffff !important;
+    border-color: var(--color-primary-container) !important;
+    transform: translateY(-1px);
+}
+
+/* Banner: Botón 2 («Rechazar todas») - Estilo secundario sólido (mismo nivel/visibilidad AEPD) */
+.cookieControl__BarButtons button:nth-child(2),
+.cookieControl__ModalButtons button:nth-child(3) {
+    background-color: var(--color-surface-container-high) !important;
+    color: var(--color-on-surface) !important;
+    border: 1px solid rgba(139, 145, 156, 0.5) !important;
+}
+
+.cookieControl__BarButtons button:nth-child(2):hover,
+.cookieControl__ModalButtons button:nth-child(3):hover {
+    background-color: var(--color-surface-bright) !important;
+    color: #ffffff !important;
+    border-color: var(--color-outline) !important;
+    transform: translateY(-1px);
+}
+
+/* Banner: Botón 3 («Configurar») / Modal («Guardar preferencias») - Estilo outline/personalización */
+.cookieControl__BarButtons button:nth-child(3),
+.cookieControl__ModalButtons button:nth-child(1),
+.cookieControl__ModalClose {
+    background-color: transparent !important;
+    color: var(--color-on-surface-variant) !important;
+    border: 1px solid rgba(65, 71, 81, 0.6) !important;
+}
+
+.cookieControl__BarButtons button:nth-child(3):hover,
+.cookieControl__ModalButtons button:nth-child(1):hover,
+.cookieControl__ModalClose:hover {
+    background-color: rgba(43, 53, 68, 0.4) !important;
+    color: var(--color-primary) !important;
+    border-color: var(--color-primary) !important;
+    transform: translateY(-1px);
+}
+
+.cookieControl__BarButtons button:focus-visible,
+.cookieControl__ModalButtons button:focus-visible,
+.cookieControl__ModalClose:focus-visible,
+.cookieControl__ControlButton:focus-visible {
+    outline: 2px solid var(--color-primary) !important;
+    outline-offset: 2px !important;
+}
+
+/* Modal de configuración de cookies */
+.cookieControl__ModalContent {
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    border: 1px solid rgba(65, 71, 81, 0.5) !important;
+    border-radius: 1.25rem !important;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8) !important;
+}
+
+.cookieControl__ModalContent h2 {
+    font-family: 'Space Grotesk', sans-serif !important;
+    font-weight: 700 !important;
+    font-size: 1.25rem !important;
+    letter-spacing: -0.02em !important;
+    color: var(--color-primary) !important;
+}
+
+.cookieControl__ModalCookieName {
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    font-size: 0.875rem !important;
+    color: var(--color-on-surface) !important;
+}
+
+.cookieControl__ModalCookieName span {
+    font-size: 0.8125rem !important;
+    color: var(--color-on-surface-variant) !important;
+}
+
+.cookieControl__ModalCookieName a {
+    color: var(--color-primary) !important;
+    text-decoration: underline !important;
+    text-underline-offset: 2px !important;
+}
+
+/* Botón flotante permanente para gestionar o revocar */
+.cookieControl__ControlButton {
+    border: 1px solid rgba(163, 201, 255, 0.25) !important;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45) !important;
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease !important;
+}
+
+.cookieControl__ControlButton:hover {
+    transform: scale(1.08);
+    border-color: var(--color-primary) !important;
+}
+
+/* Ajuste responsive en pantallas móviles (Action sheet inferior) */
+@media screen and (max-width: 768px) {
+    .cookieControl__Bar {
+        max-width: 100% !important;
+        border-radius: 1.25rem 1.25rem 0 0 !important;
+        border-bottom: none !important;
+        border-left: none !important;
+        border-right: none !important;
+    }
+}

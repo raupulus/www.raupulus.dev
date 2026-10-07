@@ -12,8 +12,8 @@
                 Mi <span class="text-on-surface-variant font-light">Blog</span> Personal
             </h1>
             <p class="text-on-surface-variant text-lg max-w-2xl border-l-2 border-secondary pl-6 py-2">
-                Artículos técnicos, guías en profundidad y casos de estudio sobre arquitectura backend, IoT y sistemas
-                distribuidos.
+                Artículos técnicos, guías en profundidad y notas sobre backend con Laravel, IA aplicada, nodos
+                LoRa/Meshtastic y GNU/Linux.
             </p>
         </div>
 
@@ -102,11 +102,12 @@
             {
                 name: 'description',
                 content:
-                    'Artículos técnicos sobre backend, IoT, sistemas distribuidos y arquitectura de software por Raúl Caro Pastorino.',
+                    'Artículos técnicos sobre backend con Laravel, IA aplicada, nodos LoRa/Meshtastic y GNU/Linux por Raúl Caro Pastorino.',
             },
             {
                 name: 'keywords',
-                content: 'blog, artículos técnicos, backend, IoT, sistemas distribuidos, Raúl Caro Pastorino',
+                content:
+                    'blog, artículos técnicos, backend, Laravel, inteligencia artificial, IoT, LoRa, Meshtastic, GNU/Linux, Raúl Caro Pastorino',
             },
             // noindex temporal: la página está en construcción sin contenido real.
             // Cambiar a 'index, follow' cuando se publiquen las primeras entradas.
@@ -115,14 +116,16 @@
             { property: 'og:title', content: 'Blog Técnico | Raúl Caro Pastorino' },
             {
                 property: 'og:description',
-                content: 'Artículos técnicos sobre backend, IoT y arquitectura de software.',
+                content:
+                    'Artículos técnicos sobre backend con Laravel, IA aplicada, nodos LoRa/Meshtastic y GNU/Linux.',
             },
             { property: 'og:url', content: `${url}/blog/` },
             { name: 'twitter:card', content: 'summary' },
             { name: 'twitter:title', content: 'Blog Técnico | Raúl Caro Pastorino' },
             {
                 name: 'twitter:description',
-                content: 'Artículos técnicos sobre backend, IoT y arquitectura de software.',
+                content:
+                    'Artículos técnicos sobre backend con Laravel, IA aplicada, nodos LoRa/Meshtastic y GNU/Linux.',
             },
         ],
         link: [{ rel: 'canonical', href: `${url}/blog/` }],
@@ -142,14 +145,14 @@
             ],
         },
         {
-            type: 'IoT y Maker',
-            readTime: 'Raspberry Pi · ESP32',
-            title: 'Proyectos con microcontroladores',
+            type: 'IoT y Hardware',
+            readTime: 'ESP32 · LoRa · Meshtastic',
+            title: 'Hardware propio y redes malladas',
             description:
-                'Los detalles detrás de mis cacharros: estaciones meteorológicas, monitores de energía, sensores y cómo conecto todo con mis propias APIs.',
+                'Detalles de diseño de PCBs, nodos LoRa/Meshtastic, sensores y despliegue de asistentes de emergencia offline con IA local.',
             tags: [
-                { icon: 'memory', label: 'MICROPYTHON' },
-                { icon: 'hub', label: 'SENSORES' },
+                { icon: 'memory', label: 'HARDWARE & PCBS' },
+                { icon: 'hub', label: 'LORA / MESHTASTIC' },
             ],
         },
         {

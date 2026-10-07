@@ -20,7 +20,7 @@
                 success: [],
                 errors: [
                     'Ha ocurrido un error al enviar el mensaje',
-                    'El mensaje no se ha enviado correctamente, por favor, inténtelo de nuevo más tarde o contáctame directamente.',
+                    'El mensaje no se ha enviado correctamente, por favor, inténtalo de nuevo más tarde o contáctame directamente.',
                 ],
             }),
         },
@@ -143,7 +143,7 @@
 
                 <div class="space-y-2 text-on-surface-variant text-sm max-w-md mx-auto">
                     <p>Validando la información del formulario y verificación de seguridad.</p>
-                    <p>Por favor, espere un instante...</p>
+                    <p>Por favor, espera un instante...</p>
                 </div>
             </div>
 

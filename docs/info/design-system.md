@@ -108,7 +108,7 @@ Esquema oscuro con tokens Material Design 3:
 
 `assets/css/styles.css` se carga **después** del CSS de Tailwind, por lo que cualquier clase global con el mismo nombre que una utilidad de Tailwind (`.p-1`, `.m-1`, `.text-primary`, `.bg-primary`, `.font-bold`, `.w-1`, `.text-white`, ...) la sobreescribe con valores distintos y rompe el design system en toda la web. La plantilla antigua incluía un mini-framework de utilidades con esta colisión y fue eliminado; no reintroducirlo. `styles.css` define `color-scheme: dark`, `scroll-padding-top: 5rem` para evitar que los anclajes queden tapados por el header fijo, y el bloque `prefers-reduced-motion` (accesibilidad).
 
-Las variables legacy de `vars.css` (`--primary: #3272B8`, `--gray`, `--yellow`, ...) siguen existiendo solo porque los componentes antiguos (`card/Project.vue`, `form/Select.vue`, bloques EditorJS...) las usan en estilos scoped. No usarlas en diseño nuevo: usar siempre los tokens Tailwind.
+Las variables legacy de `vars.css` (`--primary: #3272B8`, `--gray`, `--yellow`, ...) siguen existiendo solo porque los bloques EditorJS las usan en estilos scoped. No usarlas en diseño nuevo: usar siempre los tokens Tailwind.
 
 ## Accesibilidad y responsive
 

@@ -135,6 +135,10 @@
     watch(
         () => cookiesEnabledIds.value,
         (current, previous) => {
+            if (!import.meta.client) {
+                return;
+            }
+
             const { initialize, gtag } = useGtag();
             if (!previous?.includes('google-analytics') && current?.includes('google-analytics')) {
                 // Se concede consentimiento a analítica
@@ -147,21 +151,25 @@
                 gtag('consent', 'update', {
                     analytics_storage: 'denied',
                 });
-                // Eliminar cookies generadas por Google Analytics
+                // Eliminar cookies generadas por Google Analytics en host local y dominio raíz
                 if (typeof document !== 'undefined') {
-                    const domain = window.location.hostname;
+                    const hostname = window.location.hostname;
+                    const rootDomain = hostname.replace(/^www\./, '');
                     document.cookie.split(';').forEach((cookie) => {
                         const eqPos = cookie.indexOf('=');
                         const name = eqPos > -1 ? cookie.substring(0, eqPos).trim() : cookie.trim();
                         if (name.startsWith('_ga') || name.startsWith('_gid')) {
                             document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/;`;
-                            document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/;domain=.${domain};`;
+                            document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/;domain=.${hostname};`;
+                            if (rootDomain !== hostname) {
+                                document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/;domain=.${rootDomain};`;
+                            }
                         }
                     });
                 }
             }
         },
-        { deep: true },
+        { deep: true, immediate: true },
     );
 </script>
 

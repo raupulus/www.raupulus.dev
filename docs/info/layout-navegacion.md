@@ -67,13 +67,13 @@ const navLinks: NavLink[] = [
 ## `AppFooter` — Pie de Página
 
 - Copyright con año fijado en compilación e hidratación cliente reactiva segura (`onMounted`) para evitar discrepancias SSR/SSG.
-- Enlaces legales: `/privacy/`, `/cookies/`, `/legal/`, `/contact/`.
+- Enlaces legales: `/privacy/`, `/cookies/`, botón interactivo «Preferencias de Cookies» (`useCookieControl().isModalActive.value = true`), `/legal/`, `/contact/`.
 - Enlace al repositorio público de código fuente en GitLab.
 
 ## Tests unitarios asociados
 
 - `tests/components/app/Header.test.ts`: verifica marca, navegación principal, enlaces canónicos y atributos WCAG del botón móvil.
-- `tests/components/app/Footer.test.ts`: verifica rol `contentinfo`, copyright y enlaces legales.
+- `tests/components/app/Footer.test.ts`: verifica rol `contentinfo`, copyright, enlaces legales y apertura reactiva del modal de cookies desde el botón de preferencias.
 
 ## Relaciones con otros módulos
 

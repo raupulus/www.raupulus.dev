@@ -58,20 +58,20 @@ export default defineNuxtConfig({
 
     app: {
         head: {
-            title: 'Portfolio de Raúl Caro Pastorino Web Developer (@raupulus)',
+            title: 'Raúl Caro Pastorino | Desarrollador Full Stack Senior · Backend Laravel · IA aplicada',
             charset: 'utf-8',
             viewport: 'width=device-width, initial-scale=1',
             meta: [
                 {
                     name: 'description',
                     content:
-                        'Portfolio de presentación con la información de Raúl Caro Pastorino (@raupulus) Desarrollador Web (Chipiona, Andalucía, Cádiz, España)',
+                        'Portfolio de Raúl Caro Pastorino (@raupulus). Desarrollador Full Stack Senior especializado en backend PHP/Laravel, PostgreSQL, IA aplicada y proyectos Open Source/IoT.',
                 },
                 { name: 'application-name', content: 'raupulus.dev' },
                 {
                     name: 'keywords',
                     content:
-                        'Raúl Caro Pastorino, raupulus, desarrollador, desarrollador web, web developer, iot, maker, php, laravel, vue, vue3, vuejs, nuxt, js, javascript, python, bash, linux, Raul Caro Pastorino',
+                        'Raúl Caro Pastorino, raupulus, desarrollador full stack, backend, laravel, php, postgresql, inteligencia artificial, IA aplicada, vue, nuxt, iot, python, linux, software libre',
                 },
                 { name: 'author', content: 'Raúl Caro Pastorino' },
                 { name: 'color-scheme', content: 'dark' },
@@ -79,13 +79,19 @@ export default defineNuxtConfig({
                 { name: 'twitter:site', content: '@raupulus' },
                 { name: 'twitter:creator', content: '@raupulus' },
                 { name: 'twitter:title', content: 'Raúl Caro Pastorino' },
-                { name: 'twitter:description', content: 'Desarrollador Web Backend, Laravel & Vuejs (@raupulus)' },
+                {
+                    name: 'twitter:description',
+                    content: 'Desarrollador Full Stack Senior · Backend Laravel · IA aplicada (@raupulus)',
+                },
                 { name: 'twitter:image', content: 'https://raupulus.dev/logo_512x512.png' },
                 { property: 'og:title', content: 'Raúl Caro Pastorino' },
                 { property: 'og:type', content: 'website' },
                 { property: 'og:url', content: 'https://raupulus.dev/' },
                 { property: 'og:image', content: 'https://raupulus.dev/logo_512x512.png' },
-                { property: 'og:description', content: 'Desarrollador Web Backend, Laravel & Vuejs (@raupulus)' },
+                {
+                    property: 'og:description',
+                    content: 'Desarrollador Full Stack Senior · Backend Laravel · IA aplicada (@raupulus)',
+                },
                 { property: 'og:site_name', content: 'Portfolio de Raúl Caro Pastorino' },
                 { property: 'og:locale', content: 'es_ES' },
             ],
@@ -277,32 +283,32 @@ export default defineNuxtConfig({
         barPosition: 'bottom-right', // Posición del banner de cookies
         closeModalOnClickOutside: true, // Cerrar modal al hacer clic fuera
         colors: {
-            barBackground: '#000', // Fondo del banner
-            barButtonBackground: '#fff', // Fondo del botón del banner
-            barButtonColor: '#000', // Color del texto del botón del banner
-            barButtonHoverBackground: '#333', // Fondo del botón al pasar el ratón
-            barButtonHoverColor: '#fff', // Color del texto del botón al pasar el ratón
-            barTextColor: '#fff', // Color del texto del banner
-            checkboxActiveBackground: '#000', // Fondo del checkbox activo
-            checkboxActiveCircleBackground: '#fff', // Fondo del círculo del checkbox activo
-            checkboxDisabledBackground: '#ddd', // Fondo del checkbox deshabilitado
-            checkboxDisabledCircleBackground: '#fff', // Fondo del círculo del checkbox deshabilitado
-            checkboxInactiveBackground: '#000', // Fondo del checkbox inactivo
-            checkboxInactiveCircleBackground: '#fff', // Fondo del círculo del checkbox inactivo
-            controlButtonBackground: '#fff', // Fondo del botón de control
-            controlButtonHoverBackground: '#000', // Fondo del botón de control al pasar el ratón
-            controlButtonIconColor: '#000', // Color del icono del botón de control
-            controlButtonIconHoverColor: '#fff', // Color del icono del botón de control al pasar el ratón
-            focusRingColor: '#808080', // Color del anillo de enfoque
-            modalBackground: '#fff', // Fondo del modal
-            modalButtonBackground: '#000', // Fondo del botón del modal
-            modalButtonColor: '#fff', // Color del texto del botón del modal
-            modalButtonHoverBackground: '#333', // Fondo del botón del modal al pasar el ratón
-            modalButtonHoverColor: '#fff', // Color del texto del botón del modal al pasar el ratón
-            modalOverlay: '#000', // Superposición del modal
-            modalOverlayOpacity: 0.8, // Opacidad de la superposición del modal
-            modalTextColor: '#000', // Color del texto del modal
-            modalUnsavedColor: '#fff', // Color del texto no guardado del modal
+            barBackground: '#121c2a', // Fondo del banner (surface-container-low)
+            barButtonBackground: '#212b39', // Fondo de botones del banner (surface-container-high)
+            barButtonColor: '#d9e3f6', // Color del texto de botones del banner
+            barButtonHoverBackground: '#303a48', // Hover de botones del banner (surface-bright)
+            barButtonHoverColor: '#ffffff', // Hover del texto de botones del banner
+            barTextColor: '#d9e3f6', // Color del texto del banner (on-surface)
+            checkboxActiveBackground: '#a3c9ff', // Fondo del checkbox activo (primary)
+            checkboxActiveCircleBackground: '#00315c', // Círculo del checkbox activo (on-primary)
+            checkboxDisabledBackground: '#1a2432', // Fondo del checkbox deshabilitado
+            checkboxDisabledCircleBackground: '#414751', // Círculo del checkbox deshabilitado (outline-variant)
+            checkboxInactiveBackground: '#2b3544', // Fondo del checkbox inactivo (surface-variant)
+            checkboxInactiveCircleBackground: '#8b919c', // Círculo del checkbox inactivo (outline)
+            controlButtonBackground: '#16202e', // Fondo del botón de control flotante
+            controlButtonHoverBackground: '#212b39', // Hover del botón de control flotante
+            controlButtonIconColor: '#a3c9ff', // Color del icono de cookies flotante (primary)
+            controlButtonIconHoverColor: '#ffffff', // Hover del icono de cookies flotante
+            focusRingColor: '#a3c9ff', // Color del anillo de enfoque de accesibilidad
+            modalBackground: '#121c2a', // Fondo del modal (surface-container-low, consistente con tema oscuro)
+            modalButtonBackground: '#212b39', // Fondo de botones del modal
+            modalButtonColor: '#d9e3f6', // Color del texto de botones del modal
+            modalButtonHoverBackground: '#303a48', // Hover de botones del modal
+            modalButtonHoverColor: '#ffffff', // Hover del texto de botones del modal
+            modalOverlay: '#050f1c', // Fondo de superposición del modal (surface-container-lowest)
+            modalOverlayOpacity: 0.85, // Opacidad de superposición
+            modalTextColor: '#d9e3f6', // Color de texto general en el modal
+            modalUnsavedColor: '#ffb4ab', // Color de aviso de cambios no guardados (error/alerta)
         },
         cookies: {
             necessary: [
@@ -313,10 +319,10 @@ export default defineNuxtConfig({
                         es: 'Cookies Necesarias',
                     },
                     description: {
-                        en: 'These cookies are essential for the website to function properly.',
-                        es: 'Estas cookies son esenciales para el correcto funcionamiento del sitio web.',
+                        en: 'These cookies are essential for the website to function properly and to remember your privacy choices.',
+                        es: 'Estas cookies son esenciales para el correcto funcionamiento técnico del sitio y para registrar sus preferencias de privacidad.',
                     },
-                    // Lista de enlaces
+                    // Lista de enlaces informativos
                     links: {
                         '/privacy/': 'Política de Privacidad',
                         '/cookies/': 'Política de Cookies',
@@ -331,11 +337,14 @@ export default defineNuxtConfig({
                         es: 'Cookies de Analítica',
                     },
                     description: {
-                        en: 'These cookies provide analytic data about site traffic.',
-                        es: 'Estas cookies proporcionan datos analíticos sobre el tráfico del sitio.',
+                        en: 'These cookies provide anonymous analytic data about site traffic via Google Analytics 4 with Consent Mode v2.',
+                        es: 'Estas cookies proporcionan métricas anónimas sobre el tráfico de navegación mediante Google Analytics 4 con Consent Mode v2.',
                     },
                     isPreselected: false,
                     targetCookieIds: ['_ga', '_gid'],
+                    links: {
+                        '/cookies/': 'Política de Cookies',
+                    },
                 },
             ],
         },
@@ -346,27 +355,48 @@ export default defineNuxtConfig({
             path: '/',
             sameSite: 'strict',
         },
-        isAcceptNecessaryButtonEnabled: false, // Mostrar botón "Aceptar necesarias"
-        isControlButtonEnabled: true, // Mostrar botón de control
+        // Cumplimiento AEPD: botón de rechazar obligatorio en la primera capa (mismo nivel y visibilidad)
+        isAcceptNecessaryButtonEnabled: true,
+        // Al rechazar todo se guardan solo las necesarias y no se vuelve a hostigar al usuario
+        declineAllAcceptsNecessary: true,
+        isControlButtonEnabled: true, // Botón flotante para reabrir y revocar en cualquier momento
         isIframeBlocked: false, // No bloquear iframes
-        isModalForced: false, // No forzar mostrar el modal
+        isModalForced: false, // No forzar modal intrusivo
 
-        // Switch to toggle the separation of cookie name and description in the configuration modal by a dash.
+        // Separación de nombre y descripción mediante guion en el modal
         isDashInDescriptionEnabled: true,
 
-        locales: ['es', 'en'], // Idiomas
+        locales: ['es', 'en'], // Idiomas soportados
         localeTexts: {
             es: {
-                save: 'Recordar',
-                acceptAll: 'Aceptar Todas',
-                declineAll: 'Rechazar Todas',
-                manageCookies: 'Gestionar Cookies',
+                bannerTitle: 'Configuración de Cookies y Privacidad',
+                bannerDescription:
+                    'Utilizamos cookies técnicas necesarias para el funcionamiento del sitio y, con su consentimiento previo, cookies analíticas para medir visitas y mejorar la experiencia. Puede aceptar todas, rechazarlas o configurar sus preferencias. No se aplica consentimiento por mera navegación.',
+                accept: 'Aceptar todas',
+                decline: 'Rechazar todas',
+                acceptAll: 'Aceptar todas',
+                declineAll: 'Rechazar todas',
+                manageCookies: 'Configurar',
+                save: 'Guardar preferencias',
+                close: 'Cerrar',
+                cookiesNecessary: 'Cookies técnicas y obligatorias',
+                cookiesOptional: 'Cookies analíticas opcionales',
+                settingsUnsaved: 'Tiene configuraciones sin guardar',
             },
             en: {
-                save: 'Remember',
+                bannerTitle: 'Cookie & Privacy Settings',
+                bannerDescription:
+                    'We use strictly necessary technical cookies to operate this website and, optionally with your prior consent, analytics cookies to measure traffic and improve your experience. You can accept all, decline all, or configure your preferences. No consent is inferred from mere browsing.',
+                accept: 'Accept All',
+                decline: 'Decline All',
                 acceptAll: 'Accept All',
                 declineAll: 'Decline All',
-                manageCookies: 'Manage Cookies',
+                manageCookies: 'Configure',
+                save: 'Save Preferences',
+                close: 'Close',
+                cookiesNecessary: 'Strictly Necessary Cookies',
+                cookiesOptional: 'Optional Analytics Cookies',
+                settingsUnsaved: 'You have unsaved changes',
             },
         },
     },

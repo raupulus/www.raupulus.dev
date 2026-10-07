@@ -17,16 +17,16 @@ Página informativa obligatoria según el artículo 13 del RGPD que detalla los 
 
 - **URL**: `/privacy/` (con barra final)
 - **Metatags**: `useHead()` completo con `canonical`, Open Graph y Twitter Cards (`/social/privacy.webp`)
-- **Datos**: estáticos, con marcadores `[[COMPLETAR: descripción]]` para datos pendientes de validación por el titular.
+- **Datos**: estáticos y contrastados, con canal de contacto exclusivo `public@raupulus.dev` y localización de referencia en Chipiona (Cádiz), España.
 
 ## Secciones detalladas (Art. 13 RGPD)
 
-1. **Responsable del tratamiento**: identificación de Raúl Caro Pastorino y canal de contacto (`public@raupulus.dev`).
+1. **Responsable del tratamiento**: identificación de Raúl Caro Pastorino, localización de referencia y canal de contacto (`public@raupulus.dev`).
 2. **Finalidad y legitimación**:
     - Gestión de consultas mediante formulario de contacto: base de consentimiento explícito e interés legítimo precontractual (Art. 6.1.a y 6.1.b RGPD).
     - Analítica web agregada mediante Google Analytics: base de consentimiento previo (Art. 6.1.a RGPD).
-3. **Plazos de conservación de los datos**: criterios de retención conforme a prescripción de responsabilidades legales.
-4. **Destinatarios y transferencias internacionales**: proveedores de infraestructura, Cloudflare y Google LLC bajo el EU-US Data Privacy Framework.
+3. **Plazos de conservación de los datos**: fijado en un máximo de 2 años desde el último contacto o resolución de la consulta.
+4. **Destinatarios y transferencias internacionales**: proveedores de infraestructura cloud en la Unión Europea, Cloudflare Turnstile y Google LLC bajo las Cláusulas Contractuales Tipo (SCC).
 5. **Derechos de las personas interesadas (ARCO-POL)**: acceso, rectificación, supresión, oposición, limitación y portabilidad mediante correo a `public@raupulus.dev`, con derecho a reclamar ante la AEPD (`www.aepd.es`).
 6. **Medidas de seguridad**: cifrado TLS, headers HTTP de seguridad, control estricto de accesos.
 

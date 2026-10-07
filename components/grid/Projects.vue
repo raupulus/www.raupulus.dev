@@ -15,14 +15,14 @@
 </script>
 
 <template>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 items-start">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 items-stretch">
         <div
             v-for="(project, key) in projects"
             :key="project.slug"
-            :class="isHorizontal(key) ? 'col-span-1 md:col-span-2' : 'col-span-1'"
+            :class="isHorizontal(key) ? 'col-span-1 md:col-span-2' : 'col-span-1 flex flex-col h-full'"
         >
             <CardProjectHorizontal v-if="isHorizontal(key)" :data="project" />
-            <CardProjectVertical v-else :data="project" />
+            <CardProjectVertical v-else :data="project" class="h-full" />
         </div>
     </div>
 </template>

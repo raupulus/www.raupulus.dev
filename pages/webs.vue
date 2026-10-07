@@ -48,7 +48,7 @@
             title: 'Jaja Project',
             image: '/images/icons/webs/jajaproject.webp',
             description:
-                'Plataforma web comunitaria dónde puedes compartir tus chistes, adivinanzas y preguntas quiz para consumirla mediante API de comunidad',
+                'Plataforma web comunitaria donde compartir chistes, adivinanzas y preguntas tipo quiz accesibles mediante una API pública.',
             url: 'https://jaja.raupulus.dev',
             tags: ['Vue.js', 'Laravel', 'API'],
         },
@@ -56,7 +56,7 @@
             title: 'API Personal (Para debug y desarrollo IoT)',
             image: '/images/icons/world.svg',
             description:
-                'Esta es mi API personal, donde subo los desarrollos que voy haciendo y los comparto con el mundo además de revisar que todo funciona correctamente con el tiempo.',
+                'API REST centralizada para pruebas de servicios, ingesta de telemetría IoT, utilidades compartidas y monitorización.',
             url: 'https://api.raupulus.dev',
             tags: ['Laravel', 'REST API', 'IoT'],
         },
@@ -72,15 +72,23 @@
             title: 'La Guía Linux',
             image: '/images/icons/webs/laguialinux.webp',
             description:
-                'Web para mi proyecto de software libre, donde comparto información sobre GNU/Linux y software libre.',
+                'Portal de divulgación y comunidad sobre GNU/Linux y software libre activo desde 2008, con tutoriales, guías prácticas y recursos técnicos.',
             url: 'https://laguialinux.es/',
             tags: ['GNU/Linux', 'Open Source', 'Documentación'],
+        },
+        {
+            title: 'Curriculum Vitae Online',
+            image: '/logo_128x128.webp',
+            description:
+                'Versión web completa y actualizada de mi currículum vitae con experiencia detallada, stack técnico, proyectos e integraciones de IA.',
+            url: 'https://curriculum.raupulus.dev/',
+            tags: ['CV', 'Perfil Profesional', 'HTML/CSS'],
         },
         {
             title: 'AI Dyslexic',
             image: '/images/icons/webs/aidyslexic.webp',
             description:
-                'Proyecto que crea una "idea" en base a un sistema de roles usando AI para generar un prompt que produzca imágenes mediante Stable Diffusion o Dall-e. Subo imágenes a una API como galería y publica en redes (Twitter, Instagram, Mastodon, Telegram). Crea un slideshow con ffmpeg y subirlo a TikTok y YouTube, sincronizando con la API para establecer el video como portada de la colección.',
+                'Automatización que genera conceptos visuales mediante IA y produce imágenes con Stable Diffusion o DALL·E. Publica las galerías en redes sociales, genera clips en vídeo con FFmpeg para TikTok y YouTube, y sincroniza la portada con la API.',
             url: 'https://aidyslexic.raupulus.dev',
             tags: ['AI', 'Python', 'Automatización'],
         },

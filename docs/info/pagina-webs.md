@@ -15,7 +15,7 @@ Listado estático de sitios web creados y publicados por el autor.
 
 ## Datos estáticos
 
-Array `webs` con 6 sitios web. Cada entrada:
+Array `webs` con 7 sitios web. Cada entrada:
 
 | Campo         | Tipo       | Descripción              |
 | ------------- | ---------- | ------------------------ |
@@ -27,12 +27,13 @@ Array `webs` con 6 sitios web. Cada entrada:
 
 ## Sitios incluidos
 
-1. **Jaja Project** — Plataforma comunitaria de chistes y quiz (`Vue.js`, `Laravel`, `API`)
-2. **Api Personal** — API personal para debug y desarrollo IoT (`Laravel`, `REST API`, `IoT`)
-3. **Micro-Blog Personal** — Blog personal de aprendizaje (`Blog`)
-4. **La Guía Linux** — Web de software libre y GNU/Linux (`GNU/Linux`, `Open Source`)
-5. **AI Dyslexic** — Generación de imágenes con IA para redes sociales (`AI`, `Python`)
-6. **Portfolio Web Personal** — Este mismo sitio (`Nuxt.js`, `Vue.js`)
+1. **Jaja Project** — Plataforma comunitaria de chistes y preguntas quiz (`Vue.js`, `Laravel`, `API`)
+2. **Api Personal** — API REST centralizada para pruebas y desarrollo IoT (`Laravel`, `REST API`, `IoT`)
+3. **Micro-Blog Personal** — Blog personal de aprendizaje (`Blog`, `Personal`)
+4. **La Guía Linux** — Portal de software libre y GNU/Linux activo desde 2008 (`GNU/Linux`, `Open Source`, `Documentación`)
+5. **Curriculum Vitae Online** — Versión web interactiva del CV (`CV`, `Perfil Profesional`, `HTML/CSS`)
+6. **AI Dyslexic** — Generación automatizada de imágenes con IA para redes sociales (`AI`, `Python`, `Automatización`)
+7. **Portfolio Web Personal** — Este mismo sitio web (`Nuxt.js`, `Vue.js`, `Portfolio`)
 
 ## Template
 
