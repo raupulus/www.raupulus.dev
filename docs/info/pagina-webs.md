@@ -15,7 +15,7 @@ Listado estático de sitios web creados y publicados por el autor.
 
 ## Datos estáticos
 
-Array `webs` con 7 sitios web. Cada entrada:
+Array `webs` con 8 sitios web. Cada entrada:
 
 | Campo         | Tipo       | Descripción              |
 | ------------- | ---------- | ------------------------ |
@@ -33,7 +33,8 @@ Array `webs` con 7 sitios web. Cada entrada:
 4. **La Guía Linux** — Portal de software libre y GNU/Linux activo desde 2008 (`GNU/Linux`, `Open Source`, `Documentación`)
 5. **Curriculum Vitae Online** — Versión web interactiva del CV (`CV`, `Perfil Profesional`, `HTML/CSS`)
 6. **AI Dyslexic** — Generación automatizada de imágenes con IA para redes sociales (`AI`, `Python`, `Automatización`)
-7. **Portfolio Web Personal** — Este mismo sitio web (`Nuxt.js`, `Vue.js`, `Portfolio`)
+7. **Raupulus Music** — Sitio oficial de música y videoclips generados con IA cinematográfica (`Música`, `Metal Industrial`, `IA`, `Videoclips`)
+8. **Portfolio Web Personal** — Este mismo sitio web (`Nuxt.js`, `Vue.js`, `Portfolio`)
 
 ## Template
 

@@ -93,6 +93,14 @@
             tags: ['AI', 'Python', 'Automatización'],
         },
         {
+            title: 'Raupulus Music',
+            image: '/images/icons/webs/music.webp',
+            description:
+                'Sitio oficial de Raupulus Music. Metal Industrial, Cyberpunk y videoclips generados por IA cinematográfica, con el álbum "Nunca venderé mi alma de Metal", letras y universo visual.',
+            url: 'https://music.raupulus.dev/',
+            tags: ['Música', 'Metal Industrial', 'IA', 'Videoclips'],
+        },
+        {
             title: 'Portfolio Web Personal',
             image: '/logo_128x128.webp',
             description: 'Esta es mi web personal, donde comparto mis proyectos y experiencia.',
