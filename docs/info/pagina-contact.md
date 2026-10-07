@@ -119,8 +119,11 @@ La plataforma la deduce la API del `Referer` y el idioma de `Accept-Language` (l
 
 ## Template
 
-- **Grid 2/3 + 1/3**: formulario (izquierda) + info de contacto (derecha)
+- **Grid 2/3 + 1/3**: formulario (izquierda) + columna lateral de información (derecha)
 - Campo mensaje con contador dinámico de caracteres sobre 2000
+- **Columna lateral**:
+    - Ficha de información directa (email público, ubicación, tiempo de respuesta estimado)
+    - Tarjeta de **Protección Antispam**: aviso sobre filtros múltiples de seguridad (descarte automático de duplicados y mensajes de baja calidad/spam) y botón directo de contacto por **LinkedIn** ante la saturación de bots en la red
 
 ## SEO
 

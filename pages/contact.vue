@@ -866,16 +866,42 @@ watch(dataForm.value.message.value, async () => {
                         </div>
                     </div>
 
-                    <div class="bg-surface-container-low rounded-xl border border-outline-variant/10 p-6">
-                        <div class="flex items-center gap-3 mb-4">
+                    <div class="bg-surface-container-low rounded-xl border border-outline-variant/10 p-6 space-y-4">
+                        <div class="flex items-center gap-3">
                             <UiMaterialIcon class="text-tertiary text-sm" name="check_circle" />
-                            <span class="font-label text-xs text-tertiary uppercase tracking-widest"
+                            <span class="font-label text-xs text-tertiary uppercase tracking-widest font-semibold"
                                 >Protección Antispam</span
                             >
                         </div>
-                        <p class="text-xs text-on-surface-variant leading-relaxed">
-                            Formulario protegido con Cloudflare Turnstile para evitar spam.
-                        </p>
+                        <div class="space-y-2 text-xs text-on-surface-variant leading-relaxed">
+                            <p>
+                                Este formulario cuenta con varios filtros de seguridad y verificación anti-bots: se
+                                descartarán envíos duplicados y se ignorarán automáticamente mensajes de baja calidad o
+                                catalogados como spam.
+                            </p>
+                            <p>
+                                Debido al exceso de bots en la red, la vía más rápida y fiable para contactar conmigo es
+                                a través de <strong class="text-on-surface font-semibold">LinkedIn</strong>.
+                            </p>
+                        </div>
+                        <div class="pt-1">
+                            <a
+                                href="https://www.linkedin.com/in/raulcaropastorino/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                title="Contactar con Raúl Caro en LinkedIn (se abre en nueva pestaña)"
+                                aria-label="Contactar con Raúl Caro Pastorino en LinkedIn (se abre en nueva pestaña)"
+                                class="w-full flex items-center justify-center gap-2 px-4 py-3 bg-[#0077b5] hover:bg-[#006097] text-white font-headline font-bold text-xs tracking-wider uppercase rounded-lg shadow-sm hover:shadow-[0_0_15px_rgba(0,119,181,0.4)] transition-all"
+                            >
+                                <svg class="w-4 h-4 fill-current shrink-0" viewBox="0 0 448 512" aria-hidden="true">
+                                    <path
+                                        d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.3 0-55.7 37.7-55.7 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.7-48.3 87.9-48.3 94 0 111.3 61.9 111.3 142.3V448z"
+                                    />
+                                </svg>
+                                <span>Contactar por LinkedIn</span>
+                                <UiMaterialIcon class="text-xs" name="open_in_new" />
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
