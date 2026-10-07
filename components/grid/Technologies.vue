@@ -42,10 +42,11 @@
                         })
                     "
                 >
-                    <NuxtImg
+                    <img
                         :src="technology.image"
-                        :alt="technology.name"
+                        :alt="'Filtrar por tecnología ' + technology.name"
                         loading="lazy"
+                        decoding="async"
                         width="32"
                         height="32"
                         class="w-7 h-7 object-contain transition-all"

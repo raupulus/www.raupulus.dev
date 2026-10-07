@@ -117,7 +117,12 @@ sitemap: {
       })) ?? []
     ]);
 
-    return [...projectUrls, ...blogUrls];
+    const catalogUrls = [
+      { loc: '/projects/', changefreq: 'daily', priority: 0.9, lastmod: new Date().toISOString() },
+      { loc: '/blog/', changefreq: 'daily', priority: 0.9, lastmod: new Date().toISOString() }
+    ];
+
+    return [...catalogUrls, ...projectUrls, ...blogUrls];
   },
   defaults: { changefreq: 'weekly', priority: 0.5, lastmod: new Date() }
 }

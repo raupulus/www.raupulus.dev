@@ -33,7 +33,7 @@
                 height="300"
                 loading="lazy"
                 decoding="async"
-                :alt="data.title"
+                :alt="'Portada del proyecto: ' + data.title"
                 :title="data.title"
                 class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 @load="onImageLoaded"
@@ -44,14 +44,15 @@
             />
             <div class="absolute bottom-0 left-0 right-0 p-3 flex flex-wrap gap-1 pointer-events-none">
                 <template v-for="technology in data.technologies" :key="technology.slug">
-                    <NuxtImg
+                    <img
                         v-if="technology.image"
                         :src="technology.image"
                         :title="technology.name"
-                        :alt="technology.name"
+                        :alt="'Logotipo de ' + technology.name"
                         loading="lazy"
-                        width="22"
-                        height="22"
+                        decoding="async"
+                        width="20"
+                        height="20"
                         class="w-5 h-5 object-contain rounded bg-surface-container-lowest/80 p-0.5"
                     />
                 </template>

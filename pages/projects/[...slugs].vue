@@ -387,13 +387,15 @@
                     <div
                         class="flex items-center gap-2 px-4 py-2 bg-surface-container-high rounded border border-primary/30"
                     >
-                        <NuxtImg
+                        <img
                             v-if="currentTechnology?.image"
                             :src="currentTechnology.image"
-                            :alt="currentTechnology.name"
+                            :alt="'Logotipo de ' + currentTechnology.name"
                             :title="currentTechnology.name"
                             width="20"
                             height="20"
+                            loading="lazy"
+                            decoding="async"
                             class="w-5 h-5 object-contain"
                         />
                         <span class="font-headline font-bold text-sm text-primary">{{ currentTechnology?.name }}</span>
@@ -600,13 +602,15 @@
                                     :key="tech.slug"
                                     class="flex items-center gap-2 px-3 py-1.5 bg-surface-container-lowest/80 rounded-lg border border-outline-variant/30 text-xs font-body text-on-surface"
                                 >
-                                    <NuxtImg
+                                    <img
                                         v-if="tech.image"
                                         :src="tech.image"
-                                        :alt="tech.name"
+                                        :alt="'Logotipo de ' + tech.name"
                                         :title="tech.name"
                                         width="18"
                                         height="18"
+                                        loading="lazy"
+                                        decoding="async"
                                         class="w-4 h-4 object-contain"
                                     />
                                     <span>{{ tech.name }}</span>

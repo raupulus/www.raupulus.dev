@@ -494,6 +494,7 @@
                 </div>
 
                 <!-- Grid de artículos -->
+                <h2 class="sr-only">Listado de artículos del blog</h2>
                 <div
                     v-if="datas.contents && datas.contents.length"
                     class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
@@ -661,13 +662,15 @@
                                     :key="tech.slug"
                                     class="flex items-center gap-2 px-3 py-1.5 bg-surface-container-lowest/80 rounded-lg border border-outline-variant/30 text-xs font-body text-on-surface"
                                 >
-                                    <NuxtImg
+                                    <img
                                         v-if="tech.image"
                                         :src="tech.image"
-                                        :alt="tech.name"
+                                        :alt="'Logotipo de ' + tech.name"
                                         :title="tech.name"
                                         width="18"
                                         height="18"
+                                        loading="lazy"
+                                        decoding="async"
                                         class="w-4 h-4 object-contain"
                                     />
                                     <span>{{ tech.name }}</span>
@@ -958,12 +961,14 @@
                                         :key="tech.slug"
                                         class="flex items-center gap-1.5 px-2.5 py-1 bg-surface-container-high rounded-md border border-outline-variant/20 text-[11px] text-on-surface"
                                     >
-                                        <NuxtImg
+                                        <img
                                             v-if="tech.image"
                                             :src="tech.image"
-                                            :alt="tech.name"
+                                            :alt="'Logotipo de ' + tech.name"
                                             width="14"
                                             height="14"
+                                            loading="lazy"
+                                            decoding="async"
                                             class="w-3.5 h-3.5 object-contain"
                                         />
                                         <span>{{ tech.name }}</span>
@@ -1224,9 +1229,9 @@
                             <span class="font-label text-secondary tracking-widest text-xs uppercase block"
                                 >Continúa leyendo</span
                             >
-                            <h3 class="font-headline text-2xl sm:text-3xl font-bold tracking-tight">
+                            <h2 class="font-headline text-2xl sm:text-3xl font-bold tracking-tight">
                                 Artículos Relacionados
-                            </h3>
+                            </h2>
                         </div>
                     </div>
 

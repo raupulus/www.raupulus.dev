@@ -14,15 +14,20 @@
                 'border border-outline-variant/30 shadow-md': image.data.withBorder || !image.data.withBackground,
             }"
         >
-            <NuxtImg
-                :src="image.data.file?.url || image.data.file?.url_thumbnail || ''"
+            <img
+                :src="image.data.file?.url_large || image.data.file?.url_thumbnail || image.data.file?.url || ''"
                 class="w-full max-h-[550px] object-contain rounded-t-xl"
-                :data-url_medium="image.data.file?.url"
-                :data-url_full="image.data.file?.url_large"
-                :alt="cleanCaption || image.data.file?.name || 'Imagen del proyecto'"
-                :title="cleanCaption || image.data.file?.name || ''"
+                :data-url_medium="image.data.file?.url_thumbnail || image.data.file?.url"
+                :data-url_full="image.data.file?.url_large || image.data.file?.url"
+                :alt="
+                    cleanCaption ||
+                    image.data.file?.alt ||
+                    image.data.file?.name ||
+                    'Fotografía descriptiva del contenido'
+                "
+                :title="cleanCaption || image.data.file?.title || image.data.file?.name || ''"
                 loading="lazy"
-                format="webp"
+                decoding="async"
             />
 
             <figcaption

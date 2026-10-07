@@ -5,7 +5,18 @@ test.use({
 });
 
 test.describe('Responsive en 320px (Mobile Estricto)', () => {
-    const pagesToCheck = ['/', '/projects/', '/about/', '/contact/', '/legal/'];
+    const pagesToCheck = [
+        '/',
+        '/projects/',
+        '/blog/',
+        '/about/',
+        '/contact/',
+        '/webs/',
+        '/social/',
+        '/legal/',
+        '/privacy/',
+        '/cookies/',
+    ];
 
     for (const route of pagesToCheck) {
         test(`la página ${route} no tiene desbordamiento horizontal en 320px`, async ({ page }) => {

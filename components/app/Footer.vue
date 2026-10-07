@@ -29,7 +29,6 @@
                 <button
                     type="button"
                     class="font-body text-xs tracking-widest uppercase text-on-surface-variant hover:text-tertiary transition-colors cursor-pointer bg-transparent border-none p-0"
-                    aria-label="Abrir panel de configuración de cookies"
                     @click="openCookiePreferences"
                 >
                     Preferencias de Cookies

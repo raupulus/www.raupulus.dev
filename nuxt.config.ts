@@ -272,7 +272,22 @@ export default defineNuxtConfig({
                 return pageUrls;
             });
 
-            return [...projectUrls, ...blogUrls];
+            const catalogUrls: SitemapItem[] = [
+                {
+                    loc: '/projects/',
+                    changefreq: 'daily',
+                    priority: 0.9,
+                    lastmod: new Date().toISOString(),
+                },
+                {
+                    loc: '/blog/',
+                    changefreq: 'daily',
+                    priority: 0.9,
+                    lastmod: new Date().toISOString(),
+                },
+            ];
+
+            return [...catalogUrls, ...projectUrls, ...blogUrls];
         },
         defaults: {
             changefreq: 'weekly',

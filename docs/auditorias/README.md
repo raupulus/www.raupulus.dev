@@ -6,7 +6,8 @@ Este directorio almacena el historial y los informes de las auditorías de calid
 
 | Fecha | Proceso | Rama | Estado | Informe |
 | --- | --- | --- | --- | --- |
-| 2026-10-07 | Posicionamiento SEO, UX y Accesibilidad (WCAG) | `dev` | Propuestas generadas | [2026-10-07-propuestas](./2026-10-07-propuestas-posicionamiento-ux-accesibilidad.md) |
+| 2026-10-07 | Auditoría Integral UI/UX, SEO, Responsive, WebP y WCAG | `dev` | 100 % Aprobado (Lighthouse 100/100/100) | [2026-10-07-auditoria-integral](./2026-10-07-auditoria-ui-ux-seo-responsive-webp-wcag.md) |
+| 2026-10-07 | Posicionamiento SEO, UX y Accesibilidad (WCAG) | `dev` | Propuestas implementadas | [2026-10-07-propuestas](./2026-10-07-propuestas-posicionamiento-ux-accesibilidad.md) |
 | 2026-10-05 | Remediación de Auditoría | `remediacion/auditoria-2026-10-04` | 100 % completado | [2026-10-04-remediacion](./2026-10-04-remediacion/README.md) |
 
 ---

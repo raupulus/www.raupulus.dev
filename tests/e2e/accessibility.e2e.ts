@@ -2,7 +2,18 @@ import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
 test.describe('Accesibilidad WCAG 2.1 AA (Axe-core)', () => {
-    const pagesToCheck = ['/', '/about/', '/legal/', '/privacy/', '/cookies/'];
+    const pagesToCheck = [
+        '/',
+        '/about/',
+        '/projects/',
+        '/blog/',
+        '/contact/',
+        '/webs/',
+        '/social/',
+        '/legal/',
+        '/privacy/',
+        '/cookies/',
+    ];
 
     for (const route of pagesToCheck) {
         test(`la página ${route} no contiene violaciones críticas de accesibilidad`, async ({ page }) => {

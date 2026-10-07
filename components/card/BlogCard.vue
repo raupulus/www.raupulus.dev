@@ -37,7 +37,7 @@
                 height="300"
                 loading="lazy"
                 decoding="async"
-                :alt="data.title"
+                :alt="'Portada del artículo: ' + data.title"
                 :title="data.title"
                 class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 @load="onImageLoaded"

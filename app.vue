@@ -81,7 +81,7 @@
                             name: 'Raúl Caro Pastorino',
                             alternateName: 'raupulus',
                             url: siteUrl,
-                            image: siteUrl + '/logo_512x512.png',
+                            image: siteUrl + '/logo_512x512.webp',
                             jobTitle: 'Desarrollador Full Stack Senior · Backend Laravel · IA aplicada',
                             description:
                                 'Desarrollador Full Stack Senior con más de 15 años de experiencia, especializado en PHP/Laravel, IA aplicada en producción (RAG y agentes), bases de datos PostgreSQL, hardware propio y sistemas GNU/Linux.',

@@ -5,6 +5,7 @@ export default withNuxt({
     ignores: ['.venv*/**', 'venv/**'],
     rules: {
         'vue/multi-word-component-names': 'off',
+        'vue/html-self-closing': 'off',
         'vue/no-v-html': 'warn',
         '@typescript-eslint/no-explicit-any': 'warn',
         'no-console': ['warn', { allow: ['warn', 'error'] }],

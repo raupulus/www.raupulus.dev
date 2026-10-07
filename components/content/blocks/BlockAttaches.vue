@@ -13,11 +13,12 @@
                 v-if="attaches.data.file.url_thumbnail"
                 class="w-12 h-12 rounded-lg overflow-hidden shrink-0 bg-surface-container-low flex items-center justify-center"
             >
-                <NuxtImg
+                <img
                     :src="attaches.data.file.url_thumbnail"
-                    :alt="attaches.data.title || 'Adjunto'"
+                    :alt="'Miniatura del archivo adjunto: ' + (attaches.data.title || attaches.data.file.name)"
                     class="w-full h-full object-cover"
                     loading="lazy"
+                    decoding="async"
                 />
             </div>
 
@@ -25,11 +26,12 @@
                 v-else-if="attaches.data.file.file_type_image"
                 class="w-12 h-12 rounded-lg overflow-hidden shrink-0 bg-surface-container-low flex items-center justify-center"
             >
-                <NuxtImg
+                <img
                     :src="attaches.data.file.file_type_image"
-                    :alt="attaches.data.title || 'Adjunto'"
+                    :alt="'Icono de tipo de archivo: ' + (attaches.data.file.extension || 'adjunto')"
                     class="w-full h-full object-cover"
                     loading="lazy"
+                    decoding="async"
                 />
             </div>
 
