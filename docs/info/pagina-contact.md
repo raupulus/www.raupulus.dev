@@ -58,21 +58,26 @@ interface FormData {
     - Comprueba trampas anti-bot (honeypot, tiempo mínimo) y bloqueo de doble envío
     - Verifica token de Cloudflare Turnstile (`turnstileToken`)
     - Envía `POST /contact-messages` (API V2, via `fetchPost`, con cookie CSRF de Laravel Sanctum) con los datos + `cf-turnstile-response` y `turnstile_token`
-    - **El servidor Laravel valida el token Turnstile contra Cloudflare, guarda el mensaje y decide si lo reenvía por correo**
-4. **Paso 3**: Muestra resultado (éxito o errores devueltos por la API) y resetea el widget Turnstile
+4. **Paso 3**: Muestra resultado (éxito o errores devueltos por la API) y resetea el widget Turnstile.
+5. **Post-envío exitoso (Cooldown & Limpieza)**:
+    - **Limpieza del formulario (`resetForm()`)**: Se vacían todos los campos de texto (`name`, `email`, `subject`, `message`), se desmarcan los checkboxes de privacidad y consentimiento, y se limpian los estados de validación/errores y honeypot.
+    - **Temporizador de enfriamiento (5 minutos / 300 s)**: Se activa un cooldown con persistencia en `localStorage` (`contact_cooldown_until`) para evitar que el usuario vuelva a enviar el formulario de inmediato, incluso tras recargar la página.
+    - **Botón de envío deshabilitado**: Muestra el temporizador regresivo (`Enviar Mensaje (MM:SS)`) y bloquea cualquier intento de envío o apertura del modal.
+    - **Banner visual superior**: Se muestra una alerta destacada encima del formulario informando de que el mensaje fue recibido recientemente, que se responderá lo antes posible y mostrando la cuenta atrás de reactivación.
 
 ## Seguridad anti-bots
 
-| Medida               | Dónde                  | Detalle                                                                                                                                                                                                 |
-| -------------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Cloudflare Turnstile | Cliente + **servidor** | Token generado por el widget (`cf-turnstile-response` / `turnstile_token`); la API lo valida con la clave secreta en Cloudflare. Si es inválido responde `422` y no guarda el mensaje                   |
-| CSRF (Sanctum)       | Cliente + servidor     | `fetchPost` obtiene `XSRF-TOKEN` de `{API_DOMAIN_URL}/sanctum/csrf-cookie`, la decodifica (viene URL-encoded) y la envía en `X-XSRF-TOKEN`; sin ella la API responde `419`. Se pre-carga en `onMounted` |
-| Honeypot             | Cliente                | Campo oculto `website` (off-screen, `tabindex=-1`, `aria-hidden`). Si llega relleno se simula éxito sin llamar a la API                                                                                 |
-| Tiempo mínimo        | Cliente                | Envíos antes de 3 s desde la carga se tratan como bot (éxito simulado)                                                                                                                                  |
-| Doble envío          | Cliente                | Flag `isSubmitting` impide peticiones concurrentes                                                                                                                                                      |
-| Límites duros        | Cliente + servidor     | `maxlength` en inputs además de las validaciones JS; el servidor revalida todo                                                                                                                          |
-| Límite de envíos     | Servidor               | 5 mensajes/hora por IP; pasado responde `429`                                                                                                                                                           |
-| Prioridad / spam     | Servidor               | La API puntúa el mensaje (turnstile, dominio, enlaces, referer…) y sólo reenvía los de prioridad suficiente; nunca se lo dice al remitente                                                              |
+| Medida               | Dónde                    | Detalle                                                                                                                                                                                                 |
+| -------------------- | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Cloudflare Turnstile | Cliente + **servidor**   | Token generado por el widget (`cf-turnstile-response` / `turnstile_token`); la API lo valida con la clave secreta en Cloudflare. Si es inválido responde `422` y no guarda el mensaje                   |
+| CSRF (Sanctum)       | Cliente + servidor       | `fetchPost` obtiene `XSRF-TOKEN` de `{API_DOMAIN_URL}/sanctum/csrf-cookie`, la decodifica (viene URL-encoded) y la envía en `X-XSRF-TOKEN`; sin ella la API responde `419`. Se pre-carga en `onMounted` |
+| Honeypot             | Cliente                  | Campo oculto `website` (off-screen, `tabindex=-1`, `aria-hidden`). Si llega relleno se simula éxito sin llamar a la API                                                                                 |
+| Tiempo mínimo        | Cliente                  | Envíos antes de 3 s desde la carga se tratan como bot (éxito simulado)                                                                                                                                  |
+| Doble envío          | Cliente                  | Flag `isSubmitting` impide peticiones concurrentes                                                                                                                                                      |
+| Cooldown (5 min)     | Cliente (`localStorage`) | Tras un envío correcto, el botón se bloquea durante 5 minutos mostrando un contador regresivo y se muestra un banner superior para evitar spam y envíos duplicados                                      |
+| Límites duros        | Cliente + servidor       | `maxlength` en inputs además de las validaciones JS; el servidor revalida todo                                                                                                                          |
+| Límite de envíos     | Servidor                 | 5 mensajes/hora por IP; pasado responde `429`                                                                                                                                                           |
+| Prioridad / spam     | Servidor                 | La API puntúa el mensaje (turnstile, dominio, enlaces, referer…) y sólo reenvía los de prioridad suficiente; nunca se lo dice al remitente                                                              |
 
 ## Formatos de respuesta de la API que maneja el cliente
 

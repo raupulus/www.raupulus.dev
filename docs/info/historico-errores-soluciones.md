@@ -105,4 +105,3 @@
     - **Resolución local en Apache (`--resolve`):** Se adaptaron `check_status` y `curl` en `scripts/deploy.sh` para forzar `--resolve "raupulus.dev:443:127.0.0.1" --resolve "raupulus.dev:80:127.0.0.1"`, validando directamente contra la instancia local de Apache vía loopback sin dependencia de Cloudflare ni latencia WAN.
     - **Validación dual determinista:** Se añadió verificación física del fichero en disco (`$RELEASE_PATH/projects/index.html`) previa a la consulta HTTP.
     - **Purga automática de Cloudflare en GoCD:** Se configuraron `CLOUDFLARE_ZONE_ID` y `CLOUDFLARE_API_TOKEN` (cifrado con AES en GoCD) para purgar automáticamente la caché tras cada despliegue atómico exitoso.
-

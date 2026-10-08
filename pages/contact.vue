@@ -59,6 +59,14 @@
         fetchCsrfToken().catch(() => {
             /* se reintentará al enviar */
         });
+        initCooldown();
+    });
+
+    onBeforeUnmount(() => {
+        if (cooldownTimer) {
+            clearInterval(cooldownTimer);
+            cooldownTimer = null;
+        }
     });
 
     interface Validation {
@@ -275,9 +283,119 @@ watch(dataForm.value.message.value, async () => {
         }
     };
 
+    const COOLDOWN_KEY = 'contact_cooldown_until';
+    const COOLDOWN_SECONDS = 300; // 5 minutos de espera entre envíos
+
+    const cooldownRemaining = ref(0);
+    let cooldownTimer: ReturnType<typeof setInterval> | null = null;
+
+    const formattedCooldown = computed(() => {
+        const mins = Math.floor(cooldownRemaining.value / 60);
+        const secs = cooldownRemaining.value % 60;
+        return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    });
+
+    const getStorageItem = (key: string): string | null => {
+        if (!import.meta.client || typeof window === 'undefined' || !window.localStorage) {
+            return null;
+        }
+        try {
+            return window.localStorage.getItem(key);
+        } catch {
+            return null;
+        }
+    };
+
+    const setStorageItem = (key: string, value: string): void => {
+        if (!import.meta.client || typeof window === 'undefined' || !window.localStorage) {
+            return;
+        }
+        try {
+            window.localStorage.setItem(key, value);
+        } catch {
+            // Ignorar errores si el almacenamiento está restringido
+        }
+    };
+
+    const removeStorageItem = (key: string): void => {
+        if (!import.meta.client || typeof window === 'undefined' || !window.localStorage) {
+            return;
+        }
+        try {
+            window.localStorage.removeItem(key);
+        } catch {
+            // Ignorar
+        }
+    };
+
+    const startCooldown = (seconds: number): void => {
+        if (cooldownTimer) {
+            clearInterval(cooldownTimer);
+            cooldownTimer = null;
+        }
+        cooldownRemaining.value = seconds;
+        const until = Date.now() + seconds * 1000;
+        setStorageItem(COOLDOWN_KEY, until.toString());
+
+        cooldownTimer = setInterval(() => {
+            cooldownRemaining.value -= 1;
+            if (cooldownRemaining.value <= 0) {
+                cooldownRemaining.value = 0;
+                if (cooldownTimer) {
+                    clearInterval(cooldownTimer);
+                    cooldownTimer = null;
+                }
+                removeStorageItem(COOLDOWN_KEY);
+            }
+        }, 1000);
+    };
+
+    const initCooldown = (): void => {
+        const stored = getStorageItem(COOLDOWN_KEY);
+        if (stored) {
+            const until = parseInt(stored, 10);
+            if (!Number.isNaN(until)) {
+                const remaining = Math.ceil((until - Date.now()) / 1000);
+                if (remaining > 0) {
+                    startCooldown(remaining);
+                    return;
+                }
+            }
+            removeStorageItem(COOLDOWN_KEY);
+        }
+    };
+
+    const resetForm = (): void => {
+        dataForm.value.valid = false;
+        const textFields = ['name', 'email', 'subject', 'message'] as const;
+        textFields.forEach((key) => {
+            const field = dataForm.value[key];
+            if (isFormField(field)) {
+                field.value = '';
+                field.valid = false;
+                field.errors = [];
+            }
+        });
+        const boolFields = ['privacity', 'consent'] as const;
+        boolFields.forEach((key) => {
+            const field = dataForm.value[key];
+            if (isFormField(field)) {
+                field.value = false;
+                field.valid = false;
+                field.errors = [];
+            }
+        });
+        honeypot.value = '';
+        turnstileToken.value = '';
+        turnstileRef.value?.reset();
+    };
+
     // Enviar el formulario con Enter pasa por la misma validación y confirmación que el botón
     const onSubmit = async (e: Event) => {
         e.preventDefault();
+        if (cooldownRemaining.value > 0 || isSubmitting.value) {
+            return;
+        }
         await showConfirmModal(e);
     };
 
@@ -307,6 +425,8 @@ watch(dataForm.value.message.value, async () => {
             info.messages.errors = [];
             info.messages.success = ['El mensaje se ha enviado correctamente'];
             info.step = 3;
+            resetForm();
+            startCooldown(COOLDOWN_SECONDS);
             return;
         }
 
@@ -344,6 +464,8 @@ watch(dataForm.value.message.value, async () => {
                 if (response.success) {
                     info.messages.errors = [];
                     info.messages.success = [response.message || 'Mensaje recibido correctamente'];
+                    resetForm();
+                    startCooldown(COOLDOWN_SECONDS);
                 } else {
                     // 422 (validación o captcha) y 429 (límite de envíos) traen el detalle aquí
                     info.messages.success = [];
@@ -414,7 +536,7 @@ watch(dataForm.value.message.value, async () => {
     const showConfirmModal = async (e: Event): Promise<void> => {
         e.preventDefault();
 
-        if (!formIsValid()) {
+        if (cooldownRemaining.value > 0 || !formIsValid()) {
             return;
         }
 
@@ -445,6 +567,38 @@ watch(dataForm.value.message.value, async () => {
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <!-- Columna formulario -->
                 <div class="lg:col-span-2">
+                    <!-- Mensaje visual de envío reciente y temporizador de espera -->
+                    <div
+                        v-if="cooldownRemaining > 0"
+                        class="mb-6 p-6 rounded-xl bg-gradient-to-r from-primary/15 via-surface-container-high to-surface-container-high border-2 border-primary/50 shadow-[0_0_30px_rgba(163,201,255,0.15)] flex flex-col sm:flex-row items-start sm:items-center gap-5"
+                        role="status"
+                        aria-live="polite"
+                    >
+                        <div
+                            class="w-14 h-14 rounded-xl bg-primary/20 border border-primary/40 flex items-center justify-center text-primary text-3xl shrink-0 shadow-inner"
+                        >
+                            <UiMaterialIcon name="check_circle" />
+                        </div>
+                        <div class="flex-1 space-y-1.5">
+                            <div class="flex flex-wrap items-center gap-2.5">
+                                <h3 class="font-headline font-bold text-primary text-lg sm:text-xl tracking-tight">
+                                    ¡Mensaje enviado correctamente!
+                                </h3>
+                                <span
+                                    class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-semibold bg-primary/20 text-primary border border-primary/40 shadow-sm"
+                                >
+                                    <UiMaterialIcon name="schedule" class="text-xs" />
+                                    <span>Reactivación en {{ formattedCooldown }}</span>
+                                </span>
+                            </div>
+                            <p class="text-on-surface text-sm sm:text-base leading-relaxed">
+                                He recibido tu consulta recientemente y te responderé lo antes posible. Para evitar
+                                envíos duplicados o saturación, el formulario permanecerá en pausa durante este breve
+                                intervalo.
+                            </p>
+                        </div>
+                    </div>
+
                     <form
                         class="bg-surface-container-high rounded-xl border border-outline-variant/20 p-8 space-y-6"
                         @submit.prevent="onSubmit"
@@ -789,9 +943,20 @@ watch(dataForm.value.message.value, async () => {
                         <div class="pt-4">
                             <button
                                 type="submit"
-                                class="px-8 py-4 bg-gradient-to-br from-primary to-primary-container text-on-primary font-headline font-bold text-sm tracking-widest uppercase rounded-lg hover:scale-95 transition-all duration-300"
+                                :disabled="isSubmitting || cooldownRemaining > 0"
+                                :class="[
+                                    'px-8 py-4 font-headline font-bold text-sm tracking-widest uppercase rounded-lg transition-all duration-300',
+                                    cooldownRemaining > 0 || isSubmitting
+                                        ? 'bg-surface-container-highest text-on-surface-variant/50 cursor-not-allowed border border-outline-variant/30'
+                                        : 'bg-gradient-to-br from-primary to-primary-container text-on-primary hover:scale-95 shadow-md hover:shadow-primary/20 cursor-pointer',
+                                ]"
                             >
-                                Enviar Mensaje
+                                <span v-if="cooldownRemaining > 0" class="flex items-center gap-2">
+                                    <UiMaterialIcon name="schedule" class="text-base" />
+                                    <span>Enviar Mensaje ({{ formattedCooldown }})</span>
+                                </span>
+                                <span v-else-if="isSubmitting">Enviando...</span>
+                                <span v-else>Enviar Mensaje</span>
                             </button>
                         </div>
                     </form>
