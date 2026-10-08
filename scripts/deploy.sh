@@ -81,7 +81,7 @@ check_status() {
     local url="$1"
     local expected="$2"
     local code
-    code=$(curl -s -o /dev/null -w "%{http_code}" "$url" || echo "000")
+    code=$(curl -s -o /dev/null -w "%{http_code}" --resolve "raupulus.dev:443:127.0.0.1" --resolve "raupulus.dev:80:127.0.0.1" "$url" || echo "000")
     if [ "$code" = "$expected" ]; then
         echo "  [OK] $url -> HTTP $code"
     else
@@ -103,11 +103,20 @@ check_status "https://raupulus.dev/images/technologies/php_60x60.webp" "200"
 check_status "https://raupulus.dev/images/icons/social/github.svg" "200"
 check_status "https://raupulus.dev/images/pages/about/gallery/1_250px.webp" "200"
 
-PROJECTS_HTML=$(curl -fsSL "https://raupulus.dev/projects/" 2>/dev/null || true)
-if echo "$PROJECTS_HTML" | grep -q "Portada del proyecto"; then
-    echo "  [OK] https://raupulus.dev/projects/ contiene proyectos prerenderizados"
+# 1. Comprobación determinista en disco (ficheros generados en la release)
+if [ -f "$RELEASE_PATH/projects/index.html" ] && grep -q "Portada del proyecto" "$RELEASE_PATH/projects/index.html"; then
+    echo "  [OK] Release local contiene proyectos prerenderizados en disco"
 else
-    echo "  [FALLO] https://raupulus.dev/projects/ no contiene proyectos prerenderizados" >&2
+    echo "  [FALLO] Release local no contiene proyectos prerenderizados en disco" >&2
+    FAILED_TESTS=$((FAILED_TESTS + 1))
+fi
+
+# 2. Comprobación a través de Apache local vía loopback (sin intermediación ni colisiones de Cloudflare)
+PROJECTS_HTML=$(curl -fsSL --compressed --resolve "raupulus.dev:443:127.0.0.1" "https://raupulus.dev/projects/" 2>/dev/null || true)
+if echo "$PROJECTS_HTML" | grep -q "Portada del proyecto"; then
+    echo "  [OK] https://raupulus.dev/projects/ (Apache local) sirve proyectos prerenderizados"
+else
+    echo "  [FALLO] https://raupulus.dev/projects/ (Apache local) no contiene proyectos prerenderizados" >&2
     FAILED_TESTS=$((FAILED_TESTS + 1))
 fi
 

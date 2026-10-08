@@ -87,3 +87,22 @@
         ```
     - `assemble-static.mjs` realiza la copia recursiva y explícita de `public/`, `.nuxt/dist/client/_nuxt/` y las fuentes de `.nuxt/cache/fonts` y `public/_fonts/` directamente hacia `.output/public/`.
     - Las 11 fuentes Google Fonts oficiales (Inter, Space Grotesk, Roboto Mono, Fira Code, Outfit) se almacenan localmente en `public/_fonts/` para garantizar un build determinista, offline e independiente de servicios externos.
+
+---
+
+## 5. Rollback indeseado en despliegue de GoCD por smoke tests contra Cloudflare
+
+- **Fecha de incidencia:** 2026-10-08
+- **Síntomas:**
+    - GoCD reporta fallo en la etapa de despliegue (`Prepare-and-Deploy`, exit code 1) en `deploy.sh`.
+    - El build SSG en Nuxt genera correctamente todos los assets y las 16 rutas de proyectos, pero al final del job se ejecuta un rollback automático restaurando la release anterior (`/var/www/releases/www.raupulus.dev_...`), impidiendo que los cambios recientes se publiquen.
+- **Causa Raíz:**
+    - En `scripts/deploy.sh`, las pruebas de humo (`smoke tests`) ejecutaban `curl -fsSL "https://raupulus.dev/..."` sin especificar resolución local.
+    - Como el dominio `raupulus.dev` resuelve en el host a las IPs Anycast de Cloudflare, las consultas salían a los servidores perimetrales (edge) de Cloudflare.
+    - Debido a la caché perimetral previa (no purgada automáticamente por falta de variables en el pipeline) o al rate limiting por ráfaga rápida de 13 peticiones de curl consecutivas, la petición `curl -fsSL "https://raupulus.dev/projects/"` fallaba o recibía HTML antiguo/vacío.
+    - `deploy.sh` interpretaba esto como una compilación rota y forzaba el rollback automático del symlink a la release previa.
+- **Solución Aplicada:**
+    - **Resolución local en Apache (`--resolve`):** Se adaptaron `check_status` y `curl` en `scripts/deploy.sh` para forzar `--resolve "raupulus.dev:443:127.0.0.1" --resolve "raupulus.dev:80:127.0.0.1"`, validando directamente contra la instancia local de Apache vía loopback sin dependencia de Cloudflare ni latencia WAN.
+    - **Validación dual determinista:** Se añadió verificación física del fichero en disco (`$RELEASE_PATH/projects/index.html`) previa a la consulta HTTP.
+    - **Purga automática de Cloudflare en GoCD:** Se configuraron `CLOUDFLARE_ZONE_ID` y `CLOUDFLARE_API_TOKEN` (cifrado con AES en GoCD) para purgar automáticamente la caché tras cada despliegue atómico exitoso.
+

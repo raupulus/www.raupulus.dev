@@ -440,24 +440,6 @@ watch(dataForm.value.message.value, async () => {
             </p>
         </div>
 
-        <!-- Aviso temporal -->
-        <div class="px-8 pb-8 max-w-7xl mx-auto">
-            <div class="p-6 bg-secondary/5 border border-secondary/30 rounded-xl flex items-start gap-4">
-                <UiMaterialIcon class="text-secondary shrink-0 mt-0.5" name="info" />
-                <div>
-                    <p class="text-on-surface-variant text-sm leading-relaxed mb-1">
-                        Fuera de servicio temporalmente mientras termino de implementar medidas de seguridad antibots y
-                        antispam usando IA propia para ello.
-                    </p>
-                    <p class="text-on-surface-variant text-sm leading-relaxed">
-                        Puedes contactarme mediante alguna de las
-                        <NuxtLink to="/social/" class="text-tertiary hover:underline">redes sociales</NuxtLink>
-                        con una cuenta real y te contestaré en cuanto me sea posible.
-                    </p>
-                </div>
-            </div>
-        </div>
-
         <!-- Formulario -->
         <div class="px-8 pb-24 max-w-7xl mx-auto">
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
