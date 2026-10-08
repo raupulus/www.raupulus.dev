@@ -1,8 +1,10 @@
 <template>
     <div class="circuit-pattern">
         <!-- ===== HERO ===== -->
-        <section class="relative min-h-[80vh] flex items-center px-8 overflow-hidden">
-            <div class="absolute inset-0 z-0 opacity-20 pointer-events-none">
+        <section
+            class="relative min-h-[80vh] flex items-center px-4 sm:px-8 pt-8 pb-16 sm:py-16 lg:py-0 overflow-hidden"
+        >
+            <div class="absolute inset-0 z-0 opacity-20 pointer-events-none overflow-hidden">
                 <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-primary-container rounded-full blur-[128px]" />
                 <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-tertiary-container rounded-full blur-[128px]" />
             </div>
@@ -85,13 +87,13 @@
                 </div>
 
                 <!-- Decoración derecha -->
-                <div class="lg:col-span-4 flex items-center justify-center relative">
-                    <div class="relative w-full aspect-square max-w-md">
+                <div class="lg:col-span-4 flex items-center justify-center relative py-6 sm:py-8 lg:py-0">
+                    <div class="relative w-full aspect-square max-w-sm sm:max-w-md">
                         <div
                             class="absolute inset-0 glass-panel rounded-xl border border-outline-variant/30 flex items-center justify-center p-8"
                         >
                             <div
-                                class="w-full h-full relative border border-dashed border-tertiary/20 rounded-full flex items-center justify-center p-12"
+                                class="w-full h-full relative border border-dashed border-tertiary/20 rounded-full flex items-center justify-center p-8 sm:p-12"
                             >
                                 <div
                                     class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-tertiary animate-[pulse-glow_2s_ease-in-out_infinite] shadow-[0_0_15px_rgba(76,214,255,0.8)]"
@@ -99,19 +101,19 @@
                                 <div
                                     class="w-full h-full border border-primary/40 rounded-full flex items-center justify-center"
                                 >
-                                    <UiMaterialIcon class="text-7xl text-primary" name="memory" />
+                                    <UiMaterialIcon class="text-6xl sm:text-7xl text-primary" name="memory" />
                                 </div>
                             </div>
                         </div>
                         <div
-                            class="absolute -top-4 -right-4 glass-panel px-4 py-2 border border-secondary/40 rounded-lg"
+                            class="absolute -top-4 -right-2 sm:-right-4 glass-panel px-3 sm:px-4 py-1.5 sm:py-2 border border-secondary/40 rounded-lg shadow-lg z-10"
                         >
                             <span class="font-label text-xs text-secondary tracking-widest uppercase"
                                 >Open Source desde 2001</span
                             >
                         </div>
                         <div
-                            class="absolute -bottom-6 -left-4 glass-panel px-4 py-2 border border-tertiary/40 rounded-lg flex items-center gap-2"
+                            class="absolute -bottom-5 sm:-bottom-6 -left-2 sm:-left-4 glass-panel px-3 sm:px-4 py-1.5 sm:py-2 border border-tertiary/40 rounded-lg flex items-center gap-2 shadow-lg z-10"
                         >
                             <span class="w-2 h-2 rounded-full bg-tertiary" />
                             <span class="font-label text-xs text-on-surface tracking-widest uppercase"
