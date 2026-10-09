@@ -15,7 +15,7 @@ Listado estático de sitios web creados y publicados por el autor.
 
 ## Datos estáticos
 
-Array `webs` con 8 sitios web. Cada entrada:
+Array `webs` con 9 sitios web. Cada entrada:
 
 | Campo         | Tipo       | Descripción              |
 | ------------- | ---------- | ------------------------ |
@@ -34,7 +34,8 @@ Array `webs` con 8 sitios web. Cada entrada:
 5. **Curriculum Vitae Online** — Versión web interactiva del CV (`CV`, `Perfil Profesional`, `HTML/CSS`)
 6. **AI Dyslexic** — Generación automatizada de imágenes con IA para redes sociales (`AI`, `Python`, `Automatización`)
 7. **Raupulus Music** — Sitio oficial de música y videoclips generados con IA cinematográfica (`Música`, `Metal Industrial`, `IA`, `Videoclips`)
-8. **Portfolio Web Personal** — Este mismo sitio web (`Nuxt.js`, `Vue.js`, `Portfolio`)
+8. **Andalucía Mesh** — Red regional comunitaria LoRa Meshtastic en Andalucía (`Meshtastic`, `LoRa`, `IoT`, `Hardware`)
+9. **Portfolio Web Personal** — Este mismo sitio web (`Nuxt.js`, `Vue.js`, `Portfolio`)
 
 ## Template
 

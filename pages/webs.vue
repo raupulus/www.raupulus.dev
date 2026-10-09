@@ -101,6 +101,14 @@
             tags: ['Música', 'Metal Industrial', 'IA', 'Videoclips'],
         },
         {
+            title: 'Andalucía Mesh',
+            image: '/images/icons/webs/mesh.webp',
+            description:
+                'Red regional comunitaria de radioenlaces LoRa Meshtastic en Andalucía: comunicación libre y descentralizada sin internet, telemetría y estado de la red en tiempo real.',
+            url: 'https://mesh.desdechipiona.es/',
+            tags: ['Meshtastic', 'LoRa', 'IoT', 'Hardware'],
+        },
+        {
             title: 'Portfolio Web Personal',
             image: '/logo_128x128.webp',
             description: 'Esta es mi web personal, donde comparto mis proyectos y experiencia.',
