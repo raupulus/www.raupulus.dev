@@ -36,10 +36,11 @@ Página con listado paginado de proyectos consumidos desde la API, con búsqueda
 2. **Modo Detalle (`/projects/:slug/` y `/projects/:slug/:page/`)**:
     - Prerenderizado estático (SSG) mediante `useAsyncData('project-detail-' + slug, ...)`.
     - Si no existe el proyecto o subpágina (tanto en SSR/SSG como en navegación cliente), lanza error 404 real (`createError({ statusCode: 404, fatal: true })`, U-BUG-006).
+    - **Prevención de contenido duplicado (U-SEO-003)**: Si se accede a la subpágina que corresponde a la primera página (`order === 1` o slug igual a `first_page.slug`), se redirige mediante 301 a la raíz del proyecto (`/projects/:slug/`). En el prerender y en `sitemap.xml` se excluye la primera subpágina, sirviéndose únicamente la portada del proyecto.
     - Carga la página activa y sus bloques de contenido EditorJS normalizados con `normalizePage()`.
     - Renderiza un único `<h1>` por página (el título del proyecto o subpágina), migas de pan semánticas y enlaces entre páginas.
 3. **SEO y Metadatos**:
-    - `useHead()` reactivo con título contextualizado, descripción, canonical exacto con barra final y `og:image`.
+    - `useHead()` reactivo con título contextualizado, descripción, canonical exacto con barra final y `og:image`. En la primera página o portada, el canonical apunta siempre a la URL raíz del proyecto (`https://raupulus.dev/projects/:slug/`).
     - Esquemas JSON-LD Schema.org embebidos: `BreadcrumbList` y `SoftwareSourceCode` (o `CreativeWork`).
 
 ## Endpoints API consumidos (API V2)

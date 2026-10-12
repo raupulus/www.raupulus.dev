@@ -199,7 +199,11 @@ export default defineNuxtConfig({
 
                 const projectUrls = projects.flatMap((project) => {
                     const mainProjectUrl = `/projects/${project.slug}/`;
-                    const pageUrls = project.pages?.map((page) => `/projects/${project.slug}/${page.slug}/`) ?? [];
+                    // Omitir la primera página (order === 1) porque ya se sirve y prerenderiza en la portada del proyecto
+                    const pageUrls =
+                        project.pages
+                            ?.filter((page) => page.order !== 1 && page.slug !== project.first_page?.slug)
+                            .map((page) => `/projects/${project.slug}/${page.slug}/`) ?? [];
                     return [mainProjectUrl, ...pageUrls];
                 });
 

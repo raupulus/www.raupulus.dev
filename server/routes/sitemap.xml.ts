@@ -88,7 +88,9 @@ export async function generateSitemapXml(): Promise<string> {
             const projects: ContentType[] = await usefetchProjectsPaginated(apiBase);
             for (const project of projects) {
                 routeSet.add(`/projects/${project.slug}/`);
-                project.pages?.forEach((p) => routeSet.add(`/projects/${project.slug}/${p.slug}/`));
+                project.pages
+                    ?.filter((p) => p.order !== 1 && p.slug !== project.first_page?.slug)
+                    .forEach((p) => routeSet.add(`/projects/${project.slug}/${p.slug}/`));
             }
         } catch {
             // Continuar

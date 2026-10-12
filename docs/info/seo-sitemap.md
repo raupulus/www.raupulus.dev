@@ -100,37 +100,22 @@ El blog ofrece un feed RSS 2.0 estándar generado por Nitro que sindica todas la
 
 ## Sitemap XML (`@nuxtjs/sitemap`)
 
-### Configuración
+### Generador Nativo de Sitemap (`server/routes/sitemap.xml.ts`)
+
+El sitemap se genera dinámicamente mediante el endpoint nativo Nitro en `server/routes/sitemap.xml.ts`, garantizando URLs con barra final (`trailingSlash: true`) y evitando contenido duplicado:
 
 ```typescript
-sitemap: {
-  exclude: ['/admin/**', '/login'],
-  urls: async () => {
-    const projects = await usefetchProjectsPaginated();
-    const blogPosts = await useFetchBlogPaginated();
-
-    const projectUrls = projects.flatMap(project => [
-      { loc: `/projects/${project.slug}`, changefreq: 'weekly', priority: 0.9, lastmod: project.updated_at },
-      ...project.pages?.map(page => ({
-        loc: `/projects/${project.slug}/${page.slug}`, changefreq: 'weekly', priority: 0.7, lastmod: project.updated_at
-      })) ?? []
-    ]);
-
-    const blogUrls = blogPosts.flatMap(post => [
-      ...post.pages?.map(page => ({
-        loc: `/blog/${post.slug}/${page.slug}`, changefreq: 'weekly', priority: 0.8, lastmod: post.updated_at
-      })) ?? []
-    ]);
-
-    const catalogUrls = [
-      { loc: '/projects/', changefreq: 'daily', priority: 0.9, lastmod: new Date().toISOString() },
-      { loc: '/blog/', changefreq: 'daily', priority: 0.9, lastmod: new Date().toISOString() }
-    ];
-
-    return [...catalogUrls, ...projectUrls, ...blogUrls];
-  },
-  defaults: { changefreq: 'weekly', priority: 0.5, lastmod: new Date() }
-}
+// Para cada proyecto, solo se indexa la portada y las subpáginas secundarias (order > 1)
+const projectUrls = projects.flatMap((project) => [
+    { loc: `/projects/${project.slug}/`, changefreq: 'weekly', priority: 0.8 },
+    ...(project.pages
+        ?.filter((p) => p.order !== 1 && p.slug !== project.first_page?.slug)
+        .map((p) => ({
+            loc: `/projects/${project.slug}/${p.slug}/`,
+            changefreq: 'weekly',
+            priority: 0.7,
+        })) ?? []),
+]);
 ```
 
 ### Prioridades

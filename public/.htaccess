@@ -13,6 +13,9 @@ ErrorDocument 404 /404.html
   RewriteCond %{HTTP_HOST} ^raupulus\.dev$ [NC]
   RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
+  # Redirigir subpáginas obsoletas de la primera pestaña a la raíz del proyecto (evita duplicados SEO)
+  RewriteRule ^projects/([^/]+)/(informacion|about|information)/?$ /projects/$1/ [R=301,L,NC]
+
   # No reescribir rutas inexistentes a index.html (evitar Soft-404)
 </IfModule>
 

@@ -36,6 +36,18 @@
         });
     }
 
+    // Redirección 301 si se accede directamente a la primera página como subruta
+    // (ej. /projects/:slug/informacion/ -> /projects/:slug/), evitando contenido duplicado en SEO
+    if (isDetail.value && pageSlug.value && project.value) {
+        const matchingPage = project.value.pages?.find((p) => p.slug === pageSlug.value);
+        const isFirstPage =
+            (matchingPage && matchingPage.order === 1) || pageSlug.value === project.value.first_page?.slug;
+
+        if (isFirstPage) {
+            await navigateTo(`/projects/${project.value.slug}/`, { redirectCode: 301, replace: true });
+        }
+    }
+
     const { data: activePage } = await useAsyncData(
         () => `project-page-${projectSlug.value}-${pageSlug.value || 'first'}`,
         async () => {
@@ -196,11 +208,17 @@
     const catalogKeywords = 'proyectos, Raúl Caro Pastorino, desarrollo, tecnología, innovaciones';
     const catalogImage = `${siteUrl}/social/projects.webp`;
 
+    const isFirstSubpage = computed(() => {
+        if (!pageSlug.value || !project.value) return false;
+        const matchingPage = project.value.pages?.find((p) => p.slug === pageSlug.value);
+        return (matchingPage && matchingPage.order === 1) || pageSlug.value === project.value.first_page?.slug;
+    });
+
     const currentUrl = computed(() => {
         if (!isDetail.value || !project.value) {
             return `${siteUrl}/projects/`;
         }
-        return pageSlug.value
+        return pageSlug.value && !isFirstSubpage.value
             ? `${siteUrl}/projects/${project.value.slug}/${pageSlug.value}/`
             : `${siteUrl}/projects/${project.value.slug}/`;
     });

@@ -105,3 +105,20 @@
     - **Resolución local en Apache (`--resolve`):** Se adaptaron `check_status` y `curl` en `scripts/deploy.sh` para forzar `--resolve "raupulus.dev:443:127.0.0.1" --resolve "raupulus.dev:80:127.0.0.1"`, validando directamente contra la instancia local de Apache vía loopback sin dependencia de Cloudflare ni latencia WAN.
     - **Validación dual determinista:** Se añadió verificación física del fichero en disco (`$RELEASE_PATH/projects/index.html`) previa a la consulta HTTP.
     - **Purga automática de Cloudflare en GoCD:** Se configuraron `CLOUDFLARE_ZONE_ID` y `CLOUDFLARE_API_TOKEN` (cifrado con AES en GoCD) para purgar automáticamente la caché tras cada despliegue atómico exitoso.
+
+---
+
+## 6. Duplicada: el usuario no ha indicado ninguna versión canónica (Google Search Console)
+
+- **Fecha de incidencia:** 2026-10-12
+- **Síntomas:**
+    - Google Search Console clasifica URLs de proyectos como no indexadas bajo el motivo: _"Duplicada: el usuario no ha indicado ninguna versión canónica"_.
+    - URLs de ejemplo afectadas: `/projects/:slug/informacion/`, `/projects/:slug/about/` frente a `/projects/:slug/`.
+- **Causa Raíz:**
+    - La primera página de un proyecto (`order === 1`) se carga y renderiza en la URL raíz del proyecto (`/projects/:slug/`).
+    - Paralelamente, `nuxt.config.ts` y `server/routes/sitemap.xml.ts` iteraban `project.pages` sin omitir la página con `order === 1`, generando páginas estáticas independientes (`/projects/:slug/informacion/`) con contenido idéntico, listadas en `sitemap.xml` y con su propio `<link rel="canonical">` apuntando a sí mismas.
+    - Al encontrar dos páginas con el mismo contenido y sin que ninguna cediese la canonicidad a la otra, Google descartaba una de ellas.
+- **Regla y Solución Definitiva:**
+    1. **Exclusión en Prerender y Sitemap:** En `nuxt.config.ts` y `server/routes/sitemap.xml.ts`, filtrar `project.pages` con `page.order !== 1 && page.slug !== project.first_page?.slug`. Solo se indexan y generan páginas para subpáginas secundarias (`order > 1`).
+    2. **Redirección 301 en Vue/Nuxt:** En `pages/projects/[...slugs].vue`, si se accede a una subpágina de primera pestaña, ejecutar `navigateTo('/projects/' + slug + '/', { redirectCode: 301, replace: true })`, y asegurar que `currentUrl` apunte a la raíz.
+    3. **Redirección 301 a nivel Servidor Web (Apache/Nginx):** En `public/.htaccess`, `apache.conf` y `nginx.conf`, añadir regla de reescritura que redirija `/projects/:slug/(informacion|about|information)/` a `/projects/:slug/` con HTTP 301 permanente.
