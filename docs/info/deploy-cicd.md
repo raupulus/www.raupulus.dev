@@ -67,6 +67,7 @@ En el build, el hook `prerender:routes` de Nitro:
 ### Apache (producción) — `apache.conf`
 
 - Sirve `.output/public/` estático; rutas inexistentes → `ErrorDocument 404 /404.html` (404 real, sin fallback SPA soft-404)
+- **Redirecciones 301 canónicas**: Redirección de `/index` e `/index.html` a la raíz canónica `/`; redirección de subpáginas obsoletas de la primera pestaña de proyectos (`/projects/:slug/(informacion|about|information)/`) a la portada del proyecto.
 - Redirección 80 → 443 y TLS endurecido (sin SSLv3/TLS1.0/1.1)
 - **Cabeceras de seguridad**: `Content-Security-Policy` (ajustada a Cloudflare Turnstile en `challenges.cloudflare.com`, GA4 y API propia), `Strict-Transport-Security`, `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy`
 - **Caché**: `Cache-Control: public, max-age=31536000, immutable` para `/_nuxt/` y `/_fonts/` (assets con hash)

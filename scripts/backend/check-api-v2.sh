@@ -32,7 +32,7 @@ check_endpoint() {
 
   if [ "$http_code" -eq "$expected_status" ]; then
     if [ "$check_json" = "true" ]; then
-      if echo "$body" | grep -q '"success":true'; then
+      if grep -q '"success":true' <<< "$body"; then
         echo -e "\033[32mOK (HTTP $http_code, success=true)\033[0m"
         PASS_COUNT=$((PASS_COUNT + 1))
       else

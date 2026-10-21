@@ -122,3 +122,30 @@
     1. **Exclusión en Prerender y Sitemap:** En `nuxt.config.ts` y `server/routes/sitemap.xml.ts`, filtrar `project.pages` con `page.order !== 1 && page.slug !== project.first_page?.slug`. Solo se indexan y generan páginas para subpáginas secundarias (`order > 1`).
     2. **Redirección 301 en Vue/Nuxt:** En `pages/projects/[...slugs].vue`, si se accede a una subpágina de primera pestaña, ejecutar `navigateTo('/projects/' + slug + '/', { redirectCode: 301, replace: true })`, y asegurar que `currentUrl` apunte a la raíz.
     3. **Redirección 301 a nivel Servidor Web (Apache/Nginx):** En `public/.htaccess`, `apache.conf` y `nginx.conf`, añadir regla de reescritura que redirija `/projects/:slug/(informacion|about|information)/` a `/projects/:slug/` con HTTP 301 permanente.
+
+---
+
+## 7. No se ha encontrado (404) en `/index` y contenido duplicado en `/index.html` (Google Search Console)
+
+- **Fecha de incidencia:** 2026-10-13 (rastreado 2026-10-12)
+- **Síntomas:**
+    - Google Search Console reporta en "Indexación de páginas > No se ha encontrado (404)" la URL `https://raupulus.dev/index`.
+    - Paralelamente, `https://raupulus.dev/index.html` devolvía HTTP 200 directo sirviendo el archivo físico en lugar de la URL canónica `/`.
+- **Causa Raíz:**
+    - Antes de la auditoría de octubre, el servidor reescribía universalmente cualquier ruta a `index.html` con HTTP 200 (Soft-404). Al corregirse y configurarse `ErrorDocument 404 /404.html`, cualquier petición directa a `/index` pasó a devolver un 404 real.
+    - Googlebot probó la variante `/index` el 12 de octubre y GSC registró el 404 al día siguiente.
+- **Regla y Solución Definitiva:**
+    - Para evitar 404s innecesarios de bots/usuarios y consolidar la autoridad en la raíz canónica `/`:
+    - En `public/.htaccess` y `apache.conf`, añadir regla de redirección 301 permanente basada en `%{THE_REQUEST}` (para evitar bucles con `DirectoryIndex`):
+        ```apache
+        RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /index(\.html|\.php)?(/)?(\?|\ ) [NC]
+        RewriteRule ^/?index(\.html|\.php)?/?$ / [R=301,L]
+        ```
+    - En `nginx.conf`, añadir retorno 301 evaluando `$request_uri`:
+        ```nginx
+        if ($request_uri ~* "^/index(\.html|\.php)?/?(\?.*)?$") {
+            return 301 /;
+        }
+        ```
+    - En `scripts/deploy.sh`, incluir validación de estado HTTP 301 en los smoke tests.
+

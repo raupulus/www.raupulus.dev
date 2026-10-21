@@ -13,6 +13,10 @@ ErrorDocument 404 /404.html
   RewriteCond %{HTTP_HOST} ^raupulus\.dev$ [NC]
   RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
+  # Redirigir peticiones directas a /index o /index.html a la raíz canónica (evita 404s y contenido duplicado)
+  RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /index(\.html|\.php)?(/)?(\?|\ ) [NC]
+  RewriteRule ^/?index(\.html|\.php)?/?$ / [R=301,L]
+
   # Redirigir subpáginas obsoletas de la primera pestaña a la raíz del proyecto (evita duplicados SEO)
   RewriteRule ^projects/([^/]+)/(informacion|about|information)/?$ /projects/$1/ [R=301,L,NC]
 

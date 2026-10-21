@@ -111,12 +111,12 @@ else
     FAILED_TESTS=$((FAILED_TESTS + 1))
 fi
 
-# 2. Comprobación a través de Apache local vía loopback (sin intermediación ni colisiones de Cloudflare)
+# 2. Comprobación a través de servidor web local vía loopback (sin intermediación ni colisiones de Cloudflare)
 PROJECTS_HTML=$(curl -fsSL --compressed --resolve "raupulus.dev:443:127.0.0.1" "https://raupulus.dev/projects/" 2>/dev/null || true)
-if echo "$PROJECTS_HTML" | grep -q "Portada del proyecto"; then
-    echo "  [OK] https://raupulus.dev/projects/ (Apache local) sirve proyectos prerenderizados"
+if grep -q "Portada del proyecto" <<< "$PROJECTS_HTML"; then
+    echo "  [OK] https://raupulus.dev/projects/ (loopback local) sirve proyectos prerenderizados"
 else
-    echo "  [FALLO] https://raupulus.dev/projects/ (Apache local) no contiene proyectos prerenderizados" >&2
+    echo "  [FALLO] https://raupulus.dev/projects/ (loopback local) no contiene proyectos prerenderizados" >&2
     FAILED_TESTS=$((FAILED_TESTS + 1))
 fi
 
@@ -130,6 +130,8 @@ if [ -n "$SAMPLE_FONT" ]; then
     check_status "https://raupulus.dev/_fonts/$SAMPLE_FONT" "200"
 fi
 
+check_status "https://raupulus.dev/index" "301"
+check_status "https://raupulus.dev/index.html" "301"
 check_status "https://raupulus.dev/non-existent-probe-route-404" "404"
 
 if [ "$FAILED_TESTS" -eq 0 ]; then

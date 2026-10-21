@@ -69,6 +69,8 @@ Además del bloque global `@graph` en `app.vue` (`Person` enriquecida con `knows
 
 `app.vue` genera para **cada ruta** un `<link rel="canonical">` y un `og:url` calculados como `APP_URL + route.path` (la home usa la URL raíz sin barra final). Esto cubre todas las páginas prerenderizadas, incluidas las rutas dinámicas de proyectos. Las páginas no necesitan declarar su propio canonical.
 
+A nivel de servidor web (`.htaccess`, `apache.conf` y `nginx.conf`), se aplican redirecciones 301 permanentes para variantes de acceso como `/index`, `/index.html` e `/index.php` hacia la raíz canónica `/`, previniendo errores 404 en Search Console y duplicidad de contenidos.
+
 ## SEO por Página
 
 Cada página define `useHead()` con:
