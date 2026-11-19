@@ -109,6 +109,22 @@
             tags: ['Meshtastic', 'LoRa', 'IoT', 'Hardware'],
         },
         {
+            title: 'Generador de Códigos QR',
+            image: '/images/icons/webs/qr.svg',
+            description:
+                'Generador de códigos QR estáticos gratis con logotipo central, sin registro, sin marca de agua ni caducidad. Soporta URL, Wi-Fi, texto y email, con exportación en PNG y SVG 100% en el navegador.',
+            url: 'https://qr.raupulus.dev/',
+            tags: ['JavaScript', 'QR', 'SVG', 'Open Source'],
+        },
+        {
+            title: 'Raupulus Stats',
+            image: '/images/icons/webs/stats.svg',
+            description:
+                'Panel público de telemetría y estadísticas en tiempo real con métricas de redes sociales, streaming, forjas Git (GitHub y GitLab), cotización cripto spot (BTC, ADA) y Keycounter vía WebSocket.',
+            url: 'https://stats.raupulus.dev/',
+            tags: ['Telemetría', 'WebSocket', 'Open Source', 'Tiempo Real'],
+        },
+        {
             title: 'Portfolio Web Personal',
             image: '/logo_128x128.webp',
             description: 'Esta es mi web personal, donde comparto mis proyectos y experiencia.',

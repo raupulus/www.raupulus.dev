@@ -15,7 +15,7 @@ Listado estático de sitios web creados y publicados por el autor.
 
 ## Datos estáticos
 
-Array `webs` con 9 sitios web. Cada entrada:
+Array `webs` con 11 sitios web. Cada entrada:
 
 | Campo         | Tipo       | Descripción              |
 | ------------- | ---------- | ------------------------ |
@@ -35,7 +35,9 @@ Array `webs` con 9 sitios web. Cada entrada:
 6. **AI Dyslexic** — Generación automatizada de imágenes con IA para redes sociales (`AI`, `Python`, `Automatización`)
 7. **Raupulus Music** — Sitio oficial de música y videoclips generados con IA cinematográfica (`Música`, `Metal Industrial`, `IA`, `Videoclips`)
 8. **Andalucía Mesh** — Red regional comunitaria LoRa Meshtastic en Andalucía (`Meshtastic`, `LoRa`, `IoT`, `Hardware`)
-9. **Portfolio Web Personal** — Este mismo sitio web (`Nuxt.js`, `Vue.js`, `Portfolio`)
+9. **Generador de Códigos QR** — Generador de códigos QR estáticos gratis con logotipo central 100% en el navegador (`JavaScript`, `QR`, `SVG`, `Open Source`)
+10. **Raupulus Stats** — Panel público de telemetría y estadísticas en tiempo real vía WebSocket (`Telemetría`, `WebSocket`, `Open Source`, `Tiempo Real`)
+11. **Portfolio Web Personal** — Este mismo sitio web (`Nuxt.js`, `Vue.js`, `Portfolio`)
 
 ## Template
 
