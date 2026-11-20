@@ -37,6 +37,11 @@ ErrorDocument 404 /404.html
     Header set Expires 0
   </FilesMatch>
 
+  # Metadatos públicos de autoría (author.json y llms.txt): permitir lectura cross-origin
+  <FilesMatch "^(author\.json|llms\.txt)$">
+    Header set Access-Control-Allow-Origin "*"
+  </FilesMatch>
+
   # Activos inmutables con hash / estaticos (U-PERF-001)
   <FilesMatch "\.(js|css|woff2?|webp|png|jpe?g|gif|svg|ico)$">
     Header set Cache-Control "public, max-age=31536000, immutable"

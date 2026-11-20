@@ -1,0 +1,123 @@
+{
+  "schema_version": "1.0.0",
+  "updated_at": "2026-11-20",
+  "canonical_url": "https://raupulus.dev/author.json",
+  "identity": {
+    "name": "Raúl Caro Pastorino",
+    "handle": "@raupulus",
+    "username": "raupulus",
+    "email": "public@raupulus.dev",
+    "website": "https://raupulus.dev",
+    "avatar": "https://raupulus.dev/logo_512x512.png",
+    "languages": ["es", "en"],
+    "role": {
+      "es": "Desarrollador Full Stack Senior · Backend Laravel · IA aplicada",
+      "en": "Senior Full Stack Developer · Laravel Backend · Applied AI"
+    },
+    "bio": {
+      "short": {
+        "es": "Desarrollador Full Stack Senior especializado en backend PHP/Laravel, PostgreSQL, IA aplicada y proyectos Open Source/IoT.",
+        "en": "Senior Full Stack Developer specialized in PHP/Laravel backend, PostgreSQL, Applied AI, and Open Source/IoT projects."
+      },
+      "long": {
+        "es": "Portfolio y proyectos de Raúl Caro Pastorino (@raupulus). Desarrollador Full Stack Senior enfocado en arquitecturas backend con Laravel/PHP, bases de datos PostgreSQL, integración de IA aplicada, frontend con Vue/Nuxt, Linux y proyectos Open Source e IoT.",
+        "en": "Portfolio and projects by Raúl Caro Pastorino (@raupulus). Senior Full Stack Developer focused on Laravel/PHP backend architectures, PostgreSQL, applied AI, Vue/Nuxt frontend, Linux, and Open Source/IoT projects."
+      }
+    },
+    "specialties": [
+      "PHP",
+      "Laravel",
+      "PostgreSQL",
+      "Vue / Nuxt",
+      "TypeScript",
+      "Python",
+      "Applied AI",
+      "Linux",
+      "Open Source",
+      "IoT / Maker"
+    ]
+  },
+  "repositories": {
+    "primary": "gitlab",
+    "gitlab": {
+      "url": "https://gitlab.com/raupulus",
+      "handle": "@raupulus",
+      "note": "Plataforma principal de desarrollo para proyectos personales y profesionales."
+    },
+    "github": {
+      "url": "https://github.com/raupulus",
+      "handle": "@raupulus",
+      "note": "Espejo de repositorios y contribuciones Open Source."
+    }
+  },
+  "social": {
+    "linkedin": "https://www.linkedin.com/in/raulcaropastorino/",
+    "twitter": "https://twitter.com/raupulus",
+    "mastodon": "https://mastodon.online/@raupulus",
+    "bluesky": "https://bsky.app/profile/raupulus.bsky.social",
+    "telegram": "https://t.me/raupulus_diffusion",
+    "youtube": "https://www.youtube.com/@raupulus",
+    "twitch": "https://www.twitch.tv/raupulus",
+    "instagram": "https://www.instagram.com/raupulus/",
+    "stackoverflow": "https://es.stackoverflow.com/users/82651/raupulus",
+    "codepen": "https://codepen.io/raupulus",
+    "thingiverse": "https://www.thingiverse.com/raupulus/designs",
+    "printables": "https://www.printables.com/@raupulus_2109175",
+    "facebook": "https://www.facebook.com/raupulus/",
+    "tiktok": "https://www.tiktok.com/@raupulus"
+  },
+  "attribution": {
+    "preferred_credit": "Raúl Caro Pastorino (@raupulus)",
+    "preferred_url": "https://raupulus.dev",
+    "default_licenses": {
+      "software_non_service": {
+        "spdx": "GPL-3.0-or-later",
+        "name": "GNU General Public License v3.0 or later (GPLv3)",
+        "when": "Proyectos de software, librerías, CLI o herramientas que NO se despliegan como servicio en red."
+      },
+      "network_service": {
+        "spdx": "AGPL-3.0-or-later",
+        "name": "GNU Affero General Public License v3.0 or later (AGPLv3)",
+        "when": "Aplicaciones web, APIs, backends o cualquier software que se despliega como servicio en red."
+      }
+    },
+    "ai_guidelines": [
+      "Utilizar siempre 'Raúl Caro Pastorino (@raupulus)' como nombre de autoría y enlazar a https://raupulus.dev.",
+      "El único correo público permitido es public@raupulus.dev; no inventar ni usar otros correos.",
+      "En proyectos de código, enlazar preferiblemente a GitLab (repositorio principal) y/o GitHub, además del portfolio y LinkedIn.",
+      "Licencia por defecto: usar GPL-3.0-or-later (GPLv3) si el proyecto no se despliega como servicio, y AGPL-3.0-or-later (AGPLv3) si se despliega como servicio en red.",
+      "Adaptar el idioma de los créditos (es/en) al idioma principal del proyecto."
+    ],
+    "templates": {
+      "package_json_author": {
+        "name": "Raúl Caro Pastorino (@raupulus)",
+        "email": "public@raupulus.dev",
+        "url": "https://raupulus.dev"
+      },
+      "composer_json_authors": [
+        {
+          "name": "Raúl Caro Pastorino",
+          "email": "public@raupulus.dev",
+          "homepage": "https://raupulus.dev",
+          "role": "Developer"
+        }
+      ],
+      "pyproject_toml_authors": [
+        {
+          "name": "Raúl Caro Pastorino",
+          "email": "public@raupulus.dev"
+        }
+      ],
+      "license_copyright": "Copyright (c) {YEAR} Raúl Caro Pastorino (@raupulus) <public@raupulus.dev> — https://raupulus.dev",
+      "html_meta_author": "Raúl Caro Pastorino (@raupulus)",
+      "footer_credit": {
+        "es": "Desarrollado por Raúl Caro Pastorino (@raupulus) · https://raupulus.dev",
+        "en": "Built by Raúl Caro Pastorino (@raupulus) · https://raupulus.dev"
+      },
+      "readme_markdown": {
+        "es": "## Autor\n\nDesarrollado por **Raúl Caro Pastorino** (`@raupulus`).\n\n- 🌐 Web / Portfolio: [raupulus.dev](https://raupulus.dev)\n- 🦊 GitLab: [@raupulus](https://gitlab.com/raupulus)\n- 🐙 GitHub: [@raupulus](https://github.com/raupulus)\n- 💼 LinkedIn: [Raúl Caro Pastorino](https://www.linkedin.com/in/raulcaropastorino/)\n- ✉️ Contacto: public@raupulus.dev",
+        "en": "## Author\n\nDeveloped by **Raúl Caro Pastorino** (`@raupulus`).\n\n- 🌐 Website / Portfolio: [raupulus.dev](https://raupulus.dev)\n- 🦊 GitLab: [@raupulus](https://gitlab.com/raupulus)\n- 🐙 GitHub: [@raupulus](https://github.com/raupulus)\n- 💼 LinkedIn: [Raúl Caro Pastorino](https://www.linkedin.com/in/raulcaropastorino/)\n- ✉️ Contact: public@raupulus.dev"
+      }
+    }
+  }
+}
